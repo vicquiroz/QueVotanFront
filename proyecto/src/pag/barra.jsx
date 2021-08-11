@@ -1,6 +1,5 @@
 import React, {useState} from 'react';
 import {Button,Nav,NavItem,NavbarText,ButtonDropdown,DropdownItem,DropdownToggle,DropdownMenu,Container} from 'reactstrap';
-import 'bootstrap/dist/css/bootstrap.css';
 function Barra(){
     const toggle = () => setOpen(!dropdownOpen);
     const [dropdownOpen, setOpen] = useState(false);

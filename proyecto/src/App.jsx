@@ -1,12 +1,13 @@
 import React from "react"
 import Prueba from "./pag/pruebaGraf.jsx"
 import Barra from "./pag/barra.jsx"
-import Buscador from "./pag/buscador.jsx"
+import Tabla from "./pag/tabla.jsx"
+import 'bootstrap/dist/css/bootstrap.css';
 function App() {
   return (
     <div className="App">
       <Barra/>
-      <Buscador/>
+      <Tabla/>
       <Prueba/>
 
     </div>
