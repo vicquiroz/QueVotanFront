@@ -1,4 +1,5 @@
 import React, {useRef, useEffect} from 'react';
+import { Container } from 'reactstrap';
 import {select} from 'd3';
 
 const data = [  ["T1",100,10],
@@ -40,8 +41,9 @@ function Prueba(){
     },[]);
 
     return(
-        <svg  ref={svgRef} className="chart">
-        </svg>
+        <Container>
+            <svg  ref={svgRef} className="chart"></svg>
+        </Container>
         )
 }
 
