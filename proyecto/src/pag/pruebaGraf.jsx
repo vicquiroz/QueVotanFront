@@ -42,7 +42,9 @@ function Prueba(){
 
     return(
         <Container>
-            <svg  ref={svgRef} className="chart"></svg>
+            <div className="d-flex justify-content-center">
+                <svg  ref={svgRef} className="chart"/>
+            </div>
         </Container>
         )
 }
