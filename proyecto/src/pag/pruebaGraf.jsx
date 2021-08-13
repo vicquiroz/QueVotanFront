@@ -1,6 +1,6 @@
 import React, {useRef, useEffect} from 'react';
 import { Container } from 'reactstrap';
-import {select, symbol, symbolTriangle} from 'd3';
+import {select, symbol, symbolTriangle,brush} from 'd3';
 
 const data = [  ["T1",100,10,"si"],
                 ["T2",200,12,"si"],
@@ -9,21 +9,23 @@ const data = [  ["T1",100,10,"si"],
                 ["T5",500,30,"no"]];
 
 
+
+                
 function Prueba(){
     const svgRef = useRef();
     const width = 800
     const height = 600
     const margintop = 10
-    const marginleft = 10
-    
+
     useEffect(()=> {
         const svg = select(svgRef.current)
-                    .style("background-color","rgba(10,0,0,0.5)") 
-                    .style("width",width)
-                    .style("height",height) // Pendiente cambiar esto a porcentaje
-                    .style("margin-top",margintop)
-                    .style("margin-left",marginleft);
+                    .style("background-color","rgba(10,0,0,0.5)")
 
+        
+        svg.append("g")
+                    .attr("class", "brush")
+                    .call(brush().on("brush", brushed));
+                    
         svg.selectAll(".point")
         .data(data)
         .join(
@@ -41,19 +43,29 @@ function Prueba(){
             update => update.attr("class", "updated"),
             exit => exit.remove()
         );
+        
     },[]);
 
     return(
         <Container>
             <div className="d-flex justify-content-center">
-                <svg  ref={svgRef} className="chart"/>
+                <svg    ref={svgRef} className="chart"
+                        width={width}
+                        height={height}
+                        style={{"marginTop":margintop}}
+                />
             </div>
         </Container>
         )
 }
 
 function ClickedOn(){
-    alert("Test")
+    alert("TEST")
+}
+
+function brushed(){
+    // En esta funcion, cuando se deje de seleccionar se debe de producir un evento que seleccione
+    // los elementos que se encuentran dentro del brush
 }
 
 export default Prueba;
