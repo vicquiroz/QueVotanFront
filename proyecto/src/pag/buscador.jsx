@@ -7,7 +7,7 @@ function Buscador({setSearchQuery }){
         <Container>
                 <Input            
                     onInput={e => setSearchQuery(e.target.value)}
-                    class="form-control me-2" 
+                    className="form-control me-2" 
                     type="search" 
                     placeholder="Buscar"
                 >

@@ -1,12 +1,13 @@
 import React, {useRef, useEffect} from 'react';
 import { Container } from 'reactstrap';
-import {select} from 'd3';
+import {select, symbol, symbolTriangle} from 'd3';
 
-const data = [  ["T1",100,10],
-                ["T2",200,12],
-                ["T3",300,5],
-                ["T4",400,40],
-                ["T5",500,30]]
+const data = [  ["T1",100,10,"si"],
+                ["T2",200,12,"si"],
+                ["T3",300,5,"no"],
+                ["T4",400,40,"si"],
+                ["T5",500,30,"no"]];
+
 
 function Prueba(){
     const svgRef = useRef();
@@ -23,13 +24,15 @@ function Prueba(){
                     .style("margin-top",margintop)
                     .style("margin-left",marginleft);
 
-        svg.selectAll("circle")
+        svg.selectAll(".point")
         .data(data)
         .join(
-            enter => enter.append("circle")
-                .attr("class", "new")
+            enter => enter.append("path")
+                .attr("d", symbol().type(symbolTriangle))
                 .attr("key", value => value[0])
-                .attr("r", 5)
+                .attr("transform", function(d) {
+                    if(d[3]==="si") return "translate("+d[1]+","+d[2]+")"
+                    else return "translate("+d[1]+","+d[2]+") rotate(180)"})
                 .attr("cx", value => value[1])
                 .attr("cy", value => value[2])
                 .attr("stroke", "red")
