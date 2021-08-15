@@ -8,11 +8,11 @@ import 'bootstrap/dist/css/bootstrap.css';
 function App() {
   return (
     <Container className="container-fluid" >
-    <div className="App">   
-        <Barra/>
-        <Tabla/>
-        <Prueba/>
-    </div>
+      <div className="App">   
+          <Barra/>
+          <Tabla/>
+          <Prueba/>
+      </div>
     </Container>
   );
 }

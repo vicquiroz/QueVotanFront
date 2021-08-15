@@ -8,8 +8,6 @@ const data = [  ["T1",100,10,"si"],
                 ["T4",400,40,"si"],
                 ["T5",500,30,"no"]];
 
-
-
                 
 function Prueba(){
     const svgRef = useRef();
@@ -19,7 +17,7 @@ function Prueba(){
 
     useEffect(()=> {
         const svg = select(svgRef.current)
-                    .style("background-color","rgba(10,0,0,0.5)")
+                    .style("background-color","rgb(240,240,240)")
 
         
         svg.append("g")
