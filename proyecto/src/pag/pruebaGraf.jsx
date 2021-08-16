@@ -44,7 +44,9 @@ function Prueba(){
                     if(d["voto"]==="Si") return "translate("+(d["x"]*escalax+escalax)+","+(d["y"]*escalay+escalay)+")"
                     else return "translate("+(d["x"]*escalax+escalax)+","+(d["y"]*escalay+escalay)+") rotate(180)"})
                 .attr("stroke", "black")
-                .on("click",ClickedOn)          // Corregir funcion con paso de parametros
+                .on("click",function(event,d){  //Mejorar la eficiencia de esta llamada a la función
+                    ClickedOn(event,d)
+                })
                 .attr("fill",function(d){
                     return partidos[d["partido"]]
                 }),
@@ -68,8 +70,8 @@ function Prueba(){
         )
 }
 
-function ClickedOn(){
-    alert("TEST")
+function ClickedOn(event,d){
+    alert(d["nombre"])
 }
 
 function brushed(){
