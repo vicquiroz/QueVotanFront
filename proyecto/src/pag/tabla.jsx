@@ -1,6 +1,7 @@
 import React, {useState} from 'react'
 import {Container} from 'reactstrap'
 import Buscador from './buscador.jsx';
+import { Link } from "react-router-dom";
 
 function Tabla(){
 
@@ -21,7 +22,7 @@ function Tabla(){
             />
             <ul className="list-group">
                 {filteredPosts.map((post) => ( 
-                    <li className="list-group-item list-group-item-action" key={post.id}>{post.name}</li>
+                    <li className="list-group-item list-group-item-action" key={post.id}><Link to="/grafico">{post.name}</Link></li>
                 ))}
             </ul>
         </Container>

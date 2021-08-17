@@ -23,9 +23,9 @@ function Prueba(){
     const width = 800
     const height = 600
     const margin = 10
-    const escalax = width/2
-    const escalay = height/2
     useEffect(()=> {
+        const escalax = width/2
+        const escalay = height/2
         const svg = select(svgRef.current)
                     .style("background-color","rgb(240,240,240)")
 
