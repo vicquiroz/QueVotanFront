@@ -2,6 +2,7 @@ import React from "react"
 import Prueba from "./pag/pruebaGraf.jsx"
 import Barra from "./pag/barra.jsx"
 import Tabla from "./pag/tabla.jsx"
+import MostrarLista from "./pag/listado.jsx"
 import {Container} from "reactstrap"
 import { BrowserRouter as Router, Switch, Route} from "react-router-dom"; 
 import 'bootstrap/dist/css/bootstrap.css';
@@ -18,8 +19,10 @@ function App() {
             </div>
           </Route>
           <Route path="/grafico">
-            <div>   
+            <div>
+              <Barra/>   
               <Prueba/>
+              <MostrarLista/>
             </div>
           </Route>
         </Container>

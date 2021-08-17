@@ -28,12 +28,9 @@ function Prueba(){
         const escalay = height/2
         const svg = select(svgRef.current)
                     .style("background-color","rgb(240,240,240)")
-
-        
         svg.append("g")
                     .attr("class", "brush")
                     .call(brush().on("brush", brushed));
-                    
         svg.selectAll(".point")
         .data(datos)
         .join(
@@ -53,7 +50,6 @@ function Prueba(){
             update => update.attr("class", "updated"),
             exit => exit.remove()
         );
-        
     },[]);
 
     return(
