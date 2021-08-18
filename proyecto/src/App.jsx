@@ -1,5 +1,4 @@
 import React from "react"
-import Prueba from "./pag/pruebaGraf.jsx"
 import Barra from "./pag/barra.jsx"
 import Tabla from "./pag/tabla.jsx"
 import MostrarLista from "./pag/listado.jsx"
@@ -21,7 +20,6 @@ function App() {
           <Route path="/grafico">
             <div>
               <Barra/>   
-              <Prueba/>
               <MostrarLista/>
             </div>
           </Route>

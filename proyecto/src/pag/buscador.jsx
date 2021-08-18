@@ -1,7 +1,7 @@
 import React from 'react'
 import {Container, Input} from 'reactstrap'
 
-function Buscador({setSearchQuery }){
+function Buscador({setSearchQuery}){
 
     return(
         <Container>

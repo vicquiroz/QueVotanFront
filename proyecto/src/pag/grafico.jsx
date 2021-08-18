@@ -18,7 +18,7 @@ const partidos = {
     "PL"    :"rgb(140,0,120)",
     "RD"    :"rgb(100,100,100)"
 }                  
-function Prueba(){
+function Prueba({setId}){
     const svgRef = useRef();
     const width = 800
     const height = 600
@@ -42,7 +42,7 @@ function Prueba(){
                     else return "translate("+(d["x"]*escalax+escalax)+","+(d["y"]*escalay+escalay)+") rotate(180)"})
                 .attr("stroke", "black")
                 .on("click",function(event,d){  //Mejorar la eficiencia de esta llamada a la función
-                    ClickedOn(event,d)
+                    setId(d["id"])
                 })
                 .attr("fill",function(d){
                     return partidos[d["partido"]]
@@ -50,7 +50,7 @@ function Prueba(){
             update => update.attr("class", "updated"),
             exit => exit.remove()
         );
-    },[]);
+    },[setId]);
 
     return(
         <Container>
@@ -64,10 +64,6 @@ function Prueba(){
             </div>
         </Container>
         )
-}
-
-function ClickedOn(event,d){
-    alert(d["nombre"])
 }
 
 function brushed(){
