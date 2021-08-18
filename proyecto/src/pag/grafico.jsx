@@ -28,9 +28,7 @@ function Prueba({setId}){
         const escalay = height/2
         const svg = select(svgRef.current)
                     .style("background-color","rgb(240,240,240)")
-        svg.append("g")
-                    .attr("class", "brush")
-                    .call(brush().on("brush", brushed));
+        
         svg.selectAll(".point")
         .data(datos)
         .join(
@@ -50,6 +48,11 @@ function Prueba({setId}){
             update => update.attr("class", "updated"),
             exit => exit.remove()
         );
+        /*svg.append("g")
+                    .attr("class", "brush")
+                    .call(brush().on("brush", function(event){
+                        brushed(event,svg.node())
+                    }))*/
     },[setId]);
 
     return(
@@ -65,10 +68,18 @@ function Prueba({setId}){
         </Container>
         )
 }
-
-function brushed(){
+/*
+function brushed(event,m){
     // En esta funcion, cuando se deje de seleccionar se debe de producir un evento que seleccione
     // los elementos que se encuentran dentro del brush
+    var S = event["selection"]
+    if(S!=null){
+        var Nodes = []
+        for(var i in datos){
+            Nodes.push(m.childNodes[i].attributes.transform.value.split("translate").pop())
+        }
+        console.log(Nodes)
+    }
 }
-
+*/
 export default Prueba;
