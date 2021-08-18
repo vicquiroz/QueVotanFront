@@ -39,7 +39,6 @@ const filterPosts = (posts, id) => {
     if (!id) {
         return posts;
     }
-
     return posts.filter((post) => {
         return post.id===id;
     });

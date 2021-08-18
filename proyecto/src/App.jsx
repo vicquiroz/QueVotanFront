@@ -9,22 +9,24 @@ import 'bootstrap/dist/css/bootstrap.css';
 function App() {
   return (
     <Router>
-      <Switch>
-        <Container className="container-fluid" >
+      <Container className="container-fluid" >
+        <Switch>
           <Route path="/">
             <div>
-              <Route path="/" exact component={Barra} />
-              <Route path="/" exact component={Tabla} />
+                <Route path="/" exact component={Barra} />
+                <Route path="/" exact component={Tabla} />
             </div>
           </Route>
+        </Switch>
+        <Switch>
           <Route path="/grafico">
             <div>
               <Barra/>   
               <MostrarLista/>
             </div>
           </Route>
-        </Container>
-      </Switch>
+        </Switch>
+      </Container>
     </Router>
   );
 }

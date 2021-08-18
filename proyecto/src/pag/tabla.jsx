@@ -22,7 +22,11 @@ function Tabla(){
             />
             <ul className="list-group">
                 {filteredPosts.map((post) => ( 
-                    <li className="list-group-item list-group-item-action" key={post.id}><Link to="/grafico">{post.name}</Link></li>
+                    <li className="list-group-item list-group-item-action" key={post.id}>
+                        <Link to="/grafico" style={{ textDecoration: 'none' }}>
+                            {post.name}
+                        </Link>
+                    </li>
                 ))}
             </ul>
         </Container>

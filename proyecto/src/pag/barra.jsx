@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import {Button,NavItem,Nav,ButtonDropdown,DropdownItem,DropdownToggle,DropdownMenu,Container,} from 'reactstrap';
+import { Link } from "react-router-dom";
 function Barra(){
     const toggle = () => setOpen(!dropdownOpen);
     const [dropdownOpen, setOpen] = useState(false);
@@ -8,7 +9,9 @@ function Barra(){
                 <Nav className="navbar bg-dark bg-gradient rounded-bottom">
                     <NavItem>
                         <Container>
-                            <span className="navbar-brand mb-0 h1 text-light">¿Qué votan?</span>
+                            <Link to="/" style={{ textDecoration: 'none' }}>
+                                <span className="navbar-brand mb-0 h1 text-light">¿Qué votan?</span>
+                            </Link>
                         </Container>
                     </NavItem>
                     <NavItem>
