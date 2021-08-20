@@ -17,7 +17,8 @@ const partidos = {
     "EV"    :"rgb(10,10,146)",
     "PL"    :"rgb(140,0,120)",
     "RD"    :"rgb(100,100,100)"
-}                  
+}               
+var svg;   
 function Prueba({setId}){
     const svgRef = useRef();
     const width = 800
@@ -26,9 +27,13 @@ function Prueba({setId}){
     useEffect(()=> {
         const escalax = width/2
         const escalay = height/2
-        const svg = select(svgRef.current)
+        svg = select(svgRef.current)
                     .style("background-color","rgb(240,240,240)")
-        
+        svg.append("g")
+        .attr("class", "brush")
+        .call(brush().on("brush", function(event){
+            brushed(event,{setId})
+        }))
         svg.selectAll(".point")
         .data(datos)
         .join(
@@ -48,11 +53,7 @@ function Prueba({setId}){
             update => update.attr("class", "updated"),
             exit => exit.remove()
         );
-        /*svg.append("g")
-                    .attr("class", "brush")
-                    .call(brush().on("brush", function(event){
-                        brushed(event,svg.node())
-                    }))*/
+        
     },[setId]);
 
     return(
@@ -68,18 +69,32 @@ function Prueba({setId}){
         </Container>
         )
 }
-/*
-function brushed(event,m){
+
+function brushed(event,{setId}){
     // En esta funcion, cuando se deje de seleccionar se debe de producir un evento que seleccione
     // los elementos que se encuentran dentro del brush
     var S = event["selection"]
+    var NodeSelec = []
     if(S!=null){
         var Nodes = []
         for(var i in datos){
-            Nodes.push(m.childNodes[i].attributes.transform.value.split("translate").pop())
+            if(svg.node().childNodes[i].nodeName!=="g"){
+                let Arr = svg.node().childNodes[i].attributes.transform.value
+                .split("translate").pop().split(' ')[0].replace('(',"")
+                .replace(')',"").split(",")
+                Arr[0] = parseFloat(Arr[0])
+                Arr[1] = parseFloat(Arr[1])
+                Nodes.push([Arr,svg.node().childNodes[i].__data__.id])
+            }
         }
-        console.log(Nodes)
+        for(var P in Nodes){
+            if((Nodes[P][0][0]>=S[0][0] && Nodes[P][0][0] <=S[1][0]) && (Nodes[P][0][1]>=S[0][1] && Nodes[P][0][1] <=S[1][1])){
+                NodeSelec.push(Nodes[P][1])
+                setId(NodeSelec)
+            }
+        }
     }
+    
 }
-*/
+
 export default Prueba;
