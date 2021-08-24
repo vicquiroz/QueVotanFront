@@ -1,5 +1,6 @@
 import React, {useRef, useEffect} from 'react';
-import { Container } from 'reactstrap';
+import GraficoBarra from './graficobarra';
+import { Container,Col } from 'reactstrap';
 import {select, symbol, symbolTriangle, brush, axisLeft, axisBottom, scaleLinear} from 'd3';
 import datos from '../Coord.json'
 
@@ -87,14 +88,19 @@ function Prueba({setId}){
 
     return(
         <Container>
-            <div className="d-flex justify-content-center">
-                <svg    ref={svgRef} className="chart"
-                        width={width}
-                        height={height}
-                        style={{"marginTop":margin,
-                                "marginBottom":margin}}
-                />
-            </div>
+            <Col>
+                <div className="d-flex justify-content-center">
+                    <svg    ref={svgRef} className="chart"
+                            width={width}
+                            height={height}
+                            style={{"marginTop":margin,
+                                    "marginBottom":margin}}
+                    />
+                </div>
+            </Col>
+            <Col>
+                <GraficoBarra/>
+            </Col>
         </Container>
         )
 }
@@ -107,7 +113,7 @@ function brushed(event,{setId}){
     if(S!=null){
         var Nodes = []
         for(var i in datos){
-            if(svg.node().childNodes[i].nodeName!=="g"){
+            if(svg.node().childNodes[i].nodeName==="path"){
                 let Arr = svg.node().childNodes[i].attributes.transform.value
                 .split("translate").pop().split(' ')[0].replace('(',"")
                 .replace(')',"").split(",")
