@@ -1,7 +1,7 @@
 import React, {useRef, useEffect} from 'react';
 import { Container } from 'reactstrap';
-import {select, symbol, symbolTriangle,brush} from 'd3';
-import datos from '../datos.json'
+import {select, symbol, symbolTriangle, brush, axisLeft, axisBottom, scaleLinear} from 'd3';
+import datos from '../Coord.json'
 
 const partidos = {
     "RN"    :"rgb(120,28,129)",
@@ -16,19 +16,48 @@ const partidos = {
     "PC"    :"rgb(255,215,0)",
     "EV"    :"rgb(10,10,146)",
     "PL"    :"rgb(140,0,120)",
-    "RD"    :"rgb(100,100,100)"
+    "RD"    :"rgb(100,100,100)",
+    "EVOP"  :"rgb(200,100,100)",
+    "S/I"   :"rgb(100,200,100)",
+    "DC"    :"rgb(100,200,200)"
 }               
 var svg;   
 function Prueba({setId}){
     const svgRef = useRef();
-    const width = 800
-    const height = 600
-    const margin = 10
+    const width = 830
+    const height = 630
+    const margin = 15
+
     useEffect(()=> {
+        const maeginDim = margin*2;
+        const heightDim=height-maeginDim;
+
+        var x = scaleLinear()
+            .domain([-1, 1])         
+            .range([maeginDim, width]);
+
+        var y = scaleLinear()
+            .domain([-1,1])
+            .range([heightDim,margin]);
+
         const escalax = width/2
         const escalay = height/2
         svg = select(svgRef.current)
-                    .style("background-color","rgb(240,240,240)")
+        svg.append('ellipse')
+            .attr('cx', 400)  
+            .attr('cy', 300) 
+            .attr('rx', 400)
+            .attr('ry', 300)
+            .attr("transform","translate("+maeginDim+",0)")
+            .style('fill', "rgb(210,228,240)")
+        
+        svg.append("g")
+            .attr("transform","translate(0,"+heightDim+")")
+            .call(axisBottom(x));
+        svg.append("g")
+            .attr("transform","translate("+maeginDim+",0)")
+            .call(axisLeft(y));
+
         svg.append("g")
         .attr("class", "brush")
         .call(brush().on("brush", function(event){
@@ -39,16 +68,16 @@ function Prueba({setId}){
         .join(
             enter => enter.append("path")
                 .attr("d", symbol().type(symbolTriangle))
-                .attr("key", value => value["nombre"])
+                .attr("key", value => value["Nombre"])
                 .attr("transform", function(d) {
-                    if(d["voto"]==="Si") return "translate("+(d["x"]*escalax+escalax)+","+(d["y"]*escalay+escalay)+")"
-                    else return "translate("+(d["x"]*escalax+escalax)+","+(d["y"]*escalay+escalay)+") rotate(180)"})
+                    /*if(d["voto"]==="Si")*/ return "translate("+(d["x"]*escalax+escalax)+","+(d["y"]*escalay+escalay)+")"})
+                    //else return "translate("+(d["x"]*escalax+escalax)+","+(d["y"]*escalay+escalay)+") rotate(180)"})
                 .attr("stroke", "black")
                 .on("click",function(event,d){  //Mejorar la eficiencia de esta llamada a la función
-                    setId(d["id"])
+                    setId(d["Id_P"])
                 })
                 .attr("fill",function(d){
-                    return partidos[d["partido"]]
+                    return partidos[d["Partido"]]
                 }),
             update => update.attr("class", "updated"),
             exit => exit.remove()
@@ -84,7 +113,7 @@ function brushed(event,{setId}){
                 .replace(')',"").split(",")
                 Arr[0] = parseFloat(Arr[0])
                 Arr[1] = parseFloat(Arr[1])
-                Nodes.push([Arr,svg.node().childNodes[i].__data__.id])
+                Nodes.push([Arr,svg.node().childNodes[i].__data__.Id_P])
             }
         }
         for(var P in Nodes){

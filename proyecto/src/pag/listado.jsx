@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import { Container,Card,CardBody } from 'reactstrap';
 import Prueba from './grafico.jsx';
-import datos from '../datos.json'
+import datos from '../Coord.json'
 
 
 function MostrarLista(){
@@ -19,7 +19,7 @@ function MostrarLista(){
                     <CardBody>
                         <ul className="list-group">
                             {filteredPosts.map((post) => ( 
-                                <li className="list-group-item list-group-item-action" key={post["id"]}>{post["nombre"]}</li>
+                                <li className="list-group-item list-group-item-action" key={post["Id_P"]}>{post["Nombre"]}</li>
                             ))}
                             {
                                 /*
@@ -40,7 +40,7 @@ const filterPosts = (posts, id) => {
         return posts;
     }
     return posts.filter((post) => {
-        return post.id===id;
+        return post.Id_P===id;
     });
 };
 
