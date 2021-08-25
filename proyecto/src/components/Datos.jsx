@@ -4,7 +4,7 @@ import React from 'react'
 import {useDispatch, useSelector} from 'react-redux'
 
 // importamos la acción
-import {obtenerDatosAccion} from '../Redux/datosDucks'
+import {obtenerDatosAccion} from '../redux/DatosDucks'
 
 const Datos = () => {
 

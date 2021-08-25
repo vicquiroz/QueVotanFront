@@ -7,7 +7,7 @@ import { BrowserRouter as Router, Switch, Route} from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.css';
 
 import {Provider} from 'react-redux'
-import generateStore from './Redux/store'
+import generateStore from './redux/store'
 import Datos from './components/Datos.jsx'
 
 function App() {
