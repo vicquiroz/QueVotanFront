@@ -1,13 +1,15 @@
 import React, {useState} from 'react';
 import { Container,Card,CardBody } from 'reactstrap';
 import Prueba from './grafico.jsx';
-import datos from '../Coord.json'
+import datos from '../Coord.json';
 
 
 function MostrarLista(){
 
     const [idCon, setId] = useState(); 
-    const filteredPosts = filterPosts(datos, idCon);
+    var nombres = [];
+    for(let i in idCon)nombres.push(datos.find(d => d.Id_P === idCon[i]).Nombre);
+    const filteredPosts = filterPosts(datos, idCon,nombres);
 
     return(
         <Container>
@@ -35,13 +37,24 @@ function MostrarLista(){
     )
 }
 
-const filterPosts = (posts, id) => {
+const filterPosts = (posts, id, nombres) => {
     if (!id) {
         return posts;
     }
-    return posts.filter((post) => {
-        return post.Id_P===id;
-    });
+    if(typeof(id)==="number"){
+        return posts.filter((post) => {
+            return post.Id_P===id;
+        });
+    }
+    else{
+        var nuevosDat = [{Id_P: "1", Nombre: "Snatch"}];
+        for(let i in id){
+            nuevosDat.push({Id_P: id[i], Nombre: nombres[i]});
+        }
+        nuevosDat.splice(0,1);
+        return nuevosDat;
+    }
+    
 };
 
 export default MostrarLista;

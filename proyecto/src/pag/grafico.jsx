@@ -30,34 +30,58 @@ function Prueba({setId}){
     const margin = 15
 
     useEffect(()=> {
-        const maeginDim = margin*2;
-        const heightDim=height-maeginDim;
+        const marginDim = margin*2;
+        const heightDim=height-marginDim;
+        const widthDim=width-marginDim
 
         var x = scaleLinear()
             .domain([-1, 1])         
-            .range([maeginDim, width]);
+            .range([marginDim, width]);
 
         var y = scaleLinear()
             .domain([-1,1])
-            .range([heightDim,margin]);
+            .range([heightDim,marginDim]);
+
+        var makeYLines = () => axisLeft().scale(y);
+        var makeXLines = () => axisBottom().scale(x);
 
         const escalax = width/2
         const escalay = height/2
         svg = select(svgRef.current)
         svg.append('ellipse')
             .attr('cx', 400)  
-            .attr('cy', 300) 
+            .attr('cy', 315) 
             .attr('rx', 400)
-            .attr('ry', 300)
-            .attr("transform","translate("+maeginDim+",0)")
+            .attr('ry', 285)
+            .attr("transform","translate("+marginDim+",0)")
             .style('fill', "rgb(210,228,240)")
         
         svg.append("g")
             .attr("transform","translate(0,"+heightDim+")")
             .call(axisBottom(x));
         svg.append("g")
-            .attr("transform","translate("+maeginDim+",0)")
+            .attr("transform","translate("+marginDim+",0)")
             .call(axisLeft(y));
+
+        svg.append("g")
+            .attr("class", "grid")
+            .attr("transform","translate("+marginDim+",0)")
+            .call(
+                makeYLines()
+                    .tickSize(-widthDim)
+                    .tickFormat("")
+                )
+            .attr("opacity", 0.25);
+        svg.append("g")
+            .attr("class", "grid")
+            .attr("transform","translate(0,"+heightDim+")")
+            .call(
+                makeXLines()
+                    .tickSize(-heightDim+marginDim)
+                    .tickFormat("")
+                )
+            .attr("opacity", 0.25);
+        
 
         svg.append("g")
         .attr("class", "brush")
@@ -125,9 +149,10 @@ function brushed(event,{setId}){
         for(var P in Nodes){
             if((Nodes[P][0][0]>=S[0][0] && Nodes[P][0][0] <=S[1][0]) && (Nodes[P][0][1]>=S[0][1] && Nodes[P][0][1] <=S[1][1])){
                 NodeSelec.push(Nodes[P][1])
-                setId(NodeSelec)
+                
             }
         }
+        setId(NodeSelec);
     }
     
 }
