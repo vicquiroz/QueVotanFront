@@ -1,16 +1,15 @@
-import { createContextStore, combineReducers, compose, applyMiddleware } from "redux";
+import {createStore, combineReducers, applyMiddleware} from 'redux'
 import thunk from 'redux-thunk'
+import {composeWithDevTools} from 'redux-devtools-extension'
 
-import ReductorDatos from "./DatosDucks";
+import datosReducer from './datosDucks'
 
 const rootReducer = combineReducers({
-    datos: ReductorDatos
+    datos: datosReducer
     // En el caso de que se agregen mas, se coloca ,nuevodato :ReductorNuevoDato
 })
 
-const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE_ || compose;
-
-export default function generateStore(){
-    const store = createStore(rootReducer, composeEnhancers(applyMiddleware(thunk)))
-    return store;
+export default function generateStore() {
+    const store = createStore( rootReducer, composeWithDevTools( applyMiddleware(thunk) ) )
+    return store
 }

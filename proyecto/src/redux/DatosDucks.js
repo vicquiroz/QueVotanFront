@@ -1,3 +1,5 @@
+import axios from 'axios'
+
 // Constantes
 const datosIniciales = {
     array : []
@@ -7,27 +9,38 @@ const datosIniciales = {
 const OBTENER_DATOS_EXITO = 'OBTENER_DATOS_EXITO'
 
 // Reductor
-export default function ReductorDatos(state = datosIniciales, accion){
-    switch(accion){
+export default function datosReducer(state = datosIniciales, action){
+    switch(action.type){
         case OBTENER_DATOS_EXITO:
-            return {...state, array : action.payload}
-        default: // En el caso que no se reciba lo correcto
+            return {...state, array: action.payload}
+        default:
             return state
     }
+    
 }
 
 // Acciones
-export const obtenerDatosAccion = () => async(dispatch, getState) => {
-    try{
-        // Respuesta
-        // Dentro del get debe de estar la URL a la pagina
-        const res = await axios.get()
+export const obtenerDatosAccion = () => async(dispatch,getState) => {
+    try {
+        //const res = await axios.get('http://18.119.166.32:8000/diputados')
+
+        const testURL = 'http://18.119.166.32:8000/diputados';
+        //const testURL = 'https://pokeapi.co/api/v2/pokemon?offset=0&limit=20'
+        const myInit = {
+            method: 'GET'
+            ,mode: 'no-cors',
+        };
+        const myRequest = new Request(testURL, myInit);
+        const response = await fetch(myRequest)
+        const res = await response
+        console.log(res)
+
         dispatch({
             type: OBTENER_DATOS_EXITO,
-            payload: res.data.results // Esta linea depende como esten organizados los datos
+            payload: res.response
         })
-    } catch (error){
-        // Debe ser removido posteriormente en la publicación del proyecto
+    } catch (error) {
         console.log(error)
     }
+
 }
