@@ -25,8 +25,8 @@ const partidos = {
 var svg;   
 function Prueba({setId}){
     const svgRef = useRef();
-    const width = 830
-    const height = 630
+    const width = 600
+    const height = 600
     const margin = 15
 
     useEffect(()=> {
@@ -49,10 +49,10 @@ function Prueba({setId}){
         const escalay = height/2
         svg = select(svgRef.current)
         svg.append('ellipse')
-            .attr('cx', 400)  
-            .attr('cy', 315) 
-            .attr('rx', 400)
-            .attr('ry', 285)
+            .attr('cx', height/2-margin)  
+            .attr('cy', height/2) 
+            .attr('rx', height/2-margin)
+            .attr('ry', height/2-2*margin)
             .attr("transform","translate("+marginDim+",0)")
             .style('fill', "rgb(210,228,240)")
         
@@ -95,7 +95,7 @@ function Prueba({setId}){
                 .attr("d", symbol().type(symbolTriangle))
                 .attr("key", value => value["Nombre"])
                 .attr("transform", function(d) {
-                    /*if(d["voto"]==="Si")*/ return "translate("+(d["x"]*escalax+escalax)+","+(d["y"]*escalay+escalay)+")"})
+                    /*if(d["voto"]==="Si")*/ return "translate("+((d["x"])*escalax+escalax)+","+((d["y"])*escalay+escalay)+")"})
                     //else return "translate("+(d["x"]*escalax+escalax)+","+(d["y"]*escalay+escalay)+") rotate(180)"})
                 .attr("stroke", "black")
                 .on("click",function(event,d){  //Mejorar la eficiencia de esta llamada a la función
