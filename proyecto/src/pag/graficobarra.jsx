@@ -11,8 +11,8 @@ var data =[
 var svg;   
 function GraficoBarra(){
     const svgRef = useRef();
-    const width = 260
-    const height = 100
+    const width = window.screen.width-0.89*window.screen.width
+    const height =  window.screen.width-0.99*window.screen.width
     const margin = 10
     const widthDim = width+margin*2
     const heightDim = height+margin*2
@@ -42,16 +42,12 @@ function GraficoBarra(){
     });
     console.log()
     return(
-        <Container>
-            <div className="d-flex justify-content-left">
                 <svg    ref={svgRef} className="chart"
                         width={widthDim}
                         height={heightDim}
                         style={{"marginTop":margin,
                                 "marginBottom":margin}}
                 />
-            </div>
-        </Container>
         )
 }
 

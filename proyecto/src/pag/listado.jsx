@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import { Container,Card,CardBody } from 'reactstrap';
+import { Container,Card,CardBody,Row,Col } from 'reactstrap';
 import Prueba from './grafico.jsx';
 import datos from '../Coord.json';
 
@@ -17,21 +17,15 @@ function MostrarLista(){
                 <Prueba setId={setId}/>
             </div>
             <div>
-                <Card>
-                    <CardBody>
-                        <ul className="list-group">
-                            {filteredPosts.map((post) => ( 
-                                <li className="list-group-item list-group-item-action" key={post["Id_P"]}>{post["Nombre"]}</li>
-                            ))}
-                            {
-                                /*
-                                Aquí se debe de cambiar el listado para que, al igual que la barra de búsqueda, cada vez que se usa
-                                un brush o se clickea a un punto, esta lista se actualice con los seleccionados
-                                */
-                            }
-                        </ul>
-                    </CardBody>
-                </Card>
+                <ul className="list-group">
+                    <Row>
+                        {filteredPosts.map((post) => ( 
+                        <Col className="col-sm-3">
+                            <li className="list-group-item list-group-item-action" key={post["Id_P"]}>{post["Nombre"]}</li>
+                        </Col>
+                        ))}
+                    </Row>
+                </ul>
             </div>
         </Container>
     )

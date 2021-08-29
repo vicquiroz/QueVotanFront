@@ -1,6 +1,6 @@
 import React, {useRef, useEffect} from 'react';
 import GraficoBarra from './graficobarra';
-import { Container,Col } from 'reactstrap';
+import { Container,Col,Row} from 'reactstrap';
 import {select, symbol, symbolTriangle, brush, axisLeft, axisBottom, scaleLinear} from 'd3';
 import datos from '../Coord.json'
 
@@ -25,9 +25,10 @@ const partidos = {
 var svg;   
 function Prueba({setId}){
     const svgRef = useRef();
-    const width = 600
-    const height = 600
-    const margin = 15
+    const dim = window.innerWidth-0.66*window.innerWidth
+    const width = dim
+    const height = dim
+    const margin = dim-0.97*dim
 
     useEffect(()=> {
         const marginDim = margin*2;
@@ -113,19 +114,19 @@ function Prueba({setId}){
 
     return(
         <Container>
-            <Col>
-                <div className="d-flex justify-content-center">
+            <Row>
+                <Col className="col-sm d-flex justify-content-end">
                     <svg    ref={svgRef} className="chart"
-                            width={width}
-                            height={height}
+                            width={dim}
+                            height={dim}
                             style={{"marginTop":margin,
                                     "marginBottom":margin}}
                     />
-                </div>
-            </Col>
-            <Col>
-                <GraficoBarra/>
-            </Col>
+                </Col>
+                <Col className="d-flex justify-content-start">
+                    <GraficoBarra/>
+                </Col>
+            </Row>
         </Container>
         )
 }
