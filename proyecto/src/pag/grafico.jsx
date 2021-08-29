@@ -45,8 +45,9 @@ function Prueba({setId}){
         var makeYLines = () => axisLeft().scale(y);
         var makeXLines = () => axisBottom().scale(x);
 
-        const escalax = width/2
-        const escalay = height/2
+        const escalax = height/2
+        const escalay = height/2-2*margin
+        const escalayd = height/2
         svg = select(svgRef.current)
         svg.append('ellipse')
             .attr('cx', height/2-margin)  
@@ -95,7 +96,7 @@ function Prueba({setId}){
                 .attr("d", symbol().type(symbolTriangle))
                 .attr("key", value => value["Nombre"])
                 .attr("transform", function(d) {
-                    /*if(d["voto"]==="Si")*/ return "translate("+((d["x"])*escalax+escalax)+","+((d["y"])*escalay+escalay)+")"})
+                    /*if(d["voto"]==="Si")*/ return "translate("+((d["x"])*escalax+escalax)+","+((d["y"])*escalay+escalayd)+")"})
                     //else return "translate("+(d["x"]*escalax+escalax)+","+(d["y"]*escalay+escalay)+") rotate(180)"})
                 .attr("stroke", "black")
                 .on("click",function(event,d){  //Mejorar la eficiencia de esta llamada a la función
