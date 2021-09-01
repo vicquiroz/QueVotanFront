@@ -1,7 +1,7 @@
 import React, {useRef, useEffect} from 'react';
 import GraficoBarra from './graficobarra';
 import { Container,Col,Row} from 'reactstrap';
-import {select, symbol, symbolTriangle, brush, axisLeft, axisBottom, scaleLinear} from 'd3';
+import {select, symbol, symbolTriangle, brush, axisLeft, axisBottom, scaleLinear,event} from 'd3';
 import datos from '../Coord.json'
 
 const partidos = {
@@ -22,6 +22,7 @@ const partidos = {
     "S/I"   :"rgb(100,200,100)",
     "DC"    :"rgb(100,200,200)"
 }
+
 var svg;   
 function Prueba({setId}){
     const svgRef = useRef();
@@ -92,6 +93,18 @@ function Prueba({setId}){
         .call(brush().on("brush", function(event){
             brushed(event,{setId})
         }))
+
+        var div = select("body").append("div")
+        .attr("class", "tooltip")
+        .style("opacity", 0)
+        .style("position","absolute")
+        .style("text-aling","center")
+        .style("background","#FFFFFF")
+        .style("padding",".1rem")
+        .style("border","1px solid #313639")
+        .style("border-radius","8px")
+        .style("font-size","1rem")
+        .style("font-family","Lucida Sans Unicode")
         svg.selectAll(".point")
         .data(datos)
         .join(
@@ -114,8 +127,16 @@ function Prueba({setId}){
                 .on("click",function(event,d){  //Mejorar la eficiencia de esta llamada a la función
                     setId(d["Id_P"])
                 })
-                .on("mouseover", function(){})
-                .on("mouseleave", function(){})
+                .on('mouseover', function (event,data){
+                    select(this).transition().duration('50').attr('opacity', '0.8')
+                    div.transition().duration(50).style("opacity", 1);
+                    let name=data["Nombre"]
+                    div.html(name).style("left",(event.pageX+10)+"px").style("top",(event.pageY-15)+"px");
+                })
+                .on('mouseout', function (d,i){
+                    select(this).transition().duration('50').attr('opacity', '1')
+                    div.transition().duration('50').style("opacity", 0);
+                })
                 .attr("fill",function(d){
                     return partidos[d["Partido"]]
                 }),
