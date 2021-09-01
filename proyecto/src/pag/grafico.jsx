@@ -1,7 +1,7 @@
 import React, {useRef, useEffect} from 'react';
 import GraficoBarra from './graficobarra';
 import { Container,Col,Row} from 'reactstrap';
-import {select, symbol, symbolTriangle, brush, axisLeft, axisBottom, scaleLinear,event} from 'd3';
+import {select, symbol, symbolTriangle, brush, axisLeft, axisBottom, scaleLinear,event, path} from 'd3';
 import datos from '../Coord.json'
 
 const partidos = {
@@ -110,7 +110,7 @@ function Prueba({setId}){
         .join(
             enter => enter.append("path")
                 .attr("d", symbol().type(symbolTriangle))
-                .attr("id",value => value["Id_P"])
+                .attr("id",value => "id_"+value["Id_P"])
                 .attr("key", value => value["Nombre"])
                 .attr("transform", function(d) {
                     /*if(d["voto"]==="Si") return "translate("+((d["x"])*escalax+escalax)+","+((d["y"])*escalay+escalayd)+")"})
@@ -172,7 +172,7 @@ function brushed(event,{setId}){
     var NodeSelec = []
     if(S!=null){
         var Nodes = []
-        for(var i in datos){
+        for(let i in datos){
             if(svg.node().childNodes[i].nodeName==="path"){
                 let Arr = svg.node().childNodes[i].attributes.transform.value
                 .split("translate").pop().split(' ')[0].replace('(',"")
@@ -182,15 +182,18 @@ function brushed(event,{setId}){
                 Nodes.push([Arr,svg.node().childNodes[i].__data__.Id_P])
             }
         }
-        for(var P in Nodes){
+        svg.selectAll("path").transition().duration('50').attr('opacity', '0.5')
+        for(let P in Nodes){
             if((Nodes[P][0][0]>=S[0][0] && Nodes[P][0][0] <=S[1][0]) && (Nodes[P][0][1]>=S[0][1] && Nodes[P][0][1] <=S[1][1])){
                 NodeSelec.push(Nodes[P][1])
-                
             }
+        }
+        for(let P in NodeSelec){
+            let path = "path#id_"+NodeSelec[P]
+            svg.selectAll(path).transition().duration('50').attr('opacity', '1')
         }
         setId(NodeSelec);
     }
-    
 }
 
 export default Prueba;

@@ -40,7 +40,6 @@ function GraficoBarra(){
         svg.append("g")
             .call(axisLeft(y));
     });
-    console.log()
     return(
                 <svg    ref={svgRef} className="chart"
                         width={widthDim}
