@@ -21,7 +21,7 @@ const partidos = {
     "EVOP"  :"rgb(200,100,100)",
     "S/I"   :"rgb(100,200,100)",
     "DC"    :"rgb(100,200,200)"
-}               
+}
 var svg;   
 function Prueba({setId}){
     const svgRef = useRef();
@@ -46,9 +46,11 @@ function Prueba({setId}){
         var makeYLines = () => axisLeft().scale(y);
         var makeXLines = () => axisBottom().scale(x);
 
+        const xCirc = height/2
+        const yCirc = height/2
+
         const escalax = height/2
         const escalay = height/2-2*margin
-        const escalayd = height/2
         svg = select(svgRef.current)
         svg.append('ellipse')
             .attr('cx', height/2-margin)  
@@ -83,7 +85,7 @@ function Prueba({setId}){
                     .tickFormat("")
                 )
             .attr("opacity", 0.25);
-        
+
 
         svg.append("g")
         .attr("class", "brush")
@@ -95,14 +97,25 @@ function Prueba({setId}){
         .join(
             enter => enter.append("path")
                 .attr("d", symbol().type(symbolTriangle))
+                .attr("id",value => value["Id_P"])
                 .attr("key", value => value["Nombre"])
                 .attr("transform", function(d) {
-                    /*if(d["voto"]==="Si")*/ return "translate("+((d["x"])*escalax+escalax)+","+((d["y"])*escalay+escalayd)+")"})
-                    //else return "translate("+(d["x"]*escalax+escalax)+","+(d["y"]*escalay+escalay)+") rotate(180)"})
+                    /*if(d["voto"]==="Si") return "translate("+((d["x"])*escalax+escalax)+","+((d["y"])*escalay+escalayd)+")"})
+                    else return "translate("+(d["x"]*escalax+escalax)+","+(d["y"]*escalay+escalay)+") rotate(180)"})*/
+                    let X=d["x"]
+                    let Y=d["y"]
+                    let Angle = Math.atan2(yCirc-Y,xCirc-X)
+                    X=X%Math.cos(Angle)
+                    Y=Y%Math.sin(Angle)
+                    X=X*escalax+escalax
+                    Y=Y*escalay+escalay
+                    return "translate("+X+","+Y+")"})
                 .attr("stroke", "black")
                 .on("click",function(event,d){  //Mejorar la eficiencia de esta llamada a la función
                     setId(d["Id_P"])
                 })
+                .on("mouseover", function(){})
+                .on("mouseleave", function(){})
                 .attr("fill",function(d){
                     return partidos[d["Partido"]]
                 }),
