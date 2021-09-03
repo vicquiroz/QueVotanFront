@@ -117,7 +117,7 @@ function Prueba({setId}){
                     //else return "translate("+(d["x"]*escalax+escalax)+","+(d["y"]*escalay+escalay)+") rotate(180)"})
                 .attr("stroke", "black")
                 .on("click",function(event,d){  //Mejorar la eficiencia de esta llamada a la función
-                    setId(d["Id_P"])
+                    setId(Number(d["Id_P"]))
                 })
                 .on('mouseover', function (event,data){
                     select(this).transition().duration('50').attr('opacity', '0.8')

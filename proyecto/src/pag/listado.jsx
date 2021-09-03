@@ -8,9 +8,8 @@ function MostrarLista(){
 
     const [idCon, setId] = useState(); 
     var nombres = [];
-    for(let i in idCon)nombres.push(datos["Legislatura"].find(d => d.Id_P === idCon[i]).Nombre);
+    for(let i in idCon) nombres.push(datos["Legislatura"].find(d => d.Id_P ===idCon[i]).Nombre);
     const filteredPosts = filterPosts(datos["Legislatura"], idCon,nombres);
-
     return(
         <Container>
             <div>
@@ -37,12 +36,13 @@ const filterPosts = (posts, id, nombres) => {
     }
     if(typeof(id)==="number"){
         return posts.filter((post) => {
-            return post.Id_P===id;
+            return Number(post.Id_P)===id;
         });
     }
     else{
         var nuevosDat = [{Id_P: "1", Nombre: "Snatch"}];
         for(let i in id){
+            
             nuevosDat.push({Id_P: id[i], Nombre: nombres[i]});
         }
         nuevosDat.splice(0,1);
