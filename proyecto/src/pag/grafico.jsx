@@ -106,23 +106,15 @@ function Prueba({setId}){
         .style("font-size","1rem")
         .style("font-family","Lucida Sans Unicode")
         svg.selectAll(".point")
-        .data(datos)
+        .data(datos["Legislatura"])
         .join(
             enter => enter.append("path")
                 .attr("d", symbol().type(symbolTriangle))
                 .attr("id",value => "id_"+value["Id_P"])
                 .attr("key", value => value["Nombre"])
                 .attr("transform", function(d) {
-                    /*if(d["voto"]==="Si") return "translate("+((d["x"])*escalax+escalax)+","+((d["y"])*escalay+escalayd)+")"})
-                    else return "translate("+(d["x"]*escalax+escalax)+","+(d["y"]*escalay+escalay)+") rotate(180)"})*/
-                    let X=d["x"]
-                    let Y=d["y"]
-                    let Angle = Math.atan2(yCirc-Y,xCirc-X)
-                    X=X%Math.cos(Angle)
-                    Y=Y%Math.sin(Angle)
-                    X=X*escalax+escalax
-                    Y=Y*escalay+escalay
-                    return "translate("+X+","+Y+")"})
+                    /*if(d["voto"]==="Si")*/ return "translate("+((d["x"])*escalax+escalax)+","+((d["y"])*escalay+escalay)+")"})
+                    //else return "translate("+(d["x"]*escalax+escalax)+","+(d["y"]*escalay+escalay)+") rotate(180)"})
                 .attr("stroke", "black")
                 .on("click",function(event,d){  //Mejorar la eficiencia de esta llamada a la función
                     setId(d["Id_P"])
@@ -172,7 +164,7 @@ function brushed(event,{setId}){
     var NodeSelec = []
     if(S!=null){
         var Nodes = []
-        for(let i in datos){
+        for(let i in datos["Legislatura"]){
             if(svg.node().childNodes[i].nodeName==="path"){
                 let Arr = svg.node().childNodes[i].attributes.transform.value
                 .split("translate").pop().split(' ')[0].replace('(',"")

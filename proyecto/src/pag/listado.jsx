@@ -8,8 +8,8 @@ function MostrarLista(){
 
     const [idCon, setId] = useState(); 
     var nombres = [];
-    for(let i in idCon)nombres.push(datos.find(d => d.Id_P === idCon[i]).Nombre);
-    const filteredPosts = filterPosts(datos, idCon,nombres);
+    for(let i in idCon)nombres.push(datos["Legislatura"].find(d => d.Id_P === idCon[i]).Nombre);
+    const filteredPosts = filterPosts(datos["Legislatura"], idCon,nombres);
 
     return(
         <Container>
