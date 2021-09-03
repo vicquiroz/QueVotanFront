@@ -113,7 +113,7 @@ function Prueba({setId}){
                 .attr("id",value => "id_"+value["Id_P"])
                 .attr("key", value => value["Nombre"])
                 .attr("transform", function(d) {
-                    /*if(d["voto"]==="Si")*/ return "translate("+((d["x"])*escalax+escalax)+","+((d["y"])*escalay+escalay)+")"})
+                    /*if(d["voto"]==="Si")*/ return "translate("+(d["X"]*escalay+escalax+margin)+","+((escalax+escalax)-(d["Y"]*escalay+escalax))+")"})
                     //else return "translate("+(d["x"]*escalax+escalax)+","+(d["y"]*escalay+escalay)+") rotate(180)"})
                 .attr("stroke", "black")
                 .on("click",function(event,d){  //Mejorar la eficiencia de esta llamada a la función
