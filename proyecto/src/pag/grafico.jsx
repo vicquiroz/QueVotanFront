@@ -6,7 +6,7 @@ import datos from '../Coord.json'
 
 const partidos = {
     "RN"    :"rgb(120,28,129)",
-    "PPD"   :"rgb(64,67,153)",
+    "PPD"   :"rgb(64,67,253)",
     "UDI"   :"rgb(72,139,194)",
     "PRSD"  :"rgb(107,178,140)",
     "AMP"   :"rgb(159,190,87)",
@@ -19,8 +19,8 @@ const partidos = {
     "PL"    :"rgb(140,0,120)",
     "RD"    :"rgb(100,100,100)",
     "EVOP"  :"rgb(200,100,100)",
-    "S/I"   :"rgb(100,200,100)",
-    "DC"    :"rgb(100,200,200)"
+    "S/I"   :"rgb(50,255,50)",
+    "DC"    :"rgb(255,255,255)"
 }
 
 var svg;   
