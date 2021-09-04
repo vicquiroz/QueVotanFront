@@ -164,7 +164,7 @@ function brushed(event,{setId}){
     var NodeSelec = []
     if(S!=null){
         var Nodes = []
-        for(let i in datos["Legislatura"]){
+        for(let i in svg.node().childNodes){
             if(svg.node().childNodes[i].nodeName==="path"){
                 let Arr = svg.node().childNodes[i].attributes.transform.value
                 .split("translate").pop().split(' ')[0].replace('(',"")
@@ -174,6 +174,7 @@ function brushed(event,{setId}){
                 Nodes.push([Arr,svg.node().childNodes[i].__data__.Id_P])
             }
         }
+
         svg.selectAll("path").transition().duration('50').attr('opacity', '0.5')
         for(let P in Nodes){
             if((Nodes[P][0][0]>=S[0][0] && Nodes[P][0][0] <=S[1][0]) && (Nodes[P][0][1]>=S[0][1] && Nodes[P][0][1] <=S[1][1])){
