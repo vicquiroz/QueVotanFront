@@ -47,9 +47,6 @@ function Prueba({setId}){
         var makeYLines = () => axisLeft().scale(y);
         var makeXLines = () => axisBottom().scale(x);
 
-        const xCirc = height/2
-        const yCirc = height/2
-
         const escalax = height/2
         const escalay = height/2-2*margin
         svg = select(svgRef.current)
@@ -120,13 +117,13 @@ function Prueba({setId}){
                     setId(Number(d["Id_P"]))
                 })
                 .on('mouseover', function (event,data){
-                    select(this).transition().duration('50').attr('opacity', '0.8')
+                    //select(this).transition().duration('50').attr('opacity', '0.8')
                     div.transition().duration(50).style("opacity", 1);
                     let name=data["Nombre"]
                     div.html(name).style("left",(event.pageX+10)+"px").style("top",(event.pageY-15)+"px");
                 })
                 .on('mouseout', function (d,i){
-                    select(this).transition().duration('50').attr('opacity', '1')
+                    //select(this).transition().duration('50').attr('opacity', '1')
                     div.transition().duration('50').style("opacity", 0);
                 })
                 .attr("fill",function(d){
@@ -135,15 +132,36 @@ function Prueba({setId}){
             update => update.attr("class", "updated"),
             exit => exit.remove()
         );
+        var legend=svg.selectAll("legend")
+        legend.data(Object.keys(partidos))
+            .enter()
+            .append("rect")
+            .attr("x",width+margin)
+            .attr("y",function(d,i){ return 2*margin+i*(heightDim-margin)/16})
+            .attr("width",margin)
+            .attr("height",margin)
+            .style("fill",function(d){
+                return partidos[d]})
+            .attr("stroke", "black")
+        
+        legend.data(Object.keys(partidos))
+            .enter()
+            .append("text")
+            .attr("x",width+2.5*margin)
+            .attr("y",function(d,i){ return 2.8*margin+i*(heightDim-margin)/16})
+            .attr("width",margin)
+            .attr("height",margin)
+            .text(function(d){ return d})
+            .attr("text-anchor", "left")
+        
         
     },[setId]);
-
     return(
         <Container>
             <Row>
                 <Col className="col-sm d-flex justify-content-end">
                     <svg    ref={svgRef} className="chart"
-                            width={dim}
+                            width={1.2*dim}
                             height={dim}
                             style={{"marginTop":margin,
                                     "marginBottom":margin}}
