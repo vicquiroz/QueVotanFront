@@ -19,9 +19,9 @@ function App() {
           <Route path="/">
             <div>
                 <Route path="/" exact component={Barra} />
-                {/*<Provider store={store}>
+                <Provider store={store}>
                   <Datos />
-                </Provider>*/}
+                </Provider>
                 <Route path="/" exact component={Tabla} />
             </div>
           </Route>
