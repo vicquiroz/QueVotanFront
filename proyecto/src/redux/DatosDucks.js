@@ -22,10 +22,10 @@ export default function datosReducer(state = datosIniciales, action){
 // Acciones
 export const obtenerDatosAccion = () => async(dispatch,getState) => {
     try {
-        const res = await axios.get('http://18.119.166.32:8000/diputados/actuales')
+        const res = await axios.get('http://18.119.166.32:8000/historia/ley/')
         dispatch({
             type: OBTENER_DATOS_EXITO,
-            payload: res.response
+            payload: res.data
         })
     } catch (error) {
         console.log(error)

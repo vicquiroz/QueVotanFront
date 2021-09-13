@@ -22,11 +22,10 @@ const partidos = {
     "S/I"   :"rgb(50,255,50)",
     "DC"    :"rgb(255,255,255)"
 }
-
 var svg;   
 function Prueba({setId}){
     const svgRef = useRef();
-    const dim = window.innerWidth-0.66*window.innerWidth
+    const dim = window.innerWidth*0.5
     const width = dim
     const height = dim
     const margin = dim-0.97*dim
@@ -159,17 +158,17 @@ function Prueba({setId}){
     return(
         <Container>
             <Row>
-                <Col className="col-sm d-flex justify-content-end">
+                <Row className="d-flex justify-content-around">
                     <svg    ref={svgRef} className="chart"
                             width={1.2*dim}
                             height={dim}
                             style={{"marginTop":margin,
                                     "marginBottom":margin}}
                     />
-                </Col>
-                <Col className="d-flex justify-content-start">
+                </Row>
+                <Row className="d-flex justify-content-around">
                     <GraficoBarra/>
-                </Col>
+                </Row>
             </Row>
         </Container>
         )
