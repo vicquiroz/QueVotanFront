@@ -1,9 +1,7 @@
-import React, {useRef, useEffect, useState} from 'react';
-import GraficoBarra from './graficobarra';
-import { Container,Col,Row} from 'reactstrap';
+import React, {useRef, useEffect} from 'react';
+import { Container} from 'reactstrap';
 import {select, symbol, symbolTriangle, brush, axisLeft, axisBottom, scaleLinear} from 'd3';
 import datos from '../Coord.json'
-import Inform from './infoBrush';
 
 const partidos = {
     "RN"    :"rgb(120,28,129)",
@@ -34,8 +32,7 @@ const widthDim=width-marginDim;
 const escalax = height/2;
 const escalay = height/2-2*margin;
 
-function GraficoPrincipal({setId}){
-    var [xyBrush, setXY] = useState();  
+function GraficoPrincipal({setId,setXY}){
     const svgRef = useRef();
     useEffect(()=> {
         var x = scaleLinear()
@@ -88,7 +85,7 @@ function GraficoPrincipal({setId}){
         svg.append("g")
         .attr("class", "brush")
         .call(brush().on("brush", function(event){
-            brushed(event,{setId},setXY)
+            brushed(event,{setId},{setXY})
         }))
 
         var div = select("body").append("div")
@@ -155,32 +152,20 @@ function GraficoPrincipal({setId}){
             .attr("text-anchor", "left")
         
         
-    },[setId]);
+    },[setId,setXY]);
     return(
         <Container>
-                <Row className="d-flex justify-content-around">
                     <svg    ref={svgRef} className="chart"
                             width={1.2*dim}
                             height={dim}
                             style={{"marginTop":margin,
                                     "marginBottom":margin}}
                     />
-                </Row>
-                <Row className="d-flex justify-content-around">
-                    <Col>
-                        <GraficoBarra/>
-                    </Col>
-                    <Col>
-                        <Inform
-                            pos={xyBrush}
-                        />
-                    </Col>
-                </Row>
         </Container>
         )
 }
 
-function brushed(event,{setId},setXY){
+function brushed(event,{setId},{setXY}){
     // En esta funcion, cuando se deje de seleccionar se debe de producir un evento que seleccione
     // los elementos que se encuentran dentro del brush
     var S = event["selection"]

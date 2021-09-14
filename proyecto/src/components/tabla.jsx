@@ -1,9 +1,8 @@
-import React, {useState} from 'react'
+import React from 'react'
 import {Container} from 'reactstrap'
-import Buscador from './buscador.jsx';
 import { Link } from "react-router-dom";
 
-function Tabla(){
+function Tabla({busqueda}){
 
     const posts = [
         { id: '1', name: 'Votacion por covid' },
@@ -11,15 +10,11 @@ function Tabla(){
         { id: '3', name: 'Votacion deporte de alto rendimiento' },
         { id: '4', name: 'Votacion modificacion de leyes' }
     ];
-
-    const [searchQuery, setSearchQuery] = useState();    
-    const filteredPosts = filterPosts(posts, searchQuery);
+   
+    const filteredPosts = filterPosts(posts, busqueda);
 
     return(
         <Container>
-            <Buscador               
-                setSearchQuery={setSearchQuery}
-            />
             <ul className="list-group">
                 {filteredPosts.map((post) => ( 
                     <li className="list-group-item list-group-item-action" key={post.id}>

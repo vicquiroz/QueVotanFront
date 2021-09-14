@@ -1,22 +1,14 @@
-import React, {useState} from 'react';
+import React from 'react';
 import { Container,Row,Col } from 'reactstrap';
-import GraficoPrincipal from './grafico.jsx';
 import datos from '../Coord.json';
 
 
-function MostrarLista(){
-
-    const [idCon, setId] = useState(); 
+function MostrarLista({idCon}){
     var nombres = [];
     for(let i in idCon) nombres.push(datos["Legislatura"].find(d => d.Id_P ===idCon[i]).Nombre);
     const filteredPosts = filterPosts(datos["Legislatura"], idCon,nombres);
     return(
         <Container>
-            <Row>
-                <Col>
-                    <GraficoPrincipal setId={setId}/>
-                </Col>
-            </Row>
             <Row>
                 <Col className="g-3">
                 <ul className="list-group">

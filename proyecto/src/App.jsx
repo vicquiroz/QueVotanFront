@@ -1,7 +1,6 @@
 import React from "react"
-import Barra from "./pag/barra.jsx"
-import Tabla from "./pag/tabla.jsx"
-import MostrarLista from "./pag/listado.jsx"
+import Principal from "./pag/pagPrincipal.jsx";
+import PagGrafico from "./pag/pagGrafico.jsx";
 import {Container} from "reactstrap"
 import { BrowserRouter as Router, Switch, Route} from "react-router-dom"; 
 import 'bootstrap/dist/css/bootstrap.css';
@@ -18,19 +17,17 @@ function App() {
         <Switch>
           <Route path="/">
             <div>
-                <Route path="/" exact component={Barra} />
+                <Route path="/" exact component={Principal} />
                {/*<Provider store={store}>
                     <Datos />
                   </Provider>*/}
-                <Route path="/" exact component={Tabla} />
             </div>
           </Route>
         </Switch>
         <Switch>
           <Route path="/grafico">
-            <div>
-              <Barra/>   
-              <MostrarLista/>
+            <div> 
+              <PagGrafico/>
             </div>
           </Route>
         </Switch>
