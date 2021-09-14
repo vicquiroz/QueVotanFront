@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import { Container,Card,CardBody,Row,Col } from 'reactstrap';
-import Prueba from './grafico.jsx';
+import GraficoPrincipal from './grafico.jsx';
 import datos from '../Coord.json';
 
 
@@ -13,7 +13,7 @@ function MostrarLista(){
     return(
         <Container>
             <div>
-                <Prueba setId={setId}/>
+                <GraficoPrincipal setId={setId}/>
             </div>
             <div>
                 <ul className="list-group">

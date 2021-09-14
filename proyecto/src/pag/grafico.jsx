@@ -1,8 +1,9 @@
-import React, {useRef, useEffect} from 'react';
+import React, {useRef, useEffect, useState} from 'react';
 import GraficoBarra from './graficobarra';
 import { Container,Col,Row} from 'reactstrap';
 import {select, symbol, symbolTriangle, brush, axisLeft, axisBottom, scaleLinear,event, path} from 'd3';
 import datos from '../Coord.json'
+import Inform from './infoBrush';
 
 const partidos = {
     "RN"    :"rgb(120,28,129)",
@@ -22,19 +23,21 @@ const partidos = {
     "S/I"   :"rgb(50,255,50)",
     "DC"    :"rgb(255,255,255)"
 }
-var svg;   
-function Prueba({setId}){
+var svg;  
+const dim = window.innerWidth*0.5;
+const width = dim;
+const height = dim;
+const margin = dim-0.97*dim;
+const marginDim = margin*2;
+const heightDim=height-marginDim;
+const widthDim=width-marginDim;
+const escalax = height/2;
+const escalay = height/2-2*margin;
+
+function GraficoPrincipal({setId}){
+    var [xyBrush, setXY] = useState();  
     const svgRef = useRef();
-    const dim = window.innerWidth*0.5
-    const width = dim
-    const height = dim
-    const margin = dim-0.97*dim
-
     useEffect(()=> {
-        const marginDim = margin*2;
-        const heightDim=height-marginDim;
-        const widthDim=width-marginDim
-
         var x = scaleLinear()
             .domain([-1, 1])         
             .range([marginDim, width]);
@@ -46,8 +49,6 @@ function Prueba({setId}){
         var makeYLines = () => axisLeft().scale(y);
         var makeXLines = () => axisBottom().scale(x);
 
-        const escalax = height/2
-        const escalay = height/2-2*margin
         svg = select(svgRef.current)
         svg.append('ellipse')
             .attr('cx', height/2-margin)  
@@ -87,7 +88,7 @@ function Prueba({setId}){
         svg.append("g")
         .attr("class", "brush")
         .call(brush().on("brush", function(event){
-            brushed(event,{setId})
+            brushed(event,{setId},setXY)
         }))
 
         var div = select("body").append("div")
@@ -109,7 +110,7 @@ function Prueba({setId}){
                 .attr("id",value => "id_"+value["Id_P"])
                 .attr("key", value => value["Nombre"])
                 .attr("transform", function(d) {
-                    /*if(d["voto"]==="Si")*/ return "translate("+(d["X"]*escalay+escalax+margin)+","+((escalax+escalax)-(d["Y"]*escalay+escalax))+")"})
+                    /*if(d["voto"]==="Si")*/ return "translate("+(d["X"]*escalay+escalax+margin)+","+((2*escalax)-(d["Y"]*escalay+escalax))+")"})
                     //else return "translate("+(d["x"]*escalax+escalax)+","+(d["y"]*escalay+escalay)+") rotate(180)"})
                 .attr("stroke", "black")
                 .on("click",function(event,d){  //Mejorar la eficiencia de esta llamada a la función
@@ -167,20 +168,29 @@ function Prueba({setId}){
                     />
                 </Row>
                 <Row className="d-flex justify-content-around">
-                    <GraficoBarra/>
+                    <Col>
+                        <GraficoBarra/>
+                    </Col>
+                    <Col>
+                        <Inform
+                            pos={xyBrush}
+                        />
+                    </Col>
                 </Row>
             </Row>
         </Container>
         )
 }
 
-function brushed(event,{setId}){
+function brushed(event,{setId},setXY){
     // En esta funcion, cuando se deje de seleccionar se debe de producir un evento que seleccione
     // los elementos que se encuentran dentro del brush
     var S = event["selection"]
     var NodeSelec = []
     if(S!=null){
         var Nodes = []
+        let posicionX = []
+        let posicionY = []
         for(let i in svg.node().childNodes){
             if(svg.node().childNodes[i].nodeName==="path"){
                 let Arr = svg.node().childNodes[i].attributes.transform.value
@@ -191,11 +201,13 @@ function brushed(event,{setId}){
                 Nodes.push([Arr,svg.node().childNodes[i].__data__.Id_P])
             }
         }
-
         svg.selectAll("path").transition().duration('50').attr('opacity', '0.5')
         for(let P in Nodes){
             if((Nodes[P][0][0]>=S[0][0] && Nodes[P][0][0] <=S[1][0]) && (Nodes[P][0][1]>=S[0][1] && Nodes[P][0][1] <=S[1][1])){
                 NodeSelec.push(Nodes[P][1])
+                let envio = datos.Legislatura.find((dat)=> {return dat.Id_P===Nodes[P][1]});
+                posicionX.push(Number(envio.X));
+                posicionY.push(Number(envio.Y));
             }
         }
         for(let P in NodeSelec){
@@ -203,7 +215,8 @@ function brushed(event,{setId}){
             svg.selectAll(path).transition().duration('50').attr('opacity', '1')
         }
         setId(NodeSelec);
+        setXY([posicionX,posicionY]);
     }
 }
 
-export default Prueba;
+export default GraficoPrincipal;
