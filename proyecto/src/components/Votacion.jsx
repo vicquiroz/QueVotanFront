@@ -4,22 +4,22 @@ import React from 'react'
 import {useDispatch, useSelector} from 'react-redux'
 
 // importamos la acción
-import {obtenerDatosAccion} from '../redux/DatosDucks'
+import {obtenerVotacionAccion} from '../redux/VotacionDucks'
 
-const Datos = () => {
+const Votacion = () => {
 
     // declaramos displach para llamar a la acción o acciones
     const dispatch = useDispatch()
 
     // crearmos el state utilizando nuestra tienda
-    const datos = useSelector(store => store.datos.array)
+    const votacion = useSelector(store => store.votacion.array)
     return (
         <div>
             <button onClick={() => {
-                dispatch(obtenerDatosAccion())
+                dispatch(obtenerVotacionAccion())
             }}>Obtener</button>
         </div>
     )
 }
 
-export default Datos
+export default Votacion

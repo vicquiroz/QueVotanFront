@@ -2,10 +2,14 @@ import {createStore, combineReducers, applyMiddleware} from 'redux'
 import thunk from 'redux-thunk'
 import {composeWithDevTools} from 'redux-devtools-extension'
 
-import datosReducer from './DatosDucks'
+import votacionReducer from './VotacionDucks'
+import infoCongresistasReducer from './InfoCongDucks'
+import infoGraficoReducer from './InfoGrafDucks'
 
 const rootReducer = combineReducers({
-    datos: datosReducer
+    votacion: votacionReducer,
+    infoCongresistas: infoCongresistasReducer,
+    infoGrafico: infoGraficoReducer
     // En el caso de que se agregen mas, se coloca ,nuevodato :ReductorNuevoDato
 })
 

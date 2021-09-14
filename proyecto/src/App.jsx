@@ -8,7 +8,7 @@ import 'bootstrap/dist/css/bootstrap.css';
 
 import {Provider} from 'react-redux'
 import generateStore from './redux/store'
-import Datos from './components/Datos.jsx'
+import Votacion from './components/Votacion.jsx'
 
 function App() {
   const store = generateStore()

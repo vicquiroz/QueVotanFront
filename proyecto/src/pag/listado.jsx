@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import { Container,Card,CardBody,Row,Col } from 'reactstrap';
+import { Container,Row,Col } from 'reactstrap';
 import GraficoPrincipal from './grafico.jsx';
 import datos from '../Coord.json';
 
@@ -12,10 +12,13 @@ function MostrarLista(){
     const filteredPosts = filterPosts(datos["Legislatura"], idCon,nombres);
     return(
         <Container>
-            <div>
-                <GraficoPrincipal setId={setId}/>
-            </div>
-            <div>
+            <Row>
+                <Col>
+                    <GraficoPrincipal setId={setId}/>
+                </Col>
+            </Row>
+            <Row>
+                <Col className="g-3">
                 <ul className="list-group">
                     <Row>
                         {filteredPosts.map((post) => ( 
@@ -25,7 +28,8 @@ function MostrarLista(){
                         ))}
                     </Row>
                 </ul>
-            </div>
+                </Col>
+            </Row>
         </Container>
     )
 }

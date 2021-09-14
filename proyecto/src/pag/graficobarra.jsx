@@ -1,5 +1,4 @@
 import React, {useRef, useEffect} from 'react';
-import { Container } from 'reactstrap';
 import {select, max, scaleLinear, scaleBand, axisLeft, axisBottom} from 'd3';
 
 var data =[

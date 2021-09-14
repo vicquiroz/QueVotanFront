@@ -1,7 +1,7 @@
 import React, {useRef, useEffect, useState} from 'react';
 import GraficoBarra from './graficobarra';
 import { Container,Col,Row} from 'reactstrap';
-import {select, symbol, symbolTriangle, brush, axisLeft, axisBottom, scaleLinear,event, path} from 'd3';
+import {select, symbol, symbolTriangle, brush, axisLeft, axisBottom, scaleLinear} from 'd3';
 import datos from '../Coord.json'
 import Inform from './infoBrush';
 
@@ -158,7 +158,6 @@ function GraficoPrincipal({setId}){
     },[setId]);
     return(
         <Container>
-            <Row>
                 <Row className="d-flex justify-content-around">
                     <svg    ref={svgRef} className="chart"
                             width={1.2*dim}
@@ -177,7 +176,6 @@ function GraficoPrincipal({setId}){
                         />
                     </Col>
                 </Row>
-            </Row>
         </Container>
         )
 }

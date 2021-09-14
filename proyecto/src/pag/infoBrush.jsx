@@ -1,8 +1,8 @@
-import React, {useRef, useEffect} from 'react';
-import { Row, Col, CardBody, Card, CardTitle } from 'reactstrap';
+import React from 'react';
+import { Row, Col, CardBody, Card, CardHeader, CardText } from 'reactstrap';
 
 function Inform({pos}){
-    if (pos!=undefined){
+    if (pos!==undefined){
         var maxX = Math.max(...pos[0]);
         var maxY = Math.max(...pos[1]);
         var minX = Math.min(...pos[0]);
@@ -16,47 +16,47 @@ function Inform({pos}){
     return(
         <div>
             <Row>
-                <Col>
+                <Col className="g-0">
                     <Card>
+                        <CardHeader><h5>Centroide</h5></CardHeader>
                         <CardBody>
-                            <CardTitle><h5>Centroide:</h5> </CardTitle>
-                            {promX} {promY}
+                            <CardText>{promX} {promY}</CardText>
                         </CardBody>
                     </Card>
                 </Col>
             </Row>
             <Row>
-                <Col>
+                <Col className="g-0">
                     <Card>
+                        <CardHeader><h5>Maximo en X</h5></CardHeader>
                         <CardBody>
-                            <CardTitle><h5>Maximo en X:</h5></CardTitle>
-                            {maxX}
+                            <CardText>{maxX}</CardText>
                         </CardBody>
                     </Card>
                 </Col>
-                <Col>
+                <Col className="g-0">
                     <Card>
+                        <CardHeader><h5>Maximo en Y</h5></CardHeader>
                         <CardBody>
-                            <CardTitle><h5>Maximo en Y:</h5></CardTitle>
-                            {maxY}
+                            <CardText>{maxY}</CardText>
                         </CardBody>
                     </Card>
                 </Col>
             </Row>
             <Row>
-                <Col>
+                <Col className="g-0">
                     <Card>
+                        <CardHeader><h5>Minimo en X</h5></CardHeader>
                         <CardBody>
-                            <CardTitle><h5>Minimo en X:</h5></CardTitle>
-                            {minX}
+                            <CardText>{minX}</CardText>
                         </CardBody>
                     </Card>
                 </Col>
-                <Col>
+                <Col className="g-0">
                     <Card>
+                        <CardHeader><h5>Minimo en Y</h5></CardHeader>
                         <CardBody>
-                            <CardTitle><h5>Minimo en Y:</h5></CardTitle>
-                            {minY}
+                            <CardText>{minY}</CardText>
                         </CardBody>
                     </Card>
                 </Col>
