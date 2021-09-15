@@ -154,7 +154,6 @@ function GraficoPrincipal({setId,setXY}){
         
     },[setId,setXY]);
     return(
-        <Container>
                     <svg    ref={svgRef} className="chart"
                             width={1.3*dim}
                             height={dim}
@@ -162,7 +161,6 @@ function GraficoPrincipal({setId,setXY}){
                             style={{"marginTop":margin,
                                     "marginBottom":margin}}
                     />
-        </Container>
         )
 }
 
