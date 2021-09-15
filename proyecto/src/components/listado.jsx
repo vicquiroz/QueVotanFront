@@ -14,7 +14,7 @@ function MostrarLista({idCon}){
                 <ul className="list-group">
                     <Row>
                         {filteredPosts.map((post) => ( 
-                        <Col className="col-sm-3">
+                        <Col className="col-6 col-sm-3">
                             <li className="list-group-item list-group-item-action" key={post["Id_P"]}>{post["Nombre"]}</li>
                         </Col>
                         ))}

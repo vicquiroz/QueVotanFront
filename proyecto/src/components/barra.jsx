@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Button,NavItem,Nav,ButtonDropdown,DropdownItem,DropdownToggle,DropdownMenu,Container,} from 'reactstrap';
+import {Button,NavItem,Nav,ButtonDropdown,DropdownItem,DropdownToggle,DropdownMenu,Container,Row,Col} from 'reactstrap';
 import { Link } from "react-router-dom";
 function Barra(){
     const toggle = () => setOpen(!dropdownOpen);
@@ -16,6 +16,7 @@ function Barra(){
                     </NavItem>
                     <NavItem>
                         <div className="btn-group btn-sm">
+                            <td>
                             <Button color="secondary">Congreso</Button>
                             <Button color="secondary">Partidos</Button>
                             <Button color="secondary">Datos</Button>
@@ -28,6 +29,7 @@ function Barra(){
                                     <DropdownItem>Item 3</DropdownItem>
                                 </DropdownMenu>
                             </ButtonDropdown>
+                            </td>
                         </div>
                     </NavItem>
                 </Nav>

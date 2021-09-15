@@ -18,9 +18,10 @@ function App() {
           <Route path="/">
             <div>
                 <Route path="/" exact component={Principal} />
-               {/*<Provider store={store}>
-                    <Datos />
-                  </Provider>*/}
+                  {/* <Provider store={store}>
+                        <Votacion/>
+                      </Provider>
+                  */}
             </div>
           </Route>
         </Switch>

@@ -31,7 +31,7 @@ const heightDim=height-marginDim;
 const widthDim=width-marginDim;
 const escalax = height/2;
 const escalay = height/2-2*margin;
-
+const vBox="0 0 "+String(1.05*dim)+" "+String(1.05*dim)
 function GraficoPrincipal({setId,setXY}){
     const svgRef = useRef();
     useEffect(()=> {
@@ -150,14 +150,15 @@ function GraficoPrincipal({setId,setXY}){
             .attr("height",margin)
             .text(function(d){ return d})
             .attr("text-anchor", "left")
-        
+       
         
     },[setId,setXY]);
     return(
         <Container>
                     <svg    ref={svgRef} className="chart"
-                            width={1.2*dim}
+                            width={1.3*dim}
                             height={dim}
+                            viewBox={vBox}
                             style={{"marginTop":margin,
                                     "marginBottom":margin}}
                     />

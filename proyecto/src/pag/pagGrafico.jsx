@@ -19,17 +19,21 @@ function PagGrafico(){
             </Row>
             <Row>
                 <Col>
-                    <GraficoPrincipal
-                        setId={setId}
-                        setXY={setXY}
-                    />
+                    <div className="d-flex justify-content-center">
+                        <GraficoPrincipal className="col-12"
+                            setId={setId}
+                            setXY={setXY}
+                        />
+                    </div>
                 </Col>
             </Row>
             <Row>
-                <Col className="col-sm-6">
-                    <GraficoBarra/>
+                <Col className="col-12 col-sm-6">
+                    <div className="d-flex justify-content-center">
+                        <GraficoBarra/>
+                    </div>
                 </Col>
-                <Col>
+                <Col className="col-12 col-sm-6">
                     <Inform
                         pos={xyBrush}
                     />
