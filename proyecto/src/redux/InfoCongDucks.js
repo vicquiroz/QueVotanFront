@@ -18,7 +18,7 @@ export default function infoCongresistasReducer(state = InfoCongresistasI, actio
 export const obtenerInfoCongresistasAccion = () => async(dispatch,getState) => {
     try {
         //Esta constante debe ser cambiada por su equivalente en API
-        const res = await axios.get('http://18.119.166.32:8000/')
+        const res = await axios.get(String(process.env.REACT_APP_API_URL))
         dispatch({
             type: OBTENER_INFOCONGRESISTAS_EXITO,
             payload: res.data

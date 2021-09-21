@@ -18,7 +18,7 @@ export default function votacionReducer(state = VotacionI, action){
 export const obtenerVotacionAccion = () => async(dispatch,getState) => {
     try {
         //Esta constante debe ser cambiada por su equivalente en API
-        const res = await axios.get('http://164.77.114.243:1081/')
+        const res = await axios.get(String(process.env.REACT_APP_API_URL))
         console.log(res)
         dispatch({
             type: OBTENER_VOTACION_EXITO,

@@ -2,6 +2,7 @@ import React from 'react'
 import {Container, Input} from 'reactstrap'
 
 function Buscador({setBusqueda,tags}){
+    console.log(tags)
     return(
         <Container>
                 <Input
