@@ -1,11 +1,10 @@
 import React from 'react'
 import {Container, Input} from 'reactstrap'
 
-function Buscador({setBusqueda}){
-
+function Buscador({setBusqueda,tags}){
     return(
         <Container>
-                <Input            
+                <Input
                     onInput={e => setBusqueda(e.target.value)}
                     className="form-control me-2" 
                     type="search" 

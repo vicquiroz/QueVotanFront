@@ -8,31 +8,28 @@ import 'bootstrap/dist/css/bootstrap.css';
 import {Provider} from 'react-redux'
 import generateStore from './redux/store'
 import Votacion from './components/Votacion.jsx'
-
 function App() {
   const store = generateStore()
   return (
     <Router>
-      <Container className="container-fluid" >
-        <Switch>
-          <Route path="/">
-            <div>
-                <Route path="/" exact component={Principal} />
-                  {/* <Provider store={store}>
-                        <Votacion/>
-                      </Provider>
-                  */}
-            </div>
-          </Route>
-        </Switch>
-        <Switch>
-          <Route path="/grafico">
-            <div> 
-              <PagGrafico/>
-            </div>
-          </Route>
-        </Switch>
-      </Container>
+      <Provider store={store}>
+        <Container className="container-fluid" >
+          <Switch>
+            <Route path="/">
+              <div>
+                  <Route path="/" exact component={Principal}/>
+              </div>
+            </Route>
+          </Switch>
+          <Switch>
+            <Route path="/grafico">
+              <div> 
+                <PagGrafico/>
+              </div>
+            </Route>
+          </Switch>
+        </Container>
+      </Provider>
     </Router>
   );
 }
