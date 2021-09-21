@@ -110,18 +110,22 @@ function GraficoPrincipal({setId,setXY}){
                     /*if(d["voto"]==="Si")*/ return "translate("+(d["X"]*escalay+escalax+margin)+","+((2*escalax)-(d["Y"]*escalay+escalax))+")"})
                     //else return "translate("+(d["x"]*escalax+escalax)+","+(d["y"]*escalay+escalay)+") rotate(180)"})
                 .attr("stroke", "black")
-                .on("click",function(event,d){  //Mejorar la eficiencia de esta llamada a la función
+                .on("click",function(event,d){
+                    let path = "path#id_"+d["Id_P"]
                     setId(Number(d["Id_P"]))
+                    brushed(event,{setId},{setXY})
+                    svg.selectAll("g.brush").call(brush().clear)
+                    svg.selectAll(path).transition().duration('50').attr('opacity', '1')
                 })
                 .on('mouseover', function (event,data){
-                    //select(this).transition().duration('50').attr('opacity', '0.8')
-                    div.transition().duration(50).style("opacity", 1);
+                    div.transition().duration(100).style("opacity", 1);
                     let name=data["Nombre"]
                     div.html(name).style("left",(event.pageX+10)+"px").style("top",(event.pageY-15)+"px");
                 })
-                .on('mouseout', function (d,i){
-                    //select(this).transition().duration('50').attr('opacity', '1')
-                    div.transition().duration('50').style("opacity", 0);
+                .on('mouseout', function (event,data){
+                    div.transition().duration(0).style("opacity", 0);
+                    let name=data["Nombre"]
+                    div.html(name).style("left",(-100)+"px").style("top",(-100)+"px");
                 })
                 .attr("fill",function(d){
                     return partidos[d["Partido"]]
@@ -150,7 +154,9 @@ function GraficoPrincipal({setId,setXY}){
             .attr("height",margin)
             .text(function(d){ return d})
             .attr("text-anchor", "left")
-       
+
+        let nullEvent={selection:"init"}
+        brushed(nullEvent,{setId},{setXY})
         
     },[setId,setXY]);
     return(
@@ -183,7 +189,6 @@ function brushed(event,{setId},{setXY}){
                 Nodes.push([Arr,svg.node().childNodes[i].__data__.Id_P])
             }
         }
-        svg.selectAll("path").transition().duration('50').attr('opacity', '0.5')
         for(let P in Nodes){
             if((Nodes[P][0][0]>=S[0][0] && Nodes[P][0][0] <=S[1][0]) && (Nodes[P][0][1]>=S[0][1] && Nodes[P][0][1] <=S[1][1])){
                 NodeSelec.push(Nodes[P][1])
@@ -192,13 +197,29 @@ function brushed(event,{setId},{setXY}){
                 posicionY.push(Number(envio.Y));
             }
         }
-        for(let P in NodeSelec){
-            let path = "path#id_"+NodeSelec[P]
-            svg.selectAll(path).transition().duration('50').attr('opacity', '1')
+        if(NodeSelec.length>0){
+            svg.selectAll("path").transition().duration('50').attr('opacity', '0.5')
+            for(let P in NodeSelec){
+                let path = "path#id_"+NodeSelec[P]
+                svg.selectAll(path).transition().duration('50').attr('opacity', '1')
+            }
+        }
+        else{
+            svg.selectAll("path").transition().duration('50').attr('opacity', '1')
+            for(let P in Nodes){
+                NodeSelec.push(Nodes[P][1])
+                let envio = datos.Legislatura.find((dat)=> {return dat.Id_P===Nodes[P][1]});
+                posicionX.push(Number(envio.X));
+                posicionY.push(Number(envio.Y));
+            }
         }
         setId(NodeSelec);
         setXY([posicionX,posicionY]);
     }
+    else{
+        svg.selectAll("path").transition().duration('50').attr('opacity', '0.5')
+    }
 }
+
 
 export default GraficoPrincipal;
