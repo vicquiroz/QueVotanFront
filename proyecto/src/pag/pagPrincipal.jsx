@@ -7,12 +7,16 @@ import {Container, Col, Row} from "reactstrap";
 import {useDispatch, useSelector} from 'react-redux'
 import {obtenerTagsAccion} from '../redux/TagsDucks'
 function Principal(){
+
     const [busqueda, setBusqueda] = useState(); 
+    const [idTag, setIdTag] = useState();
     const dispatch = useDispatch()
     const tags = useSelector(store => store.tags.array)
+
     useEffect(()=> {
         dispatch(obtenerTagsAccion())
-    },[])
+    },[]);
+
     return(
         <Container>
             <Row>
@@ -24,6 +28,7 @@ function Principal(){
                 <Col>
                     <Buscador
                         setBusqueda={setBusqueda}
+                        setIdTag={setIdTag}
                         tags={tags}
                     />
                 </Col>

@@ -2,10 +2,12 @@ import React, {useState} from 'react'
 import {Container, Input} from 'reactstrap'
 import './estilo.css'
 
-function Buscador({setBusqueda,tags}){
+function Buscador({setBusqueda,tags,setIdTag}){
 
     const [texto, setTexto] = useState();
     const [sugerencia, setSuge] = useState();
+    const [id, setId] = useState();
+
     console.log(tags)
 
     const enCambio = (tex) =>{
@@ -20,20 +22,32 @@ function Buscador({setBusqueda,tags}){
         setTexto(tex)
     }
 
+    const seleccion = (texto, id) =>{
+        setTexto(texto);
+        setId(id);
+    }
+
+    const teclaAbajo = (tecla) => {
+        if (tecla.key === 'Enter') {
+          setIdTag(id);
+        }
+      }
+
 
     return(
         <Container>
                 <Input
                     onChange={e => enCambio(e.target.value)}
+                    onKeyDown={teclaAbajo}
                     className="input" 
                     type="search" 
                     placeholder="Buscar"
-                    value={texto}
+                    value={texto || ""}
                 >
                 </Input>
                 {sugerencia && sugerencia.slice(0,10).map((sugerencia, id) =>
-                    <div className="sugerencia list-group-item" key={id}
-                     onClick={()=> setTexto(sugerencia.desc)}>
+                    <div className="sugerencias list-group-item list-group-item-action" key={id}
+                     onClick={()=> seleccion(sugerencia.desc,sugerencia.id)}>
                         {sugerencia.desc}  
                     </div>
                 )}
