@@ -81,12 +81,12 @@ function GraficoPrincipal({setId,setXY}){
                 )
             .attr("opacity", 0.25);
 
-
         svg.append("g")
         .attr("class", "brush")
-        .call(brush().on("brush", function(event){
+        .call(brush().on("start end", function(event){
             brushed(event,{setId},{setXY})
         }))
+        
 
         var div = select("body").append("div")
         .attr("class", "tooltip")
@@ -111,11 +111,7 @@ function GraficoPrincipal({setId,setXY}){
                     //else return "translate("+(d["x"]*escalax+escalax)+","+(d["y"]*escalay+escalay)+") rotate(180)"})
                 .attr("stroke", "black")
                 .on("click",function(event,d){
-                    let path = "path#id_"+d["Id_P"]
-                    setId(Number(d["Id_P"]))
-                    brushed(event,{setId},{setXY})
-                    svg.selectAll("g.brush").call(brush().clear)
-                    svg.selectAll(path).transition().duration('50').attr('opacity', '1')
+                    ClickPoint(d,{setId},{setXY})
                 })
                 .on('mouseover', function (event,data){
                     div.transition().duration(100).style("opacity", 1);
@@ -146,6 +142,7 @@ function GraficoPrincipal({setId,setXY}){
             .attr("stroke", "black")
             .attr("id", value => value)
             .on("click",function(event,d){
+                svg.selectAll("g.brush").call(brush().clear)
                 SelectParty(this,{setId},{setXY})
             })
         
@@ -160,11 +157,11 @@ function GraficoPrincipal({setId,setXY}){
             .attr("text-anchor", "left")
             .attr("id", value => value)
             .on("click",function(event,d){
+                svg.selectAll("g.brush").call(brush().clear)
                 SelectParty(this,{setId},{setXY})
             })
 
-        let nullEvent={selection:"init"}
-        brushed(nullEvent,{setId},{setXY})
+        ClearGraph({setId},{setXY})
     },[setId,setXY]);
     return(
                     <svg    ref={svgRef} className="chart"
@@ -178,9 +175,7 @@ function GraficoPrincipal({setId,setXY}){
 }
 
 function brushed(event,{setId},{setXY}){
-    // En esta funcion, cuando se deje de seleccionar se debe de producir un evento que seleccione
-    // los elementos que se encuentran dentro del brush
-    var S = event["selection"]
+    var S = event.selection
     var NodeSelec = []
     if(S!=null){
         var Nodes = []
@@ -224,7 +219,7 @@ function brushed(event,{setId},{setXY}){
         setXY([posicionX,posicionY]);
     }
     else{
-        svg.selectAll("path").transition().duration('50').attr('opacity', '0.5')
+        ClearGraph({setId},{setXY})
     }
 }
 
@@ -246,4 +241,42 @@ function SelectParty(event,{setId},{setXY}){
     setXY([posicionX,posicionY]);
 }
 
+function ClickPoint(d,{setId},{setXY}){
+    let path = "path#id_"+d.Id_P
+    let posicionX = []
+    let posicionY = []
+    svg.selectAll("path").transition().duration('50').attr('opacity', '0.5')
+    svg.selectAll("g.brush").call(brush().clear)
+    svg.selectAll(path).transition().duration('50').attr('opacity', '1')
+    posicionX.push(Number(d.X));
+    posicionY.push(Number(d.Y));
+    setId(Number(d.Id_P))
+    setXY([posicionX,posicionY]);
+}
+
+function ClearGraph({setId},{setXY}){
+    svg.selectAll("path").transition().duration('50').attr('opacity', '1')
+    var Nodes = []
+    var NodeSelec = []
+    let posicionX = []
+    let posicionY = []
+    for(let i in svg.node().childNodes){
+        if(svg.node().childNodes[i].nodeName==="path"){
+            let Arr = svg.node().childNodes[i].attributes.transform.value
+            .split("translate").pop().split(' ')[0].replace('(',"")
+            .replace(')',"").split(",")
+            Arr[0] = parseFloat(Arr[0])
+            Arr[1] = parseFloat(Arr[1])
+            Nodes.push([Arr,svg.node().childNodes[i].__data__.Id_P])
+        }
+    }
+    for(let P in Nodes){
+        NodeSelec.push(Nodes[P][1])
+        let envio = datos.Legislatura.find((dat)=> {return dat.Id_P===Nodes[P][1]});
+        posicionX.push(Number(envio.X));
+        posicionY.push(Number(envio.Y));
+    }
+    setId(NodeSelec);
+    setXY([posicionX,posicionY]);
+}
 export default GraficoPrincipal;

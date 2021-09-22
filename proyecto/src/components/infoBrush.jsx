@@ -3,14 +3,14 @@ import { Row, Col, CardBody, Card, CardHeader, CardText } from 'reactstrap';
 
 function Inform({pos}){
     if (pos!==undefined){
-        var maxX = Math.max(...pos[0]);
-        var maxY = Math.max(...pos[1]);
-        var minX = Math.min(...pos[0]);
-        var minY = Math.min(...pos[1]);
+        var maxX = Math.max(...pos[0]).toFixed(2);
+        var maxY = Math.max(...pos[1]).toFixed(2);
+        var minX = Math.min(...pos[0]).toFixed(2);
+        var minY = Math.min(...pos[1]).toFixed(2);
         var promX = pos[0].reduce((a,b)=> a+b,0);
         var promY = pos[1].reduce((a,b)=> a+b,0);
-        promX = "X: "+String(promX/pos[0].length);
-        promY = "Y: "+String(promY/pos[1].length);
+        promX = "X: "+String((promX/pos[0].length).toFixed(2));
+        promY = "Y: "+String((promY/pos[1].length).toFixed(2));
         //var mensaje = "X: "+String(promX)+" Y: "+String(promY);
     }
     return(
