@@ -144,6 +144,10 @@ function GraficoPrincipal({setId,setXY}){
             .style("fill",function(d){
                 return partidos[d]})
             .attr("stroke", "black")
+            .attr("id", value => value)
+            .on("click",function(event,d){
+                SelectParty(this,{setId},{setXY})
+            })
         
         legend.data(Object.keys(partidos))
             .enter()
@@ -154,10 +158,13 @@ function GraficoPrincipal({setId,setXY}){
             .attr("height",margin)
             .text(function(d){ return d})
             .attr("text-anchor", "left")
+            .attr("id", value => value)
+            .on("click",function(event,d){
+                SelectParty(this,{setId},{setXY})
+            })
 
         let nullEvent={selection:"init"}
         brushed(nullEvent,{setId},{setXY})
-        
     },[setId,setXY]);
     return(
                     <svg    ref={svgRef} className="chart"
@@ -221,5 +228,22 @@ function brushed(event,{setId},{setXY}){
     }
 }
 
+function SelectParty(event,{setId},{setXY}){
+    let party=event.id
+    let Nodes=datos.Legislatura.filter((dat)=> {return dat.Partido===party});
+    let NodeSelec = []
+    let posicionX = []
+    let posicionY = []
+    svg.selectAll("path").transition().duration('50').attr('opacity', '0.5')
+    for(let P in Nodes){
+        let path = "path#id_"+Nodes[P].Id_P
+        NodeSelec.push(Nodes[P].Id_P)
+        svg.selectAll(path).transition().duration('50').attr('opacity', '1')
+        posicionX.push(Number(Nodes[P].X));
+        posicionY.push(Number(Nodes[P].Y));
+    }
+    setId(NodeSelec);
+    setXY([posicionX,posicionY]);
+}
 
 export default GraficoPrincipal;
