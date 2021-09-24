@@ -22,16 +22,29 @@ const partidos = {
     "DC"    :"rgb(255,255,255)"
 }
 var svg;  
-const dim = window.innerWidth*0.5;
-const width = dim;
-const height = dim;
-const margin = dim-0.97*dim;
-const marginDim = margin*2;
-const heightDim=height-marginDim;
-const widthDim=width-marginDim;
-const escalax = height/2;
-const escalay = height/2-2*margin;
-const vBox="0 0 "+String(1.05*dim)+" "+String(1.05*dim)
+const dim = window.innerWidth*0.8;
+const width = dim*0.85;
+const height = dim*0.85;
+const margin = dim-0.95*dim;
+const dCuadrado = dim-0.97*dim;
+const marginDim = margin*2;         //No cambiar
+const heightDim=height-marginDim;   //No cambiar
+const widthDim=width-marginDim;     //No cambiar
+const escalax = height/2;           //No cambiar
+const escalay = height/2-2*margin;  //No cambiar
+
+var textsize;
+var pointsize;
+if(window.innerWidth<600){
+    textsize=".5rem"
+    pointsize=50
+}
+else{
+    textsize="1.3rem"
+    pointsize=200
+} 
+console.log(textsize)
+const vBox="0 0 "+String(dim)+" "+String(height)
 function GraficoPrincipal({setId,setXY}){
     const svgRef = useRef();
     useEffect(()=> {
@@ -97,13 +110,13 @@ function GraficoPrincipal({setId,setXY}){
         .style("padding",".1rem")
         .style("border","1px solid #313639")
         .style("border-radius","8px")
-        .style("font-size","1rem")
+        .style("font-size",textsize)
         .style("font-family","Lucida Sans Unicode")
         svg.selectAll(".point")
         .data(datos["Legislatura"])
         .join(
             enter => enter.append("path")
-                .attr("d", symbol().type(symbolTriangle))
+                .attr("d", symbol().size(pointsize).type(symbolTriangle))
                 .attr("id",value => "id_"+value["Id_P"])
                 .attr("key", value => value["Nombre"])
                 .attr("transform", function(d) {
@@ -133,10 +146,10 @@ function GraficoPrincipal({setId,setXY}){
         legend.data(Object.keys(partidos))
             .enter()
             .append("rect")
-            .attr("x",width+margin)
-            .attr("y",function(d,i){ return 2*margin+i*(heightDim-margin)/16})
-            .attr("width",margin)
-            .attr("height",margin)
+            .attr("x",width+dCuadrado)
+            .attr("y",function(d,i){ return 3.2*dCuadrado+i*(heightDim-dCuadrado)/17})
+            .attr("width",dCuadrado*0.8)
+            .attr("height",dCuadrado*0.8)
             .style("fill",function(d){
                 return partidos[d]})
             .attr("stroke", "black")
@@ -149,12 +162,14 @@ function GraficoPrincipal({setId,setXY}){
         legend.data(Object.keys(partidos))
             .enter()
             .append("text")
-            .attr("x",width+2.5*margin)
-            .attr("y",function(d,i){ return 2.8*margin+i*(heightDim-margin)/16})
-            .attr("width",margin)
-            .attr("height",margin)
+            .attr("x",width+2.5*dCuadrado)
+            .attr("y",function(d,i){ return 3.7*dCuadrado+i*(heightDim-dCuadrado)/17})
+            .attr("width",dCuadrado*0.8)
+            .attr("height",dCuadrado*0.8)
             .text(function(d){ return d})
             .attr("text-anchor", "left")
+            .style("font-size",textsize)
+            .style("font-family","Lucida Sans Unicode")
             .attr("id", value => value)
             .on("click",function(event,d){
                 svg.selectAll("g.brush").call(brush().clear)
@@ -165,11 +180,11 @@ function GraficoPrincipal({setId,setXY}){
     },[setId,setXY]);
     return(
                     <svg    ref={svgRef} className="chart"
-                            width={1.3*dim}
-                            height={dim}
+                            width="90%"
+                            height="90%"
                             viewBox={vBox}
-                            style={{"marginTop":margin,
-                                    "marginBottom":margin}}
+                            position="absolute"
+                            preserveAspectRatio="xMidYMid meet"
                     />
         )
 }
