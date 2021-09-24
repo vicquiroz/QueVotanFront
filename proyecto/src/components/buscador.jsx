@@ -8,8 +8,6 @@ function Buscador({setBusqueda,tags,setIdTag}){
     const [sugerencia, setSuge] = useState();
     const [id, setId] = useState();
 
-    console.log(tags)
-
     const enCambio = (tex) =>{
         let coincide = [];
         if(tex.length>0){

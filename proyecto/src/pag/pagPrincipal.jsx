@@ -16,7 +16,6 @@ function Principal(){
     useEffect(()=> {
         dispatch(obtenerTagsAccion())
     },[]);
-
     return(
         <Container>
             <Row>

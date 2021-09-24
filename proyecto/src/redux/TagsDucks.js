@@ -1,6 +1,7 @@
 import axios from 'axios'
 
 const TagsI = {
+    stateDispatch:false,
     array : []
 }
 
@@ -21,7 +22,8 @@ export const obtenerTagsAccion = () => async(dispatch,getState) => {
         const res = await axios.get(String(process.env.REACT_APP_API_URL+'materias/index/'))
         dispatch({
             type: OBTENER_TAGS_EXITO,
-            payload: res.data
+            payload: res.data,
+            stateDispatch:true
         })
     } catch (error) {
         console.log(error)

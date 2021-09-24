@@ -5,13 +5,15 @@ import {composeWithDevTools} from 'redux-devtools-extension'
 import votacionReducer from './VotacionDucks'
 import infoCongresistasReducer from './InfoCongDucks'
 import infoGraficoReducer from './InfoGrafDucks'
+import infoDiputadosReducer from './InfoDipDucks'
 import tagsReducer from './TagsDucks'
 
 const rootReducer = combineReducers({
     votacion: votacionReducer,
     infoCongresistas: infoCongresistasReducer,
     infoGrafico: infoGraficoReducer,
-    tags: tagsReducer
+    tags: tagsReducer,
+    infoDiputados: infoDiputadosReducer
     // En el caso de que se agregen mas, se coloca ,nuevodato :ReductorNuevoDato
 })
 

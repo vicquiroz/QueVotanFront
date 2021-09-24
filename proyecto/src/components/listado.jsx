@@ -1,21 +1,41 @@
-import React from 'react';
-import { Container,Row,Col } from 'reactstrap';
+import React,{useEffect} from 'react';
+import { Container,Row,Col} from 'reactstrap';
+import {useDispatch, useSelector} from 'react-redux'
+import { obtenerInfoDiputadosAccion } from '../redux/InfoDipDucks';
 import datos from '../Coord.json';
-
 
 function MostrarLista({idCon}){
     var nombres = [];
     for(let i in idCon) nombres.push(datos["Legislatura"].find(d => d.Id_P ===idCon[i]).Nombre);
     const filteredPosts = filterPosts(datos["Legislatura"], idCon,nombres);
+
+    const dispatch = useDispatch()
+    const infoDip = useSelector(store => store.infoDiputados.array)
+    var TestNombre=[]
+    /*
+    useEffect(()=> {
+        for(let i in idCon){
+            dispatch(obtenerInfoDiputadosAccion(idCon[i]))
+            TestNombre.push(infoDip["Apellido Paterno"])
+        }
+    },[]);
+    */
     return(
         <Container>
             <Row>
                 <Col className="g-3">
                 <ul className="list-group">
                     <Row>
+                        <Col>
+                        <h3>Votantes</h3>
+                        </Col>
+                    </Row>
+                    <Row>
                         {filteredPosts.map((post) => ( 
                         <Col className="col-6 col-sm-3">
-                            <li className="list-group-item list-group-item-action" key={post["Id_P"]}>{post["Nombre"]}</li>
+                            <div className="list-group-flush list-group-item-action" key={post["Id_P"]} id={"Div-"+post["Id_P"]}>
+                                {post["Nombre"]}
+                            </div>
                         </Col>
                         ))}
                     </Row>
@@ -38,7 +58,6 @@ const filterPosts = (posts, id, nombres) => {
     else{
         var nuevosDat = [{Id_P: "1", Nombre: "Snatch"}];
         for(let i in id){
-            
             nuevosDat.push({Id_P: id[i], Nombre: nombres[i]});
         }
         nuevosDat.splice(0,1);

@@ -43,7 +43,6 @@ else{
     textsize="1.3rem"
     pointsize=200
 } 
-console.log(textsize)
 const vBox="0 0 "+String(dim)+" "+String(height)
 function GraficoPrincipal({setId,setXY}){
     const svgRef = useRef();
