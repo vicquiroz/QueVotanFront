@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import {Container, Input} from 'reactstrap'
+import {Container, Input, Label} from 'reactstrap'
 import './estilo.css'
 
 function Buscador({setBusqueda,tags,setIdTag}){
@@ -23,6 +23,7 @@ function Buscador({setBusqueda,tags,setIdTag}){
     const seleccion = (texto, id) =>{
         setTexto(texto);
         setId(id);
+        document.getElementById('buscador').select();
     }
 
     const teclaAbajo = (tecla) => {
@@ -35,6 +36,7 @@ function Buscador({setBusqueda,tags,setIdTag}){
     return(
         <Container>
                 <Input
+                    id="buscador"
                     onChange={e => enCambio(e.target.value)}
                     onKeyDown={teclaAbajo}
                     className="input" 
@@ -43,12 +45,14 @@ function Buscador({setBusqueda,tags,setIdTag}){
                     value={texto || ""}
                 >
                 </Input>
+                <div className="border border-gray">
                 {sugerencia && sugerencia.slice(0,10).map((sugerencia, id) =>
-                    <div className="sugerencias list-group-item list-group-item-action" key={id}
+                    <Label className="list-group-flush list-group-item-action" key={id}
                      onClick={()=> seleccion(sugerencia.desc,sugerencia.id)}>
                         {sugerencia.desc}  
-                    </div>
+                    </Label>
                 )}
+                </div>
         </Container>
     )
 }
