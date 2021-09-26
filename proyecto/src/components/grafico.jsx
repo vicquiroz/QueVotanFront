@@ -1,4 +1,4 @@
-import React, {useRef, useEffect} from 'react';
+import React, {useRef, useEffect, useState} from 'react';
 import { Container} from 'reactstrap';
 import {select, symbol, symbolTriangle, brush, axisLeft, axisBottom, scaleLinear} from 'd3';
 import datos from '../Coord.json'
@@ -21,31 +21,62 @@ const partidos = {
     "S/I"   :"rgb(50,255,50)",
     "DC"    :"rgb(255,255,255)"
 }
-var svg;  
-const dim = window.innerWidth*0.8;
-const width = dim*0.85;
-const height = dim*0.85;
-const margin = dim-0.95*dim;
-const dCuadrado = dim-0.97*dim;
-const marginDim = margin*2;         //No cambiar
-const heightDim=height-marginDim;   //No cambiar
-const widthDim=width-marginDim;     //No cambiar
-const escalax = height/2;           //No cambiar
-const escalay = height/2-2*margin;  //No cambiar
 
+var svg;  
+var dim 
+var width 
+var height 
+var margin 
+var dCuadrado 
+var marginDim 
+var heightDim
+var widthDim
+var escalax
+var escalay
+var transpPuntos = "0.2"
 var textsize;
 var pointsize;
+var hovertext;
+var vBox;
+
 if(window.innerWidth<600){
     textsize=".5rem"
+    hovertext=".5rem"
     pointsize=50
 }
 else{
-    textsize="1.3rem"
-    pointsize=200
-} 
-const vBox="0 0 "+String(dim)+" "+String(height)
+    if(window.innerWidth>2000){
+        textsize="3.3rem"
+        hovertext="1.5rem"
+        pointsize=1500
+    }
+    else{
+        textsize="1.3rem"
+        hovertext="1.3rem"
+        pointsize=250
+    }
+}
+
 function GraficoPrincipal({setId,setXY}){
+    dim= window.innerWidth*0.8;
+    width = dim*0.85;
+    height = dim*0.85;
+    margin = dim-0.95*dim;
+    dCuadrado = dim-0.97*dim;
+    marginDim = margin*2;         //No cambiar
+    heightDim=height-marginDim;   //No cambiar
+    widthDim=width-marginDim;     //No cambiar
+    escalax = height/2;           //No cambiar
+    escalay = height/2-2*margin;  //No cambiar
+    vBox="0 0 "+String(dim)+" "+String(height)
+    useEffect(()=>{
+        function Redimension(){
+            window.location.href = window.location.href;
+        }
+        window.addEventListener('resize', Redimension)
+    })
     const svgRef = useRef();
+    
     useEffect(()=> {
         var x = scaleLinear()
             .domain([-1, 1])         
@@ -69,9 +100,11 @@ function GraficoPrincipal({setId,setXY}){
         
         svg.append("g")
             .attr("transform","translate(0,"+heightDim+")")
+            .style("font-size",textsize)
             .call(axisBottom(x));
         svg.append("g")
             .attr("transform","translate("+marginDim+",0)")
+            .style("font-size",textsize)
             .call(axisLeft(y));
 
         svg.append("g")
@@ -128,7 +161,7 @@ function GraficoPrincipal({setId,setXY}){
                 .on('mouseover', function (event,data){
                     div.transition().duration(100).style("opacity", 1);
                     let name=data["Nombre"]
-                    div.html(name).style("left",(event.pageX+10)+"px").style("top",(event.pageY-15)+"px");
+                    div.html(name).style("left",(event.pageX+10)+"px").style("top",(event.pageY-15)+"px").style("font-size",hovertext);
                 })
                 .on('mouseout', function (event,data){
                     div.transition().duration(0).style("opacity", 0);
@@ -141,8 +174,12 @@ function GraficoPrincipal({setId,setXY}){
             update => update.attr("class", "updated"),
             exit => exit.remove()
         );
+        var partidosAct=datos.Legislatura.map(function(key){
+            return key.Partido
+        })
+        partidosAct=[...new Set(partidosAct)].sort()
         var legend=svg.selectAll("legend")
-        legend.data(Object.keys(partidos))
+        legend.data(partidosAct)
             .enter()
             .append("rect")
             .attr("x",width+dCuadrado)
@@ -158,11 +195,11 @@ function GraficoPrincipal({setId,setXY}){
                 SelectParty(this,{setId},{setXY})
             })
         
-        legend.data(Object.keys(partidos))
+        legend.data(partidosAct)
             .enter()
             .append("text")
-            .attr("x",width+2.5*dCuadrado)
-            .attr("y",function(d,i){ return 3.7*dCuadrado+i*(heightDim-dCuadrado)/17})
+            .attr("x",width+2*dCuadrado)
+            .attr("y",function(d,i){ return 3.85*dCuadrado+i*(heightDim-dCuadrado)/17})
             .attr("width",dCuadrado*0.8)
             .attr("height",dCuadrado*0.8)
             .text(function(d){ return d})
@@ -214,7 +251,7 @@ function brushed(event,{setId},{setXY}){
             }
         }
         if(NodeSelec.length>0){
-            svg.selectAll("path").transition().duration('50').attr('opacity', '0.5')
+            svg.selectAll("path").transition().duration('50').attr('opacity',transpPuntos)
             for(let P in NodeSelec){
                 let path = "path#id_"+NodeSelec[P]
                 svg.selectAll(path).transition().duration('50').attr('opacity', '1')
@@ -243,7 +280,7 @@ function SelectParty(event,{setId},{setXY}){
     let NodeSelec = []
     let posicionX = []
     let posicionY = []
-    svg.selectAll("path").transition().duration('50').attr('opacity', '0.5')
+    svg.selectAll("path").transition().duration('50').attr('opacity',transpPuntos)
     for(let P in Nodes){
         let path = "path#id_"+Nodes[P].Id_P
         NodeSelec.push(Nodes[P].Id_P)
@@ -259,7 +296,7 @@ function ClickPoint(d,{setId},{setXY}){
     let path = "path#id_"+d.Id_P
     let posicionX = []
     let posicionY = []
-    svg.selectAll("path").transition().duration('50').attr('opacity', '0.5')
+    svg.selectAll("path").transition().duration('50').attr('opacity',transpPuntos)
     svg.selectAll("g.brush").call(brush().clear)
     svg.selectAll(path).transition().duration('50').attr('opacity', '1')
     posicionX.push(Number(d.X));
