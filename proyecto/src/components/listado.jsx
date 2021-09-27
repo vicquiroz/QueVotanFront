@@ -1,5 +1,5 @@
 import React,{useEffect} from 'react';
-import { Container,Row,Col} from 'reactstrap';
+import { Container,Row,Col,Label} from 'reactstrap';
 import {useDispatch, useSelector} from 'react-redux'
 import { obtenerInfoDiputadosAccion } from '../redux/InfoDipDucks';
 import datos from '../Coord.json';
@@ -33,9 +33,9 @@ function MostrarLista({idCon}){
                     <Row>
                         {filteredPosts.map((post) => ( 
                         <Col className="col-6 col-sm-3">
-                            <li className="list-group-flush list-group-item-action" key={post["Id_P"]} id={"Div-"+post["Id_P"]}>
+                            <Label className="list-group-flush list-group-item-action" key={post["Id_P"]} id={"Div-"+post["Id_P"]}>
                                 {post["Nombre"]}
-                            </li>
+                            </Label>
                         </Col>
                         ))}
                     </Row>

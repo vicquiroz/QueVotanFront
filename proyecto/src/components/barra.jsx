@@ -20,7 +20,9 @@ function Barra(){
                             <Button color="secondary">Congreso</Button>
                             <Button color="secondary">Partidos</Button>
                             <Button color="secondary">Datos</Button>
-                            <Button color="secondary">Acerca de</Button>
+                            <Link to="/acerca" style={{ textDecoration: 'none' }}>
+                                <Button color="secondary" >Acerca de</Button>
+                            </Link>
                             <ButtonDropdown isOpen={dropdownOpen} toggle={toggle}>
                                 <DropdownToggle split color="primary">Listado</DropdownToggle>
                                 <DropdownMenu>
