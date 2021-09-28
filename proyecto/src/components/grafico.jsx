@@ -2,7 +2,7 @@ import React, {useRef, useEffect, useState} from 'react';
 import { Container} from 'reactstrap';
 import {select, symbol, symbolTriangle, brush, axisLeft, axisBottom, scaleLinear} from 'd3';
 import datos from '../Coord.json'
-
+import {polygonHull} from 'd3-polygon';
 const partidos = {
     "RN"    :"rgb(120,28,129)",
     "PPD"   :"rgb(64,67,253)",
@@ -37,23 +37,27 @@ var transpPuntos = "0.2"
 var textsize;
 var pointsize;
 var hovertext;
+var hullSize;
 var vBox;
 
 if(window.innerWidth<600){
     textsize=".5rem"
     hovertext=".5rem"
     pointsize=50
+    hullSize=2
 }
 else{
     if(window.innerWidth>2000){
         textsize="3.3rem"
         hovertext="1.5rem"
         pointsize=1500
+        hullSize=4
     }
     else{
         textsize="1.3rem"
         hovertext="1.3rem"
         pointsize=250
+        hullSize=3
     }
 }
 
@@ -268,6 +272,7 @@ function brushed(event,{setId},{setXY}){
         }
         setId(NodeSelec);
         setXY([posicionX,posicionY]);
+        svg.selectAll("polygon").remove()
     }
     else{
         ClearGraph({setId},{setXY})
@@ -280,6 +285,7 @@ function SelectParty(event,{setId},{setXY}){
     let NodeSelec = []
     let posicionX = []
     let posicionY = []
+    let posicionC = []
     svg.selectAll("path").transition().duration('50').attr('opacity',transpPuntos)
     for(let P in Nodes){
         let path = "path#id_"+Nodes[P].Id_P
@@ -287,9 +293,37 @@ function SelectParty(event,{setId},{setXY}){
         svg.selectAll(path).transition().duration('50').attr('opacity', '1')
         posicionX.push(Number(Nodes[P].X));
         posicionY.push(Number(Nodes[P].Y));
+        /*posicionC.push({
+            "x":Number(Nodes[P].X),
+            "y":Number(Nodes[P].Y)})*/
+        posicionC.push([Number(Nodes[P].X),Number(Nodes[P].Y)])
     }
     setId(NodeSelec);
     setXY([posicionX,posicionY]);
+
+    if(posicionC.length>1){
+        //posicionC.push(posicionC[0])
+        var hull = polygonHull(posicionC)
+        var hullJson=[]
+        for(let i in hull){
+            hullJson.push({
+                "x":hull[i][0],
+                "y":hull[i][1]})
+        }
+        svg.selectAll("polygon").remove()
+        svg.selectAll("polygon")
+        .data([hullJson])
+        .enter().append("polygon")
+        .attr("points",function(d){
+            return d.map(function(d) { return [d.x*escalay+escalax+margin,(2*escalax)-(d.y*escalay+escalax)].join(","); });})
+        .attr("stroke",event.style.fill)
+        .attr("stroke-width",hullSize)
+        .attr("fill","none")
+    }
+    else{
+        svg.selectAll("polygon").remove()
+    }
+    
 }
 
 function ClickPoint(d,{setId},{setXY}){
@@ -303,6 +337,7 @@ function ClickPoint(d,{setId},{setXY}){
     posicionY.push(Number(d.Y));
     setId(Number(d.Id_P))
     setXY([posicionX,posicionY]);
+    svg.selectAll("polygon").remove()
 }
 
 function ClearGraph({setId},{setXY}){
@@ -327,6 +362,7 @@ function ClearGraph({setId},{setXY}){
         posicionX.push(Number(envio.X));
         posicionY.push(Number(envio.Y));
     }
+    svg.selectAll("polygon").remove()
     setId(NodeSelec);
     setXY([posicionX,posicionY]);
 }
