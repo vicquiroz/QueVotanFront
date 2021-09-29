@@ -24,7 +24,6 @@ function MostrarLista({idCon}){
         <Container>
             <Row>
                 <Col className="g-3">
-                <ul className="list-group">
                     <Row>
                         <Col>
                         <h3>Votantes</h3>
@@ -32,14 +31,13 @@ function MostrarLista({idCon}){
                     </Row>
                     <Row>
                         {filteredPosts.map((post) => ( 
-                        <Col className="col-6 col-sm-3">
-                            <Label className="list-group-flush list-group-item-action" key={post["Id_P"]} id={"Div-"+post["Id_P"]}>
+                        <Col className="col-6 col-sm-3" key={post["Id_P"]}>
+                            <Label className="list-group-flush list-group-item-action">
                                 {post["Nombre"]}
                             </Label>
                         </Col>
                         ))}
                     </Row>
-                </ul>
                 </Col>
             </Row>
         </Container>

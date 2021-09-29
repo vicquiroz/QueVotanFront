@@ -73,11 +73,15 @@ function GraficoPrincipal({setId,setXY}){
     escalax = height/2;           //No cambiar
     escalay = height/2-2*margin;  //No cambiar
     vBox="0 0 "+String(dim)+" "+String(height)
+    
+
     useEffect(()=>{
         function Redimension(){
             window.location.href = window.location.href;
         }
-        window.addEventListener('resize', Redimension)
+        if(window.innerWidth>=600){
+            window.addEventListener('resize', Redimension)
+        }
     })
     const svgRef = useRef();
     
@@ -207,7 +211,6 @@ function GraficoPrincipal({setId,setXY}){
             .attr("width",dCuadrado*0.8)
             .attr("height",dCuadrado*0.8)
             .text(function(d){ return d})
-            .attr("text-anchor", "left")
             .style("font-size",textsize)
             .style("font-family","Lucida Sans Unicode")
             .attr("id", value => value)
@@ -280,8 +283,7 @@ function brushed(event,{setId},{setXY}){
 }
 
 function SelectParty(event,{setId},{setXY}){
-    let party=event.id
-    let Nodes=datos.Legislatura.filter((dat)=> {return dat.Partido===party});
+    let Nodes=datos.Legislatura.filter((dat)=> {return dat.Partido===event.id});
     let NodeSelec = []
     let posicionX = []
     let posicionY = []
@@ -293,16 +295,12 @@ function SelectParty(event,{setId},{setXY}){
         svg.selectAll(path).transition().duration('50').attr('opacity', '1')
         posicionX.push(Number(Nodes[P].X));
         posicionY.push(Number(Nodes[P].Y));
-        /*posicionC.push({
-            "x":Number(Nodes[P].X),
-            "y":Number(Nodes[P].Y)})*/
         posicionC.push([Number(Nodes[P].X),Number(Nodes[P].Y)])
     }
     setId(NodeSelec);
     setXY([posicionX,posicionY]);
 
     if(posicionC.length>1){
-        //posicionC.push(posicionC[0])
         var hull = polygonHull(posicionC)
         var hullJson=[]
         for(let i in hull){
@@ -316,7 +314,7 @@ function SelectParty(event,{setId},{setXY}){
         .enter().append("polygon")
         .attr("points",function(d){
             return d.map(function(d) { return [d.x*escalay+escalax+margin,(2*escalax)-(d.y*escalay+escalax)].join(","); });})
-        .attr("stroke",event.style.fill)
+        .attr("stroke", partidos[event.id])
         .attr("stroke-width",hullSize)
         .attr("fill","none")
     }
