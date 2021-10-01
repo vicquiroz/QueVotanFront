@@ -303,6 +303,7 @@ function SelectParty(event,{setId},{setXY}){
     let posicionC = []
     svg.selectAll("path").transition().duration('50').attr('opacity',transpPuntos)
     for(let P in Nodes){
+        NodeSelec.push(Nodes[P].ID)
         let path = "path#id_"+Nodes[P].ID
         svg.selectAll(path).transition().duration('50').attr('opacity', '1')
         posicionX.push(Number(Nodes[P].coord1D));
