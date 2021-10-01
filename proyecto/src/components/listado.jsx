@@ -3,11 +3,11 @@ import { Container,Row,Col,Label} from 'reactstrap';
 import {useDispatch, useSelector} from 'react-redux'
 import { obtenerInfoDiputadosAccion } from '../redux/InfoDipDucks';
 import datos from '../Coord.json';
-
+import datoswnominate from '../WNominate/Wnominate_export29100.json';
 function MostrarLista({idCon}){
     var nombres = [];
-    for(let i in idCon) nombres.push(datos["Legislatura"].find(d => d.Id_P ===idCon[i]).Nombre);
-    const filteredPosts = filterPosts(datos["Legislatura"], idCon,nombres);
+    for(let i in idCon) nombres.push(datoswnominate.wnominate.find(d => d.ID ===idCon[i]).Nombre);
+    const filteredPosts = filterPosts(datoswnominate.wnominate, idCon,nombres);
 
     const dispatch = useDispatch()
     const infoDip = useSelector(store => store.infoDiputados.array)
@@ -31,7 +31,7 @@ function MostrarLista({idCon}){
                     </Row>
                     <Row>
                         {filteredPosts.map((post) => ( 
-                        <Col className="col-6 col-sm-3" key={post["Id_P"]}>
+                        <Col className="col-6 col-sm-3" key={post["ID"]}>
                             <Label className="list-group-flush list-group-item-action">
                                 {post["Nombre"]}
                             </Label>
@@ -50,13 +50,13 @@ const filterPosts = (posts, id, nombres) => {
     }
     if(typeof(id)==="number"){
         return posts.filter((post) => {
-            return Number(post.Id_P)===id;
+            return Number(post.ID)===id;
         });
     }
     else{
-        var nuevosDat = [{Id_P: "1", Nombre: "Snatch"}];
+        var nuevosDat = [{ID: "1", Nombre: "Snatch"}];
         for(let i in id){
-            nuevosDat.push({Id_P: id[i], Nombre: nombres[i]});
+            nuevosDat.push({ID: id[i], Nombre: nombres[i]});
         }
         nuevosDat.splice(0,1);
         return nuevosDat;
