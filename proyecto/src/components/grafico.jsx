@@ -1,8 +1,8 @@
 import React, {useRef, useEffect, useState} from 'react';
 import { Container} from 'reactstrap';
-import {select, symbol, symbolTriangle,symbolCircle,symbolSquare, brush, axisLeft, axisBottom, scaleLinear} from 'd3';
+import {select, symbol, symbolTriangle,symbolCircle,symbolSquare,symbolDiamond, brush, axisLeft, axisBottom, scaleLinear} from 'd3';
 import datos from '../Coord.json'
-import datoswnominate from '../WNominate/Wnominate_export29100.json';
+import datoswnominate from '../WNominate/Wnominate_export29151.json';
 import {polygonHull} from 'd3-polygon';
 const partidos = {
     "RN"    :"rgb(120,28,129)",
@@ -41,6 +41,7 @@ var hovertext;
 var hullSize;
 var vBox;
 
+//Modo Telefono
 if(window.innerWidth<600){
     textsize=".5rem"
     hovertext=".5rem"
@@ -48,17 +49,29 @@ if(window.innerWidth<600){
     hullSize=2
 }
 else{
+    //Modo 4k
     if(window.innerWidth>2000){
         textsize="3.3rem"
         hovertext="1.5rem"
-        pointsize=1500
+        pointsize=1000
         hullSize=4
     }
     else{
-        textsize="1.3rem"
-        hovertext="1.3rem"
-        pointsize=250
-        hullSize=3
+        //Modo 4:3
+        if(window.innerWidth<900){
+            textsize=".9rem"
+            hovertext=".9rem"
+            pointsize=125
+            hullSize=2
+        }
+        //Modo Estandar
+        else{
+            textsize="1.3rem"
+            hovertext="1.3rem"
+            pointsize=200
+            hullSize=3
+        }
+        
     }
 }
 
@@ -66,17 +79,18 @@ else{
 datoswnominate.wnominate=datoswnominate.wnominate.filter((dat)=> {return dat.party!==partidos.key});
 
 function GraficoPrincipal({setId,setXY}){
-    dim= window.innerWidth*0.8;
-    width = dim*0.85;
-    height = dim*0.85;
+    dim= window.innerWidth*0.8;   //No cambiar
+    width = dim*0.75;
+    height = dim*0.75;
     margin = dim-0.95*dim;
-    dCuadrado = dim-0.97*dim;
+    dCuadrado = dim-0.97*dim;     //No cambiar
     marginDim = margin*2;         //No cambiar
     heightDim=height-marginDim;   //No cambiar
     widthDim=width-marginDim;     //No cambiar
     escalax = height/2;           //No cambiar
     escalay = height/2-2*margin;  //No cambiar
-    vBox="0 0 "+String(dim)+" "+String(height)
+    
+    vBox="0 "+String(margin*1.5)+" "+String(dim)+" "+String(height-2.5*margin)
     
 
     useEffect(()=>{
@@ -158,7 +172,6 @@ function GraficoPrincipal({setId,setXY}){
         .data(datoswnominate.wnominate)
         .join(
             enter => enter.append("path")
-                .attr("d", symbol().size(pointsize).type(symbolTriangle))
                 .attr("id",value => "id_"+value.ID)
                 .attr("key", value => value.Nombre)
                 .attr("transform", function(d) {
@@ -189,10 +202,18 @@ function GraficoPrincipal({setId,setXY}){
         );
         for(let P in datoswnominate.votacion[0]){
             let path = "path#id_"+P
-            if(datoswnominate.votacion[0][P]===2){
-                svg.selectAll(path).attr("d", symbol().size(pointsize).type(symbolCircle))
+            if(datoswnominate.votacion[0][P]===0 || datoswnominate.votacion[0][P]===1){
+                svg.select(path).attr("d", symbol().size(pointsize).type(symbolTriangle))
             }
-            
+            if(datoswnominate.votacion[0][P]===2){
+                svg.select(path).attr("d", symbol().size(pointsize).type(symbolCircle))
+            }
+            if(datoswnominate.votacion[0][P]===3){
+                svg.select(path).attr("d", symbol().size(pointsize).type(symbolSquare))
+            }
+            if(datoswnominate.votacion[0][P]===4){
+                svg.select(path).attr("d", symbol().size(pointsize).type(symbolDiamond))
+            }
         }
 
         var partidosAct=datoswnominate.wnominate.map(function(key){
@@ -236,8 +257,8 @@ function GraficoPrincipal({setId,setXY}){
     },[setId,setXY]);
     return(
                     <svg    ref={svgRef} className="chart"
-                            width="90%"
-                            height="90%"
+                            width="100%"
+                            height="100%"
                             viewBox={vBox}
                             position="absolute"
                             preserveAspectRatio="xMidYMid meet"
