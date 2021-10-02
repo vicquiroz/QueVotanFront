@@ -71,7 +71,7 @@ function GraficoBarra(){
     const svgRef = useRef();
 
     useEffect(()=> {
-        svg = select(svgRef.current).style("background-color","rgb(240,240,240)")
+        svg = select(svgRef.current)
         var x = scaleLinear().range([0, width-0.2*margin]);
         var y = scaleBand().range([height-margin, 0]).padding(0.1);
         x.domain([0, max(data, function(d){ return d.Valor; })])
