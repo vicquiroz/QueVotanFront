@@ -45,7 +45,7 @@ var vBox;
 if(window.innerWidth<600){
     textsize=".5rem"
     hovertext=".5rem"
-    pointsize=50
+    pointsize=25
     hullSize=2
 }
 else{
@@ -80,8 +80,8 @@ datoswnominate.wnominate=datoswnominate.wnominate.filter((dat)=> {return dat.par
 
 function GraficoPrincipal({setId,setXY}){
     dim= window.innerWidth*0.8;   //No cambiar
-    width = dim*0.75;
-    height = dim*0.75;
+    width = dim*0.68;
+    height = dim*0.68;
     margin = dim-0.95*dim;
     dCuadrado = dim-0.97*dim;     //No cambiar
     marginDim = margin*2;         //No cambiar
