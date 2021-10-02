@@ -36,6 +36,7 @@ var escalax
 var escalay
 var transpPuntos = "0.2"
 var textsize;
+var textsize2;
 var pointsize;
 var hovertext;
 var hullSize;
@@ -44,6 +45,7 @@ var vBox;
 //Modo Telefono
 if(window.innerWidth<600){
     textsize=".5rem"
+    textsize2=".4rem"
     hovertext=".5rem"
     pointsize=50
     hullSize=2
@@ -52,6 +54,7 @@ else{
     //Modo 4k
     if(window.innerWidth>2000){
         textsize="3.3rem"
+        textsize2="3.3rem"
         hovertext="1.5rem"
         pointsize=1000
         hullSize=4
@@ -60,6 +63,7 @@ else{
         //Modo 4:3
         if(window.innerWidth<900){
             textsize=".9rem"
+            textsize2=".8rem"
             hovertext=".9rem"
             pointsize=125
             hullSize=2
@@ -67,6 +71,7 @@ else{
         //Modo Estandar
         else{
             textsize="1.3rem"
+            textsize2="1.3rem"
             hovertext="1.3rem"
             pointsize=200
             hullSize=3
@@ -220,6 +225,7 @@ function GraficoPrincipal({setId,setXY}){
             return key.party
         })
         partidosAct=[...new Set(partidosAct)].sort()
+        const vot=["△: A favor","▽: En contra","○: Abstenido","▢: Dispensado","◇: No presente"]
         var legend=svg.selectAll("legend")
         legend.data(partidosAct)
             .enter()
@@ -252,6 +258,18 @@ function GraficoPrincipal({setId,setXY}){
                 svg.selectAll("g.brush").call(brush().clear)
                 SelectParty(this,{setId},{setXY})
             })
+
+        legend.data(vot)
+            .enter()
+            .append("text")
+            .attr("x",width+4*dCuadrado)
+            .attr("y",function(d,i){ return 3.85*dCuadrado+i*(heightDim-dCuadrado)/17})
+            .attr("width",dCuadrado*0.8)
+            .attr("height",dCuadrado*0.8)
+            .text(function(d){ return d})
+            .style("font-size",textsize2)
+            .style("font-family","Lucida Sans Unicode")
+            .attr("id", value => value)
 
         ClearGraph({setId},{setXY})
     },[setId,setXY]);
