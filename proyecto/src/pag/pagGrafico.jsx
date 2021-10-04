@@ -30,7 +30,7 @@ function PagGrafico(){
             <Row>
                 <Col className="col-12 col-sm-6">
                     <div className="d-flex justify-content-center">
-                        <GraficoBarra/>
+                        <GraficoBarra idCon={idCon}/>
                     </div>
                 </Col>
                 <Col className="col-12 col-sm-6">

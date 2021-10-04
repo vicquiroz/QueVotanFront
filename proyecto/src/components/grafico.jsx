@@ -14,13 +14,13 @@ const partidos = {
     "IC"    :"rgb(231,126,49)",
     "PS"    :"rgb(217,33,32)",
     "IND"   :"rgb(10,120,0)",
-    "PC"    :"rgb(255,215,0)",
+    "PC"    :"rgb(202,178,214)",
     "EV"    :"rgb(10,10,146)",
     "PL"    :"rgb(140,0,120)",
     "RD"    :"rgb(100,100,100)",
     "EVOP"  :"rgb(200,100,100)",
     "S/I"   :"rgb(50,255,50)",
-    "DC"    :"rgb(255,255,255)"
+    "DC"    :"rgb(255,215,0)"
 }
 
 var svg;  
@@ -255,11 +255,11 @@ function GraficoPrincipal({setId,setXY}){
                 svg.selectAll("g.brush").call(brush().clear)
                 SelectParty(this,{setId},{setXY})
             })
-        const vot=["△: A favor","▽: En contra","○: Abstenido","▢: Dispensado","◇: No presente"]
+        const vot=["△ A favor","▽ En contra","○ Abstenido","▢ Dispensado","◇ No presente"]
         legend.data(vot)
             .enter()
             .append("text")
-            .attr("x",width+4*dCuadrado)
+            .attr("x",width+4.3*dCuadrado)
             .attr("y",function(d,i){ return 3.85*dCuadrado+i*(heightDim-dCuadrado)/17})
             .attr("width",dCuadrado*0.8)
             .attr("height",dCuadrado*0.8)
@@ -269,6 +269,7 @@ function GraficoPrincipal({setId,setXY}){
             .attr("id", value => value)
             .on("click",function(event,d){
                 svg.selectAll("g.brush").call(brush().clear)
+                svg.selectAll("polygon").remove()
                 SelectEstado(this,{setId},{setXY})
             })
 
@@ -312,6 +313,8 @@ function brushed(event,{setId},{setXY}){
         }
         if(NodeSelec.length>0){
             svg.selectAll("path").transition().duration('50').attr('opacity',transpPuntos)
+            .transition()
+            .duration(200)
             for(let P in NodeSelec){
                 let path = "path#id_"+NodeSelec[P]
                 svg.selectAll(path).transition().duration('50').attr('opacity', '1')
@@ -368,8 +371,11 @@ function SelectParty(event,{setId},{setXY}){
         .attr("points",function(d){
             return d.map(function(d) { return [d.x*escalay+escalax+margin,(2*escalax)-(d.y*escalay+escalax)].join(","); });})
         .attr("stroke", partidos[event.id])
+        .transition()
+        .duration(200)
         .attr("stroke-width",hullSize)
         .attr("fill","none")
+        
     }
     else{
         svg.selectAll("polygon").remove()
@@ -378,7 +384,7 @@ function SelectParty(event,{setId},{setXY}){
 }
 
 function SelectEstado(event,{setId},{setXY}){
-    const estados={"△: A favor":1,"▽: En contra":0,"○: Abstenido":2,"▢: Dispensado":3,"◇: No presente":4}
+    const estados={"△ A favor":1,"▽ En contra":0,"○ Abstenido":2,"▢ Dispensado":3,"◇ No presente":4}
     console.log(estados[event.id])
     let Nodes=datoswnominate.wnominate.filter((dat)=> {return datoswnominate.votacion[0][dat.ID]===estados[event.id]});
     let NodeSelec = []
@@ -414,6 +420,8 @@ function ClickPoint(d,{setId},{setXY}){
 
 function ClearGraph({setId},{setXY}){
     svg.selectAll("path").transition().duration('50').attr('opacity', '1')
+    .transition()
+    .duration(200)
     var Nodes = []
     var NodeSelec = []
     let posicionX = []
