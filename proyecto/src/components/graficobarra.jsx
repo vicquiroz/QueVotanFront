@@ -33,7 +33,6 @@ else{
 }
 
 function GraficoBarra(){
-    console.log(datoswnominate.votacion[0])
     let CNo=datoswnominate.wnominate.filter((data)=> {return datoswnominate.votacion[0][data.ID]===0}).length
     let CSi=datoswnominate.wnominate.filter((data)=> {return datoswnominate.votacion[0][data.ID]===1}).length
     let CA= datoswnominate.wnominate.filter((data)=> {return datoswnominate.votacion[0][data.ID]===2}).length

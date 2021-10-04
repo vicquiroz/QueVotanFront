@@ -220,12 +220,10 @@ function GraficoPrincipal({setId,setXY}){
                 svg.select(path).attr("d", symbol().size(pointsize).type(symbolDiamond))
             }
         }
-
         var partidosAct=datoswnominate.wnominate.map(function(key){
             return key.party
         })
         partidosAct=[...new Set(partidosAct)].sort()
-        const vot=["△: A favor","▽: En contra","○: Abstenido","▢: Dispensado","◇: No presente"]
         var legend=svg.selectAll("legend")
         legend.data(partidosAct)
             .enter()
@@ -242,7 +240,6 @@ function GraficoPrincipal({setId,setXY}){
                 svg.selectAll("g.brush").call(brush().clear)
                 SelectParty(this,{setId},{setXY})
             })
-        
         legend.data(partidosAct)
             .enter()
             .append("text")
@@ -258,7 +255,7 @@ function GraficoPrincipal({setId,setXY}){
                 svg.selectAll("g.brush").call(brush().clear)
                 SelectParty(this,{setId},{setXY})
             })
-
+        const vot=["△: A favor","▽: En contra","○: Abstenido","▢: Dispensado","◇: No presente"]
         legend.data(vot)
             .enter()
             .append("text")
@@ -270,6 +267,10 @@ function GraficoPrincipal({setId,setXY}){
             .style("font-size",textsize2)
             .style("font-family","Lucida Sans Unicode")
             .attr("id", value => value)
+            .on("click",function(event,d){
+                svg.selectAll("g.brush").call(brush().clear)
+                SelectEstado(this,{setId},{setXY})
+            })
 
         ClearGraph({setId},{setXY})
     },[setId,setXY]);
@@ -374,6 +375,27 @@ function SelectParty(event,{setId},{setXY}){
         svg.selectAll("polygon").remove()
     }
     
+}
+
+function SelectEstado(event,{setId},{setXY}){
+    const estados={"△: A favor":1,"▽: En contra":0,"○: Abstenido":2,"▢: Dispensado":3,"◇: No presente":4}
+    console.log(estados[event.id])
+    let Nodes=datoswnominate.wnominate.filter((dat)=> {return datoswnominate.votacion[0][dat.ID]===estados[event.id]});
+    let NodeSelec = []
+    let posicionX = []
+    let posicionY = []
+    let posicionC = []
+    svg.selectAll("path").transition().duration('50').attr('opacity',transpPuntos)
+    for(let P in Nodes){
+        NodeSelec.push(Nodes[P].ID)
+        let path = "path#id_"+Nodes[P].ID
+        svg.selectAll(path).transition().duration('50').attr('opacity', '1')
+        posicionX.push(Number(Nodes[P].coord1D));
+        posicionY.push(Number(Nodes[P].coord2D));
+        posicionC.push([Number(Nodes[P].coord1D),Number(Nodes[P].coord2D)])
+    }
+    setId(NodeSelec);
+    setXY([posicionX,posicionY]);
 }
 
 function ClickPoint(d,{setId},{setXY}){
