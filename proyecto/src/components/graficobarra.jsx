@@ -94,8 +94,8 @@ function GraficoBarra({idCon}){
         .style("border-radius","8px")
         .style("font-size",textsize)
         .style("font-family","Lucida Sans Unicode")
-
-        svg.selectAll(".bar")
+        if(x.domain()[1]!=0){
+            svg.selectAll(".bar")
             .data(data)
             .enter().append("rect")
             .attr("class", "bar")
@@ -119,11 +119,8 @@ function GraficoBarra({idCon}){
                 return colores[d.TipoDato]
             })
             .attr("width", function(d) {return x(d.Valor); } )
-            
-            
-            
-
-
+        }
+        
         svg.append("g")
             .attr("transform", "translate("+margin+","+(height)+")")
             .style("font-size",textsize)
