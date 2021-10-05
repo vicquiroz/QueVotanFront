@@ -24,7 +24,7 @@ var hullSize;
 var vBox;
 
 //Modo Telefono
-if(window.innerWidth<600){
+if(window.innerWidth<800){
     textsize=".5rem"
     textsize2=".4rem"
     hovertext=".5rem"
@@ -42,7 +42,7 @@ else{
     }
     else{
         //Modo 4:3
-        if(window.innerWidth<900){
+        if(window.innerWidth<1200){
             textsize=".9rem"
             textsize2=".8rem"
             hovertext=".9rem"
