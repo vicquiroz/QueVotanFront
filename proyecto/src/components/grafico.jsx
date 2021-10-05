@@ -2,26 +2,8 @@ import React, {useRef, useEffect, useState} from 'react';
 import { Container} from 'reactstrap';
 import {select, symbol, symbolTriangle,symbolCircle,symbolSquare,symbolDiamond, brush, axisLeft, axisBottom, scaleLinear} from 'd3';
 import datos from '../Coord.json'
+import partidos from './partidos.json'
 import {polygonHull} from 'd3-polygon';
-const partidos = {
-    "RN"    :"rgb(120,28,129)",
-    "PPD"   :"rgb(64,67,253)",
-    "UDI"   :"rgb(72,139,194)",
-    "PRSD"  :"rgb(107,178,140)",
-    "AMP"   :"rgb(159,190,87)",
-    "PDC"   :"rgb(210,179,63)",
-    "IC"    :"rgb(231,126,49)",
-    "PS"    :"rgb(217,33,32)",
-    "IND"   :"rgb(10,120,0)",
-    "PC"    :"rgb(202,178,214)",
-    "EV"    :"rgb(10,10,146)",
-    "PL"    :"rgb(140,0,120)",
-    "RD"    :"rgb(100,100,100)",
-    "EVOP"  :"rgb(200,100,100)",
-    "S/I"   :"rgb(50,255,50)",
-    "DC"    :"rgb(255,215,0)"
-}
-
 var svg;  
 var dim 
 var width 
@@ -216,10 +198,14 @@ function GraficoPrincipal({setId,setXY,datoswnominate}){
                 svg.select(path).attr("d", symbol().size(pointsize).type(symbolDiamond))
             }
         }
+       
         var partidosAct=datoswnominate.wnominate.map(function(key){
             return key.party
         })
-        partidosAct=[...new Set(partidosAct)].sort()
+        partidosAct=[...new Set(partidosAct)]
+        partidosAct.sort(function(a, b){  
+            return Object.keys(partidos).indexOf(a) - Object.keys(partidos).indexOf(b);
+          });
         var legend=svg.selectAll("legend")
         legend.data(partidosAct)
             .enter()
