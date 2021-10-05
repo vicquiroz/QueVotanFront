@@ -8,7 +8,6 @@ import 'bootstrap/dist/css/bootstrap.css';
 
 import {Provider} from 'react-redux'
 import generateStore from './redux/store'
-import Votacion from './components/Votacion.jsx'
 function App() {
   const store = generateStore()
   return (
@@ -23,16 +22,10 @@ function App() {
             </Route>
           </Switch>
           <Switch>
-            <Route path="/grafico">
-              <div> 
-                <PagGrafico/>
-              </div>
-            </Route>
+            <Route path="/grafico/:handle" component={PagGrafico}/>
           </Switch>
           <Switch>
-            <Route path="/acerca">
-              <AcercaDe/>
-            </Route>
+            <Route path="/acerca" component={AcercaDe}/>
           </Switch>
         </Container>
       </Provider>

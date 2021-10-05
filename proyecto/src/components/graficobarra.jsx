@@ -1,6 +1,5 @@
 import React, {useRef, useEffect} from 'react';
 import {select, max, scaleLinear, scaleBand, axisLeft, axisBottom} from 'd3';
-import datoswnominate from '../WNominate/Wnominate_export29151.json';
 import { $CombinedState } from 'redux';
 
 var svg;  
@@ -43,7 +42,7 @@ else{
     }
 }
 
-function GraficoBarra({idCon}){
+function GraficoBarra({idCon,datoswnominate}){
     var datosselec=[]
     if(idCon!=undefined){
         for(let P in idCon){
@@ -70,8 +69,6 @@ function GraficoBarra({idCon}){
         "Dispensado":"rgb(253,174,97)",
         "No Vota":"rgb(255,255,191)"
     }
-    
-    
     vBox="0 "+String(margin)+" "+String(dim)+" "+String(height-0.7*margin)
     const svgRef = useRef();
     useEffect(()=> {

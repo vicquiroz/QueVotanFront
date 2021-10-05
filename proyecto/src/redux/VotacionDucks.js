@@ -1,27 +1,29 @@
 import axios from 'axios'
 
 const VotacionI = {
+    stateDispatch:false,
     array : []
 }
 
-const OBTENER_VOTACION_EXITO = 'OBTENER_VOTACION_EXITO'
+const OBTENER_PRIMERASVOTACIONES_EXITO = 'OBTENER_PRIMERASVOTACIONES_EXITO'
 
-export default function votacionReducer(state = VotacionI, action){
+export default function primerasVotacionesReducer(state = VotacionI, action){
     switch(action.type){
-        case OBTENER_VOTACION_EXITO:
+        case OBTENER_PRIMERASVOTACIONES_EXITO:
             return {...state, array: action.payload}
         default:
             return state
     }
 }
 
-export const obtenerVotacionAccion = () => async(dispatch,getState) => {
+export const obtenerPrimerasVotacionesAccion = () => async(dispatch,getState) => {
     try {
         //Esta constante debe ser cambiada por su equivalente en API
-        const res = await axios.get(String(process.env.REACT_APP_API_URL))
+        const res = await axios.get(String(process.env.REACT_APP_API_URL)+"wnominate/diputados/all/")
         dispatch({
-            type: OBTENER_VOTACION_EXITO,
-            payload: res.data
+            type: OBTENER_PRIMERASVOTACIONES_EXITO,
+            payload: res.data,
+            stateDispatch:true
         })
     } catch (error) {
         console.log(error)

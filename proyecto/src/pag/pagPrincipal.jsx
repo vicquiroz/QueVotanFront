@@ -6,16 +6,20 @@ import {Container, Col, Row} from "reactstrap";
 
 import {useDispatch, useSelector} from 'react-redux'
 import {obtenerTagsAccion} from '../redux/TagsDucks'
+import {obtenerPrimerasVotacionesAccion} from '../redux/VotacionDucks'
 function Principal(){
 
     const [busqueda, setBusqueda] = useState(); 
     const [idTag, setIdTag] = useState();
     const dispatch = useDispatch()
     const tags = useSelector(store => store.tags.array)
+    const primerasVotaciones = useSelector(store => store.primerasVotaciones.array)
 
     useEffect(()=> {
         dispatch(obtenerTagsAccion())
+        dispatch(obtenerPrimerasVotacionesAccion())
     },[]);
+    
     return(
         <Container>
             <Row>
@@ -36,6 +40,7 @@ function Principal(){
                 <Col>
                     <Tabla
                         busqueda={busqueda}
+                        primerasVotaciones={primerasVotaciones}
                     />
                 </Col>
             </Row>

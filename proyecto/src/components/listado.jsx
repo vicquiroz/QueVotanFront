@@ -3,8 +3,7 @@ import { Container,Row,Col,Label} from 'reactstrap';
 import {useDispatch, useSelector} from 'react-redux'
 import { obtenerInfoDiputadosAccion } from '../redux/InfoDipDucks';
 import datos from '../Coord.json';
-import datoswnominate from '../WNominate/Wnominate_export29151.json';
-function MostrarLista({idCon}){
+function MostrarLista({idCon,datoswnominate}){
     var nombres = [];
     for(let i in idCon) nombres.push(datoswnominate.wnominate.find(d => d.ID ===idCon[i]).Nombre);
     const filteredPosts = filterPosts(datoswnominate.wnominate, idCon,nombres);

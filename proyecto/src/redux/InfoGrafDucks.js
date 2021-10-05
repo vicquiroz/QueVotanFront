@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 const InfoGraficoI = {
-    array: []
+    array: {}
 }
 
 const OBTENER_INFOGRAFICO_EXITO = 'OBTENER_INFOGRAFICO_EXITO'
@@ -15,10 +15,9 @@ export default function infoGraficoReducer(state = InfoGraficoI, action){
     }
 }
 
-export const obtenerInfoGraficoAccion = () => async(dispatch,getState) => {
+export const obtenerInfoGraficoAccion = (idWnominate) => async(dispatch,getState) => {
     try {
-        //Esta constante debe ser cambiada por su equivalente en API
-        const res = await axios.get(String(process.env.REACT_APP_API_URL))
+        const res = await axios.get(String(process.env.REACT_APP_API_URL)+"wnominate/diputados/"+idWnominate)
         dispatch({
             type: OBTENER_INFOGRAFICO_EXITO,
             payload: res.data

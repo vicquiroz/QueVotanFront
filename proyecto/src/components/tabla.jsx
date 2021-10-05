@@ -3,7 +3,7 @@ import {Container} from 'reactstrap'
 import { Link } from "react-router-dom";
 
 
-function Tabla({busqueda}){
+function Tabla({busqueda,primerasVotaciones}){
 
     const posts = [
         { id: '1', name: 'Votacion por covid' },
@@ -17,10 +17,16 @@ function Tabla({busqueda}){
     return(
         <Container>
             <ul className="list-group">
-                {filteredPosts.map((post) => ( 
+                {
+                //filteredPost.map
+                }
+                {primerasVotaciones.map((post) => ( 
                     <li className="list-group-item list-group-item-action" key={post.id}>
-                        <Link to="/grafico" style={{ textDecoration: 'none' }}>
-                            {post.name}
+                        <Link to={"/grafico/"+post.id} style={{ textDecoration: 'none' }}>
+                            {
+                            //post.name
+                            post.id
+                            }
                         </Link>
                     </li>
                 ))}

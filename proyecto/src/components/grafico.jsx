@@ -2,7 +2,6 @@ import React, {useRef, useEffect, useState} from 'react';
 import { Container} from 'reactstrap';
 import {select, symbol, symbolTriangle,symbolCircle,symbolSquare,symbolDiamond, brush, axisLeft, axisBottom, scaleLinear} from 'd3';
 import datos from '../Coord.json'
-import datoswnominate from '../WNominate/Wnominate_export29151.json';
 import {polygonHull} from 'd3-polygon';
 const partidos = {
     "RN"    :"rgb(120,28,129)",
@@ -79,11 +78,8 @@ else{
         
     }
 }
-
-//Filtrar partidos contenidos en var partidos
-datoswnominate.wnominate=datoswnominate.wnominate.filter((dat)=> {return dat.party!==partidos.key});
-
-function GraficoPrincipal({setId,setXY}){
+function GraficoPrincipal({setId,setXY,datoswnominate}){
+    datoswnominate.wnominate=datoswnominate.wnominate.filter((dat)=> {return dat.party!==partidos.key})
     dim= window.innerWidth*0.8;   //No cambiar
     width = dim*0.68;
     height = dim*0.68;
@@ -159,8 +155,8 @@ function GraficoPrincipal({setId,setXY}){
 
         svg.append("g")
         .attr("class", "brush")
-        .call(brush().on("start end", function(event){
-            brushed(event,{setId},{setXY})
+        .call(brush().on("end", function(event){
+            brushed(event,{setId},{setXY},{datoswnominate})
         }))
         var div = select("body").append("div")
         .attr("class", "tooltip")
@@ -229,7 +225,7 @@ function GraficoPrincipal({setId,setXY}){
             .enter()
             .append("rect")
             .attr("x",width+dCuadrado)
-            .attr("y",function(d,i){ return 3.2*dCuadrado+i*(heightDim-dCuadrado)/17})
+            .attr("y",function(d,i){ return 3.2*dCuadrado+i*(heightDim-dCuadrado)/20})
             .attr("width",dCuadrado*0.8)
             .attr("height",dCuadrado*0.8)
             .style("fill",function(d){
@@ -238,13 +234,13 @@ function GraficoPrincipal({setId,setXY}){
             .attr("id", value => value)
             .on("click",function(event,d){
                 svg.selectAll("g.brush").call(brush().clear)
-                SelectParty(this,{setId},{setXY})
+                SelectParty(this,{setId},{setXY},{datoswnominate})
             })
         legend.data(partidosAct)
             .enter()
             .append("text")
             .attr("x",width+2*dCuadrado)
-            .attr("y",function(d,i){ return 3.85*dCuadrado+i*(heightDim-dCuadrado)/17})
+            .attr("y",function(d,i){ return 3.85*dCuadrado+i*(heightDim-dCuadrado)/20})
             .attr("width",dCuadrado*0.8)
             .attr("height",dCuadrado*0.8)
             .text(function(d){ return d})
@@ -253,7 +249,7 @@ function GraficoPrincipal({setId,setXY}){
             .attr("id", value => value)
             .on("click",function(event,d){
                 svg.selectAll("g.brush").call(brush().clear)
-                SelectParty(this,{setId},{setXY})
+                SelectParty(this,{setId},{setXY},{datoswnominate})
             })
         const vot=["△ A favor","▽ En contra","○ Abstenido","▢ Dispensado","◇ No presente"]
         legend.data(vot)
@@ -270,10 +266,10 @@ function GraficoPrincipal({setId,setXY}){
             .on("click",function(event,d){
                 svg.selectAll("g.brush").call(brush().clear)
                 svg.selectAll("polygon").remove()
-                SelectEstado(this,{setId},{setXY})
+                SelectEstado(this,{setId},{setXY},{datoswnominate})
             })
 
-        ClearGraph({setId},{setXY})
+        ClearGraph({setId},{setXY},{datoswnominate})
     },[setId,setXY]);
     return(
                     <svg    ref={svgRef} className="chart"
@@ -286,7 +282,15 @@ function GraficoPrincipal({setId,setXY}){
         )
 }
 
-function brushed(event,{setId},{setXY}){
+function brushed(event,{setId},{setXY},{datoswnominate}){
+    if(datoswnominate===undefined){
+        datoswnominate={
+            "id":0,
+            "wnominate":[{}],
+            "fecha_vot": "Aca va la fecha",
+            "votacion" :[{}]
+        }
+    }
     var S = event.selection
     var NodeSelec = []
     if(S!=null){
@@ -334,11 +338,11 @@ function brushed(event,{setId},{setXY}){
         svg.selectAll("polygon").remove()
     }
     else{
-        ClearGraph({setId},{setXY})
+        ClearGraph({setId},{setXY},{datoswnominate})
     }
 }
 
-function SelectParty(event,{setId},{setXY}){
+function SelectParty(event,{setId},{setXY},{datoswnominate}){
     let Nodes=datoswnominate.wnominate.filter((dat)=> {return dat.party===event.id});
     let NodeSelec = []
     let posicionX = []
@@ -383,9 +387,8 @@ function SelectParty(event,{setId},{setXY}){
     
 }
 
-function SelectEstado(event,{setId},{setXY}){
+function SelectEstado(event,{setId},{setXY},{datoswnominate}){
     const estados={"△ A favor":1,"▽ En contra":0,"○ Abstenido":2,"▢ Dispensado":3,"◇ No presente":4}
-    console.log(estados[event.id])
     let Nodes=datoswnominate.wnominate.filter((dat)=> {return datoswnominate.votacion[0][dat.ID]===estados[event.id]});
     let NodeSelec = []
     let posicionX = []
@@ -418,7 +421,7 @@ function ClickPoint(d,{setId},{setXY}){
     svg.selectAll("polygon").remove()
 }
 
-function ClearGraph({setId},{setXY}){
+function ClearGraph({setId},{setXY},{datoswnominate}){
     svg.selectAll("path").transition().duration('50').attr('opacity', '1')
     .transition()
     .duration(200)
