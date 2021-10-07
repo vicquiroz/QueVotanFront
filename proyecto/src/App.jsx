@@ -2,6 +2,7 @@ import React from "react"
 import Principal from "./pag/pagPrincipal.jsx";
 import PagGrafico from "./pag/pagGrafico.jsx";
 import AcercaDe from "./pag/acercaDe.jsx";
+import Congresista from "./pag/pagCong.jsx";
 import {Container} from "reactstrap"
 import { BrowserRouter as Router, Switch, Route} from "react-router-dom"; 
 import 'bootstrap/dist/css/bootstrap.css';
@@ -23,6 +24,9 @@ function App() {
           </Switch>
           <Switch>
             <Route path="/grafico/:handle" component={PagGrafico}/>
+          </Switch>
+          <Switch>
+            <Route path="/congresista/:handle" component={Congresista}/>
           </Switch>
           <Switch>
             <Route path="/acerca" component={AcercaDe}/>

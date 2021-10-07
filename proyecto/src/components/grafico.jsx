@@ -80,7 +80,7 @@ function GraficoPrincipal({setId,setXY,datoswnominate}){
         function Redimension(){
             window.location.href = window.location.href;
         }
-        if(window.innerWidth>=600){
+        if(window.innerWidth>=800){
             window.addEventListener('resize', Redimension)
         }
     })
@@ -355,16 +355,32 @@ function SelectParty(event,{setId},{setXY},{datoswnominate}){
                 "y":hull[i][1]})
         }
         svg.selectAll("polygon").remove()
-        svg.selectAll("polygon")
+
+        svg.selectAll("polygon1")
         .data([hullJson])
-        .enter().append("polygon")
+        .enter()
+        .append("polygon")
+        .attr("points",function(d){
+            return d.map(function(d) { return [d.x*escalay+escalax+margin,(2*escalax)-(d.y*escalay+escalax)].join(","); });})
+        .attr("stroke", "rgb(0,0,0)")
+        .transition()
+        .duration(200)
+        .attr("stroke-width",hullSize*2)
+        .attr("fill",'none')
+
+        svg.selectAll("polygon2")
+        .data([hullJson])
+        .enter()
+        .append("polygon")
         .attr("points",function(d){
             return d.map(function(d) { return [d.x*escalay+escalax+margin,(2*escalax)-(d.y*escalay+escalax)].join(","); });})
         .attr("stroke", partidos[event.id])
         .transition()
         .duration(200)
         .attr("stroke-width",hullSize)
-        .attr("fill","none")
+        .attr("fill",'none')
+
+        
         
     }
     else{

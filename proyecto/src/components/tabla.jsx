@@ -21,14 +21,14 @@ function Tabla({busqueda,primerasVotaciones}){
                 //filteredPost.map
                 }
                 {primerasVotaciones.map((post) => ( 
-                    <li className="list-group-item list-group-item-action" key={post.id}>
-                        <Link to={"/grafico/"+post.id} style={{ textDecoration: 'none' }}>
+                    <Link to={"/grafico/"+post.id} style={{ textDecoration: 'none' }}>
+                        <li className="list-group-item list-group-item-action" key={post.id}>
                             {
                             //post.name
                             post.id
                             }
-                        </Link>
-                    </li>
+                        </li>
+                    </Link>
                 ))}
             </ul>
         </Container>

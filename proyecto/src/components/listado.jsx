@@ -1,17 +1,16 @@
 import React,{useEffect} from 'react';
 import { Container,Row,Col,Label} from 'reactstrap';
 import {useDispatch, useSelector} from 'react-redux'
-import { obtenerInfoDiputadosAccion } from '../redux/InfoDipDucks';
+//import { obtenerInfoDiputadosAccion } from '../redux/InfoDipDucks';
+import { Link } from "react-router-dom";
 import datos from '../Coord.json';
 function MostrarLista({idCon,datoswnominate}){
     var nombres = [];
     for(let i in idCon) nombres.push(datoswnominate.wnominate.find(d => d.ID ===idCon[i]).Nombre);
     const filteredPosts = filterPosts(datoswnominate.wnominate, idCon,nombres);
-
-    const dispatch = useDispatch()
+    /*const dispatch = useDispatch()
     const infoDip = useSelector(store => store.infoDiputados.array)
     var TestNombre=[]
-    /*
     useEffect(()=> {
         for(let i in idCon){
             dispatch(obtenerInfoDiputadosAccion(idCon[i]))
@@ -31,9 +30,9 @@ function MostrarLista({idCon,datoswnominate}){
                     <Row>
                         {filteredPosts.map((post) => ( 
                         <Col className="col-6 col-sm-3" key={post["ID"]}>
-                            <Label className="list-group-flush list-group-item-action">
+                            <Link to={"/congresista/"+post["ID"]} style={{ textDecoration: 'none' }} className="list-group-flush list-group-item-action">
                                 {post["Nombre"]}
-                            </Label>
+                            </Link>
                         </Col>
                         ))}
                     </Row>

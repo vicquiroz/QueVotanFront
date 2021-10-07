@@ -10,13 +10,12 @@ function Barra(){
                 <Nav className="navbar navbar-inverse bg-dark bg-gradient rounded-bottom">
                 <Container className="container-fluid">
                     <NavItem>
-                            <Link to="/" style={{ textDecoration: 'none' }}>
-                                <span className="navbar-brand mb-0 h1 text-light">¿Qué votan?</span>
-                            </Link>
+                        <span className="navbar-brand mb-0 h1 text-light">¿Qué votan?</span>
                     </NavItem>
                     <NavItem>
                         <div className="btn-group">
                             <ul>
+                                <Button className="btn-sm" color="primary"><Link to="/" style={{ textDecoration: 'none' }} className="text-light">Inicio</Link></Button>
                                 <Button className="btn-sm" color="secondary">Congreso</Button>
                                 <Button className="btn-sm" color="secondary">Partidos</Button>
                                 <Button className="btn-sm" color="secondary">Datos</Button>
