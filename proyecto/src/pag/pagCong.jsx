@@ -1,10 +1,11 @@
 import React,{useEffect} from "react";
 import Barra from "../components/barra";
-import {Container, Col, Row} from "reactstrap";
+import {Container, Col, Row, Button} from "reactstrap";
 import {useParams} from 'react-router-dom'
 import {useDispatch, useSelector} from 'react-redux'
 import { obtenerInfoDiputadosAccion } from '../redux/InfoDipDucks';
 import { obtenerIntervenCongresAccion} from '../redux/IntervenCongresDucks'
+
 function Congresista(){
     const {handle} = useParams()
     const dispatch = useDispatch()
@@ -14,7 +15,6 @@ function Congresista(){
             dispatch(obtenerInfoDiputadosAccion(handle))
             dispatch(obtenerIntervenCongresAccion(handle))
     },[]);
-    //console.log(intervenCongres)
     var infoD="";
     var titleD;
     if(typeof(infoDip)==="string"){
@@ -26,6 +26,18 @@ function Congresista(){
             infoD=infoDip
         }
     }
+
+    function Lista(intervenCongres){
+        const lista = intervenCongres.slice(0,10).map((post)=>(
+            <Row key={post["id"]}>
+                <Col>
+                    {post["Titulo"]}
+                </Col>
+            </Row>
+        ))
+        return lista
+    }
+    //console.log(Lista(intervenCongres))
     return(
         <Container>
             <Row>
@@ -51,6 +63,7 @@ function Congresista(){
                         <h4>Votaciones donde ha participado</h4>
                     </Col>
                 </Row>
+                {Lista(intervenCongres)}
             </Container>
         </Container>
     );
