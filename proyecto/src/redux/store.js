@@ -6,6 +6,7 @@ import primerasVotacionesReducer from './VotacionDucks'
 import infoCongresistasReducer from './InfoCongDucks'
 import infoGraficoReducer from './InfoGrafDucks'
 import infoDiputadosReducer from './InfoDipDucks'
+import intervenCongresReducer from './IntervenCongresDucks'
 import tagsReducer from './TagsDucks'
 
 const rootReducer = combineReducers({
@@ -13,7 +14,8 @@ const rootReducer = combineReducers({
     infoCongresistas: infoCongresistasReducer,
     infoGrafico: infoGraficoReducer,
     tags: tagsReducer,
-    infoDiputados: infoDiputadosReducer
+    infoDiputados: infoDiputadosReducer,
+    intervenCongres: intervenCongresReducer
     // En el caso de que se agregen mas, se coloca ,nuevodato :ReductorNuevoDato
 })
 

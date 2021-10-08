@@ -21,7 +21,7 @@ function Tabla({busqueda,primerasVotaciones}){
                 //filteredPost.map
                 }
                 {primerasVotaciones.map((post) => ( 
-                    <Link to={"/grafico/"+post.id} style={{ textDecoration: 'none' }}>
+                    <Link onClick={()=> window.location.href="/grafico/"+post.id} style={{ textDecoration: 'none' }}>
                         <li className="list-group-item list-group-item-action" key={post.id}>
                             {
                             //post.name

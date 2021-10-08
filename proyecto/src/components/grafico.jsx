@@ -72,20 +72,17 @@ function GraficoPrincipal({setId,setXY,datoswnominate}){
     widthDim=width-marginDim;     //No cambiar
     escalax = height/2;           //No cambiar
     escalay = height/2-2*margin;  //No cambiar
-    
     vBox="0 "+String(margin*1.5)+" "+String(dim)+" "+String(height-2.5*margin)
     
-
     useEffect(()=>{
         function Redimension(){
-            window.location.href = window.location.href;
-        }
-        if(window.innerWidth>=800){
-            window.addEventListener('resize', Redimension)
-        }
+            if(window.innerWidth>=800){
+                window.location.href = window.location.href;
+            }
+        } 
+        window.addEventListener('resize', Redimension)
     })
     const svgRef = useRef();
-    
     useEffect(()=> {
         var x = scaleLinear()
             .domain([-1, 1])         
@@ -241,7 +238,7 @@ function GraficoPrincipal({setId,setXY,datoswnominate}){
         legend.data(vot)
             .enter()
             .append("text")
-            .attr("x",width+4.3*dCuadrado)
+            .attr("x",width+5.5*dCuadrado)
             .attr("y",function(d,i){ return 3.85*dCuadrado+i*(heightDim-dCuadrado)/17})
             .attr("width",dCuadrado*0.8)
             .attr("height",dCuadrado*0.8)
@@ -264,6 +261,7 @@ function GraficoPrincipal({setId,setXY,datoswnominate}){
                             viewBox={vBox}
                             position="absolute"
                             preserveAspectRatio="xMidYMid meet"
+                            style={{"marginBottom":margin/3}} 
                     />
         )
 }

@@ -30,7 +30,7 @@ function MostrarLista({idCon,datoswnominate}){
                     <Row>
                         {filteredPosts.map((post) => ( 
                         <Col className="col-6 col-sm-3" key={post["ID"]}>
-                            <Link to={"/congresista/"+post["ID"]} style={{ textDecoration: 'none' }} className="list-group-flush list-group-item-action">
+                            <Link onClick={()=>window.location.href="/congresista/"+post["ID"]} style={{ textDecoration: 'none' }} className="list-group-flush list-group-item-action">
                                 {post["Nombre"]}
                             </Link>
                         </Col>

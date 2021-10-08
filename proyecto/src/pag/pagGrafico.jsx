@@ -44,6 +44,9 @@ function PagGrafico(){
                 </Col>
             </Row>
             <Row>
+                
+            </Row>
+            <Row>
                 <Col className="col-12 col-sm-6">
                     <div className="d-flex justify-content-center">
                         <GraficoBarra
@@ -58,6 +61,7 @@ function PagGrafico(){
                     />
                 </Col>
             </Row>
+            
             <Row>
                 <Col>
                     <MostrarLista
