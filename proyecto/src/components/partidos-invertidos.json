@@ -1,0 +1,23 @@
+{
+    "PC"    :"white",
+    "IC"    :"black",
+    "CS"    :"black",
+    "PH"    :"black",
+    "PS"    :"black",
+    "Comunes":"black",
+    "PR"    :"black",
+    "PRSD"  :"black",
+    "RD"    :"black",
+    "IND"   :"black",
+    "PFRVS" :"black",
+    "DC"    :"black",
+    "PPD"   :"black",
+    "PL"    :"black",
+    "PEV"   :"black",
+    "EVOP"  :"black",
+    "RN"    :"white",
+    "UDI"   :"white",
+    "Partido Republicano":"white",
+    "S/I"   :"black"
+}
+

@@ -10,7 +10,9 @@ function Barra(){
                 <Nav className="navbar navbar-inverse bg-dark bg-gradient rounded-bottom">
                 <Container className="container-fluid">
                     <NavItem>
+                    <Link to="/" style={{ textDecoration: 'none' }} className="text-light">
                         <span className="navbar-brand mb-0 h1 text-light">¿Qué votan?</span>
+                    </Link>
                     </NavItem>
                     <NavItem>
                         <div className="btn-group">
@@ -26,7 +28,6 @@ function Barra(){
                                     Acerca de
                                     </Button>
                                 </Link>
-                                
                                 {/*
                                 <ButtonDropdown isOpen={dropdownOpen} toggle={toggle}>
                                     <DropdownToggle className="btn-sm" split color="primary">Listado</DropdownToggle>

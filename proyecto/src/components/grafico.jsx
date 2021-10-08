@@ -3,6 +3,7 @@ import { Container} from 'reactstrap';
 import {select, symbol, symbolTriangle,symbolCircle,symbolSquare,symbolDiamond, brush, axisLeft, axisBottom, scaleLinear} from 'd3';
 import datos from '../Coord.json'
 import partidos from './partidos.json'
+import partidosinvertidos from './partidos-invertidos.json'
 import {polygonHull} from 'd3-polygon';
 var svg;  
 var dim 
@@ -360,7 +361,7 @@ function SelectParty(event,{setId},{setXY},{datoswnominate}){
         .append("polygon")
         .attr("points",function(d){
             return d.map(function(d) { return [d.x*escalay+escalax+margin,(2*escalax)-(d.y*escalay+escalax)].join(","); });})
-        .attr("stroke", "rgb(0,0,0)")
+        .attr("stroke",partidosinvertidos[event.id] )
         .transition()
         .duration(200)
         .attr("stroke-width",hullSize*2)
