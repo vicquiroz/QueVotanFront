@@ -5,9 +5,11 @@ import {useDispatch, useSelector} from 'react-redux'
 import { Link } from "react-router-dom";
 import datos from '../Coord.json';
 function MostrarLista({idCon,datoswnominate}){
+    const vot=["▽","△","○","▢","◇"]
     var nombres = [];
     for(let i in idCon) nombres.push(datoswnominate.wnominate.find(d => d.ID ===idCon[i]).Nombre);
     const filteredPosts = filterPosts(datoswnominate.wnominate, idCon,nombres);
+    console.log(datoswnominate)
     /*const dispatch = useDispatch()
     const infoDip = useSelector(store => store.infoDiputados.array)
     var TestNombre=[]
@@ -31,7 +33,12 @@ function MostrarLista({idCon,datoswnominate}){
                         {filteredPosts.map((post) => ( 
                         <Col className="col-6 col-sm-3" key={post["ID"]}>
                             <Link onClick={()=>window.location.href="/congresista/"+post["ID"]} style={{ textDecoration: 'none' }} className="list-group-flush list-group-item-action">
-                                {post["Nombre"]}
+                                <table style={{width:"100%"}}>
+                                    <tr>
+                                        <td style={{textAlign: 'left',verticalAlign:'top'}}>{post["Nombre"]}</td>
+                                        <td style={{textAlign: 'right',verticalAlign:'top'}}>({datoswnominate.wnominate.find(d => d.ID ===post["ID"]).party})[{vot[datoswnominate.votacion[0][post["ID"]]]}]</td>
+                                    </tr>
+                                </table>
                             </Link>
                         </Col>
                         ))}
@@ -54,7 +61,7 @@ const filterPosts = (posts, id, nombres) => {
     else{
         var nuevosDat = [{ID: "1", Nombre: "Snatch"}];
         for(let i in id){
-            nuevosDat.push({ID: id[i], Nombre: nombres[i]});
+            nuevosDat.push({ID: id[i], Nombre: nombres[i],});
         }
         nuevosDat.splice(0,1);
         return nuevosDat;

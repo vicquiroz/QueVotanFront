@@ -20,9 +20,9 @@ function Barra(){
                             <Link to="/" style={{ textDecoration: 'none' }} className="text-light">
                                 <Button className="btn-sm" color="primary">Inicio</Button>
                             </Link>
-                                <Button className="btn-sm" color="secondary">Congreso</Button>
-                                <Button className="btn-sm" color="secondary">Partidos</Button>
-                                <Button className="btn-sm" color="secondary">Datos</Button>
+                                {/*<Button className="btn-sm" color="secondary">Congreso</Button>*/}
+                                {/*<Button className="btn-sm" color="secondary">Partidos</Button>*/}
+                                {/*<Button className="btn-sm" color="secondary">Datos</Button>*/}
                                 <Link to="/acerca" className="text-light" style={{ textDecoration: 'none' }}>
                                     <Button className="btn-sm" color="secondary" >
                                     Acerca de

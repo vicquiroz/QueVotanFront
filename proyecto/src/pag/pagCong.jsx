@@ -1,13 +1,16 @@
 import React,{useEffect, useState} from "react";
 import Barra from "../components/barra";
-import {Container, Col, Row, Button} from "reactstrap";
+import {Container, Col, Row, Button, Navbar,NavbarBrand,NavLink,Nav} from "reactstrap";
 import {useParams} from 'react-router-dom'
 import {useDispatch, useSelector} from 'react-redux'
 import { obtenerInfoDiputadosAccion } from '../redux/InfoDipDucks';
 import { obtenerIntervenCongresAccion} from '../redux/IntervenCongresDucks'
 import InfiniteScroll from 'react-infinite-scroll-component'
-
+import nombrepartidos from '../components/nombre-partidos.json'
 function Congresista(){
+    function isEmpty(obj){
+        return Object.keys(obj).length===0
+    }
     const [iCL,setICL] = useState([])
     const [limit,setLimit]=useState()
     const {handle} = useParams()
@@ -22,17 +25,6 @@ function Congresista(){
         setICL(intervenCongres.slice(0,30))
         setLimit(60)
     },[intervenCongres])
-    var infoD="";
-    var titleD;
-    if(typeof(infoDip)==="string"){
-        if(infoDip.includes("Error")){
-            titleD=handle
-            infoD="No se ha encontrado información sobre dicho diputado en la base de datos. Esto puede deberse a que este diputado pertenece a un congreso antiguo, o no existen datos sobre el mismo."
-        }
-    }
-    else if(typeof(infoDip)=="object"){
-        titleD=infoDip.Nombre+" "+infoDip["Apellido Paterno"]+" "+infoDip["Apellido Materno"]
-    }
     const fetchData = () =>{
         setTimeout(() => {
             setICL(intervenCongres.slice(0,limit))
@@ -44,6 +36,7 @@ function Congresista(){
     //console.log(Lista(intervenCongres))
     return(
         <Container>
+            {!isEmpty(infoDip)?<div>
             <Row>
                 <Col>
                     <Barra/>
@@ -52,14 +45,42 @@ function Congresista(){
             <Container>
                 <Row>
                     <Col>
-                        <h1>{titleD}</h1>
+                        <h1>{infoDip.Nombre+" "+infoDip["Apellido Paterno"]+" "+infoDip["Apellido Materno"]}</h1>
                     </Col>  
                 </Row>
                 <Row>
-                    <Col>
-                        <p>
-                            {infoD} 
-                        </p>
+                    <Col className="col-md-3">
+                        <Navbar className="flex-column align-items-stretch p-3">
+                            <NavbarBrand className="text-dark">Identificador: {infoDip.id}</NavbarBrand>
+                            <Nav className="nav-pills flex-column">
+                                <NavLink className="text-dark">Partidos</NavLink>
+                                <Nav className="nav-pills flex-column">
+                                    {infoDip.Partido.map((post) => (
+                                        <div>
+                                            <NavLink className="ms-3 my-1 text-dark">
+                                                {nombrepartidos[post.party]} ({post.party})
+                                                <Nav className="nav-pills flex-column">
+                                                    <tr>
+                                                        <td>Ingreso:</td>
+                                                        <td>{post.begin.split("T")[0]}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Salida: </td>
+                                                        <td>{post.end.split("T")[0]}</td>
+                                                    </tr>   
+                                                </Nav>
+                                            </NavLink>
+                                            
+                                        </div>
+                                    ))}
+                                </Nav>
+                            </Nav>
+                        </Navbar>
+                    </Col>
+                    <Col className="col-auto">
+                        <Container>
+                           Biografía Pendiente
+                        </Container>
                     </Col>
                 </Row>
                 <Row>
@@ -79,6 +100,7 @@ function Congresista(){
                     ))}
                 </InfiniteScroll>
             </Container>
+            </div>:[]}
         </Container>
     );
 }
