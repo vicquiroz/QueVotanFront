@@ -1,48 +1,61 @@
-import React from 'react'
-import {Container} from 'reactstrap'
+import React, {useEffect, useState} from 'react'
+import {Container, CardBody, Card, CardHeader, CardText} from 'reactstrap'
 import { Link } from "react-router-dom";
+import InfiniteScroll from 'react-infinite-scroll-component'
 
 
 function Tabla({busqueda,primerasVotaciones}){
 
-    const posts = [
-        { id: '1', name: 'Votacion por covid' },
-        { id: '2', name: 'Votacion retiro afp' },
-        { id: '3', name: 'Votacion deporte de alto rendimiento' },
-        { id: '4', name: 'Votacion modificacion de leyes' }
-    ];
-   
-    const filteredPosts = filterPosts(posts, busqueda);
+    const [vot,setVot] = useState([])
+    const [limit,setLimit]=useState()
+
+    function PrimeraLetraMayuscula(string){
+        return string.charAt(0).toUpperCase() + string.slice(1);
+    }
+
+    useEffect(()=>{
+        setVot(primerasVotaciones.slice(0,10))
+        setLimit(20)
+    },[primerasVotaciones])
+
+    const fetchData = () =>{
+        setTimeout(() => {
+            setVot(primerasVotaciones.slice(0,limit))
+            if(limit<primerasVotaciones.length){
+                setLimit(limit+10)
+            }
+        },500);
+    }
 
     return(
         <Container>
-            <ul className="list-group">
-                {
-                //filteredPost.map
-                }
-                {primerasVotaciones.map((post) => ( 
+                <InfiniteScroll
+                dataLength={vot.length}
+                next={fetchData}
+                hasMore={true}
+                >
+                {vot.map((post) => ( 
                     <Link onClick={()=> window.location.href="/grafico/"+post.detalle_id} style={{ textDecoration: 'none' }}>
-                        <li className="list-group-item list-group-item-action" key={post.id}>
-                            {
-                            //post.name
-                            post.detalle[0].nombre
-                            }
-                        </li>
+                        <Card className="list-group-item list-group-item-action" key={post.id}>
+                            <CardHeader><b>{post.detalle[0].camaraOrigen} - Votacion {post.detalle_id} </b>Ingresada en {post.detalle[0].fechaIngreso.slice(0,10)} Realizada en {post.detalle[0].VotacionesAsoc[0].date.slice(0,10)}</CardHeader>
+                            <CardBody>
+                                <CardText>
+                                    <b>Boletin N°: </b>{post.detalle[0].numeroBoletin}
+                                    <br/>
+                                    <b>Tipo: </b>{post.detalle[0].VotacionesAsoc[0].tipoProyecto}
+                                    <br/>
+                                    <b>Estado: </b>{PrimeraLetraMayuscula(post.detalle[0].VotacionesAsoc[0].tramiteConst.toLowerCase())} - {PrimeraLetraMayuscula(post.detalle[0].VotacionesAsoc[0].tramiteRegla.toLowerCase())}
+                                    <br/>
+                                    <b>Resultado: </b>{post.detalle[0].VotacionesAsoc[0].resultado}
+                                    <br/>
+                                    <b>Descripcion: </b>{post.detalle[0].nombre}
+                                </CardText>
+                            </CardBody>
+                        </Card>
                     </Link>
                 ))}
-            </ul>
+                </InfiniteScroll>
         </Container>
     )
 }
-
-const filterPosts = (posts, query) => {
-    if (!query) {
-        return posts;
-    }
-
-    return posts.filter((post) => {
-        const postName = post.name.toLowerCase();
-        return postName.includes(query.toLowerCase());
-    });
-};
 export default Tabla;
