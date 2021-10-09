@@ -2,14 +2,14 @@
     "PC"    :"white",
     "IC"    :"black",
     "CS"    :"black",
-    "PH"    :"black",
+    "PHumanista":"black",
     "PS"    :"black",
     "Comunes":"black",
+    "PRadical":"black",
     "PR"    :"black",
-    "PRSD"  :"black",
     "RD"    :"black",
     "IND"   :"black",
-    "PFRVS" :"black",
+    "FPRVS" :"black",
     "DC"    :"black",
     "PPD"   :"black",
     "PL"    :"black",
@@ -17,7 +17,7 @@
     "EVOP"  :"black",
     "RN"    :"white",
     "UDI"   :"white",
-    "Partido Republicano":"white",
+    "Republicano":"white",
     "S/I"   :"black"
 }
 

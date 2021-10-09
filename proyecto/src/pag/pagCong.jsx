@@ -29,11 +29,10 @@ function Congresista(){
             titleD=handle
             infoD="No se ha encontrado información sobre dicho diputado en la base de datos. Esto puede deberse a que este diputado pertenece a un congreso antiguo, o no existen datos sobre el mismo."
         }
-        else{
-            infoD=infoDip
-        }
     }
-
+    else if(typeof(infoDip)=="object"){
+        titleD=infoDip.Nombre+" "+infoDip["Apellido Paterno"]+" "+infoDip["Apellido Materno"]
+    }
     const fetchData = () =>{
         setTimeout(() => {
             setICL(intervenCongres.slice(0,limit))
@@ -53,7 +52,7 @@ function Congresista(){
             <Container>
                 <Row>
                     <Col>
-                        <h1>Diputado {titleD}</h1>
+                        <h1>{titleD}</h1>
                     </Col>  
                 </Row>
                 <Row>

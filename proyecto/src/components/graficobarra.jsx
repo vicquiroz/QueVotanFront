@@ -121,11 +121,13 @@ function GraficoBarra({idCon,datoswnominate}){
         svg.append("g")
             .attr("transform", "translate("+margin+","+(height)+")")
             .style("font-size",textsize)
+            .attr("class","noselect")
             .call(axisBottom(x));
     
         svg.append("g")
             .attr("transform", "translate("+margin+","+margin+")")
             .style("font-size",textsize)
+            .attr("class","noselect")
             .call(axisLeft(y));
     },[idCon]);
     return(
