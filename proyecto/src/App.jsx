@@ -6,7 +6,7 @@ import Congresista from "./pag/pagCong.jsx";
 import {Container} from "reactstrap"
 import { BrowserRouter as Router, Switch, Route} from "react-router-dom"; 
 import 'bootstrap/dist/css/bootstrap.css';
-
+import './resources/bootstrap.min.css'
 import {Provider} from 'react-redux'
 import generateStore from './redux/store'
 function App() {
