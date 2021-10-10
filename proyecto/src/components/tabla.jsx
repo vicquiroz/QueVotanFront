@@ -34,9 +34,10 @@ function Tabla({busqueda,primerasVotaciones}){
                 next={fetchData}
                 hasMore={true}
                 >
-                {vot.map((post) => ( 
+                {vot.map((post) => (
+                    <div key={post.id}>
                     <Link onClick={()=> window.location.href="/grafico/"+post.detalle_id} style={{ textDecoration: 'none' }}>
-                        <Card className="list-group-item list-group-item-action" key={post.id}>
+                        <Card className="text-dark" >
                             <CardHeader><b>{post.detalle[0].camaraOrigen} - Votacion {post.detalle_id} </b>Ingresada en {post.detalle[0].fechaIngreso.slice(0,10)} Realizada en {post.detalle[0].VotacionesAsoc[0].date.slice(0,10)}</CardHeader>
                             <CardBody>
                                 <CardText>
@@ -53,6 +54,8 @@ function Tabla({busqueda,primerasVotaciones}){
                             </CardBody>
                         </Card>
                     </Link>
+                    <br />
+                    </div>
                 ))}
                 </InfiniteScroll>
         </Container>

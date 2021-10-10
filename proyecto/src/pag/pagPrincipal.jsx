@@ -27,15 +27,19 @@ function Principal(){
                     <Barra/>
                 </Col>
             </Row>
-            <Row>
+            <Row style={{
+                "marginTop":"30px",
+                "marginBottom":"10px"
+                }}>
                 <Col>
                     <Buscador
                         setBusqueda={setBusqueda}
                         setIdTag={setIdTag}
                         tags={tags}
+                        
                     />
                 </Col>
-            </Row>
+            </Row >
             <Row>
                 <Col>
                     <Tabla

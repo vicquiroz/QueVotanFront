@@ -5,9 +5,8 @@ function Barra(){
     const toggle = () => setOpen(!dropdownOpen);
     const [dropdownOpen, setOpen] = useState(false);
     return (
-        <Container>
-            <Row>
-                <Nav className="navbar navbar-inverse bg-dark bg-gradient rounded-bottom">
+        <div>
+                <Nav className="navbar navbar-inverse bg-dark bg-gradient fixed-top">
                 <Container className="container-fluid">
                     <NavItem>
                     <Link to="/" style={{ textDecoration: 'none' }} className="text-light">
@@ -43,8 +42,8 @@ function Barra(){
                     </NavItem>
                     </Container>
                 </Nav>
-            </Row>
-        </Container>
+                <br /><br />
+                </div>
     );
   }
 

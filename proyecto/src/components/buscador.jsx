@@ -35,6 +35,7 @@ function Buscador({setBusqueda,tags,setIdTag}){
 
     return(
         <Container>
+            <h3>Buscar votaciones por materias asociadas</h3>
                 <Input
                     id="buscador"
                     onChange={e => enCambio(e.target.value)}
@@ -45,7 +46,7 @@ function Buscador({setBusqueda,tags,setIdTag}){
                     value={texto || ""}
                 >
                 </Input>
-                <div className="border border-gray">
+                <div className="border border-gray" >
                 {sugerencia && sugerencia.slice(0,10).map((sugerencia, id) =>
                     <Label className="list-group-flush list-group-item-action" key={id}
                      onClick={()=> seleccion(sugerencia.desc,sugerencia.id)}>
@@ -53,6 +54,7 @@ function Buscador({setBusqueda,tags,setIdTag}){
                     </Label>
                 )}
                 </div>
+                <br /><br />
         </Container>
     )
 }

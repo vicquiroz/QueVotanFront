@@ -1,5 +1,5 @@
 import React,{useEffect} from 'react';
-import { Container,Row,Col,Label} from 'reactstrap';
+import { Container,Row,Col,Label, TabPane} from 'reactstrap';
 import {useDispatch, useSelector} from 'react-redux'
 //import { obtenerInfoDiputadosAccion } from '../redux/InfoDipDucks';
 import { Link } from "react-router-dom";
@@ -9,7 +9,6 @@ function MostrarLista({idCon,datoswnominate}){
     var nombres = [];
     for(let i in idCon) nombres.push(datoswnominate.wnominate.find(d => d.ID ===idCon[i]).Nombre);
     const filteredPosts = filterPosts(datoswnominate.wnominate, idCon,nombres);
-    console.log(datoswnominate)
     /*const dispatch = useDispatch()
     const infoDip = useSelector(store => store.infoDiputados.array)
     var TestNombre=[]
@@ -34,10 +33,12 @@ function MostrarLista({idCon,datoswnominate}){
                         <Col className="col-6 col-sm-3" key={post["ID"]}>
                             <Link onClick={()=>window.location.href="/congresista/"+post["ID"]} style={{ textDecoration: 'none' }} className="list-group-flush list-group-item-action">
                                 <table style={{width:"100%"}}>
+                                    <tbody>
                                     <tr>
                                         <td style={{textAlign: 'left',verticalAlign:'top'}}>{post["Nombre"]}</td>
                                         <td style={{textAlign: 'right',verticalAlign:'top'}}>({datoswnominate.wnominate.find(d => d.ID ===post["ID"]).party})[{vot[datoswnominate.votacion[0][post["ID"]]]}]</td>
                                     </tr>
+                                    </tbody>
                                 </table>
                             </Link>
                         </Col>
