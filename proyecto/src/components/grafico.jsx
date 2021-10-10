@@ -264,7 +264,8 @@ function GraficoPrincipal({setId,setXY,datoswnominate}){
                             viewBox={vBox}
                             position="absolute"
                             preserveAspectRatio="xMidYMid meet"
-                            style={{"marginBottom":margin/3}} 
+                            style={{"marginBottom":margin/3,
+                                    "background-color":"white"}} 
                     />
         )
 }

@@ -8,7 +8,7 @@ import aparra from "../resources/aparra.png"
 import vquiroz from "../resources/vquiroz.png"
 function AcercaDe(){
     return(
-        <Container>
+        <Container className="text-light">
              <Row>
                 <Col>
                     <Barra/>

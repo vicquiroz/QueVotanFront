@@ -35,7 +35,7 @@ function Buscador({setBusqueda,tags,setIdTag}){
 
     return(
         <Container>
-            <h3>Buscar votaciones por materias asociadas</h3>
+            <h3 className="text-light">Buscar votaciones por materias asociadas</h3>
                 <Input
                     id="buscador"
                     onChange={e => enCambio(e.target.value)}

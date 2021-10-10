@@ -7,11 +7,13 @@ import {Container} from "reactstrap"
 import { BrowserRouter as Router, Switch, Route} from "react-router-dom"; 
 import 'bootstrap/dist/css/bootstrap.css';
 import './resources/bootstrap.min.css'
+import './components/estilo.css'
 import {Provider} from 'react-redux'
 import generateStore from './redux/store'
 function App() {
   const store = generateStore()
   return (
+    <div className='Login-component'>
     <Router>
       <Provider store={store}>
         <Container className="container-fluid" >
@@ -34,6 +36,7 @@ function App() {
         </Container>
       </Provider>
     </Router>
+    </div>
   );
 }
 

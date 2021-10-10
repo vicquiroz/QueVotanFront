@@ -137,6 +137,7 @@ function GraficoBarra({idCon,datoswnominate}){
                         viewBox={vBox}
                         position="absolute"
                         preserveAspectRatio="xMidYMid meet"
+                        style={{"background-color":"white"}}
                 />
         )
 }

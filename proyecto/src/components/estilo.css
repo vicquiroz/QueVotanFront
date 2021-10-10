@@ -1,6 +1,12 @@
-.sugerencias{
-
+html, body, .Login-component {
+  height: 100%;
 }
+
+.Login-component {
+  background: url(../resources/Parlamentarios-1.jpg) no-repeat center center fixed;
+background-size: cover;
+}
+
 .noselect {
     -webkit-touch-callout: none; /* iOS Safari */
       -webkit-user-select: none; /* Safari */
