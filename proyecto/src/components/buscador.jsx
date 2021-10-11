@@ -46,7 +46,7 @@ function Buscador({setBusqueda,tags,setIdTag}){
                     value={texto || ""}
                 >
                 </Input>
-                <div className="border border-gray" >
+                <div className="border border-gray bg-light">
                 {sugerencia && sugerencia.slice(0,10).map((sugerencia, id) =>
                     <Label className="list-group-flush list-group-item-action" key={id}
                      onClick={()=> seleccion(sugerencia.desc,sugerencia.id)}>

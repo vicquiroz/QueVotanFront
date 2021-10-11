@@ -13,14 +13,13 @@ var hovertext;
 //Modo Telefono
 dim= window.innerWidth*0.8;   //No cambiar
 margin = dim*0.25;
+height=dim*0.4
 if(window.innerWidth<600){
     textsize=".4rem"
-    height=dim*0.35
-    width=dim-2*margin
+    width=dim-1.1*margin
     hovertext=".5rem"
 }
 else{
-    height=dim*0.4
     width=dim-margin
     //Modo 4k
     if(window.innerWidth>2000){
@@ -69,7 +68,7 @@ function GraficoBarra({idCon,datoswnominate}){
         "Dispensado":"rgb(253,174,97)",
         "No Vota":"rgb(255,255,191)"
     }
-    vBox="0 "+String(margin)+" "+String(dim)+" "+String(height-0.7*margin)
+    vBox="0 "+String(margin-10)+" "+String(dim-20)+" "+String(height*0.55)
     const svgRef = useRef();
     useEffect(()=> {
         svg = select(svgRef.current)
@@ -137,7 +136,10 @@ function GraficoBarra({idCon,datoswnominate}){
                         viewBox={vBox}
                         position="absolute"
                         preserveAspectRatio="xMidYMid meet"
-                        style={{"background-color":"white"}}
+                        className="bg-light"
+                        style={{
+                            "border-radius":"10px"
+                        }}
                 />
         )
 }

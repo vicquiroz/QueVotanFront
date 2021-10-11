@@ -264,8 +264,10 @@ function GraficoPrincipal({setId,setXY,datoswnominate}){
                             viewBox={vBox}
                             position="absolute"
                             preserveAspectRatio="xMidYMid meet"
+                            className="bg-light"
                             style={{"marginBottom":margin/3,
-                                    "background-color":"white"}} 
+                                    "border-radius":"10px"
+                                }} 
                     />
         )
 }

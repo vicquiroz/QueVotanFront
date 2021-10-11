@@ -28,10 +28,10 @@ function MostrarLista({idCon,datoswnominate}){
                         <h3 className="text-light">Votantes</h3>
                         </Col>
                     </Row>
-                    <Row>
+                    <Row style={{borderRadius:"10px"}} className="bg-light">
                         {filteredPosts.map((post) => ( 
                         <Col className="col-6 col-sm-3" key={post["ID"]}>
-                            <Link onClick={()=>window.location.href="/congresista/"+post["ID"]} style={{ textDecoration: 'none' }} className="text-light list-group-flush list-group-item-action">
+                            <Link onClick={()=>window.location.href="/congresista/"+post["ID"]} style={{ textDecoration: 'none' }} className="text-dark list-group-flush list-group-item-action">
                                 <table style={{width:"100%"}}>
                                     <tbody>
                                     <tr>
@@ -46,6 +46,7 @@ function MostrarLista({idCon,datoswnominate}){
                     </Row>
                 </Col>
             </Row>
+            <br />
         </Container>
     )
 }
