@@ -67,7 +67,7 @@ function GraficoBarra({idCon,datoswnominate}){
         "Dispensado":"rgb(253,174,97)",
         "No Vota":"rgb(255,255,191)"
     }
-    vBox="0 "+String(margin-10)+" "+String(dim-20)+" "+String(height*0.55)
+    vBox="0 "+String(margin-10)+" "+String(dim-20)+" "+String(height*0.65)
     const svgRef = useRef();
     useEffect(()=> {
         svg = select(svgRef.current)

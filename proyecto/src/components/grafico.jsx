@@ -73,7 +73,7 @@ function GraficoPrincipal({setId,setXY,datoswnominate}){
     widthDim=width-marginDim;     //No cambiar
     escalax = height/2;           //No cambiar
     escalay = height/2-2*margin;  //No cambiar
-    vBox="0 "+String(margin*1.5)+" "+String(dim)+" "+String(height-2.5*margin)
+    vBox="0 "+String(margin*1.5)+" "+String(dim)+" "+String(height-2.2*margin)
     
     useEffect(()=>{
         function Redimension(){
