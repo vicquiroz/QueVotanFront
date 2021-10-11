@@ -35,7 +35,7 @@ function Congresista(){
     }
     //console.log(Lista(intervenCongres))
     return(
-        <Container className="text-dark bg-light" style={{borderRadius:"10px"}}>
+        <Container className="text-light" style={{backgroundColor:"rgba(0,0,0,0.8)",borderRadius:"10px"}}>
             {!isEmpty(infoDip)?<div>
             <Row>
                 <Col>
@@ -51,13 +51,13 @@ function Congresista(){
                 <Row>
                     <Col className="col-md-3">
                         <Navbar className="flex-column align-items-stretch p-3">
-                            <NavbarBrand className="text-dark">Identificador: {infoDip.id}</NavbarBrand>
+                            <NavbarBrand className="text-light">Identificador: {infoDip.id}</NavbarBrand>
                             <Nav className="nav-pills flex-column">
-                                <NavLink className="text-dark">Partidos</NavLink>
+                                <NavLink className="text-light">Partidos</NavLink>
                                 <Nav className="nav-pills flex-column">
                                     {infoDip.Partido.map((post) => (
                                         <div>
-                                            <NavLink className="ms-3 my-1 text-dark">
+                                            <NavLink className="ms-3 my-1 text-light">
                                                 {nombrepartidos[post.party]} ({post.party})
                                                 <Nav className="nav-pills flex-column">
                                                     <tr>

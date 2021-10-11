@@ -108,14 +108,17 @@ function GraficoPrincipal({setId,setXY,datoswnominate}){
         svg.append("g")
             .attr("transform","translate(0,"+heightDim+")")
             .style("font-size",textsize)
+            .attr("fill","white")
             .call(axisBottom(x));
         svg.append("g")
             .attr("transform","translate("+marginDim+",0)")
             .style("font-size",textsize)
+            .attr("fill","white")
             .call(axisLeft(y));
 
         svg.append("g")
             .attr("class", "grid")
+            .attr("fill","white")
             .attr("transform","translate("+marginDim+",0)")
             .call(
                 makeYLines()
@@ -125,6 +128,7 @@ function GraficoPrincipal({setId,setXY,datoswnominate}){
             .attr("opacity", 0.25);
         svg.append("g")
             .attr("class", "grid")
+            .attr("fill","white")
             .attr("transform","translate(0,"+heightDim+")")
             .call(
                 makeXLines()
@@ -149,6 +153,7 @@ function GraficoPrincipal({setId,setXY,datoswnominate}){
         .style("border-radius","8px")
         .style("font-size",textsize)
         .style("font-family","Lucida Sans Unicode")
+        .attr("fill","white")
         svg.selectAll(".point")
         .data(datoswnominate.wnominate)
         .join(
@@ -214,7 +219,7 @@ function GraficoPrincipal({setId,setXY,datoswnominate}){
             .attr("height",dCuadrado*0.8)
             .style("fill",function(d){
                 return partidos[d]})
-            .attr("stroke", "black")
+            .attr("fill","white")
             .attr("id", value => value)
             .on("click",function(event,d){
                 svg.selectAll("g.brush").call(brush().clear)
@@ -231,6 +236,7 @@ function GraficoPrincipal({setId,setXY,datoswnominate}){
             .text(function(d){ return d})
             .style("font-size",textsize)
             .style("font-family","Lucida Sans Unicode")
+            .attr("fill","white")
             .attr("id", value => value)
             .on("click",function(event,d){
                 svg.selectAll("g.brush").call(brush().clear)
@@ -248,6 +254,7 @@ function GraficoPrincipal({setId,setXY,datoswnominate}){
             .text(function(d){ return d})
             .style("font-size",textsize2)
             .style("font-family","Lucida Sans Unicode")
+            .attr("fill","white")
             .attr("id", value => value)
             .on("click",function(event,d){
                 svg.selectAll("g.brush").call(brush().clear)
@@ -258,15 +265,15 @@ function GraficoPrincipal({setId,setXY,datoswnominate}){
         ClearGraph({setId},{setXY},{datoswnominate})
     },[setId,setXY]);
     return(
-                    <svg    ref={svgRef} className="chart"
+                    <svg    ref={svgRef} className="chart text-light"
                             width="100%"
                             height="100%"
                             viewBox={vBox}
                             position="absolute"
                             preserveAspectRatio="xMidYMid meet"
-                            className="bg-light"
                             style={{"marginBottom":margin/3,
-                                    "border-radius":"10px"
+                                    "border-radius":"10px",
+                                    backgroundColor:"rgba(0,0,0,0.8)"
                                 }} 
                     />
         )

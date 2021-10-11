@@ -8,7 +8,7 @@ import aparra from "../resources/aparra.png"
 import vquiroz from "../resources/vquiroz.png"
 function AcercaDe(){
     return(
-        <Container className="text-dark bg-light" style={{borderRadius:"10px"}}>
+        <Container className="text-light" style={{backgroundColor:"rgba(0,0,0,0.8)",borderRadius:"10px"}}>
              <Row>
                 <Col>
                     <Barra/>
@@ -78,8 +78,8 @@ function AcercaDe(){
                                 <Col>
                                     <span className="d-block p-2 d-flex justify-content-center">
                                         <UncontrolledPopover trigger="legacy" placement="top" target="Popover1">
-                                            <PopoverHeader>Alejandro Mellado</PopoverHeader>
-                                            <PopoverBody>
+                                            <PopoverHeader className="text-light bg-dark">Alejandro Mellado</PopoverHeader>
+                                            <PopoverBody className="text-light bg-dark">
                                                 <h6>Profesor Asociado</h6>
                                                 <p>Ingeniero de Ejecución en Computación e Informática.</p>
                                             </PopoverBody>
@@ -90,8 +90,8 @@ function AcercaDe(){
                                 <Col>
                                     <span className="d-block p-2 d-flex justify-content-center">
                                         <UncontrolledPopover trigger="legacy" placement="top" target="Popover2">
-                                            <PopoverHeader>Julio Rojas</PopoverHeader>
-                                            <PopoverBody>
+                                            <PopoverHeader className="text-light bg-dark">Julio Rojas</PopoverHeader>
+                                            <PopoverBody className="text-light bg-dark">
                                                 <h6>Profesor Coordinador</h6>
                                                 <p>Ingeniero de Sistemas, Mención Investigación de Operaciones.</p>
                                             </PopoverBody>
@@ -104,8 +104,8 @@ function AcercaDe(){
                             <Col>
                                     <span className="d-block p-2 d-flex justify-content-center">
                                         <UncontrolledPopover trigger="legacy" placement="top" target="Popover3">
-                                            <PopoverHeader>Juan Gallardo</PopoverHeader>
-                                            <PopoverBody>
+                                            <PopoverHeader className="text-light bg-dark">Juan Gallardo</PopoverHeader>
+                                            <PopoverBody className="text-light bg-dark">
                                                 <h6>Equipo Técnico</h6>
                                                 <p>Estudiante de la carrera Ingeniería Civil Informática.</p>
                                             </PopoverBody>
@@ -116,8 +116,8 @@ function AcercaDe(){
                                 <Col>
                                     <span className="d-block p-2 d-flex justify-content-center">
                                         <UncontrolledPopover trigger="legacy" placement="top" target="Popover4">
-                                            <PopoverHeader>Antonio Parra</PopoverHeader>
-                                            <PopoverBody>
+                                            <PopoverHeader className="text-light bg-dark">Antonio Parra</PopoverHeader>
+                                            <PopoverBody className="text-light bg-dark">
                                                 <h6>Equipo Técnico</h6>
                                                 <p>Estudiante de la carrera Ingeniería Civil Informática.</p>
                                             </PopoverBody>
@@ -128,8 +128,8 @@ function AcercaDe(){
                                 <Col>
                                     <span className="d-block p-2 d-flex justify-content-center">
                                         <UncontrolledPopover trigger="legacy" placement="top" target="Popover5">
-                                            <PopoverHeader>Victor Quiroz</PopoverHeader>
-                                            <PopoverBody>
+                                            <PopoverHeader className="text-light bg-dark">Victor Quiroz</PopoverHeader>
+                                            <PopoverBody className="text-light bg-dark">
                                                 <h6>Equipo Técnico</h6>
                                                 <p>Estudiante de la carrera Ingeniería Civil Informática.</p>
                                             </PopoverBody>

@@ -1,6 +1,5 @@
 import React, {useRef, useEffect} from 'react';
 import {select, max, scaleLinear, scaleBand, axisLeft, axisBottom} from 'd3';
-import { $CombinedState } from 'redux';
 
 var svg;  
 var dim 
@@ -115,30 +114,31 @@ function GraficoBarra({idCon,datoswnominate}){
                 return colores[d.TipoDato]
             })
             .attr("width", function(d) {return x(d.Valor); } )
+            
         }
         
         svg.append("g")
             .attr("transform", "translate("+margin+","+(height)+")")
             .style("font-size",textsize)
             .attr("class","noselect")
-            .call(axisBottom(x));
+            .call(axisBottom(x))
     
         svg.append("g")
             .attr("transform", "translate("+margin+","+margin+")")
             .style("font-size",textsize)
             .attr("class","noselect")
-            .call(axisLeft(y));
+            .call(axisLeft(y))
     },[idCon]);
     return(
-                <svg    ref={svgRef} className="chart"
+                <svg    ref={svgRef} className="chart text-light"
                         width="100%"
                         height="100%"
                         viewBox={vBox}
                         position="absolute"
                         preserveAspectRatio="xMidYMid meet"
-                        className="bg-light"
                         style={{
-                            "border-radius":"10px"
+                            "border-radius":"10px",
+                            backgroundColor:"rgba(0,0,0,0.8)"
                         }}
                 />
         )

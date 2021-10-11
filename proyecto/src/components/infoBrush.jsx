@@ -17,7 +17,7 @@ function Inform({pos}){
         <div>
             <Row>
                 <Col className="g-0">
-                    <Card className="bg-light">
+                    <Card className="text-light" style={{backgroundColor:"rgba(0,0,0,0.8)"}}>
                         <CardHeader><h5>Centroide</h5></CardHeader>
                         <CardBody>
                             <CardText>{promX} {promY}</CardText>
@@ -27,7 +27,7 @@ function Inform({pos}){
             </Row>
             <Row>
                 <Col className="g-0">
-                    <Card className="bg-light">
+                    <Card className="text-light" style={{backgroundColor:"rgba(0,0,0,0.8)"}}>
                         <CardHeader><h5>Maximo en X</h5></CardHeader>
                         <CardBody>
                             <CardText>{maxX}</CardText>
@@ -35,7 +35,7 @@ function Inform({pos}){
                     </Card>
                 </Col>
                 <Col className="g-0">
-                    <Card className="bg-light">
+                    <Card className="text-light" style={{backgroundColor:"rgba(0,0,0,0.8)"}}>
                         <CardHeader><h5>Maximo en Y</h5></CardHeader>
                         <CardBody>
                             <CardText>{maxY}</CardText>
@@ -45,7 +45,7 @@ function Inform({pos}){
             </Row>
             <Row>
                 <Col className="g-0">
-                    <Card className="bg-light">
+                    <Card className="text-light" style={{backgroundColor:"rgba(0,0,0,0.8)"}}>
                         <CardHeader><h5>Minimo en X</h5></CardHeader>
                         <CardBody>
                             <CardText>{minX}</CardText>
@@ -53,7 +53,7 @@ function Inform({pos}){
                     </Card>
                 </Col>
                 <Col className="g-0">
-                    <Card className="bg-light">
+                    <Card className="text-light" style={{backgroundColor:"rgba(0,0,0,0.8)"}}>
                         <CardHeader><h5>Minimo en Y</h5></CardHeader>
                         <CardBody>
                             <CardText>{minY}</CardText>

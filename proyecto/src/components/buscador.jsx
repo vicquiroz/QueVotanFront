@@ -40,17 +40,18 @@ function Buscador({setBusqueda,tags,setIdTag}){
                     id="buscador"
                     onChange={e => enCambio(e.target.value)}
                     onKeyDown={teclaAbajo}
-                    className="input" 
+                    className="input text-light" 
                     type="search" 
                     placeholder="Buscar"
                     value={texto || ""}
+                    style={{backgroundColor:"rgba(0,0,0,0.8)"}}
                 >
                 </Input>
-                <div className="border border-gray bg-light">
+                <div className="border border-dark" >
                 {sugerencia && sugerencia.slice(0,10).map((sugerencia, id) =>
-                    <Label className="list-group-flush list-group-item-action" key={id}
+                    <Label className="list-group-flush list-group-item-dark list-group-item-action" key={id}
                      onClick={()=> seleccion(sugerencia.desc,sugerencia.id)}>
-                        {sugerencia.desc}  
+                        {sugerencia.desc} 
                     </Label>
                 )}
                 </div>
