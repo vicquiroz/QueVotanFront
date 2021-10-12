@@ -21,7 +21,6 @@ function PagGrafico(){
     
     useEffect(()=>{
         dispatch(obtenerInfoGraficoAccion(handle))
-        
     },[])
     return(
         <Container>
@@ -58,6 +57,7 @@ function PagGrafico(){
                 <Col className="col-12 col-sm-6">
                     <Inform
                         pos={xyBrush}
+                        datoswnominate={infoGrafico}
                     />
                 </Col>
             </Row>
