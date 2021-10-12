@@ -1,9 +1,9 @@
 import React, {useState}  from "react";
 import Barra from "../components/barra";
 import {Container, Col, Row, Jumbotron, Popover, PopoverHeader, PopoverBody, UncontrolledPopover} from "reactstrap";
-import amellado from "../resources/amellado.jpg"
-import jgallardo from "../resources/jgallardo.jpg"
-import jrojas from "../resources/jrojas.jpg"
+import amellado from "../resources/amellado.png"
+import jgallardo from "../resources/jgallardo.png"
+import jrojas from "../resources/jrojas.png"
 import aparra from "../resources/aparra.png"
 import vquiroz from "../resources/vquiroz.png"
 function AcercaDe(){
@@ -75,8 +75,8 @@ function AcercaDe(){
                                 </Col>
                             </Row>
                             <Row>
-                                <Col>
-                                    <span className="d-block p-2 d-flex justify-content-center">
+                                <Col className="offset-sm-2 col-sm-4 col-12">
+                                    <span className="d-block p-2 d-flex">
                                         <UncontrolledPopover trigger="legacy" placement="top" target="Popover1">
                                             <PopoverHeader className="text-light bg-dark">Alejandro Mellado</PopoverHeader>
                                             <PopoverBody className="text-light bg-dark">
@@ -84,11 +84,11 @@ function AcercaDe(){
                                                 <p>Ingeniero de Ejecución en Computación e Informática.</p>
                                             </PopoverBody>
                                         </UncontrolledPopover>
-                                        <img src={amellado} className="rounded img-fluid" id="Popover1"/>
+                                        <img src={amellado} className="rounded img-fluid" id="Popover1" alt="amellado"/>
                                     </span>
                                 </Col>
-                                <Col>
-                                    <span className="d-block p-2 d-flex justify-content-center">
+                                <Col className="col-sm-4 col-12">
+                                    <span className="d-block p-2 d-flex">
                                         <UncontrolledPopover trigger="legacy" placement="top" target="Popover2">
                                             <PopoverHeader className="text-light bg-dark">Julio Rojas</PopoverHeader>
                                             <PopoverBody className="text-light bg-dark">
@@ -96,13 +96,11 @@ function AcercaDe(){
                                                 <p>Ingeniero de Sistemas, Mención Investigación de Operaciones.</p>
                                             </PopoverBody>
                                         </UncontrolledPopover>
-                                        <img src={jrojas} className="rounded img-fluid" id="Popover2"/>
+                                        <img src={jrojas} className="rounded img-fluid" id="Popover2" alt="jrojas"/>
                                     </span>
                                 </Col>
-                            </Row>
-                            <Row>
-                            <Col>
-                                    <span className="d-block p-2 d-flex justify-content-center">
+                            <Col className="col-sm-4 col-12">
+                                    <span className="d-block p-2 d-flex">
                                         <UncontrolledPopover trigger="legacy" placement="top" target="Popover3">
                                             <PopoverHeader className="text-light bg-dark">Juan Gallardo</PopoverHeader>
                                             <PopoverBody className="text-light bg-dark">
@@ -110,11 +108,11 @@ function AcercaDe(){
                                                 <p>Estudiante de la carrera Ingeniería Civil Informática.</p>
                                             </PopoverBody>
                                         </UncontrolledPopover>
-                                        <img src={jgallardo} className="rounded img-fluid" id="Popover3"/>
+                                        <img src={jgallardo} className="rounded img-fluid" id="Popover3" alt="jgallardo"/>
                                     </span>
                                 </Col>
-                                <Col>
-                                    <span className="d-block p-2 d-flex justify-content-center">
+                                <Col className="col-sm-4 col-12">
+                                    <span className="d-flex p-2">
                                         <UncontrolledPopover trigger="legacy" placement="top" target="Popover4">
                                             <PopoverHeader className="text-light bg-dark">Antonio Parra</PopoverHeader>
                                             <PopoverBody className="text-light bg-dark">
@@ -122,11 +120,11 @@ function AcercaDe(){
                                                 <p>Estudiante de la carrera Ingeniería Civil Informática.</p>
                                             </PopoverBody>
                                         </UncontrolledPopover>
-                                        <img src={aparra} className="rounded img-fluid" id="Popover4"/>
+                                        <img src={aparra} className="rounded img-fluid" id="Popover4" alt="aparra"/>
                                     </span>
                                 </Col>
-                                <Col>
-                                    <span className="d-block p-2 d-flex justify-content-center">
+                                <Col className="col-sm-4 d-flex justify-content-around">
+                                    <span className="p-2">
                                         <UncontrolledPopover trigger="legacy" placement="top" target="Popover5">
                                             <PopoverHeader className="text-light bg-dark">Victor Quiroz</PopoverHeader>
                                             <PopoverBody className="text-light bg-dark">
@@ -134,7 +132,7 @@ function AcercaDe(){
                                                 <p>Estudiante de la carrera Ingeniería Civil Informática.</p>
                                             </PopoverBody>
                                         </UncontrolledPopover>
-                                        <img src={vquiroz} className="rounded img-fluid" id="Popover5"/>
+                                        <img src={vquiroz} className="rounded img-fluid" id="Popover5" alt="vquiroz"/>
                                     </span>
                                 </Col>
                             </Row>

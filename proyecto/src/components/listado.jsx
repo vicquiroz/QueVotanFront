@@ -28,7 +28,7 @@ function MostrarLista({idCon,datoswnominate}){
                         <h3 className="text-light">Votantes</h3>
                         </Col>
                     </Row>
-                    <Row style={{borderRadius:"10px"}} className="text-light" style={{backgroundColor:"rgba(0,0,0,0.8)"}}>
+                    <Row className="text-light" style={{backgroundColor:"rgba(0,0,0,0.8)",borderRadius:"10px"}}>
                         {filteredPosts.map((post) => ( 
                         <Col className="col-6 col-sm-3" key={post["ID"]}>
                             <Link onClick={()=>window.location.href="/congresista/"+post["ID"]} style={{ textDecoration: 'none' }} className="text-light list-group-flush list-group-item-action">
