@@ -46,8 +46,8 @@ function Tabla({busqueda,primerasVotaciones}){
                                     <b>Tipo: </b>{post.detalle[0].VotacionesAsoc[0].tipoProyecto}
                                     <br/>
                                     <b>Estado: </b>{PrimeraLetraMayuscula(post.detalle[0].VotacionesAsoc[0].tramiteConst.toLowerCase())} - {PrimeraLetraMayuscula(post.detalle[0].VotacionesAsoc[0].tramiteRegla.toLowerCase())}
-                                    <br/>
-                                    <b>Resultado: </b>{post.detalle[0].VotacionesAsoc[0].resultado}
+                                    {/*<br/>
+                                    <b>Resultado: </b>{post.detalle[0].VotacionesAsoc[0].resultado}*/}
                                     <br/>
                                     <b>Descripcion: </b>{post.detalle[0].nombre}
                                 </CardText>
