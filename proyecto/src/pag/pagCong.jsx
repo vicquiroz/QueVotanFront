@@ -5,6 +5,8 @@ import {useParams} from 'react-router-dom'
 import {useDispatch, useSelector} from 'react-redux'
 import { obtenerInfoDiputadosAccion } from '../redux/InfoDipDucks';
 import { obtenerIntervenCongresAccion} from '../redux/IntervenCongresDucks'
+import {obtenerInfoGraficoAccion} from '../redux/InfoGrafDucks'
+import GraficoCong, {GraficoBarra} from '../components/graficocong'
 import InfiniteScroll from 'react-infinite-scroll-component'
 import nombrepartidos from '../components/nombre-partidos.json'
 import { Link } from "react-router-dom";
@@ -15,13 +17,15 @@ function Congresista(){
     }
     const [iCL,setICL] = useState([])
     const [limit,setLimit]=useState()
-    const {handle} = useParams()
+    const {handleIdDip,handleIdVot} = useParams()
     const dispatch = useDispatch()
     const infoDip = useSelector(store => store.infoDiputados.array)
     const intervenCongres = useSelector(store => store.intervenCongres.array)
+    const infoGrafico = useSelector(store => store.infoGrafico.array)
     useEffect(()=> {
-            dispatch(obtenerInfoDiputadosAccion(handle))
-            dispatch(obtenerIntervenCongresAccion(handle))
+            dispatch(obtenerInfoDiputadosAccion(handleIdDip))
+            dispatch(obtenerIntervenCongresAccion(handleIdDip))
+            dispatch(obtenerInfoGraficoAccion(handleIdVot))
     },[]);
     useEffect(()=>{
         setICL(intervenCongres.slice(0,30))
@@ -78,6 +82,9 @@ function Congresista(){
                                 </Nav>
                             </Nav>
                         </Navbar>
+                    </Col>
+                    <Col>
+                        <GraficoCong idDip={handleIdDip} datoswnominate={infoGrafico}/>
                     </Col>
                 </Row>
                 <Row>

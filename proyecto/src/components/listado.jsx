@@ -31,11 +31,10 @@ function MostrarLista({idCon,datoswnominate}){
                     <Row className="text-light" style={{backgroundColor:"rgba(50,50,50,0.95)",borderRadius:"10px"}}>
                         {filteredPosts.map((post) => ( 
                         <Col className="col-6 col-sm-3" key={post["ID"]}>
-                            <Link onClick={()=>window.location.href="/congresista/"+post["ID"]} style={{ textDecoration: 'none' }} className="text-light list-group-flush list-group-item-action">
+                            <Link onClick={()=>window.location.href="/congresista/"+post["ID"]+"/"+datoswnominate.id} style={{ textDecoration: 'none' }} className="text-light list-group-flush list-group-item-action">
                                 <table style={{width:"100%"}}>
                                     <tbody>
                                     <tr>
-                                        {console.log(partidos[post["ID"].party])}
                                         <td style={{textAlign: 'left',verticalAlign:'top'}}>{post["Nombre"]}</td>
                                         <td style={{textAlign: 'right',verticalAlign:'top',color:partidos[datoswnominate.wnominate.find(d => d.ID ===post["ID"]).party]}}>({datoswnominate.wnominate.find(d => d.ID ===post["ID"]).party})[{vot[datoswnominate.votacion[0][post["ID"]]]}]</td>
                                     </tr>

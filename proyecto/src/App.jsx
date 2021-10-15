@@ -28,7 +28,7 @@ function App() {
             <Route path="/grafico/:handle" component={PagGrafico}/>
           </Switch>
           <Switch>
-            <Route path="/congresista/:handle" component={Congresista}/>
+            <Route path="/congresista/:handleIdDip/:handleIdVot" component={Congresista}/>
           </Switch>
           <Switch>
             <Route path="/acerca" component={AcercaDe}/>
