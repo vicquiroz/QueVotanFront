@@ -12,7 +12,7 @@ var hovertext;
 //Modo Telefono
 dim= window.innerWidth*0.8;   //No cambiar
 margin = dim*0.25;
-height=dim*0.4
+height=dim*0.7
 if(window.innerWidth<600){
     textsize=".4rem"
     width=dim-1.1*margin
@@ -42,20 +42,33 @@ else{
 
 function GraficoCong({idDip,datoswnominate}){
     var data=[]
+    var ejex=[]
+    var Dip=datoswnominate.wnominate.filter(dat => dat.ID===Number(idDip))[0]
+    datoswnominate.wnominate=datoswnominate.wnominate.filter((dat)=>{return dat.party===Dip.party})
     for(let i in datoswnominate.wnominate){
+        ejex.push(Number(datoswnominate.wnominate[i].coord1D.toFixed(1)))
+    }
+    let Coord= Dip.coord1D.toFixed(1)
+    var repetidos={}
+    ejex.forEach(function(numero){
+        repetidos[numero] = (repetidos[numero] || 0) + 1;
+      });
+    const dataArr = new Set(ejex);
+    ejex = [...dataArr].sort();
+    for(let i in ejex){
         data.push({
-            "Valor":datoswnominate.wnominate[i].coord1D,
-            "TipoDato":datoswnominate.wnominate[i].ID
+            "Valor":repetidos[ejex[i]],
+            "TipoDato":String(ejex[i])
         })
     }
     vBox="0 "+String(margin-10)+" "+String(dim-20)+" "+String(height*0.65)
     const svgRef = useRef();
     useEffect(()=> {
         svg = select(svgRef.current)
-        var x = scaleLinear().range([width-0.2*margin,0]);
-        var y = scaleBand().range([height-margin, 0]).padding(0.1);
-        x.domain([max(data, function(d){ return d.Valor; }), min(data, function(d){ return d.Valor; })])
-        y.domain(data.map(function(d) { return d.TipoDato; }));
+        var y = scaleLinear().range([height-0.2*margin,0]);
+        var x = scaleBand().range([width/2+margin, 0]).padding(0.1);
+        y.domain([max(data, function(d){ return d.Valor; }), min(data, function(d){ return d.Valor; })])
+        x.domain(data.map(function(d) { return d.TipoDato; }));
         svg.selectAll(".bar").remove()
         svg.selectAll("g").remove()
         
@@ -76,10 +89,12 @@ function GraficoCong({idDip,datoswnominate}){
             .data(data)
             .enter().append("rect")
             .attr("class", "bar")
-            .attr("transform", "translate("+margin+","+margin+")")
-            .attr("height", y.bandwidth())
-            .attr("y", function(d) { return y(d.TipoDato); })
-            .attr("id",value => "idBar_"+value.TipoDato)
+            .attr("transform", "translate("+width+","+height+") rotate(180)")
+            .attr("width", x.bandwidth())
+            .attr("height", function(d) {return y(d.Valor); } )
+            .attr("x", function(d) { return x(d.TipoDato); })
+            .attr("id",value => {
+                return "idBar_"+value.TipoDato})
             .on('mouseover', function (event,data){
                 div.transition().duration(100).style("opacity", 1);
                 let name=data.Valor
@@ -90,24 +105,23 @@ function GraficoCong({idDip,datoswnominate}){
                 let name=data.Valor
                 div.html(name).style("left",(-100)+"px").style("top",(-100)+"px");
             })
-            .attr("fill","white")
-            .attr("width", function(d) {return x(d.Valor); } );
-            svg.select("#idBar_"+String(idDip)).attr("fill","red")
+            .attr("fill",function(event,d){
+                if(event.TipoDato===Coord) return "red"
+                else return "white"
+            })
         }
         
         svg.append("g")
             .attr("transform", "translate("+margin+","+(height)+")")
             .style("font-size",textsize)
             .attr("class","noselect")
-            .call(axisBottom(x).tickValues([]))
+            .call(axisBottom(x))
     
         svg.append("g")
             .attr("transform", "translate("+margin+","+margin+")")
             .style("font-size",textsize)
             .attr("class","noselect")
             .call(axisLeft(y).tickValues([]))
-
-        
     });
     return(
                 <svg    ref={svgRef} className="chart text-light"

@@ -39,10 +39,9 @@ function Congresista(){
             }
         },500);
     }
-    //console.log(Lista(intervenCongres))
     return(
         <Container className="text-light" style={{backgroundColor:"rgba(50,50,50,0.95)",borderRadius:"10px"}}>
-            {!isEmpty(infoDip)?<div>
+            {!isEmpty(infoDip)&&!isEmpty(infoGrafico)?<div>
             <Row>
                 <Col>
                     <Barra/>
@@ -97,7 +96,6 @@ function Congresista(){
                 next={fetchData}
                 hasMore={true}
                 >
-                    {console.log(iCL)}
                     {iCL.map((post)=>(
                     /*<Link onClick={()=> window.location.href="/grafico/"+post.id} style={{ textDecoration: 'none' }}>*/
                     <li className="text-light noselect" key={post["id"]}>   
