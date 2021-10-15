@@ -7,6 +7,8 @@ import { obtenerInfoDiputadosAccion } from '../redux/InfoDipDucks';
 import { obtenerIntervenCongresAccion} from '../redux/IntervenCongresDucks'
 import InfiniteScroll from 'react-infinite-scroll-component'
 import nombrepartidos from '../components/nombre-partidos.json'
+import { Link } from "react-router-dom";
+import partidos from '../components/partidos.json'
 function Congresista(){
     function isEmpty(obj){
         return Object.keys(obj).length===0
@@ -55,10 +57,10 @@ function Congresista(){
                             <Nav className="nav-pills flex-column">
                                 <NavLink className="text-light">Partidos</NavLink>
                                 <Nav className="nav-pills flex-column">
-                                    {infoDip.Partido.map((post) => (
+                                    {infoDip.Partido.sort((a, b) => a.begin.split("T")[0] < b.begin.split("T")[0]).map((post) => (
                                         <div>
                                             <NavLink className="ms-3 my-1 text-light">
-                                                {nombrepartidos[post.party]} ({post.party})
+                                            <span>{nombrepartidos[post.party]}<span style={{color:partidos[post.party]}}>({post.party})</span></span>
                                                 <Nav className="nav-pills flex-column">
                                                     <tr>
                                                         <td>Ingreso:</td>
@@ -88,10 +90,14 @@ function Congresista(){
                 next={fetchData}
                 hasMore={true}
                 >
+                    {console.log(iCL)}
                     {iCL.map((post)=>(
-                    <li key={post["id"]}>
-                            {post["Titulo"]}
+                    /*<Link onClick={()=> window.location.href="/grafico/"+post.id} style={{ textDecoration: 'none' }}>*/
+                    <li className="text-light noselect" key={post["id"]}>   
+                        {post["Titulo"]}
                     </li>
+                    
+                    /*</Link>*/
                     ))}
                 </InfiniteScroll>
             </Container>

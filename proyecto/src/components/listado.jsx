@@ -4,7 +4,6 @@ import {useDispatch, useSelector} from 'react-redux'
 //import { obtenerInfoDiputadosAccion } from '../redux/InfoDipDucks';
 import partidos from './partidos.json'
 import { Link } from "react-router-dom";
-import datos from '../Coord.json';
 function MostrarLista({idCon,datoswnominate}){
     const vot=["▽","△","○","▢","◇"]
     var nombres = [];
