@@ -35,7 +35,7 @@ function Congresista(){
     }
     //console.log(Lista(intervenCongres))
     return(
-        <Container className="text-light" style={{backgroundColor:"rgba(0,0,0,0.8)",borderRadius:"10px"}}>
+        <Container className="text-light" style={{backgroundColor:"rgba(50,50,50,0.95)",borderRadius:"10px"}}>
             {!isEmpty(infoDip)?<div>
             <Row>
                 <Col>
@@ -76,11 +76,6 @@ function Congresista(){
                                 </Nav>
                             </Nav>
                         </Navbar>
-                    </Col>
-                    <Col className="col-auto">
-                        <Container>
-                           Biografía Pendiente
-                        </Container>
                     </Col>
                 </Row>
                 <Row>

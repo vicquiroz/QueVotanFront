@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import {Button,NavItem,Nav,ButtonDropdown,DropdownItem,DropdownToggle,DropdownMenu,Container,Row,Col} from 'reactstrap';
 import { Link } from "react-router-dom";
+import Logo from '../resources/Logo.png'
 function Barra(){
     const toggle = () => setOpen(!dropdownOpen);
     const [dropdownOpen, setOpen] = useState(false);
@@ -10,7 +11,7 @@ function Barra(){
                 <Container className="container-fluid">
                     <NavItem>
                     <Link to="/" style={{ textDecoration: 'none' }} className="text-light">
-                        <span className="navbar-brand mb-0 h1 text-light">¿Qué votan?</span>
+                        <span className="navbar-brand mb-0 h1 text-light"><img src={Logo} width="100px"/></span>
                     </Link>
                     </NavItem>
                     <NavItem>

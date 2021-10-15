@@ -23,7 +23,7 @@ function Inform({pos,datoswnominate}){
         <Container>
             <Row>
                 <Col className="g-0">
-                    <Card className="text-light" style={{backgroundColor:"rgba(0,0,0,0.8)"}}>
+                    <Card className="text-light" style={{backgroundColor:"rgba(50,50,50,0.95)"}}>
                         <CardHeader style={{height:"35px"}} className="d-flex justify-content-center"><h5>Centroide</h5></CardHeader>
                         <CardBody>
                             <CardText className="d-flex justify-content-center">{promX} {promY}</CardText>
@@ -33,7 +33,7 @@ function Inform({pos,datoswnominate}){
             </Row>
             <Row>
                 <Col className="g-0">
-                    <Card className="text-light" style={{backgroundColor:"rgba(0,0,0,0.8)"}}>
+                    <Card className="text-light" style={{backgroundColor:"rgba(50,50,50,0.95)"}}>
                         <CardHeader style={{height:"35px"}} className="d-flex justify-content-center"><h5>Maximo en X</h5></CardHeader>
                         <CardBody>
                             <CardText className="d-flex justify-content-center">{maxX} {nameMXX}</CardText>
@@ -41,7 +41,7 @@ function Inform({pos,datoswnominate}){
                     </Card>
                 </Col>
                 <Col className="g-0">
-                    <Card className="text-light" style={{backgroundColor:"rgba(0,0,0,0.8)"}}>
+                    <Card className="text-light" style={{backgroundColor:"rgba(50,50,50,0.95)"}}>
                         <CardHeader style={{height:"35px"}} className="d-flex justify-content-center"><h5>Maximo en Y</h5></CardHeader>
                         <CardBody>
                             <CardText className="d-flex justify-content-center">{maxY} {nameMXY}</CardText>
@@ -51,7 +51,7 @@ function Inform({pos,datoswnominate}){
             </Row>
             <Row>
                 <Col className="g-0">
-                    <Card className="text-light" style={{backgroundColor:"rgba(0,0,0,0.8)"}}>
+                    <Card className="text-light" style={{backgroundColor:"rgba(50,50,50,0.95)"}}>
                         <CardHeader style={{height:"35px"}} className="d-flex justify-content-center"><h5>Minimo en X</h5></CardHeader>
                         <CardBody>
                             <CardText className="d-flex justify-content-center">{minX} {nameMNX}</CardText>
@@ -59,7 +59,7 @@ function Inform({pos,datoswnominate}){
                     </Card>
                 </Col>
                 <Col className="g-0">
-                    <Card className="text-light" style={{backgroundColor:"rgba(0,0,0,0.8)"}}>
+                    <Card className="text-light" style={{backgroundColor:"rgba(50,50,50,0.95)"}}>
                         <CardHeader style={{height:"35px"}} className="d-flex justify-content-center"><h5>Minimo en Y</h5></CardHeader>
                         <CardBody>
                             <CardText className="d-flex justify-content-center">{minY} {nameMNY}</CardText>

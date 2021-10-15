@@ -2,6 +2,7 @@ import React,{useEffect} from 'react';
 import { Container,Row,Col,Label, TabPane} from 'reactstrap';
 import {useDispatch, useSelector} from 'react-redux'
 //import { obtenerInfoDiputadosAccion } from '../redux/InfoDipDucks';
+import partidos from './partidos.json'
 import { Link } from "react-router-dom";
 import datos from '../Coord.json';
 function MostrarLista({idCon,datoswnominate}){
@@ -28,15 +29,16 @@ function MostrarLista({idCon,datoswnominate}){
                         <h3 className="text-light">Votantes</h3>
                         </Col>
                     </Row>
-                    <Row className="text-light" style={{backgroundColor:"rgba(0,0,0,0.8)",borderRadius:"10px"}}>
+                    <Row className="text-light" style={{backgroundColor:"rgba(50,50,50,0.95)",borderRadius:"10px"}}>
                         {filteredPosts.map((post) => ( 
                         <Col className="col-6 col-sm-3" key={post["ID"]}>
                             <Link onClick={()=>window.location.href="/congresista/"+post["ID"]} style={{ textDecoration: 'none' }} className="text-light list-group-flush list-group-item-action">
                                 <table style={{width:"100%"}}>
                                     <tbody>
                                     <tr>
+                                        {console.log(partidos[post["ID"].party])}
                                         <td style={{textAlign: 'left',verticalAlign:'top'}}>{post["Nombre"]}</td>
-                                        <td style={{textAlign: 'right',verticalAlign:'top'}}>({datoswnominate.wnominate.find(d => d.ID ===post["ID"]).party})[{vot[datoswnominate.votacion[0][post["ID"]]]}]</td>
+                                        <td style={{textAlign: 'right',verticalAlign:'top',color:partidos[datoswnominate.wnominate.find(d => d.ID ===post["ID"]).party]}}>({datoswnominate.wnominate.find(d => d.ID ===post["ID"]).party})[{vot[datoswnominate.votacion[0][post["ID"]]]}]</td>
                                     </tr>
                                     </tbody>
                                 </table>

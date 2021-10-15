@@ -44,7 +44,7 @@ function Principal(){
                 <Col>
                     <Tabla
                         busqueda={busqueda}
-                        primerasVotaciones={primerasVotaciones}
+                        primerasVotaciones={primerasVotaciones.filter((dat)=>{return dat.detalle[0].camaraOrigen!="Senado"})}
                     />
                 </Col>
             </Row>

@@ -5,7 +5,7 @@ import InfiniteScroll from 'react-infinite-scroll-component'
 
 
 function Tabla({busqueda,primerasVotaciones}){
-
+    
     const [vot,setVot] = useState([])
     const [limit,setLimit]=useState()
 
@@ -37,7 +37,7 @@ function Tabla({busqueda,primerasVotaciones}){
                 {vot.map((post) => (
                     <div key={post.id}>
                     <Link onClick={()=> window.location.href="/grafico/"+post.detalle_id} style={{ textDecoration: 'none' }}>
-                        <Card className="text-light" style={{backgroundColor:"rgba(0,0,0,0.8)"}} >
+                        <Card className="text-light" style={{backgroundColor:"rgba(50,50,50,0.95)"}}>
                             <CardHeader><b>{post.detalle[0].camaraOrigen} - Votacion {post.detalle_id} </b>Ingresada en {post.detalle[0].fechaIngreso.slice(0,10)} Realizada en {post.detalle[0].VotacionesAsoc[0].date.slice(0,10)}</CardHeader>
                             <CardBody>
                                 <CardText>

@@ -34,7 +34,7 @@ if(window.innerWidth<800){
 }
 else{
     //Modo 4k
-    if(window.innerWidth>2000){
+    if(window.innerWidth>3000){
         textsize="3.3rem"
         textsize2="3.3rem"
         hovertext="1.5rem"
@@ -42,23 +42,32 @@ else{
         hullSize=4
     }
     else{
-        //Modo 4:3
-        if(window.innerWidth<1200){
-            textsize=".9rem"
-            textsize2=".8rem"
-            hovertext=".9rem"
-            pointsize=125
-            hullSize=2
+        //Modo 21:9
+        if(window.innerWidth>2200){
+            textsize="2rem"
+            textsize2="2rem"
+            hovertext="1.5rem"
+            pointsize=750
+            hullSize=4
         }
-        //Modo Estandar
         else{
-            textsize="1.3rem"
-            textsize2="1.3rem"
-            hovertext="1.3rem"
-            pointsize=200
-            hullSize=3
+            //Modo 4:3
+            if(window.innerWidth<1200){
+                textsize=".9rem"
+                textsize2=".8rem"
+                hovertext=".9rem"
+                pointsize=125
+                hullSize=2
+            }
+            //Modo Estandar 16:9
+            else{
+                textsize="1.3rem"
+                textsize2="1.3rem"
+                hovertext="1.3rem"
+                pointsize=200
+                hullSize=3
+            }
         }
-        
     }
 }
 function GraficoPrincipal({setId,setXY,datoswnominate}){
@@ -73,7 +82,7 @@ function GraficoPrincipal({setId,setXY,datoswnominate}){
     widthDim=width-marginDim;     //No cambiar
     escalax = height/2;           //No cambiar
     escalay = height/2-2*margin;  //No cambiar
-    vBox="0 "+String(margin*1.5)+" "+String(dim)+" "+String(height-2.2*margin)
+    vBox="0 "+String(margin*1.5)+" "+String(dim*1.1)+" "+String(height-2.3*margin)
     
     useEffect(()=>{
         function Redimension(){
@@ -103,7 +112,7 @@ function GraficoPrincipal({setId,setXY,datoswnominate}){
             .attr('rx', height/2-margin)
             .attr('ry', height/2-2*margin)
             .attr("transform","translate("+marginDim+",0)")
-            .style('fill', "rgb(210,228,240)")
+            .style('fill', "rgba(210,228,240,0.8)")
         
         svg.append("g")
             .attr("transform","translate(0,"+heightDim+")")
@@ -166,6 +175,9 @@ function GraficoPrincipal({setId,setXY,datoswnominate}){
                         return "translate("+(d.coord1D*escalay+escalax+margin)+","+((2*escalax)-(d.coord2D*escalay+escalax))+") rotate(180)"
                     }
                 })
+                /* .attr("stroke", function(d){
+                    return partidosinvertidos[d.party]
+                })*/
                 .attr("stroke", "black")
                 .on("click",function(event,d){
                     ClickPoint(d,{setId},{setXY})
@@ -247,7 +259,7 @@ function GraficoPrincipal({setId,setXY,datoswnominate}){
             .enter()
             .append("text")
             .attr("class","noselect")
-            .attr("x",width+5.5*dCuadrado)
+            .attr("x",width+7*dCuadrado)
             .attr("y",function(d,i){ return 3.85*dCuadrado+i*(heightDim-dCuadrado)/17})
             .attr("width",dCuadrado*0.8)
             .attr("height",dCuadrado*0.8)
@@ -272,9 +284,8 @@ function GraficoPrincipal({setId,setXY,datoswnominate}){
                             position="absolute"
                             preserveAspectRatio="xMidYMid meet"
                             style={{"marginBottom":margin/3,
-                                    "border-radius":"10px",
-                                    backgroundColor:"rgba(0,0,0,0.8)"
-                                }} 
+                                    backgroundColor:"rgba(50,50,50,0.95)",
+                                    borderRadius:"10px"}}
                     />
         )
 }
@@ -367,7 +378,7 @@ function SelectParty(event,{setId},{setXY},{datoswnominate}){
         }
         svg.selectAll("polygon").remove()
 
-        svg.selectAll("polygon1")
+        svg.selectAll("body")
         .data([hullJson])
         .enter()
         .append("polygon")
@@ -379,7 +390,7 @@ function SelectParty(event,{setId},{setXY},{datoswnominate}){
         .attr("stroke-width",hullSize*2)
         .attr("fill",'none')
 
-        svg.selectAll("polygon2")
+        svg.selectAll("body")
         .data([hullJson])
         .enter()
         .append("polygon")

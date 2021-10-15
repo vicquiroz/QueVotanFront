@@ -44,7 +44,7 @@ function Buscador({setBusqueda,tags,setIdTag}){
                     type="search" 
                     placeholder="Buscar"
                     value={texto || ""}
-                    style={{backgroundColor:"rgba(0,0,0,0.8)"}}
+                    style={{backgroundColor:"rgba(50,50,50,0.95)"}}
                 >
                 </Input>
                 <div className="border border-dark" >

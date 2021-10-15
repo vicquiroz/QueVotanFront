@@ -8,7 +8,7 @@ import aparra from "../resources/aparra.png"
 import vquiroz from "../resources/vquiroz.png"
 function AcercaDe(){
     return(
-        <Container className="text-light" style={{backgroundColor:"rgba(0,0,0,0.8)",borderRadius:"10px"}}>
+        <Container className="text-light" style={{backgroundColor:"rgba(50,50,50,0.95)",borderRadius:"10px"}}>
              <Row>
                 <Col>
                     <Barra/>
