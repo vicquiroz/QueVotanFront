@@ -11,7 +11,7 @@ function Barra(){
                 <Container className="container-fluid">
                     <NavItem>
                     <Link to="/" style={{ textDecoration: 'none' }} className="text-light">
-                        <span className="navbar-brand mb-0 h1 text-light"><img src={Logo} width="100px"/></span>
+                        <span className="navbar-brand mb-0 h1 text-light"><img src={Logo} width="150px"/></span>
                     </Link>
                     </NavItem>
                     <NavItem>

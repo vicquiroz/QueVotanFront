@@ -175,10 +175,11 @@ function GraficoPrincipal({setId,setXY,datoswnominate}){
                         return "translate("+(d.coord1D*escalay+escalax+margin)+","+((2*escalax)-(d.coord2D*escalay+escalax))+") rotate(180)"
                     }
                 })
-                /* .attr("stroke", function(d){
+                .attr("stroke", function(d){
                     return partidosinvertidos[d.party]
-                })*/
-                .attr("stroke", "black")
+                })
+                .attr("stroke-width","2px")
+                //.attr("stroke", "black")
                 .on("click",function(event,d){
                     ClickPoint(d,{setId},{setXY})
                 })

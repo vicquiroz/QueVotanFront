@@ -2,6 +2,7 @@ import React,{useEffect} from 'react';
 import { Container,Row,Col,Label, TabPane} from 'reactstrap';
 import {useDispatch, useSelector} from 'react-redux'
 //import { obtenerInfoDiputadosAccion } from '../redux/InfoDipDucks';
+import partidosInvertidos from './partidos-invertidos.json'
 import partidos from './partidos.json'
 import { Link } from "react-router-dom";
 function MostrarLista({idCon,datoswnominate}){
@@ -34,9 +35,9 @@ function MostrarLista({idCon,datoswnominate}){
                             <Link onClick={()=>window.location.href="/congresista/"+post["ID"]+"/"+datoswnominate.id} style={{ textDecoration: 'none' }} className="text-light list-group-flush list-group-item-action">
                                 <table style={{width:"100%"}}>
                                     <tbody>
-                                    <tr>
-                                        <td style={{textAlign: 'left',verticalAlign:'top'}}>{post["Nombre"]}</td>
-                                        <td style={{textAlign: 'right',verticalAlign:'top',color:partidos[datoswnominate.wnominate.find(d => d.ID ===post["ID"]).party]}}>({datoswnominate.wnominate.find(d => d.ID ===post["ID"]).party})[{vot[datoswnominate.votacion[0][post["ID"]]]}]</td>
+                                    <tr style={{backgroundColor:partidos[datoswnominate.wnominate.find(d => d.ID ===post["ID"]).party]}}>
+                                        <td style={{textAlign: 'left',verticalAlign:'top',color:partidosInvertidos[datoswnominate.wnominate.find(d => d.ID ===post["ID"]).party]}}>{post["Nombre"]}</td>
+                                        <td style={{textAlign: 'right',verticalAlign:'top',color:partidosInvertidos[datoswnominate.wnominate.find(d => d.ID ===post["ID"]).party]}}>{datoswnominate.wnominate.find(d => d.ID ===post["ID"]).party} - {vot[datoswnominate.votacion[0][post["ID"]]]}</td>
                                     </tr>
                                     </tbody>
                                 </table>
