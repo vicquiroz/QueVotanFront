@@ -59,9 +59,9 @@ function MostrarLista({idCon,datoswnominate}){
                             <Link onClick={()=>window.location.href="/congresista/"+post["ID"]+"/"+datoswnominate.id} style={{ textDecoration: 'none' }} className="text-light list-group-flush list-group-item-action">
                                 <table style={{width:"100%"}}>
                                     <tbody>
-                                    <tr style={{backgroundColor:partidos[post["Partido"]]}}>
-                                        <td style={{textAlign: 'left',verticalAlign:'top',color:partidosInvertidos[post["Partido"]]}}>{post["Nombre"]}</td>
-                                        <td style={{textAlign: 'right',verticalAlign:'top',color:partidosInvertidos[post["Partido"]]}}>{post["Partido"]} - {vot[datoswnominate.votacion[0][post["ID"]]]}</td>
+                                    <tr>
+                                        <td style={{textAlign: 'left',verticalAlign:'top'}}>{post["Nombre"]}</td>
+                                        <td style={{whiteSpace:'nowrap',textAlign: 'right',verticalAlign:'top'}}><p style={{backgroundColor:partidos[post["Partido"]],borderRadius:"10px",color:partidosInvertidos[post["Partido"]]}}>{post["Partido"]} - {vot[datoswnominate.votacion[0][post["ID"]]]}</p></td>
                                     </tr>
                                     </tbody>
                                 </table>
