@@ -60,13 +60,13 @@ function MostrarLista({idCon,datoswnominate}){
                         {filtro.map((post) => ( 
                         <Col className="col-6 col-sm-3" key={post["ID"]}>
                             <Link onClick={()=>window.location.href="/congresista/"+post["ID"]+"/"+datoswnominate.id} style={{ textDecoration: 'none' }} className="text-light list-group-flush list-group-item-action">
-                                <table style={{width:"100%"}}>
+                                <table style={{width:"100%"}} >
                                     <tbody>
                                     <tr>
                                         <td style={{textAlign: 'left',verticalAlign:'top'}}>{post["Nombre"]}</td>
-                                        <td style={{whiteSpace:'nowrap',textAlign: 'right',verticalAlign:'top'}}>
-                                            <span style={{backgroundColor:partidos[post["Partido"]],borderRadius:"10px",color:partidosInvertidos[post["Partido"]]}}>
-                                                {post["Partido"]} - {vot[datoswnominate.votacion[0][post["ID"]]]}
+                                        <td style={{textAlign: 'right',verticalAlign:'top'}}>
+                                            <span style={{backgroundColor:partidos[post["Partido"]],borderRadius:"5px",color:partidosInvertidos[post["Partido"]]}}>
+                                                 {post["Partido"]} - {vot[datoswnominate.votacion[0][post["ID"]]]} 
                                             </span>
                                         </td>
                                     </tr>
