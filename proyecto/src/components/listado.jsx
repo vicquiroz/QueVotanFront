@@ -1,5 +1,5 @@
 import React,{useEffect, useState} from 'react';
-import { Container,Row,Col,Label, TabPane} from 'reactstrap';
+import { Container,Row,Col,Button} from 'reactstrap';
 import {useDispatch, useSelector} from 'react-redux'
 //import { obtenerInfoDiputadosAccion } from '../redux/InfoDipDucks';
 import partidosInvertidos from './partidos-invertidos.json'
@@ -50,7 +50,10 @@ function MostrarLista({idCon,datoswnominate}){
                     <Row>
                         <Col>
                         <h3 className="text-light">Votantes</h3>
-                        <span className="text-light">Ordenar por: <a className="text-light" onClick={ordenPart}>Partido</a>   <a className="text-light" onClick={ordenNomb}>Nombre</a></span>
+                        <h5 className="text-light">Ordenar por: 
+                        {' '}<Button style={{borderRadius:"10px"}} outline color="light" onClick={ordenPart}> Partido</Button>{' '}   
+                            <Button style={{borderRadius:"10px"}} outline color="light" onClick={ordenNomb}> Nombre</Button>
+                        </h5>
                         </Col>
                     </Row>
                     <Row className="text-light" style={{backgroundColor:"rgba(50,50,50,0.95)",borderRadius:"10px"}}>
@@ -61,7 +64,11 @@ function MostrarLista({idCon,datoswnominate}){
                                     <tbody>
                                     <tr>
                                         <td style={{textAlign: 'left',verticalAlign:'top'}}>{post["Nombre"]}</td>
-                                        <td style={{whiteSpace:'nowrap',textAlign: 'right',verticalAlign:'top'}}><p style={{backgroundColor:partidos[post["Partido"]],borderRadius:"10px",color:partidosInvertidos[post["Partido"]]}}>{post["Partido"]} - {vot[datoswnominate.votacion[0][post["ID"]]]}</p></td>
+                                        <td style={{whiteSpace:'nowrap',textAlign: 'right',verticalAlign:'top'}}>
+                                            <span style={{backgroundColor:partidos[post["Partido"]],borderRadius:"10px",color:partidosInvertidos[post["Partido"]]}}>
+                                                {post["Partido"]} - {vot[datoswnominate.votacion[0][post["ID"]]]}
+                                            </span>
+                                        </td>
                                     </tr>
                                     </tbody>
                                 </table>
