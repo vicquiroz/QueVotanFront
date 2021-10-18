@@ -8,6 +8,7 @@ import infoGraficoReducer from './InfoGrafDucks'
 import infoDiputadosReducer from './InfoDipDucks'
 import intervenCongresReducer from './IntervenCongresDucks'
 import tagsReducer from './TagsDucks'
+import previewVotacionReducer from './previewVotDucks'
 
 const rootReducer = combineReducers({
     primerasVotaciones: primerasVotacionesReducer,
@@ -15,7 +16,8 @@ const rootReducer = combineReducers({
     infoGrafico: infoGraficoReducer,
     tags: tagsReducer,
     infoDiputados: infoDiputadosReducer,
-    intervenCongres: intervenCongresReducer
+    intervenCongres: intervenCongresReducer,
+    previewVotacion: previewVotacionReducer
     // En el caso de que se agregen mas, se coloca ,nuevodato :ReductorNuevoDato
 })
 

@@ -8,7 +8,7 @@ import {Container, Col, Row} from "reactstrap";
 import {useParams} from 'react-router-dom'
 import {useDispatch, useSelector} from 'react-redux'
 import {obtenerInfoGraficoAccion} from '../redux/InfoGrafDucks'
-
+import {obtenerPreviewVotacionAccion} from '../redux/previewVotDucks'
 function PagGrafico(){
     function isEmpty(obj){
         return Object.keys(obj).length===0
@@ -18,17 +18,29 @@ function PagGrafico(){
     const [xyBrush, setXY] = useState();
     const dispatch = useDispatch()
     const infoGrafico = useSelector(store => store.infoGrafico.array)
+    const previewVot = useSelector(store => store.previewVotacion.array)
     
     useEffect(()=>{
         dispatch(obtenerInfoGraficoAccion(handle))
+        dispatch(obtenerPreviewVotacionAccion(handle))
+        
     },[])
+    console.log(previewVot[0])
     return(
         <Container>
-            {!isEmpty(infoGrafico)?
+            {!isEmpty(infoGrafico) && !isEmpty(previewVot)?
             <div>
             <Row>
                 <Col>
                     <Barra/>
+                </Col>
+            </Row>
+            <Row>
+                <Col>
+                    <br />
+                    <h2 className="text-light"  style={{backgroundColor:"rgba(50,50,50,0.95)",borderRadius:"10px"}}>
+                        <Container>{previewVot[0].detalle[0].nombre}</Container>
+                    </h2>
                 </Col>
             </Row>
             <Row>

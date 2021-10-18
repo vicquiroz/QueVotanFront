@@ -1,13 +1,15 @@
 import React, {useState} from 'react'
-import {Container, Input, Label} from 'reactstrap'
+import {Container, Input, Label,DropdownItem,DropdownToggle,DropdownMenu,ButtonDropdown,Col,Row} from 'reactstrap'
 import './estilo.css'
 
 function Buscador({setBusqueda,tags,setIdTag}){
-
     const [texto, setTexto] = useState();
     const [sugerencia, setSuge] = useState();
     const [id, setId] = useState();
-
+    const [eleccion, setEleccion] = useState("Selección");
+    const [dropdownOpen, setOpen] = useState(false);
+    const toggle = () => setOpen(!dropdownOpen);
+    
     const enCambio = (tex) =>{
         let coincide = [];
         if(tex.length>0){
@@ -31,11 +33,21 @@ function Buscador({setBusqueda,tags,setIdTag}){
           setIdTag(id);
         }
       }
-
-
     return(
         <Container>
             <h3 className="text-light">Buscar votaciones por materias asociadas</h3>
+            <Row>
+            <Col className="col-sm-2" style={{paddingRight:"0px"}}>
+                <ButtonDropdown isOpen={dropdownOpen} toggle={toggle}>
+                    <DropdownToggle split color="primary" style={{width:"100%"}}>{eleccion} </DropdownToggle>
+                    <DropdownMenu>
+                        <DropdownItem onClick={()=>setEleccion("Item 1")}>Item 1</DropdownItem>
+                        <DropdownItem onClick={()=>setEleccion("Item 2")}>Item 2</DropdownItem>
+                        <DropdownItem onClick={()=>setEleccion("Item 3")}>Item 3</DropdownItem>
+                    </DropdownMenu>
+                </ButtonDropdown>
+            </Col>
+            <Col className="col-sm-10" style={{paddingLeft:"0px"}}>
                 <Input
                     id="buscador"
                     onChange={e => enCambio(e.target.value)}
@@ -55,6 +67,8 @@ function Buscador({setBusqueda,tags,setIdTag}){
                     </Label>
                 )}
                 </div>
+                </Col>
+                </Row>
                 <br /><br />
         </Container>
     )
