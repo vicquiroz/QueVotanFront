@@ -6,7 +6,7 @@ function Buscador({setBusqueda,tags,setIdTag}){
     const [texto, setTexto] = useState();
     const [sugerencia, setSuge] = useState();
     const [id, setId] = useState();
-    const [eleccion, setEleccion] = useState("Selección");
+    const [eleccion, setEleccion] = useState("Materia");
     const [dropdownOpen, setOpen] = useState(false);
     const toggle = () => setOpen(!dropdownOpen);
     
@@ -25,12 +25,24 @@ function Buscador({setBusqueda,tags,setIdTag}){
     const seleccion = (texto, id) =>{
         setTexto(texto);
         setId(id);
+        setSuge("");
         document.getElementById('buscador').select();
     }
 
     const teclaAbajo = (tecla) => {
         if (tecla.key === 'Enter') {
-          setIdTag(id);
+            if(eleccion==="Materia"){
+                setIdTag(id);
+                setBusqueda("Materias")
+            }
+            if(eleccion==="Nombre"){
+                setIdTag('"'+String(texto)+'"');
+                setBusqueda("nombre")
+            }
+            if(eleccion==="Id"){
+                setIdTag(Number(texto))
+                setBusqueda("idVot")
+            }
         }
       }
     return(
@@ -39,11 +51,11 @@ function Buscador({setBusqueda,tags,setIdTag}){
             <Row>
             <Col className="col-sm-2" style={{paddingRight:"0px"}}>
                 <ButtonDropdown isOpen={dropdownOpen} toggle={toggle}>
-                    <DropdownToggle split color="primary" style={{width:"100%"}}>{eleccion} </DropdownToggle>
+                    <DropdownToggle split color="primary" style={{width:"100%"}}>{eleccion}</DropdownToggle>
                     <DropdownMenu>
-                        <DropdownItem onClick={()=>setEleccion("Item 1")}>Item 1</DropdownItem>
-                        <DropdownItem onClick={()=>setEleccion("Item 2")}>Item 2</DropdownItem>
-                        <DropdownItem onClick={()=>setEleccion("Item 3")}>Item 3</DropdownItem>
+                        <DropdownItem onClick={()=>setEleccion("Materia")}>Buscar por materia asociada</DropdownItem>
+                        <DropdownItem onClick={()=>setEleccion("Nombre")}>Buscar por nombre de votacion</DropdownItem>
+                        <DropdownItem onClick={()=>setEleccion("Id")}>Buscar por id de votacion</DropdownItem>
                     </DropdownMenu>
                 </ButtonDropdown>
             </Col>

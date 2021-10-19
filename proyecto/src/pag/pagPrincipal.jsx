@@ -7,6 +7,7 @@ import {Container, Col, Row} from "reactstrap";
 import {useDispatch, useSelector} from 'react-redux'
 import {obtenerTagsAccion} from '../redux/TagsDucks'
 import {obtenerPrimerasVotacionesAccion} from '../redux/VotacionDucks'
+import {obtenerInfoConsultaAccion} from '../redux/InfoConsultaDucks'
 function Principal(){
 
     const [busqueda, setBusqueda] = useState(); 
@@ -14,12 +15,14 @@ function Principal(){
     const dispatch = useDispatch()
     const tags = useSelector(store => store.tags.array)
     const primerasVotaciones = useSelector(store => store.primerasVotaciones.array)
+    const consulta = useSelector(store => store.infoConsulta.array)
 
     useEffect(()=> {
         dispatch(obtenerTagsAccion())
         dispatch(obtenerPrimerasVotacionesAccion())
+        dispatch(obtenerInfoConsultaAccion(busqueda,idTag))
     },[]);
-    
+    console.log(consulta)
     return(
         <Container>
             <Row>
