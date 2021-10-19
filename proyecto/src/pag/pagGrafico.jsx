@@ -23,7 +23,6 @@ function PagGrafico(){
     useEffect(()=>{
         dispatch(obtenerInfoGraficoAccion(handle))
         dispatch(obtenerPreviewVotacionAccion(handle))
-        
     },[])
     console.log(previewVot[0])
     return(

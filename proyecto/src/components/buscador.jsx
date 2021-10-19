@@ -40,8 +40,8 @@ function Buscador({setBusqueda,tags,setIdTag}){
                 setBusqueda("nombre")
             }
             if(eleccion==="Id"){
-                setIdTag(Number(texto))
-                setBusqueda("idVot")
+                setIdTag(texto)
+                setBusqueda(0)
             }
         }
       }
@@ -55,7 +55,7 @@ function Buscador({setBusqueda,tags,setIdTag}){
                     <DropdownMenu>
                         <DropdownItem onClick={()=>setEleccion("Materia")}>Buscar por materia asociada</DropdownItem>
                         <DropdownItem onClick={()=>setEleccion("Nombre")}>Buscar por nombre de votacion</DropdownItem>
-                        <DropdownItem onClick={()=>setEleccion("Id")}>Buscar por id de votacion</DropdownItem>
+                        {/*<DropdownItem onClick={()=>setEleccion("Id")}>Buscar por id de votacion</DropdownItem>*/}
                     </DropdownMenu>
                 </ButtonDropdown>
             </Col>

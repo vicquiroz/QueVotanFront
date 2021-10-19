@@ -16,8 +16,6 @@ export default function infoConsultaReducer(state = InfoConsultasI, action){
 }
 
 export const obtenerInfoConsultaAccion = (Tipo,Valor) => async(dispatch,getState) => {
-    console.log(Tipo)
-    console.log(Valor)
     try {
         const res = await axios.get(String(process.env.REACT_APP_API_URL+"wnominate/diputados/preview/teste/"+Tipo+"/"+Valor))
         dispatch({

@@ -8,7 +8,6 @@ function Tabla({busqueda,primerasVotaciones}){
     
     const [vot,setVot] = useState([])
     const [limit,setLimit]=useState()
-
     function PrimeraLetraMayuscula(string){
         return string.charAt(0).toUpperCase() + string.slice(1);
     }
