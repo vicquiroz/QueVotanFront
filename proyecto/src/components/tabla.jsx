@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import InfiniteScroll from 'react-infinite-scroll-component'
 
 
-function Tabla({busqueda,primerasVotaciones}){
+function Tabla({primerasVotaciones}){
     
     const [vot,setVot] = useState([])
     const [limit,setLimit]=useState()

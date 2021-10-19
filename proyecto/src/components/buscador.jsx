@@ -2,7 +2,7 @@ import React, {useState} from 'react'
 import {Container, Input, Label,DropdownItem,DropdownToggle,DropdownMenu,ButtonDropdown,Col,Row} from 'reactstrap'
 import './estilo.css'
 
-function Buscador({setBusqueda,tags,setIdTag}){
+function Buscador({tags,setIdTag}){
     const [texto, setTexto] = useState();
     const [sugerencia, setSuge] = useState();
     const [id, setId] = useState();
@@ -32,16 +32,13 @@ function Buscador({setBusqueda,tags,setIdTag}){
     const teclaAbajo = (tecla) => {
         if (tecla.key === 'Enter') {
             if(eleccion==="Materia"){
-                setIdTag(id);
-                setBusqueda("Materias")
+                window.location.href="/Buscar/Materias/"+id
             }
             if(eleccion==="Nombre"){
-                setIdTag('"'+String(texto)+'"');
-                setBusqueda("nombre")
+                window.location.href="/Buscar/nombre/"+'"'+String(texto)+'"'
             }
             if(eleccion==="Id"){
-                setIdTag(texto)
-                setBusqueda(0)
+
             }
         }
       }
