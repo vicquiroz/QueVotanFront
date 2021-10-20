@@ -7,6 +7,7 @@ import { useParams } from "react-router";
 import {useDispatch, useSelector} from 'react-redux'
 import {obtenerTagsAccion} from '../redux/TagsDucks'
 import {obtenerInfoConsultaAccion} from '../redux/InfoConsultaDucks'
+import {obtenerPreviewVotacionAccion} from '../redux/previewVotDucks'
 function Busqueda(){
     const {handleMetodo,handleValor} = useParams()
     const [idTag, setIdTag] = useState();
@@ -14,15 +15,24 @@ function Busqueda(){
     const dispatch = useDispatch()
     const tags = useSelector(store => store.tags.array)
     const infoConsulta = useSelector(store => store.infoConsulta.array)
+    const previewVot = useSelector(store=> store.previewVotacion.array)
     useEffect(()=> {
         dispatch(obtenerTagsAccion())
-        dispatch(obtenerInfoConsultaAccion(handleMetodo,handleValor))
+        if(handleMetodo!=="ID"){
+            dispatch(obtenerInfoConsultaAccion(handleMetodo,handleValor))
+        }
+        else{
+            dispatch(obtenerPreviewVotacionAccion(handleValor))
+        }
     },[]);
-
     useEffect(()=>{
-        setVotaciones(infoConsulta.filter((dat)=>{return dat.detalle[0].camaraOrigen!=="Senado"}))
-    },[infoConsulta])
-
+        if(handleMetodo!=="ID"){
+            setVotaciones(infoConsulta.filter((dat)=>{return dat.detalle[0].camaraOrigen!=="Senado"}))
+        }
+        else{
+            setVotaciones(previewVot.filter((dat)=>{return dat.detalle[0].camaraOrigen!=="Senado"}))
+        }
+    },[infoConsulta,previewVot])
     return(
         <Container>
             <Row>

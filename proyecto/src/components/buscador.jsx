@@ -50,7 +50,7 @@ function Buscador({tags,setIdTag}){
                 window.location.href="/Buscar/nombre/"+'"'+String(texto)+'"'
             }
             if(eleccion==="Id"){
-
+                window.location.href="/Buscar/ID/"+texto
             }
         }
       }
@@ -60,12 +60,12 @@ function Buscador({tags,setIdTag}){
             <Row>
             <InputGroup>
                 <InputGroupButtonDropdown addonType="append" isOpen={dropdownOpen} toggle={toggle}>
-                    <DropdownToggle split color="primary" style={{width:"100%"}}>{eleccion}</DropdownToggle>
+                    <DropdownToggle split color="primary" style={{width:"100%"}}>{eleccion} </DropdownToggle>
                     <DropdownMenu>
                         <DropdownItem onClick={()=>setEleccion("Materia")}>Buscar por materia asociada</DropdownItem>
                         <DropdownItem onClick={()=>{setEleccion("Nombre")
                         setSuge("");}}>Buscar por nombre de votacion</DropdownItem>
-                        {/*<DropdownItem onClick={()=>setEleccion("Id")}>Buscar por id de votacion</DropdownItem>*/}
+                        <DropdownItem onClick={()=>setEleccion("Id")}>Buscar por id de votacion</DropdownItem>
                     </DropdownMenu>
                 </InputGroupButtonDropdown>
                 <Input
@@ -79,6 +79,8 @@ function Buscador({tags,setIdTag}){
                     style={{backgroundColor:"rgba(50,50,50,0.95)"}}
                 >
                 </Input>
+                </InputGroup>
+                <Container>
                 <div className="border border-dark" >
                 {sugerencia && sugerencia.slice(0,10).map((sugerencia, id) =>
                     <Label className="list-group-flush list-group-item-dark list-group-item-action" key={id}
@@ -87,7 +89,7 @@ function Buscador({tags,setIdTag}){
                     </Label>
                 )}
                 </div>
-                </InputGroup>
+                </Container>
                 </Row>
                 <br /><br />
         </Container>

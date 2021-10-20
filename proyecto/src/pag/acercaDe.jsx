@@ -32,14 +32,11 @@ function AcercaDe(){
                                     <hr className="my-4"/>
                                     <p className="lead">
                                     La representación espacial bidimensional del espectro político de la Cámara de
-                                    Diputados del Congreso de la República de Chile en el período legislativo 2014-2018
-                                    se realizó mediante el algoritmo W-Nominate de Poole y Rosenthal (1985). En el algoritmo
-                                    se asumen dos dimensiones: la primera dimensión se considera que modela los aspectos valóricos
-                                    (liberal - conservador), mientras que la segunda dimensión modelaría la dimensión económica
-                                    (pro estado - pro mercado). Se utiliza como punto de referencia para definir el polo
-                                    conservador-conservador al Diputado José Antonio Kast. Se utilizaron todas las votaciones
-                                    de la legislatura dejando por fuera aquellas en las que el voto minoritario constituía menos
-                                    del 2.5% del total. 
+                                    Diputados del Congreso de la República de Chile en el período legislativo 2018-2022
+                                    se realizó mediante el algoritmo W-Nominate de Poole y Rosenthal (1985). Se utiliza
+                                    como polo de referencia a los Diputados Gastón Saavedra y Joaquín Lavín León. Se utilizaron
+                                    todas las votaciones de la legislatura dejando por fuera aquellas en las que el voto
+                                    minoritario constituía menos del 2.5% del total.
                                     </p>
                                 </Col>
                             </Row>
@@ -48,14 +45,28 @@ function AcercaDe(){
                                 <Col>
                                     <h3>El proceso de los datos</h3>
                                     <h4>Extracción</h4>
-                                    <p>El Congreso Nacional pone a disposición de la ciudadanía su iniciativa de DATOS ABIERTOS LEGISLATIVOS, que se enmarca en el principio de Transparencia y acercamiento de la labor legislativa que se desarrolla en la Cámara de Diputados, el Senado y la Biblioteca del Congreso, de acuerdo a la Constitución y las leyes. Al tener acceso a éstos datos mediante el método de web scrapping, se logra la extracción de las votaciones de nuestros parlamentarios.</p>
+                                    <p>El Congreso Nacional pone a disposición de la ciudadanía su iniciativa de "datos abiertos
+                                        legislativos", que se enmarca en el principio de Transparencia y acercamiento de la
+                                        labor legislativa que se desarrolla en la Cámara de Diputados, el Senado y la Biblioteca
+                                        del Congreso, de acuerdo a la Constitución y las leyes. Al tener acceso a éstos datos
+                                        mediante el método de web scrapping, se logra la extracción de las votaciones de nuestros
+                                        parlamentarios.</p>
                                     <h4>Inserción</h4>
-                                    <p> La inserción de lo datos extraídos mediante el web scrapping realizado, llega el momento en el cual los datos son almacenados en servidores locales de la Universidad Católica de Temuco, utilizando Mongo DB, el cuál permite la infinita inserción de datos en tablas no relacionales.</p>
+                                    <p> La inserción de lo datos extraídos mediante el web scrapping realizado, llega el
+                                        momento en el cual los datos son almacenados en servidores locales de la Universidad
+                                        Católica de Temuco, utilizando Mongo DB, el cuál permite la infinita inserción de datos
+                                        en tablas no relacionales.</p>
                                     <h4>Procesamiento</h4>
-                                    <p>Una vez obtenido los datos en tablas, viene el procesamiento de los datos, para ésto utilizamos el lenguaje de programación R, el cuál es un entorno para computación y gráficos estadísticos, desarrollado por Bell Laboratories. El entorno utilizado posee un conjunto de de elementos que están integrados para la manipulación de datos, cálculo y visualización gráfica. </p>
+                                    <p>Una vez obtenido los datos en tablas, viene el procesamiento de los datos,
+                                        para ésto utilizamos el lenguaje de programación R, el cuál es un entorno para
+                                        computación y gráficos estadísticos, desarrollado por Bell Laboratories. El entorno
+                                        utilizado posee un conjunto de de elementos que están integrados para la manipulación
+                                        de datos, cálculo y visualización gráfica. </p>
                                     <h4>Visualización</h4>
-                                    Finalmente el proyecto cuenta con la visualización de la información recabada y procesada anteriormente, implementando una web en la cuál podemos visualizar los datos de manera responsive, permitiendo la entrega de información a los distintos entusiastas que deseen informarse sobre los movimientos de los distintos partidos políticos en nuestro país. 
-                                    
+                                    Finalmente el proyecto cuenta con la visualización de la información recabada y procesada
+                                    anteriormente, implementando una web en la cuál podemos visualizar los datos de manera
+                                    responsive, permitiendo la entrega de información a los distintos entusiastas que deseen
+                                    informarse sobre los movimientos de los distintos partidos políticos en nuestro país. 
                                 </Col>
                             </Row>
                             <br />
