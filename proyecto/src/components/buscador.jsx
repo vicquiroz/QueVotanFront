@@ -62,15 +62,27 @@ function Buscador({tags,setIdTag}){
                 <InputGroupButtonDropdown addonType="append" isOpen={dropdownOpen} toggle={toggle}>
                     <DropdownToggle split color="primary" style={{width:"100%"}}>{eleccion} </DropdownToggle>
                     <DropdownMenu>
-                        <DropdownItem onClick={()=>setEleccion("Materia")}>Buscar por materia asociada</DropdownItem>
+                        <DropdownItem onClick={()=>{setEleccion("Materia")}}>Buscar por materia asociada</DropdownItem>
                         <DropdownItem onClick={()=>{setEleccion("Nombre")
-                        setSuge("");}}>Buscar por nombre de votacion</DropdownItem>
-                        <DropdownItem onClick={()=>setEleccion("Id")}>Buscar por id de votacion</DropdownItem>
+                        setSuge("")}}>Buscar por nombre de votacion</DropdownItem>
+                        <DropdownItem onClick={()=>{setEleccion("Id")
+                        setTexto("")
+                        }}>Buscar por id de votacion</DropdownItem>
                     </DropdownMenu>
                 </InputGroupButtonDropdown>
                 <Input
                     id="buscador"
-                    onChange={e => enCambio(e.target.value)}
+                    onChange={e =>{
+                        const re = /^[0-9\b]+$/;
+                        if(eleccion==="Id"){
+                            if (e.target.value === '' || re.test(e.target.value)) {
+                                enCambio(e.target.value)
+                            }
+                        }
+                        else{
+                            enCambio(e.target.value)
+                        }
+                    }}
                     onKeyDown={teclaAbajo}
                     className="input text-light" 
                     type="search" 
