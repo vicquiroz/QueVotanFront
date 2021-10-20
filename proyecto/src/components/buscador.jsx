@@ -1,5 +1,15 @@
 import React, {useState} from 'react'
-import {Container, Input, Label,DropdownItem,DropdownToggle,DropdownMenu,ButtonDropdown,Col,Row} from 'reactstrap'
+import {InputGroup,
+        InputGroupButtonDropdown,
+        Container, 
+        Input, 
+        Label,
+        DropdownItem,
+        DropdownToggle,
+        DropdownMenu,
+        ButtonDropdown,
+        Col,
+        Row} from 'reactstrap'
 import './estilo.css'
 
 function Buscador({tags,setIdTag}){
@@ -11,14 +21,16 @@ function Buscador({tags,setIdTag}){
     const toggle = () => setOpen(!dropdownOpen);
     
     const enCambio = (tex) =>{
-        let coincide = [];
-        if(tex.length>0){
-            coincide = tags.filter(tag=>{
-                const tagname = tag.desc.toLowerCase();
-                return tagname.includes(tex.toLowerCase());
+        if(eleccion==="Materia"){
+            let coincide = [];
+            if(tex.length>0){
+                coincide = tags.filter(tag=>{
+                    const tagname = tag.desc.toLowerCase();
+                    return tagname.includes(tex.toLowerCase());
             })
         }
         setSuge(coincide);
+        }
         setTexto(tex)
     }
 
@@ -44,19 +56,18 @@ function Buscador({tags,setIdTag}){
       }
     return(
         <Container>
-            <h3 className="text-light">Buscar votaciones por materias asociadas</h3>
+            <h3 className="text-light">Buscar votaciones</h3>
             <Row>
-            <Col className="col-sm-2" style={{paddingRight:"0px"}}>
-                <ButtonDropdown isOpen={dropdownOpen} toggle={toggle}>
+            <InputGroup>
+                <InputGroupButtonDropdown addonType="append" isOpen={dropdownOpen} toggle={toggle}>
                     <DropdownToggle split color="primary" style={{width:"100%"}}>{eleccion}</DropdownToggle>
                     <DropdownMenu>
                         <DropdownItem onClick={()=>setEleccion("Materia")}>Buscar por materia asociada</DropdownItem>
-                        <DropdownItem onClick={()=>setEleccion("Nombre")}>Buscar por nombre de votacion</DropdownItem>
+                        <DropdownItem onClick={()=>{setEleccion("Nombre")
+                        setSuge("");}}>Buscar por nombre de votacion</DropdownItem>
                         {/*<DropdownItem onClick={()=>setEleccion("Id")}>Buscar por id de votacion</DropdownItem>*/}
                     </DropdownMenu>
-                </ButtonDropdown>
-            </Col>
-            <Col className="col-sm-10" style={{paddingLeft:"0px"}}>
+                </InputGroupButtonDropdown>
                 <Input
                     id="buscador"
                     onChange={e => enCambio(e.target.value)}
@@ -76,7 +87,7 @@ function Buscador({tags,setIdTag}){
                     </Label>
                 )}
                 </div>
-                </Col>
+                </InputGroup>
                 </Row>
                 <br /><br />
         </Container>
