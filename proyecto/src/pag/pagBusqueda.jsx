@@ -18,19 +18,22 @@ function Busqueda(){
     const previewVot = useSelector(store=> store.previewVotacion.array)
     useEffect(()=> {
         dispatch(obtenerTagsAccion())
-        if(handleMetodo!=="ID"){
+        if(handleMetodo==="ID"){
+            dispatch(obtenerPreviewVotacionAccion(handleValor))
+        }
+        if(handleMetodo==="numeroBoletin"){
             dispatch(obtenerInfoConsultaAccion(handleMetodo,handleValor))
         }
         else{
-            dispatch(obtenerPreviewVotacionAccion(handleValor))
+            dispatch(obtenerInfoConsultaAccion(handleMetodo,handleValor))
         }
     },[]);
     useEffect(()=>{
-        if(handleMetodo!=="ID"){
-            setVotaciones(infoConsulta.filter((dat)=>{return dat.detalle[0].camaraOrigen!=="Senado"}))
+        if(handleMetodo==="ID"){
+            setVotaciones(previewVot.filter((dat)=>{return dat.detalle[0].camaraOrigen!=="Senado"}))
         }
         else{
-            setVotaciones(previewVot.filter((dat)=>{return dat.detalle[0].camaraOrigen!=="Senado"}))
+            setVotaciones(infoConsulta.filter((dat)=>{return dat.detalle[0].camaraOrigen!=="Senado"}))
         }
     },[infoConsulta,previewVot])
     return(

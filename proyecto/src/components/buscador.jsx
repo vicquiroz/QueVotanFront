@@ -52,6 +52,9 @@ function Buscador({tags,setIdTag}){
             if(eleccion==="Id"){
                 window.location.href="/Buscar/ID/"+texto
             }
+            if(eleccion==="numeroBoletin"){
+                window.location.href="/Buscar/numeroBoletin/"+'"'+String(texto)+'"'
+            }
         }
       }
     return(
@@ -64,18 +67,27 @@ function Buscador({tags,setIdTag}){
                     <DropdownMenu>
                         <DropdownItem onClick={()=>{setEleccion("Materia")}}>Buscar por materia asociada</DropdownItem>
                         <DropdownItem onClick={()=>{setEleccion("Nombre")
-                        setSuge("")}}>Buscar por nombre de votacion</DropdownItem>
+                        setSuge("")}}>Buscar por nombre de votación</DropdownItem>
+                        <DropdownItem onClick={()=>{setEleccion("numeroBoletin")
+                        setTexto("")
+                        }}>Buscar por número de boletín</DropdownItem>
                         <DropdownItem onClick={()=>{setEleccion("Id")
                         setTexto("")
-                        }}>Buscar por id de votacion</DropdownItem>
+                        }}>Buscar por ID de votación</DropdownItem>
                     </DropdownMenu>
                 </InputGroupButtonDropdown>
                 <Input
                     id="buscador"
                     onChange={e =>{
-                        const re = /^[0-9\b]+$/;
+                        const reId = /^[0-9\b]+$/;
+                        const renB = /^[0-9-\b]+$/;
                         if(eleccion==="Id"){
-                            if (e.target.value === '' || re.test(e.target.value)) {
+                            if (e.target.value === '' || reId.test(e.target.value)) {
+                                enCambio(e.target.value)
+                            }
+                        }
+                        if(eleccion==="numeroBoletin"){
+                            if (e.target.value === '' || renB.test(e.target.value)) {
                                 enCambio(e.target.value)
                             }
                         }
