@@ -8,8 +8,6 @@ import {useDispatch, useSelector} from 'react-redux'
 import {obtenerTagsAccion} from '../redux/TagsDucks'
 import {obtenerPrimerasVotacionesAccion} from '../redux/VotacionDucks'
 function Principal(){
-    const [busqueda, setBusqueda] = useState(); 
-    const [idTag, setIdTag] = useState();
     const [votaciones,setVotaciones] = useState([]);
     const dispatch = useDispatch()
     const tags = useSelector(store => store.tags.array)
