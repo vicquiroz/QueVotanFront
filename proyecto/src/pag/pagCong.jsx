@@ -98,7 +98,7 @@ function Congresista() {
                             </Navbar>
                         </Col>
                         <Col>
-                            <GraficoCong idDip={handleIdDip} datoswnominate={infoGrafico}/>
+                            {/*<GraficoCong idDip={handleIdDip} datoswnominate={infoGrafico}/>*/}
                         </Col>
                     </Row>
                 </Container>
