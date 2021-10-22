@@ -24,7 +24,12 @@ function PagGrafico(){
         dispatch(obtenerInfoGraficoAccion(handle))
         dispatch(obtenerPreviewVotacionAccion(handle))
     },[])
-    console.log(previewVot[0])
+    //Filtro
+    if(!isEmpty(infoGrafico)){
+        infoGrafico.wnominate=infoGrafico.wnominate.filter((dat)=> {
+            return dat.coord1D!==undefined && dat.coord2D!==undefined && dat.party!==undefined && dat.Nombre!==undefined && dat.ID!==undefined && Object.keys(infoGrafico.votacion[0]).includes(String(dat.ID))
+        })
+    }
     return(
         <Container>
             {!isEmpty(infoGrafico) && !isEmpty(previewVot)?

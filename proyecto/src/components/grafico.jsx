@@ -71,7 +71,6 @@ else{
     }
 }
 function GraficoPrincipal({setId,setXY,datoswnominate}){
-    datoswnominate.wnominate=datoswnominate.wnominate.filter((dat)=> {return dat.party!==partidos.key})
     dim= window.innerWidth*0.8;   //No cambiar
     width = dim*0.68;
     height = dim*0.68;

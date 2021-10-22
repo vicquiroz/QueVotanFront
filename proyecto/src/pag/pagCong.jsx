@@ -3,8 +3,8 @@ import Barra from "../components/barra";
 import {Container, Col, Row, Button, Navbar,NavbarBrand,NavLink,Nav} from "reactstrap";
 import {useParams} from 'react-router-dom'
 import {useDispatch, useSelector} from 'react-redux'
-import { obtenerInfoDiputadosAccion } from '../redux/InfoDipDucks';
-import { obtenerIntervenCongresAccion} from '../redux/IntervenCongresDucks'
+import {obtenerInfoDiputadosAccion } from '../redux/InfoDipDucks';
+import {obtenerInfoConsultaAccion} from '../redux/InfoConsultaDucks'
 import {obtenerInfoGraficoAccion} from '../redux/InfoGrafDucks'
 import GraficoCong, {GraficoBarra} from '../components/graficocong'
 import InfiniteScroll from 'react-infinite-scroll-component'
@@ -20,22 +20,27 @@ function Congresista(){
     const {handleIdDip,handleIdVot} = useParams()
     const dispatch = useDispatch()
     const infoDip = useSelector(store => store.infoDiputados.array)
-    const intervenCongres = useSelector(store => store.intervenCongres.array)
+    var intervenCongres = useSelector(store => store.infoConsulta.array)
     const infoGrafico = useSelector(store => store.infoGrafico.array)
     useEffect(()=> {
             dispatch(obtenerInfoDiputadosAccion(handleIdDip))
-            dispatch(obtenerIntervenCongresAccion(handleIdDip))
+            dispatch(obtenerInfoConsultaAccion("ParlamentarioAutor",handleIdDip))
             dispatch(obtenerInfoGraficoAccion(handleIdVot))
+            
     },[]);
+    console.log(intervenCongres)
     useEffect(()=>{
-        setICL(intervenCongres.slice(0,30))
-        setLimit(60)
+        intervenCongres=intervenCongres.filter((dat)=>{return dat.detalle!=='No encontrado'})
+        setICL(intervenCongres.slice(0,10))
+        setLimit(20)
+        console.log(intervenCongres)
     },[intervenCongres])
     const fetchData = () =>{
         setTimeout(() => {
+            intervenCongres=intervenCongres.filter((dat)=>{return dat.detalle!=='No encontrado'})
             setICL(intervenCongres.slice(0,limit))
             if(limit<intervenCongres.length){
-                setLimit(limit+30)
+                setLimit(limit+10)
             }
         },500);
     }
@@ -97,12 +102,12 @@ function Congresista(){
                 hasMore={true}
                 >
                     {iCL.map((post)=>(
-                    /*<Link onClick={()=> window.location.href="/grafico/"+post.id} style={{ textDecoration: 'none' }}>*/
-                    <li className="text-light noselect" key={post["id"]}>   
-                        {post["Titulo"]}
+                    <Link onClick={()=> window.location.href="/grafico/"+post.detalle_id} style={{ textDecoration: 'none' }}>
+                    <li className="text-light noselect" key={post.detalle_id}>   
+                        {post.detalle[0].nombre}
                     </li>
                     
-                    /*</Link>*/
+                    </Link>
                     ))}
                 </InfiniteScroll>
             </Container>
