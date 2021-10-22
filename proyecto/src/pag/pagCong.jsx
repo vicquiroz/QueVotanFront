@@ -28,12 +28,10 @@ function Congresista(){
             dispatch(obtenerInfoGraficoAccion(handleIdVot))
             
     },[]);
-    console.log(intervenCongres)
     useEffect(()=>{
         intervenCongres=intervenCongres.filter((dat)=>{return dat.detalle!=='No encontrado'})
         setICL(intervenCongres.slice(0,10))
         setLimit(20)
-        console.log(intervenCongres)
     },[intervenCongres])
     const fetchData = () =>{
         setTimeout(() => {

@@ -22,6 +22,7 @@ var textsize2;
 var pointsize;
 var hovertext;
 var hullSize;
+var strokewidth;
 var vBox;
 
 //Modo Telefono
@@ -31,10 +32,12 @@ if(window.innerWidth<800){
     hovertext=".5rem"
     pointsize=25
     hullSize=2
+    strokewidth="0.5px"
 }
 else{
     //Modo 4k
     if(window.innerWidth>3000){
+        strokewidth="3px"
         textsize="3.3rem"
         textsize2="3.3rem"
         hovertext="1.5rem"
@@ -44,6 +47,7 @@ else{
     else{
         //Modo 21:9
         if(window.innerWidth>2200){
+            strokewidth="2.5px"
             textsize="2rem"
             textsize2="2rem"
             hovertext="1.5rem"
@@ -53,6 +57,7 @@ else{
         else{
             //Modo 4:3
             if(window.innerWidth<1200){
+                strokewidth="1px"
                 textsize=".9rem"
                 textsize2=".8rem"
                 hovertext=".9rem"
@@ -61,6 +66,7 @@ else{
             }
             //Modo Estandar 16:9
             else{
+                strokewidth="2px"
                 textsize="1.3rem"
                 textsize2="1.3rem"
                 hovertext="1.3rem"
@@ -177,7 +183,7 @@ function GraficoPrincipal({setId,setXY,datoswnominate}){
                 .attr("stroke", function(d){
                     return partidosinvertidos[d.party]
                 })
-                .attr("stroke-width","2px")
+                .attr("stroke-width",strokewidth)
                 //.attr("stroke", "black")
                 .on("click",function(event,d){
                     ClickPoint(d,{setId},{setXY})
