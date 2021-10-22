@@ -5,6 +5,7 @@ import datos from '../Coord.json'
 import partidos from './partidos.json'
 import partidosinvertidos from './partidos-invertidos.json'
 import {polygonHull} from 'd3-polygon';
+import { isMobile } from "react-device-detect";
 var svg;  
 var dim 
 var width 
@@ -26,7 +27,7 @@ var strokewidth;
 var vBox;
 
 //Modo Telefono
-if(window.innerWidth<800){
+if(window.innerHeight<750){
     textsize=".5rem"
     textsize2=".4rem"
     hovertext=".5rem"
@@ -36,7 +37,7 @@ if(window.innerWidth<800){
 }
 else{
     //Modo 4k
-    if(window.innerWidth>3000){
+    if(window.innerHeight>3000){
         strokewidth="3px"
         textsize="3.3rem"
         textsize2="3.3rem"
@@ -46,7 +47,7 @@ else{
     }
     else{
         //Modo 21:9
-        if(window.innerWidth>2200){
+        if(window.innerHeight>2200){
             strokewidth="2.5px"
             textsize="2rem"
             textsize2="2rem"
@@ -56,7 +57,7 @@ else{
         }
         else{
             //Modo 4:3
-            if(window.innerWidth<1200){
+            if(window.innerHeight<1200){
                 strokewidth="1px"
                 textsize=".9rem"
                 textsize2=".8rem"
@@ -77,7 +78,7 @@ else{
     }
 }
 function GraficoPrincipal({setId,setXY,datoswnominate}){
-    dim= window.innerWidth*0.8;   //No cambiar
+    dim= window.innerHeight;   //No cambiar
     width = dim*0.68;
     height = dim*0.68;
     margin = dim-0.95*dim;
@@ -91,9 +92,9 @@ function GraficoPrincipal({setId,setXY,datoswnominate}){
     
     useEffect(()=>{
         function Redimension(){
-            if(window.innerWidth>=800){
-                window.location.href = window.location.href;
-            }
+                if(!isMobile){
+                    window.location.href = window.location.href;
+                }
         } 
         window.addEventListener('resize', Redimension)
     })
@@ -335,11 +336,11 @@ function brushed(event,{setId},{setXY},{datoswnominate}){
             .duration(200)
             for(let P in NodeSelec){
                 let path = "path#id_"+NodeSelec[P]
-                svg.selectAll(path).transition().duration('50').attr('opacity', '1')
+                svg.selectAll(path).transition().duration('50').attr('opacity', '0.6')
             }
         }
         else{
-            svg.selectAll("path").transition().duration('50').attr('opacity', '1')
+            svg.selectAll("path").transition().duration('50').attr('opacity', '0.8')
             for(let P in Nodes){
                 NodeSelec.push(Nodes[P][1])
                 let envio = datoswnominate.wnominate.find((dat)=> {return dat.ID===Nodes[P][1]});
@@ -366,7 +367,7 @@ function SelectParty(event,{setId},{setXY},{datoswnominate}){
     for(let P in Nodes){
         NodeSelec.push(Nodes[P].ID)
         let path = "path#id_"+Nodes[P].ID
-        svg.selectAll(path).transition().duration('50').attr('opacity', '1')
+        svg.selectAll(path).transition().duration('50').attr('opacity', '0.6')
         posicionX.push(Number(Nodes[P].coord1D));
         posicionY.push(Number(Nodes[P].coord2D));
         posicionC.push([Number(Nodes[P].coord1D),Number(Nodes[P].coord2D)])
@@ -395,6 +396,7 @@ function SelectParty(event,{setId},{setXY},{datoswnominate}){
         .duration(200)
         .attr("stroke-width",hullSize*2)
         .attr("fill",'none')
+        .attr('opacity', '0.6')
 
         svg.selectAll("body")
         .data([hullJson])
@@ -407,6 +409,7 @@ function SelectParty(event,{setId},{setXY},{datoswnominate}){
         .duration(200)
         .attr("stroke-width",hullSize)
         .attr("fill",'none')
+        .attr('opacity', '0.6')
 
         
         
@@ -428,7 +431,7 @@ function SelectEstado(event,{setId},{setXY},{datoswnominate}){
     for(let P in Nodes){
         NodeSelec.push(Nodes[P].ID)
         let path = "path#id_"+Nodes[P].ID
-        svg.selectAll(path).transition().duration('50').attr('opacity', '1')
+        svg.selectAll(path).transition().duration('50').attr('opacity', '0.6')
         posicionX.push(Number(Nodes[P].coord1D));
         posicionY.push(Number(Nodes[P].coord2D));
         posicionC.push([Number(Nodes[P].coord1D),Number(Nodes[P].coord2D)])
@@ -443,7 +446,7 @@ function ClickPoint(d,{setId},{setXY}){
     let posicionY = []
     svg.selectAll("path").transition().duration('50').attr('opacity',transpPuntos)
     svg.selectAll("g.brush").call(brush().clear)
-    svg.selectAll(path).transition().duration('50').attr('opacity', '1')
+    svg.selectAll(path).transition().duration('50').attr('opacity', '0.6')
     posicionX.push(Number(d.coord1D));
     posicionY.push(Number(d.coord2D));
     setId(Number(d.ID))
@@ -452,7 +455,7 @@ function ClickPoint(d,{setId},{setXY}){
 }
 
 function ClearGraph({setId},{setXY},{datoswnominate}){
-    svg.selectAll("path").transition().duration('50').attr('opacity', '1')
+    svg.selectAll("path").transition().duration('50').attr('opacity', '0.6')
     .transition()
     .duration(200)
     var Nodes = []
