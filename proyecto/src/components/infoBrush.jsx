@@ -1,6 +1,5 @@
 import React from 'react';
 import { Row, Col, CardBody, Card, CardHeader, CardText,Container } from 'reactstrap';
-import partidos from './partidos.json'
 function Inform({pos,datoswnominate}){
     if (pos!==undefined){
         var maxX = Math.max(...pos[0]).toFixed(2);

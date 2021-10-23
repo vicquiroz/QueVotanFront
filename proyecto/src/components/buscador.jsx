@@ -7,8 +7,6 @@ import {InputGroup,
         DropdownItem,
         DropdownToggle,
         DropdownMenu,
-        ButtonDropdown,
-        Col,
         Row} from 'reactstrap'
 import './estilo.css'
 
@@ -47,13 +45,13 @@ function Buscador({tags,setIdTag}){
                 window.location.href="/Buscar/Materias/"+id
             }
             if(eleccion==="Nombre"){
-                window.location.href="/Buscar/nombre/"+'"'+String(texto)+'"'
+                window.location.href=`/Buscar/nombre/"${String(texto)}"`
             }
             if(eleccion==="Id"){
                 window.location.href="/Buscar/ID/"+texto
             }
             if(eleccion==="numeroBoletin"){
-                window.location.href="/Buscar/numeroBoletin/"+'"'+String(texto)+'"'
+                window.location.href=`/Buscar/numeroBoletin/"${String(texto)}"`
             }
         }
       }

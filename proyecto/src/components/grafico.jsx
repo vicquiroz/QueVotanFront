@@ -1,7 +1,5 @@
-import React, {useRef, useEffect, useState} from 'react';
-import { Container} from 'reactstrap';
+import React, {useRef, useEffect} from 'react';
 import {select, symbol, symbolTriangle,symbolCircle,symbolSquare,symbolDiamond, brush, axisLeft, axisBottom, scaleLinear} from 'd3';
-import datos from '../Coord.json'
 import partidos from './partidos.json'
 import partidosinvertidos from './partidos-invertidos.json'
 import {polygonHull} from 'd3-polygon';
@@ -282,7 +280,7 @@ function GraficoPrincipal({setId,setXY,datoswnominate}){
             })
 
         ClearGraph({setId},{setXY},{datoswnominate})
-    },[setId,setXY]);
+    },[setId,setXY,datoswnominate]);
     return(
                     <svg    ref={svgRef} className="chart text-light"
                             width="100%"

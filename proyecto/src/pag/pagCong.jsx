@@ -6,10 +6,8 @@ import { useDispatch, useSelector } from 'react-redux'
 import { obtenerInfoDiputadosAccion } from '../redux/InfoDipDucks';
 import { obtenerInfoConsultaAccion } from '../redux/InfoConsultaDucks'
 import { obtenerInfoGraficoAccion } from '../redux/InfoGrafDucks'
-import GraficoCong, { GraficoBarra } from '../components/graficocong'
 import InfiniteScroll from 'react-infinite-scroll-component'
 import nombrepartidos from '../components/nombre-partidos.json'
-import { Link } from "react-router-dom";
 import partidos from '../components/partidos.json'
 import partidosInvertidos from '../components/partidos-invertidos.json'
 function Congresista() {
@@ -17,7 +15,7 @@ function Congresista() {
         return Object.keys(obj).length === 0
     }
 
-    function PrimeraLetraMayuscula(string){
+    function PrimeraLetraMayuscula(string) {
         return string.charAt(0).toUpperCase() + string.slice(1);
     }
 
@@ -75,19 +73,23 @@ function Congresista() {
                                 <Nav className="nav-pills flex-column">
                                     <NavLink className="text-light">Partidos</NavLink>
                                     <Nav className="nav-pills flex-column">
-                                        {infoDip.Partido.sort((a, b) => a.begin.split("T")[0] < b.begin.split("T")[0]).map((post) => (
-                                            <div>
+                                        {infoDip.Partido.sort((a, b) => a.begin.split("T")[0] < b.begin.split("T")[0]).map((post,index) => (
+                                            <div key={index}>
                                                 <NavLink className="ms-3 my-1 text-light">
                                                     <span>{nombrepartidos[post.party]} <span style={{ backgroundColor: partidos[post.party], borderRadius: "5px", color: partidosInvertidos[post.party] }}>  {post.party}  </span></span>
                                                     <Nav className="nav-pills flex-column">
-                                                        <tr>
-                                                            <td>Ingreso:</td>
-                                                            <td>{post.begin.split("T")[0]}</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>Salida: </td>
-                                                            <td>{post.end.split("T")[0]}</td>
-                                                        </tr>
+                                                        <table>
+                                                            <tbody>
+                                                                <tr>
+                                                                    <td>Ingreso:</td>
+                                                                    <td>{post.begin.split("T")[0]}</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>Salida: </td>
+                                                                    <td>{post.end.split("T")[0]}</td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
                                                     </Nav>
                                                 </NavLink>
 
@@ -96,9 +98,6 @@ function Congresista() {
                                     </Nav>
                                 </Nav>
                             </Navbar>
-                        </Col>
-                        <Col>
-                            {/*<GraficoCong idDip={handleIdDip} datoswnominate={infoGrafico}/>*/}
                         </Col>
                     </Row>
                 </Container>
@@ -115,26 +114,26 @@ function Congresista() {
                         hasMore={true}
                     >
                         {iCL.map((post) => (
-                            <div>
-                            <Link onClick={() => window.location.href = "/grafico/" + post.detalle_id} style={{ textDecoration: 'none' }}>
-                                <Card className="text-light" style={{backgroundColor:"rgba(50,50,50,0.95)"}}>
-                            <CardHeader><b>{post.detalle[0].camaraOrigen} - Votacion {post.detalle_id} </b>Ingresada en {post.detalle[0].fechaIngreso.slice(0,10)} Realizada en {post.detalle[0].VotacionesAsoc[0].date.slice(0,10)}</CardHeader>
-                            <CardBody>
-                                <CardText>
-                                    <b>Boletin N°: </b>{post.detalle[0].numeroBoletin}
-                                    <br/>
-                                    <b>Tipo: </b>{post.detalle[0].VotacionesAsoc[0].tipoProyecto}
-                                    <br/>
-                                    <b>Estado: </b>{PrimeraLetraMayuscula(post.detalle[0].VotacionesAsoc[0].tramiteConst.toLowerCase())} - {PrimeraLetraMayuscula(post.detalle[0].VotacionesAsoc[0].tramiteRegla.toLowerCase())}
-                                    {/*<br/>
-                                    <b>Resultado: </b>{post.detalle[0].VotacionesAsoc[0].resultado}*/}
-                                    <br/>
-                                    <b>Descripcion: </b>{post.detalle[0].nombre}
-                                </CardText>
-                            </CardBody>
-                        </Card>
-                            </Link>
-                            <br />
+                            <div key={post.detalle_id}>
+                                <div onClick={() => window.location.href = "/grafico/" + post.detalle_id} style={{ cursor: "pointer", textDecoration: 'none' }}>
+                                    <Card className="text-light" style={{ backgroundColor: "rgba(50,50,50,0.95)" }}>
+                                        <CardHeader><b>{post.detalle[0].camaraOrigen} - Votacion {post.detalle_id} </b>Ingresada en {post.detalle[0].fechaIngreso.slice(0, 10)} Realizada en {post.detalle[0].VotacionesAsoc[0].date.slice(0, 10)}</CardHeader>
+                                        <CardBody>
+                                            <CardText>
+                                                <b>Boletin N°: </b>{post.detalle[0].numeroBoletin}
+                                                <br />
+                                                <b>Tipo: </b>{post.detalle[0].VotacionesAsoc[0].tipoProyecto}
+                                                <br />
+                                                <b>Estado: </b>{PrimeraLetraMayuscula(post.detalle[0].VotacionesAsoc[0].tramiteConst.toLowerCase())} - {PrimeraLetraMayuscula(post.detalle[0].VotacionesAsoc[0].tramiteRegla.toLowerCase())}
+                                                <br />
+                                                <b>Resultado: </b>{post.detalle[0].VotacionesAsoc[0].resultado}
+                                                <br />
+                                                <b>Descripcion: </b>{post.detalle[0].nombre}
+                                            </CardText>
+                                        </CardBody>
+                                    </Card>
+                                </div>
+                                <br />
                             </div>
                         ))}
                     </InfiniteScroll>

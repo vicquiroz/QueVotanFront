@@ -10,7 +10,6 @@ import {obtenerInfoConsultaAccion} from '../redux/InfoConsultaDucks'
 import {obtenerPreviewVotacionAccion} from '../redux/previewVotDucks'
 function Busqueda(){
     const {handleMetodo,handleValor} = useParams()
-    const [idTag, setIdTag] = useState();
     const [votaciones,setVotaciones] = useState([]);
     const dispatch = useDispatch()
     const tags = useSelector(store => store.tags.array)

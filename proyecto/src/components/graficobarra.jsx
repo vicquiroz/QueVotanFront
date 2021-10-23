@@ -42,7 +42,7 @@ else{
 
 function GraficoBarra({idCon,datoswnominate}){
     var datosselec=[]
-    if(idCon!=undefined){
+    if(idCon!==undefined){
         for(let P in idCon){
                 datosselec.push(datoswnominate.wnominate.find((dat)=> {return dat.ID===idCon[P]}))
         }
@@ -89,7 +89,7 @@ function GraficoBarra({idCon,datoswnominate}){
         .style("border-radius","8px")
         .style("font-size",textsize)
         .style("font-family","Lucida Sans Unicode")
-        if(x.domain()[1]!=0){
+        if(x.domain()[1]!==0){
             svg.selectAll(".bar")
             .data(data)
             .enter().append("rect")

@@ -1,10 +1,8 @@
 import React,{useEffect, useState} from 'react';
 import { Container,Row,Col,Button} from 'reactstrap';
-import {useDispatch, useSelector} from 'react-redux'
 //import { obtenerInfoDiputadosAccion } from '../redux/InfoDipDucks';
 import partidosInvertidos from './partidos-invertidos.json'
 import partidos from './partidos.json'
-import { Link } from "react-router-dom";
 import {sortBy} from 'lodash'
 
 function MostrarLista({idCon,datoswnominate}){
@@ -59,7 +57,7 @@ function MostrarLista({idCon,datoswnominate}){
                     <Row className="text-light" style={{backgroundColor:"rgba(50,50,50,0.95)",borderRadius:"10px"}}>
                         {filtro.map((post) => ( 
                         <Col className="col-6 col-sm-3" key={post["ID"]}>
-                            <Link onClick={()=>window.location.href="/congresista/"+post["ID"]+"/"+datoswnominate.id} style={{ textDecoration: 'none' }} className="text-light list-group-flush list-group-item-action">
+                            <div onClick={()=>window.location.href="/congresista/"+post["ID"]+"/"+datoswnominate.id} style={{ cursor:"pointer", textDecoration: 'none' }} className="text-light list-group-flush">
                                 <table style={{width:"100%"}} >
                                     <tbody>
                                     <tr>
@@ -72,7 +70,7 @@ function MostrarLista({idCon,datoswnominate}){
                                     </tr>
                                     </tbody>
                                 </table>
-                            </Link>
+                            </div>
                         </Col>
                         ))}
                     </Row>

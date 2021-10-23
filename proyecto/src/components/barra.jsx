@@ -1,17 +1,17 @@
-import React, {useState} from 'react';
-import {Button,NavItem,Nav,ButtonDropdown,DropdownItem,DropdownToggle,DropdownMenu,Container,Row,Col} from 'reactstrap';
+import React from 'react';
+import {Button,NavItem,Nav,Container} from 'reactstrap';
 import { Link } from "react-router-dom";
 import Logo from '../resources/Logo.png'
 function Barra(){
-    const toggle = () => setOpen(!dropdownOpen);
-    const [dropdownOpen, setOpen] = useState(false);
+    //const toggle = () => setOpen(!dropdownOpen);
+    //const [dropdownOpen, setOpen] = useState(false);
     return (
         <div>
                 <Nav className="navbar navbar-inverse bg-dark bg-gradient fixed-top">
                 <Container className="container-fluid">
                     <NavItem>
                     <Link to="/" style={{ textDecoration: 'none' }} className="text-light">
-                        <span className="navbar-brand mb-0 h1 text-light"><img src={Logo} width="150px"/></span>
+                        <span className="navbar-brand mb-0 h1 text-light"><img src={Logo} alt="logo de la pagina" width="150px"/></span>
                     </Link>
                     </NavItem>
                     <NavItem>

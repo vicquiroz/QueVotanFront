@@ -1,6 +1,6 @@
-import React, {useState}  from "react";
+import React from "react";
 import Barra from "../components/barra";
-import {Container, Col, Row, Jumbotron, Popover, PopoverHeader, PopoverBody, UncontrolledPopover} from "reactstrap";
+import {Container, Col, Row, Jumbotron, PopoverHeader, PopoverBody, UncontrolledPopover} from "reactstrap";
 import amellado from "../resources/amellado.png"
 import jgallardo from "../resources/jgallardo.png"
 import jrojas from "../resources/jrojas.png"
