@@ -20,11 +20,18 @@ function Busqueda(){
         if(handleMetodo==="ID"){
             dispatch(obtenerPreviewVotacionAccion(handleValor))
         }
-        if(handleMetodo==="numeroBoletin"){
-            dispatch(obtenerInfoConsultaAccion(handleMetodo,handleValor))
-        }
         else{
-            dispatch(obtenerInfoConsultaAccion(handleMetodo,handleValor))
+            if(handleMetodo==="Boletín"){
+                dispatch(obtenerInfoConsultaAccion("numeroBoletin",handleValor))
+            }
+            else{
+                if(handleMetodo==="Materia"){
+                    dispatch(obtenerInfoConsultaAccion("Materias",handleValor))
+                }
+                else{
+                    dispatch(obtenerInfoConsultaAccion(handleMetodo,handleValor))
+                }
+            }
         }
     },[]);
     useEffect(()=>{
@@ -49,6 +56,7 @@ function Busqueda(){
                 <Col>
                     <Buscador
                         tags={tags}
+                        estado={handleMetodo}
                     />
                 </Col>
             </Row >

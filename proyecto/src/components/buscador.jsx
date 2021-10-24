@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import {InputGroup,
         InputGroupButtonDropdown,
         Container, 
@@ -10,7 +10,7 @@ import {InputGroup,
         Row} from 'reactstrap'
 import './estilo.css'
 
-function Buscador({tags,setIdTag}){
+function Buscador({tags,estado}){
     const [texto, setTexto] = useState();
     const [sugerencia, setSuge] = useState();
     const [id, setId] = useState();
@@ -42,19 +42,24 @@ function Buscador({tags,setIdTag}){
     const teclaAbajo = (tecla) => {
         if (tecla.key === 'Enter') {
             if(eleccion==="Materia"){
-                window.location.href="/Buscar/Materias/"+id
+                window.location.href="/Buscar/Materia/"+id
             }
             if(eleccion==="Nombre"){
-                window.location.href=`/Buscar/nombre/"${String(texto)}"`
+                window.location.href=`/Buscar/Nombre/"${String(texto)}"`
             }
-            if(eleccion==="Id"){
+            if(eleccion==="ID"){
                 window.location.href="/Buscar/ID/"+texto
             }
-            if(eleccion==="numeroBoletin"){
-                window.location.href=`/Buscar/numeroBoletin/"${String(texto)}"`
+            if(eleccion==="Boletín"){
+                window.location.href=`/Buscar/Boletín/"${String(texto)}"`
             }
         }
       }
+    useEffect(()=>{
+        if(estado!==undefined){
+            setEleccion(estado)
+        }
+    },[])
     return(
         <Container>
             <h3 className="text-light">Buscar votaciones</h3>
@@ -66,10 +71,10 @@ function Buscador({tags,setIdTag}){
                         <DropdownItem onClick={()=>{setEleccion("Materia")}}>Buscar por materia asociada</DropdownItem>
                         <DropdownItem onClick={()=>{setEleccion("Nombre")
                         setSuge("")}}>Buscar por nombre de votación</DropdownItem>
-                        <DropdownItem onClick={()=>{setEleccion("numeroBoletin")
+                        <DropdownItem onClick={()=>{setEleccion("Boletín")
                         setTexto("")
                         }}>Buscar por número de boletín</DropdownItem>
-                        <DropdownItem onClick={()=>{setEleccion("Id")
+                        <DropdownItem onClick={()=>{setEleccion("ID")
                         setTexto("")
                         }}>Buscar por ID de votación</DropdownItem>
                     </DropdownMenu>
@@ -79,19 +84,22 @@ function Buscador({tags,setIdTag}){
                     onChange={e =>{
                         const reId = /^[0-9\b]+$/;
                         const renB = /^[0-9-\b]+$/;
-                        if(eleccion==="Id"){
+                        if(eleccion==="ID"){
                             if (e.target.value === '' || reId.test(e.target.value)) {
                                 enCambio(e.target.value)
                             }
                         }
-                        if(eleccion==="numeroBoletin"){
-                            if (e.target.value === '' || renB.test(e.target.value)) {
+                        else{
+                            if(eleccion==="Boletín"){
+                                if (e.target.value === '' || renB.test(e.target.value)) {
+                                    enCambio(e.target.value)
+                                }
+                            }
+                            else{
                                 enCambio(e.target.value)
                             }
                         }
-                        else{
-                            enCambio(e.target.value)
-                        }
+                        
                     }}
                     onKeyDown={teclaAbajo}
                     className="input text-light" 

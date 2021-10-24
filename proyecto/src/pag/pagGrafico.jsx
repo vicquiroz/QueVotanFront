@@ -42,9 +42,9 @@ function PagGrafico(){
             <Row>
                 <Col>
                     <br />
-                    <h2 className="text-light"  style={{backgroundColor:"rgba(50,50,50,0.95)",borderRadius:"10px"}}>
+                    <h3 className="text-light"  style={{backgroundColor:"rgba(50,50,50,0.95)",borderRadius:"10px"}}>
                         <Container>{previewVot[0].detalle[0].nombre}</Container>
-                    </h2>
+                    </h3>
                 </Col>
             </Row>
             <Row>

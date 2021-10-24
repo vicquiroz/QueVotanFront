@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { obtenerInfoDiputadosAccion } from '../redux/InfoDipDucks';
 import { obtenerInfoConsultaAccion } from '../redux/InfoConsultaDucks'
 import { obtenerInfoGraficoAccion } from '../redux/InfoGrafDucks'
+import Texto from "../components/textocong";
 import InfiniteScroll from 'react-infinite-scroll-component'
 import nombrepartidos from '../components/nombre-partidos.json'
 import partidos from '../components/partidos.json'
@@ -99,13 +100,16 @@ function Congresista() {
                                 </Nav>
                             </Navbar>
                         </Col>
+                        <Col>
+                            <Texto infoDip={infoDip} datoswnominate={infoGrafico}/>                  
+                        </Col>
                     </Row>
                 </Container>
                 <br />
                 <Container>
                     <Row>
                         <Col>
-                            <h4>Votaciones de las que es autor</h4>
+                            <h4>Votaciones de las que es patrocinante</h4>
                         </Col>
                     </Row>
                     <InfiniteScroll
