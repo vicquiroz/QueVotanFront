@@ -8,6 +8,7 @@ import {useDispatch, useSelector} from 'react-redux'
 import {obtenerTagsAccion} from '../redux/TagsDucks'
 import {obtenerInfoConsultaAccion} from '../redux/InfoConsultaDucks'
 import {obtenerPreviewVotacionAccion} from '../redux/previewVotDucks'
+import {CustomView,isMobile} from 'react-device-detect'
 function Busqueda(){
     const {handleMetodo,handleValor} = useParams()
     const [votaciones,setVotaciones] = useState([]);
@@ -49,6 +50,9 @@ function Busqueda(){
                     <Barra/>
                 </Col>
             </Row>
+            <CustomView condition={isMobile===true}>
+                <br/>
+            </CustomView>
             <Row style={{
                 "marginTop":"30px",
                 "marginBottom":"10px"

@@ -3,7 +3,7 @@ import Barra from "../components/barra";
 import Tabla from "../components/tabla";
 import Buscador from "../components/buscador";
 import {Container, Col, Row} from "reactstrap";
-
+import {CustomView,isMobile} from 'react-device-detect'
 import {useDispatch, useSelector} from 'react-redux'
 import {obtenerTagsAccion} from '../redux/TagsDucks'
 import {obtenerPrimerasVotacionesAccion} from '../redux/VotacionDucks'
@@ -28,6 +28,9 @@ function Principal(){
                     <Barra/>
                 </Col>
             </Row>
+            <CustomView condition={isMobile===true}>
+                <br/>
+            </CustomView>
             <Row style={{
                 "marginTop":"30px",
                 "marginBottom":"10px"
