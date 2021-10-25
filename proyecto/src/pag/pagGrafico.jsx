@@ -16,10 +16,11 @@ function PagGrafico(){
     const {handle} = useParams()
     const [idCon, setId] = useState();
     const [xyBrush, setXY] = useState();
+    const [Titulo,setTitulo] = useState("")
+    const [TFlag,setTFlag] = useState(true)
     const dispatch = useDispatch()
     const infoGrafico = useSelector(store => store.infoGrafico.array)
     const previewVot = useSelector(store => store.previewVotacion.array)
-    
     useEffect(()=>{
         dispatch(obtenerInfoGraficoAccion(handle))
         dispatch(obtenerPreviewVotacionAccion(handle))
@@ -30,6 +31,11 @@ function PagGrafico(){
             return dat.coord1D!==undefined && dat.coord2D!==undefined && dat.party!==undefined && dat.Nombre!==undefined && dat.ID!==undefined && Object.keys(infoGrafico.votacion[0]).includes(String(dat.ID))
         })
     }
+    useEffect(()=>{
+        if(!isEmpty(previewVot)){
+            setTitulo(previewVot[0].detalle[0].nombre.substring(0,80)+"...")
+        }
+    },[previewVot])
     return(
         <Container>
             {!isEmpty(infoGrafico) && !isEmpty(previewVot)?
@@ -37,6 +43,26 @@ function PagGrafico(){
             <Row>
                 <Col>
                     <Barra/>
+                </Col>
+            </Row>
+            <br/>
+            <Row>
+                <Col>
+                    <br />
+                    <h3 className="text-light"  style={{backgroundColor:"rgba(50,50,50,0.95)",borderRadius:"10px"}}>
+                        <Container onClick={()=>{
+                            if(TFlag===true){
+                                setTitulo(previewVot[0].detalle[0].nombre)
+                                setTFlag(false)
+                            }
+                            else{
+                                setTitulo(previewVot[0].detalle[0].nombre.substring(0,80)+"...")
+                                setTFlag(true)
+                            }
+                        }}>
+                            {Titulo}
+                        </Container>
+                    </h3>
                 </Col>
             </Row>
             <Row>
@@ -51,10 +77,6 @@ function PagGrafico(){
                     </div>
                 </Col>
             </Row>
-            <br/>
-            <br/>
-            <br/>
-            <br/>
             <Row>
                 <Col className="col-12 col-sm-6">
                     <div className="d-flex justify-content-center">
@@ -71,7 +93,6 @@ function PagGrafico(){
                     />
                 </Col>
             </Row>
-            
             <Row>
                 <Col>
                     <MostrarLista

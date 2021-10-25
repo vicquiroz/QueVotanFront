@@ -1,5 +1,5 @@
 import React from 'react';
-import { Row, Col, CardBody, Card, CardHeader, CardText,Container } from 'reactstrap';
+import { Row, Col, CardBody, Card, CardHeader, CardText,Container, Table } from 'reactstrap';
 function Inform({pos,datoswnominate}){
     if (pos!==undefined){
         var maxX = Math.max(...pos[0]).toFixed(2);
@@ -21,48 +21,42 @@ function Inform({pos,datoswnominate}){
         <Container>
             <Row>
                 <Col className="g-0">
-                    <Card className="text-light" style={{backgroundColor:"rgba(50,50,50,0.95)"}}>
-                        <CardHeader style={{height:"35px"}} className="d-flex justify-content-center"><h5>Centroide</h5></CardHeader>
-                        <CardBody>
-                            <CardText className="d-flex justify-content-center">{promX} {promY}</CardText>
-                        </CardBody>
-                    </Card>
-                </Col>
-            </Row>
-            <Row>
-                <Col className="g-0">
-                    <Card className="text-light" style={{backgroundColor:"rgba(50,50,50,0.95)"}}>
-                        <CardHeader style={{height:"35px"}} className="d-flex justify-content-center"><h5>Maximo en X</h5></CardHeader>
-                        <CardBody>
-                            <CardText className="d-flex justify-content-center">{maxX} {nameMXX}</CardText>
-                        </CardBody>
-                    </Card>
-                </Col>
-                <Col className="g-0">
-                    <Card className="text-light" style={{backgroundColor:"rgba(50,50,50,0.95)"}}>
-                        <CardHeader style={{height:"35px"}} className="d-flex justify-content-center"><h5>Maximo en Y</h5></CardHeader>
-                        <CardBody>
-                            <CardText className="d-flex justify-content-center">{maxY} {nameMXY}</CardText>
-                        </CardBody>
-                    </Card>
-                </Col>
-            </Row>
-            <Row>
-                <Col className="g-0">
-                    <Card className="text-light" style={{backgroundColor:"rgba(50,50,50,0.95)"}}>
-                        <CardHeader style={{height:"35px"}} className="d-flex justify-content-center"><h5>Minimo en X</h5></CardHeader>
-                        <CardBody>
-                            <CardText className="d-flex justify-content-center">{minX} {nameMNX}</CardText>
-                        </CardBody>
-                    </Card>
-                </Col>
-                <Col className="g-0">
-                    <Card className="text-light" style={{backgroundColor:"rgba(50,50,50,0.95)"}}>
-                        <CardHeader style={{height:"35px"}} className="d-flex justify-content-center"><h5>Minimo en Y</h5></CardHeader>
-                        <CardBody>
-                            <CardText className="d-flex justify-content-center">{minY} {nameMNY}</CardText>
-                        </CardBody>
-                    </Card>
+                    <Table className="text-light" style={{backgroundColor:"rgba(50,50,50,0.95)",borderRadius:"10px"}} responsive borderless>
+                        <thead>
+                            <tr >
+                                <th><h6>Datos de interés</h6></th>
+                                <th></th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Centroide:</strong></td>
+                                <td className="d-flex justify-content-end">{promX}</td>
+                                <td>{promY}</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Máximo en X:</strong></td>
+                                <td className="d-flex justify-content-end">{maxX}</td>
+                                <td>{nameMXX}</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Máximo en Y:</strong></td>
+                                <td className="d-flex justify-content-end">{maxY}</td>
+                                <td>{nameMXY}</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Mínimo en X:</strong></td>
+                                <td className="d-flex justify-content-end">{minX}</td>
+                                <td>{nameMNX}</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Mínimo en Y:</strong></td>
+                                <td className="d-flex justify-content-end">{minY}</td>
+                                <td>{nameMNY}</td>
+                            </tr>
+                        </tbody>
+                    </Table>
                 </Col>
             </Row>
         </Container>

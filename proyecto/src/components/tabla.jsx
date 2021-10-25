@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react'
 import {Container, CardBody, Card, CardHeader, CardText} from 'reactstrap'
 import InfiniteScroll from 'react-infinite-scroll-component'
-
+import statuscolor from '../resources/statuscolor.json'
 
 function Tabla({primerasVotaciones}){
     
@@ -45,7 +45,7 @@ function Tabla({primerasVotaciones}){
                                     <br/>
                                     <b>Estado: </b>{PrimeraLetraMayuscula(post.detalle[0].VotacionesAsoc[0].tramiteConst.toLowerCase())} - {PrimeraLetraMayuscula(post.detalle[0].VotacionesAsoc[0].tramiteRegla.toLowerCase())}
                                     <br/>
-                                    <b>Resultado: </b>{post.detalle[0].VotacionesAsoc[0].resultado}
+                                    <b>Resultado: </b><strong style={{color:statuscolor[post.detalle[0].VotacionesAsoc[0].resultado]}}>{post.detalle[0].VotacionesAsoc[0].resultado}</strong>
                                     <br/>
                                     <b>Descripcion: </b>{post.detalle[0].nombre}
                                 </CardText>

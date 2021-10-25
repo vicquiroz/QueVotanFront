@@ -8,15 +8,17 @@ import aparra from "../resources/aparra.png"
 import vquiroz from "../resources/vquiroz.png"
 function AcercaDe(){
     return(
-        <Container className="text-light" style={{backgroundColor:"rgba(50,50,50,0.95)",borderRadius:"10px"}}>
+        <Container>
              <Row>
                 <Col>
                     <Barra/>
                 </Col>
             </Row>
+            <br/>
+            <br/>
             <Row>
                 <Col>
-                    <Container>
+                    <Container className="text-light" style={{backgroundColor:"rgba(50,50,50,0.95)",borderRadius:"10px"}}>
                         <Jumbotron className="jumbotron-fluid">
                             <Row>
                                 <Col>
@@ -48,9 +50,8 @@ function AcercaDe(){
                                     <p>El Congreso Nacional pone a disposición de la ciudadanía su iniciativa de "datos abiertos
                                         legislativos", que se enmarca en el principio de Transparencia y acercamiento de la
                                         labor legislativa que se desarrolla en la Cámara de Diputados, el Senado y la Biblioteca
-                                        del Congreso, de acuerdo a la Constitución y las leyes. Al tener acceso a éstos datos
-                                        mediante el método de web scrapping, se logra la extracción de las votaciones de nuestros
-                                        parlamentarios.</p>
+                                        del Congreso, de acuerdo a la Constitución y las leyes. Con la utilización del OpenData
+                                        del congreso se logra la extracción de las votaciones de nuestros parlamentarios.</p>
                                     <h4>Inserción</h4>
                                     <p> La inserción de lo datos extraídos mediante el web scrapping realizado, llega el
                                         momento en el cual los datos son almacenados en servidores locales de la Universidad
