@@ -41,26 +41,20 @@ function PagGrafico(){
             </Row>
             <Row>
                 <Col>
-                    <br />
-                    <h3 className="text-light"  style={{backgroundColor:"rgba(50,50,50,0.95)",borderRadius:"10px"}}>
-                        <Container>{previewVot[0].detalle[0].nombre}</Container>
-                    </h3>
-                </Col>
-            </Row>
-            <Row>
-                <Col>
                     <div className="d-flex justify-content-center">
                         <GraficoPrincipal className="col-12"
                             setId={setId}
                             setXY={setXY}
                             datoswnominate={infoGrafico}
+                            datosvot={previewVot}
                         />
                     </div>
                 </Col>
             </Row>
-            <Row>
-                
-            </Row>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
             <Row>
                 <Col className="col-12 col-sm-6">
                     <div className="d-flex justify-content-center">
