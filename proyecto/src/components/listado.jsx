@@ -9,9 +9,14 @@ function MostrarLista({idCon,datoswnominate}){
     const vot=["▽","△","○","▢","◇"]
     var nombres = [];
     var part = [];
+    
     for(let i in idCon) {
         nombres.push(datoswnominate.wnominate.find(d => d.ID ===idCon[i]).Nombre);
         part.push(datoswnominate.wnominate.find(d => d.ID ===idCon[i]).party);
+    }
+    if(typeof(idCon)==="number"){
+        nombres.push(datoswnominate.wnominate.find(d => d.ID ===idCon).Nombre);
+        part.push(datoswnominate.wnominate.find(d => d.ID ===idCon).party);
     }
     const [filtro,setFiltro]=useState([])
     var filteredPosts = filterPosts(datoswnominate.wnominate, idCon,nombres,part);
@@ -86,9 +91,7 @@ const filterPosts = (posts, id, nombres, partido) => {
         return posts;
     }
     if(typeof(id)==="number"){
-        return posts.filter((post) => {
-            return Number(post.ID)===id;
-        });
+        return [{ID: id, Nombre: nombres, Partido: partido}];;
     }
     else{
         var nuevosDat = [{ID: "1", Nombre: "Snatch", Partido: "test"}];
