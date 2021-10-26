@@ -26,9 +26,9 @@ function texto(origen){
     return(
         <div>
         <h5>Búsqueda</h5>
-            Para realizar búsquedas sobre votaciones realizadas, se debe de ingresar el texto
-            de búsqueda en el cuadro gris que dice "Buscar". El texto que se debe de ingresar
-            depende según el método de búsqueda que se seleccione.
+            Para realizar búsquedas sobre votaciones efectuadas por la camara de diputados, se debe ingresar el texto
+            de búsqueda en el cuadro gris que dice "Buscar". El texto que se debe ingresar
+            varia según el método de búsqueda que se seleccione.
             Existen 4 métodos:
             <ul>
                 <li>
@@ -39,14 +39,15 @@ function texto(origen){
                 <li>
                     Nombre de votación: En este modo, se debe de escribir palabras que sean contenidas
                     dentro de la descripción de la votación. A diferencia del método anterior, este admite
-                    cualquier tipo de texto, siempre que esté contenido en las descripciones.
+                    cualquier tipo de texto.
                 </li>
                 <li>
                     Número de boletín: En este modo, se debe de ingresar el número con guión correspondiente
                     al boletín del proyecto. Este se muestra en cada detalle de las votaciones.
                 </li>
                 <li>
-                    ID de votación: En este modo, se ingresa el identificador único de la votación.
+                    ID de votación: En este modo, se ingresa el identificador único de la votación, es decir
+                    el numero que vemos antes de las fechas, en la parte superior del recuadro de las votaciones.
                 </li>
             </ul>
         </div>
@@ -55,7 +56,7 @@ function texto(origen){
         return(
             <div>
                 <h5>Gráfico</h5>
-                El gráfico permite interactuar de distintas maneras, ya sea para hacer selecciones específicas
+                Se puede interactuar con el gráfico de distintas maneras, ya sea para hacer selecciones específicas
                 o mostrar cierto tipo de datos. Las interacciones que se pueden realizar son:
                 <ul>
                     <li>
@@ -69,8 +70,8 @@ function texto(origen){
                         de mantener el click sobre el gráfico y arrastrar el cursor hasta encerrar todos los puntos deseados. 
                     </li>
                     <li>
-                        Selección por partidos: Se puede hacer click en la simbología de partidos para así seleccionar sólo
-                        los votantes de dicho partido, mostrando al mismo tiempo un polígono que encierra a dichos votantes.
+                        Selección por partidos: Se puede hacer click en el color de un partido, o su nombre dentro del gráfico, para así 
+                        seleccionar sólo los votantes de dicho partido, mostrando al mismo tiempo un polígono que encierra a dichos votantes.
                     </li>
                     <li>
                         Selección por moción del votante: Al hacer click en la simbología de puntos, se hace una selección de todos
