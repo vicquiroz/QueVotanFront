@@ -85,6 +85,30 @@ function AcercaDe(){
                             */}
                             <Row>
                                 <Col>
+                                    <h3>Herramientas utilizadas</h3>
+                                    <ul className="list-group list-group-flush">
+                                        <li className="list-group-item text-light" style={{backgroundColor:"rgba(0,0,0,0)",borderRadius:"10px", borderWidth:"0px"}}>
+                                            <h5>React</h5>
+                                            <p>Biblioteca de JavaScript para la construcción de interfaces de usuario.</p>
+                                        </li>
+                                        <li className="list-group-item text-light" style={{backgroundColor:"rgba(0,0,0,0)",borderRadius:"10px", borderWidth:"0px"}}>
+                                            <h5>Reactstrap</h5>
+                                            <p>Librería de Bootstrap independiente de jQuery o JavaScript de Bootstrap.</p>
+                                        </li>
+                                        <li className="list-group-item text-light" style={{backgroundColor:"rgba(0,0,0,0)",borderRadius:"10px", borderWidth:"0px"}}>
+                                            <h5>Redux</h5>
+                                            <p>Librería de JavaScript para el manejo de estados de datos.</p>
+                                        </li>
+                                        <li className="list-group-item text-light" style={{backgroundColor:"rgba(0,0,0,0)",borderRadius:"10px", borderWidth:"0px"}}>
+                                            <h5>D3.js</h5>
+                                            <p>Librería de JavaScript para la manipulación de documentos basados en datos. Se
+                                            utiliza la versión para React.</p>
+                                        </li>
+                                    </ul>
+                                </Col>
+                            </Row>
+                            <Row>
+                                <Col>
                                     <h3>Sobre nosotros</h3>
                                 </Col>
                             </Row>
