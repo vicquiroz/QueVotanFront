@@ -43,7 +43,9 @@ function PagGrafico(){
             <div>
             <Row>
                 <Col>
-                    <Barra/>
+                    <Barra
+                        origen={"grafico"}
+                    />
                 </Col>
             </Row>
             <CustomView condition={isMobile===true}>

@@ -11,7 +11,9 @@ function AcercaDe(){
         <Container>
              <Row>
                 <Col>
-                    <Barra/>
+                    <Barra
+                        origen={"acercade"}
+                    />
                 </Col>
             </Row>
             <br/>

@@ -57,7 +57,9 @@ function Congresista() {
             {!isEmpty(infoDip) && !isEmpty(infoGrafico) ? <div>
                 <Row>
                     <Col>
-                        <Barra />
+                        <Barra
+                            origen={"congresista"}
+                        />
                     </Col>
                 </Row>
                 <br />

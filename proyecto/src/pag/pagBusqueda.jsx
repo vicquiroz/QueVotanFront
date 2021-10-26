@@ -47,7 +47,9 @@ function Busqueda(){
         <Container>
             <Row>
                 <Col>
-                    <Barra/>
+                    <Barra
+                        origen={"principal"}
+                    />
                 </Col>
             </Row>
             <CustomView condition={isMobile===true}>

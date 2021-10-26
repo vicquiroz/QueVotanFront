@@ -2,9 +2,13 @@ import React from 'react';
 import {Button,NavItem,Nav,Container} from 'reactstrap';
 import { Link } from "react-router-dom";
 import Logo from '../resources/Logo.png'
-function Barra(){
+import Ayuda from "./ayuda";
+function Barra({origen}){
     //const toggle = () => setOpen(!dropdownOpen);
     //const [dropdownOpen, setOpen] = useState(false);
+    function verorigen(){
+        if(origen!=="acercade") return(<Ayuda origen={origen}/>)
+    }
     return (
         <div>
                 <Nav className="navbar navbar-inverse bg-dark bg-gradient fixed-top">
@@ -20,6 +24,7 @@ function Barra(){
                             <Link to="/" style={{ textDecoration: 'none' }} className="text-light">
                                 <Button className="btn-sm" color="primary">Inicio</Button>
                             </Link>
+                            {verorigen()}
                                 {/*<Button className="btn-sm" color="secondary">Congreso</Button>*/}
                                 {/*<Button className="btn-sm" color="secondary">Partidos</Button>*/}
                                 {/*<Button className="btn-sm" color="secondary">Datos</Button>*/}
@@ -28,6 +33,7 @@ function Barra(){
                                     Acerca de
                                     </Button>
                                 </Link>
+                                
                                 {/*
                                 <ButtonDropdown isOpen={dropdownOpen} toggle={toggle}>
                                     <DropdownToggle className="btn-sm" split color="primary">Listado</DropdownToggle>
