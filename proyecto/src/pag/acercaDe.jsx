@@ -1,11 +1,11 @@
 import React from "react";
 import Barra from "../components/barra";
 import {Container, Col, Row, Jumbotron, PopoverHeader, PopoverBody, UncontrolledPopover} from "reactstrap";
-import amellado from "../resources/amellado.png"
-import jgallardo from "../resources/jgallardo.png"
-import jrojas from "../resources/jrojas.png"
-import aparra from "../resources/aparra.png"
-import vquiroz from "../resources/vquiroz.png"
+import amellado from "../resources/amellado.webp"
+import jgallardo from "../resources/jgallardo.webp"
+import jrojas from "../resources/jrojas.webp"
+import aparra from "../resources/aparra.webp"
+import vquiroz from "../resources/vquiroz.webp"
 function AcercaDe(){
     return(
         <Container>

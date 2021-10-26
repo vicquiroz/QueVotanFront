@@ -1,7 +1,7 @@
 import React from 'react';
 import {Button,NavItem,Nav,Container} from 'reactstrap';
 import { Link } from "react-router-dom";
-import Logo from '../resources/Logo.png'
+import Logo from '../resources/Logo.webp'
 import Ayuda from "./ayuda";
 function Barra({origen}){
     //const toggle = () => setOpen(!dropdownOpen);
