@@ -52,7 +52,7 @@ function PagGrafico(){
             <Row>
                 <Col>
                     <br />
-                    <h3 className="text-light"  style={{backgroundColor:"rgba(50,50,50,0.95)",borderRadius:"10px"}}>
+                    <h3 className="text-light"  style={{cursor:"pointer",backgroundColor:"rgba(50,50,50,0.95)",borderRadius:"10px"}}>
                         <Container onClick={()=>{
                             if(TFlag===true){
                                 setTitulo(previewVot[0].detalle[0].nombre)

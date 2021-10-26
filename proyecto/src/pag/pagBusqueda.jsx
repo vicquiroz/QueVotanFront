@@ -29,8 +29,8 @@ function Busqueda(){
                 if(handleMetodo==="Materia"){
                     dispatch(obtenerInfoConsultaAccion("Materias",handleValor))
                 }
-                else{
-                    dispatch(obtenerInfoConsultaAccion(handleMetodo,handleValor))
+                else if(handleMetodo==="Nombre"){
+                    dispatch(obtenerInfoConsultaAccion("nombre",handleValor))
                 }
             }
         }
