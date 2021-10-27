@@ -4,6 +4,7 @@ import PagGrafico from "./pag/pagGrafico.jsx";
 import AcercaDe from "./pag/acercaDe.jsx";
 import Congresista from "./pag/pagCong.jsx";
 import Buscar from './pag/pagBusqueda'
+import VotacionesImportantes from "./pag/votImportantes.jsx";
 import {Container} from "reactstrap"
 import { BrowserRouter as Router, Switch, Route} from "react-router-dom"; 
 import 'bootstrap/dist/css/bootstrap.css';
@@ -27,6 +28,9 @@ function App() {
           </Switch>
           <Switch>
             <Route path="/Buscar/:handleMetodo/:handleValor" exact component={Buscar}/>
+          </Switch>
+          <Switch>
+            <Route path="/VotacionesImportantes/:handleMetodo/:handleValor" exact component={VotacionesImportantes}/>
           </Switch>
           <Switch>
             <Route path="/grafico/:handle" component={PagGrafico}/>

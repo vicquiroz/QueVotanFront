@@ -136,6 +136,8 @@ function Congresista() {
                                                 <b>Resultado: </b><strong style={{color:statuscolor[post.detalle[0].VotacionesAsoc[0].resultado]}}>{post.detalle[0].VotacionesAsoc[0].resultado}</strong>
                                                 <br />
                                                 <b>Descripcion: </b>{post.detalle[0].nombre}
+                                                <br />
+                                                <b>Quórum: </b>{post.detalle[0].VotacionesAsoc[0].quorum}
                                             </CardText>
                                         </CardBody>
                                     </Card>
