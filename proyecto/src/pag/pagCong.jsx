@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import Barra from "../components/barra";
 import { Container, Col, Row, Navbar, NavbarBrand, NavLink, Nav, CardBody, Card, CardHeader, CardText } from "reactstrap";
 import { useParams } from 'react-router-dom'
+import {CustomView,isMobile} from 'react-device-detect'
 import { useDispatch, useSelector } from 'react-redux'
 import { obtenerInfoDiputadosAccion } from '../redux/InfoDipDucks';
 import { obtenerInfoConsultaAccion } from '../redux/InfoConsultaDucks'
@@ -64,6 +65,10 @@ function Congresista() {
                 </Row>
                 <br />
                 <br />
+                <CustomView condition={isMobile===true}>
+                    <br/>
+                    <br/>
+                </CustomView>
                 <Container style={{ backgroundColor: "rgba(50,50,50,0.95)", borderRadius: "10px" }}>
                     <Row>
                         <Col>
@@ -96,7 +101,6 @@ function Congresista() {
                                                         </table>
                                                     </Nav>
                                                 </NavLink>
-
                                             </div>
                                         ))}
                                     </Nav>

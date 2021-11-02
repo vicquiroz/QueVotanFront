@@ -32,6 +32,7 @@ function Principal(){
             </Row>
             <CustomView condition={isMobile===true}>
                 <br/>
+                <br/>
             </CustomView>
             <Row style={{
                 "marginTop":"30px",

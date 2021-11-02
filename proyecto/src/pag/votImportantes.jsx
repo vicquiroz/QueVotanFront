@@ -25,11 +25,12 @@ function VotacionesImportantes(){
             <Row>
                 <Col>
                     <Barra
-                        origen={"principal"}
+                        origen={"vot-importantes"}
                     />
                 </Col>
             </Row>
             <CustomView condition={isMobile===true}>
+                <br/>
                 <br/>
             </CustomView>
             <br/>

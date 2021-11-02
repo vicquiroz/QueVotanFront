@@ -50,6 +50,7 @@ function PagGrafico(){
             </Row>
             <CustomView condition={isMobile===true}>
                 <br/>
+                <br/>
             </CustomView>
             <Row>
                 <Col>

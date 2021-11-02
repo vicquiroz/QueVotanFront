@@ -1,6 +1,7 @@
 import React from "react";
 import Barra from "../components/barra";
 import {Container, Col, Row, Jumbotron, PopoverHeader, PopoverBody, UncontrolledPopover} from "reactstrap";
+import {isMobile,CustomView} from 'react-device-detect'
 import amellado from "../resources/amellado.webp"
 import jgallardo from "../resources/jgallardo.webp"
 import jrojas from "../resources/jrojas.webp"
@@ -18,6 +19,10 @@ function AcercaDe(){
             </Row>
             <br/>
             <br/>
+            <CustomView condition={isMobile===true}>
+                <br/>
+                <br/>
+            </CustomView>
             <Row>
                 <Col>
                     <Container className="text-light" style={{backgroundColor:"rgba(50,50,50,0.95)",borderRadius:"10px"}}>

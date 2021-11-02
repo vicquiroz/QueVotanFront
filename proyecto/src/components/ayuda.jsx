@@ -100,5 +100,17 @@ function texto(origen){
             </div>
         )
     }
+    if(origen==="vot-importantes"){
+        return(
+            <div>
+                <h5>Selección</h5>
+                Esta página permite seleccionar 3 temáticas de votaciones importantes. Por defecto,
+                al cargar la página se muestra la lista de votaciones relacionadas al Covid-19. Para seleccionar
+                otras votaciones importantes, se debe de realizar un click en uno de los 3 botones presentes al principio
+                de la página. Al hacer click, se realizará la consulta y se mostrará en el listado de abajo todas las votaciones
+                relacionadas.
+            </div>
+        )
+    }
 }
 export default Ayuda
