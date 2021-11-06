@@ -33,6 +33,12 @@ function PagGrafico(){
         })
     }
     useEffect(()=>{
+        for(let i in infoGrafico.wnominate){
+            infoGrafico.wnominate[i].coord2D=infoGrafico.wnominate[i].coord2D*-1
+        }
+    },[infoGrafico])
+
+    useEffect(()=>{
         if(!isEmpty(previewVot)){
             setTitulo(previewVot[0].detalle[0].nombre.substring(0,80)+"...")
         }
