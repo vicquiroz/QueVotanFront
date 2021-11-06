@@ -82,20 +82,20 @@ function Congresista() {
                                 <Nav className="nav-pills flex-column">
                                     <NavLink className="text-light">Partidos</NavLink>
                                     <Nav className="nav-pills flex-column">
-                                        {infoDip.Partido.sort((a, b) => a.begin.split("T")[0] < b.begin.split("T")[0]).map((post,index) => (
+                                        {infoDip.militancias.map((post,index) => (
                                             <div key={index}>
                                                 <NavLink className="ms-3 my-1 text-light">
-                                                    <span>{nombrepartidos[post.party]} <span style={{ backgroundColor: partidos[post.party], borderRadius: "5px", color: partidosInvertidos[post.party] }}>  {post.party}  </span></span>
+                                                    <span>{nombrepartidos[post.partido]} <span style={{ backgroundColor: partidos[post.partido], borderRadius: "5px", color: partidosInvertidos[post.partido] }}>  {post.partido}  </span></span>
                                                     <Nav className="nav-pills flex-column">
                                                         <table>
                                                             <tbody>
                                                                 <tr>
                                                                     <td>Ingreso:</td>
-                                                                    <td>{post.begin.split("T")[0]}</td>
+                                                                    <td>{post.fecha_inicio.split("T")[0]}</td>
                                                                 </tr>
                                                                 <tr>
                                                                     <td>Salida: </td>
-                                                                    <td>{post.end.split("T")[0]}</td>
+                                                                    <td>{post.fecha_termino.split("T")[0]}</td>
                                                                 </tr>
                                                             </tbody>
                                                         </table>

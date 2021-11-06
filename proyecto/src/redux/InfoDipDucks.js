@@ -17,7 +17,7 @@ export default function infoDiputadosReducer(state = InfoDiputadosI, action){
 
 export const obtenerInfoDiputadosAccion = (IdDiputado) => async(dispatch,getState) => {
     try {
-        const res = await axios.get(String(process.env.REACT_APP_API_URL+"diputados/"+IdDiputado))
+        const res = await axios.get(String(process.env.REACT_APP_API_URL+"diputados/9/"+IdDiputado))
         dispatch({
             type: OBTENER_INFODIPUTADOS_EXITO,
             payload: res.data
