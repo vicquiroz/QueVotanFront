@@ -32,7 +32,7 @@ function Texto({infoDip,datoswnominate}){
     return(
         <Container  style={{marginTop:"22px"}}>
             <p>
-                {infoDip.Nombre + " " + infoDip["Apellido Paterno"] + " " + infoDip["Apellido Materno"]} que actualmente pertenece a 
+                {infoDip.Nombre + " " + infoDip["Apellido Paterno"] + " " + infoDip["Apellido Materno"]} actualmente pertenece a 
                 <span style={{backgroundColor: partidos[nombres[infoDip.distrito[0].p_actual]], borderRadius: "5px", color:partidosInvertidos[nombres[infoDip.distrito[0].p_actual]] }}>
                      {nombres[infoDip.distrito[0].p_actual]} 
                 </span> y
