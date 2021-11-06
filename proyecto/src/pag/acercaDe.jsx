@@ -32,16 +32,16 @@ function AcercaDe(){
                                     <h1 className="display-4">Sobre ¿Qué Votan?</h1>
                                     <p className="lead">Es una plataforma que permite visualizar claramente el espectro
                                         político del Congreso Nacional de la República de Chile en el
-                                        período legislativo 2014-2018. Esperamos que "¿Qué Votan?" pueda
+                                        período legislativo 2010-2022. Esperamos que "¿Qué Votan?" pueda
                                         ser usada por la población chilena en la toma de decisiones durante
-                                        la elección parlamentaria de Noviembre de 2017. Nuestra intención es
+                                        la elección parlamentaria de Noviembre de 2021. Nuestra intención es
                                         lograr que "¿Qué Votan?" pueda perpetuarse en el tiempo, sirviendo como
                                         referente en la discusión política parlamentaria de nuestro país.
                                     </p>
                                     <hr className="my-4"/>
                                     <p className="lead">
                                     La representación espacial bidimensional del espectro político de la Cámara de
-                                    Diputados del Congreso de la República de Chile en el período legislativo 2018-2022
+                                    Diputados del Congreso de la República de Chile en el período legislativo 2010-2022
                                     se realizó mediante el algoritmo W-Nominate de Poole y Rosenthal (1985). Se utiliza
                                     como polo de referencia a los Diputados Gastón Saavedra y Joaquín Lavín León. Se utilizaron
                                     todas las votaciones de la legislatura dejando por fuera aquellas en las que el voto
@@ -67,14 +67,16 @@ function AcercaDe(){
                                     <h4>Procesamiento</h4>
                                     <p>Una vez obtenido los datos en tablas, viene el procesamiento de los datos,
                                         para ésto utilizamos el lenguaje de programación R, el cuál es un entorno para
-                                        computación y gráficos estadísticos, desarrollado por Bell Laboratories. El entorno
+                                        computación y gráficos estadísticos de código libre. El entorno
                                         utilizado posee un conjunto de de elementos que están integrados para la manipulación
                                         de datos, cálculo y visualización gráfica. </p>
                                     <h4>Visualización</h4>
-                                    Finalmente el proyecto cuenta con la visualización de la información recabada y procesada
-                                    anteriormente, implementando una web en la cuál podemos visualizar los datos de manera
-                                    responsive, permitiendo la entrega de información a los distintos entusiastas que deseen
-                                    informarse sobre los movimientos de los distintos partidos políticos en nuestro país. 
+                                    <p>
+                                        Finalmente el proyecto cuenta con la visualización de la información recabada y procesada
+                                        anteriormente, implementando una web desarrollada en React en la cuál podemos visualizar
+                                        los datos de manera responsiva, permitiendo la entrega de información a los distintos entusiastas que deseen
+                                        informarse sobre los movimientos de los distintos partidos políticos en nuestro país. 
+                                    </p>
                                 </Col>
                             </Row>
                             <br />
@@ -108,6 +110,14 @@ function AcercaDe(){
                                             <h5>D3.js</h5>
                                             <p>Librería de JavaScript para la manipulación de documentos basados en datos. Se
                                             utiliza la versión para React.</p>
+                                        </li>
+                                        <li className="list-group-item text-light" style={{backgroundColor:"rgba(0,0,0,0)",borderRadius:"10px", borderWidth:"0px"}}>
+                                            <h5>Python</h5>
+                                            <p>Lenguaje de programación interpretado de código abierto.</p>
+                                        </li>
+                                        <li className="list-group-item text-light" style={{backgroundColor:"rgba(0,0,0,0)",borderRadius:"10px", borderWidth:"0px"}}>
+                                            <h5>R</h5>
+                                            <p>Entorno y lenguaje de programación de código libre enfocado al análisis estadístico.</p>
                                         </li>
                                     </ul>
                                 </Col>
