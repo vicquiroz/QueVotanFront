@@ -216,7 +216,7 @@ function GraficoPrincipal({ setId, setXY, datoswnominate, datosvot}) {
             if (datoswnominate.votacion[0][P] === 3) {
                 svg.select(path).attr("d", symbol().size(pointsize).type(symbolSquare))
             }
-            if (datoswnominate.votacion[0][P] === 4) {
+            if (datoswnominate.votacion[0][P] === 4 || datoswnominate.votacion[0][P] === 9) {
                 svg.select(path).attr("d", symbol().size(pointsize).type(symbolDiamond))
             }
         }
@@ -262,7 +262,7 @@ function GraficoPrincipal({ setId, setXY, datoswnominate, datosvot}) {
                 svg.selectAll("g.brush").call(brush().clear)
                 SelectParty(this, { setId }, { setXY }, { datoswnominate })
             })
-        const vot = ["△ A favor", "▽ En contra", "○ Abstenido", "▢ Dispensado", "◇ No presente"]
+        const vot = ["△ A favor", "▽ En contra", "○ Abstenido", "▢ Dispensado", "◇ Ausente" ]
         legend.data(vot)
             .enter()
             .append("text")
@@ -438,7 +438,7 @@ function SelectParty(event, { setId }, { setXY }, { datoswnominate }) {
 }
 
 function SelectEstado(event, { setId }, { setXY }, { datoswnominate }) {
-    const estados = { "△ A favor": 1, "▽ En contra": 0, "○ Abstenido": 2, "▢ Dispensado": 3, "◇ No presente": 4 }
+    const estados = { "△ A favor": 1, "▽ En contra": 0, "○ Abstenido": 2, "▢ Dispensado": 3, "◇ Ausente": 4, "◇ Ausente": 9 }
     let Nodes = datoswnominate.wnominate.filter((dat) => { return datoswnominate.votacion[0][dat.ID] === estados[event.id] });
     let NodeSelec = []
     let posicionX = []

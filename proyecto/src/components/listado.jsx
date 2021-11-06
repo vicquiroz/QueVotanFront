@@ -6,7 +6,8 @@ import partidos from './partidos.json'
 import {sortBy} from 'lodash'
 
 function MostrarLista({idCon,datoswnominate}){
-    const vot=["▽","△","○","▢","◇"]
+    //const vot=["▽","△","○","▢","◇","","",]
+    const vot = {1:"△", 0:"▽", 2:"○", 3:"▢", 4:"◇",9:"◇" }
     var nombres = [];
     var part = [];
     

@@ -52,20 +52,20 @@ function GraficoBarra({idCon,datoswnominate}){
     let CSi=datosselec.filter((data)=> {return datoswnominate.votacion[0][data.ID]===1}).length
     let CA= datosselec.filter((data)=> {return datoswnominate.votacion[0][data.ID]===2}).length
     let CD= datosselec.filter((data)=> {return datoswnominate.votacion[0][data.ID]===3}).length
-    let CNV=datosselec.filter((data)=> {return datoswnominate.votacion[0][data.ID]===4}).length
+    let CNV=datosselec.filter((data)=> {return datoswnominate.votacion[0][data.ID]===4}).length+datosselec.filter((data)=> {return datoswnominate.votacion[0][data.ID]===9}).length
     var data =[
         {"TipoDato":"No","Valor":CNo},
         {"TipoDato":"Si","Valor":CSi},
         {"TipoDato":"Abstencion","Valor":CA},
         {"TipoDato":"Dispensado","Valor":CD},
-        {"TipoDato":"No Vota","Valor":CNV}
+        {"TipoDato":"Ausente","Valor":CNV}
     ];
     var colores = {
         "No":"rgb(202,0,32)",
         "Si":"rgb(5,133,176)",
         "Abstencion":"rgb(171,217,233)",
         "Dispensado":"rgb(253,174,97)",
-        "No Vota":"rgb(255,255,191)"
+        "Ausente":"rgb(255,255,191)"
     }
     vBox="0 "+String(margin-10)+" "+String(dim-20)+" "+String(height*0.65)
     const svgRef = useRef();
