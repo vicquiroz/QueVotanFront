@@ -1,5 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Container } from "reactstrap";
+import nombres from "./nombres-partidos-invertidos.json"
+import partidos from "./partidos.json"
+import partidosInvertidos from "./nombres-partidos-invertidos.json"
 
 function Texto({infoDip,datoswnominate}){
     var data=[]
@@ -28,8 +31,11 @@ function Texto({infoDip,datoswnominate}){
     return(
         <Container  style={{marginTop:"22px"}}>
             <p>
-                {infoDip.Nombre + " " + infoDip["Apellido Paterno"] + " " + infoDip["Apellido Materno"]} que actualmente pertenece a {infoDip.MilitanciaActual} se
-                encuentra en el punto {Coord} en la dimensión 1.  El partido tiene un índice de polaridad de {Promedio}.
+                {infoDip.Nombre + " " + infoDip["Apellido Paterno"] + " " + infoDip["Apellido Materno"]} que actualmente pertenece a  
+                <span style={{ backgroundColor: partidos[nombres[infoDip.distrito[0].p_actual]], borderRadius: "5px", color: partidosInvertidos[nombres[infoDip.distrito[0].p_actual]] }}>
+                    {nombres[infoDip.distrito[0].p_actual]}
+                </span> y
+                tiene un indice de polaridad de {Coord}.  Mientras que su partido tiene un índice de polaridad de {Promedio}.
             </p>
         </Container>
     )
