@@ -19,6 +19,7 @@ function PagGrafico(){
     const [xyBrush, setXY] = useState();
     const [Titulo,setTitulo] = useState("")
     const [TFlag,setTFlag] = useState(true)
+    const [FlagUE,setFlagUE] = useState(false)
     const dispatch = useDispatch()
     const infoGrafico = useSelector(store => store.infoGrafico.array)
     const previewVot = useSelector(store => store.previewVotacion.array)
@@ -26,15 +27,16 @@ function PagGrafico(){
         dispatch(obtenerInfoGraficoAccion(handle))
         dispatch(obtenerPreviewVotacionAccion(handle))
     },[])
-    //Filtro
-    if(!isEmpty(infoGrafico)){
-        infoGrafico.wnominate=infoGrafico.wnominate.filter((dat)=> {
-            return dat.coord1D!==undefined && dat.coord2D!==undefined && dat.party!==undefined && dat.Nombre!==undefined && dat.ID!==undefined && Object.keys(infoGrafico.votacion[0]).includes(String(dat.ID))
-        })
-    }
     useEffect(()=>{
-        for(let i in infoGrafico.wnominate){
-            infoGrafico.wnominate[i].coord2D=infoGrafico.wnominate[i].coord2D*-1
+        //Filtro++
+        if(!isEmpty(infoGrafico)){
+            infoGrafico.wnominate=infoGrafico.wnominate.filter((dat)=> {
+                return dat.coord1D!==undefined && dat.coord2D!==undefined && dat.party!==undefined && dat.Nombre!==undefined && dat.ID!==undefined && Object.keys(infoGrafico.votacion[0]).includes(String(dat.ID))
+            })
+            for(let i in infoGrafico.wnominate){
+                infoGrafico.wnominate[i].coord2D=infoGrafico.wnominate[i].coord2D*-1
+            }
+            setFlagUE(true)
         }
     },[infoGrafico])
 
@@ -45,7 +47,7 @@ function PagGrafico(){
     },[previewVot])
     return(
         <Container>
-            {!isEmpty(infoGrafico) && !isEmpty(previewVot)?
+            {!isEmpty(infoGrafico) && !isEmpty(previewVot) && FlagUE===true?
             <div>
             <Row>
                 <Col>
