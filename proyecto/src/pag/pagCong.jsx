@@ -52,7 +52,6 @@ function Congresista() {
             }
         }, 500);
     }
-
     return (
         <Container className="text-light">
             {!isEmpty(infoDip) && !isEmpty(infoGrafico) ? <div>
@@ -106,6 +105,32 @@ function Congresista() {
                                     </Nav>
                                 </Nav>
                             </Navbar>
+                        </Col>
+                        <Col className="col-md-4">
+                        <Navbar className="flex-column align-items-stretch p-3">
+                            <NavLink className="text-light">
+                                Sector: {infoDip.distrito[0].region}
+                            </NavLink>
+                            <Nav className="nav-pills flex-column">
+                                <NavLink className="ms-3 text-light">
+                                    Distrito {infoDip.distrito[0].distrito}
+                                </NavLink>
+                                <NavLink className="ms-3 text-light">
+                                    Comunas que representa:
+                                </NavLink>
+                                <Nav className="nav-pills flex-column">
+                                    <table className="ms-5">
+                                        <tbody>
+                                                {infoDip.distrito[0].comunas.map((post,index)=>(
+                                                    <tr key={index} >
+                                                        <td>{post}</td>
+                                                    </tr>
+                                                ))}
+                                        </tbody>
+                                    </table>
+                                </Nav>
+                            </Nav>
+                        </Navbar>
                         </Col>
                         <Col>
                             <Texto infoDip={infoDip} datoswnominate={infoGrafico}/>                  

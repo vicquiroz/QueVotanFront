@@ -28,7 +28,6 @@ function Texto({infoDip,datoswnominate}){
         })
     }
     */
-   console.log(infoDip.distrito[0].p_actual)
     return(
         <Container  style={{marginTop:"22px"}}>
             <p>
