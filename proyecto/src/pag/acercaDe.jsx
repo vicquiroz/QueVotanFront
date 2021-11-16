@@ -31,8 +31,7 @@ function AcercaDe(){
                                 <Col>
                                     <h1 className="display-4">Sobre ¿Qué Votan?</h1>
                                     <p className="lead">Es una plataforma que permite visualizar claramente el espectro
-                                        político del Congreso Nacional de la República de Chile en el
-                                        período legislativo 2010-2022. Esperamos que "¿Qué Votan?" pueda
+                                        político del Congreso Nacional de la República de Chile durante el ultimo periodo legislativo. Esperamos que "¿Qué Votan?" pueda
                                         ser usada por la población chilena en la toma de decisiones durante
                                         la elección parlamentaria de Noviembre de 2021. Nuestra intención es
                                         lograr que "¿Qué Votan?" pueda perpetuarse en el tiempo, sirviendo como
