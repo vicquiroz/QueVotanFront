@@ -1,5 +1,6 @@
 import React,{useState} from 'react';
 import {Button,Modal,ModalBody,ModalHeader,ModalFooter} from 'reactstrap';
+import ReactPlayer from "react-player"
 
 function Ayuda({origen}){
     const [modal, setModal] = useState(false);
@@ -25,6 +26,14 @@ function texto(origen){
     if(origen==="principal"){
     return(
         <div>
+            <h5>Video tutorial</h5>
+            <ReactPlayer
+                url=''
+                controls="true"
+                width="467px"
+                height="263px"
+            />
+        <br/>
         <h5>Búsqueda</h5>
             Para realizar búsquedas sobre votaciones efectuadas por la camara de diputados, se debe ingresar el texto
             de búsqueda en el cuadro gris que dice "Buscar". El texto que se debe ingresar
@@ -55,6 +64,13 @@ function texto(origen){
     if(origen==="grafico"){
         return(
             <div>
+                <h5>Video tutorial</h5>
+                <ReactPlayer
+                    url=''
+                    controls="true"
+                    width="467px"
+                    height="263px"
+                />
                 <h5>Gráfico</h5>
                 Se puede interactuar con el gráfico de distintas maneras, ya sea para hacer selecciones específicas
                 o mostrar cierto tipo de datos. Las interacciones que se pueden realizar son:
@@ -88,6 +104,13 @@ function texto(origen){
     if(origen==="congresista"){
         return(
             <div>
+                <h5>Video tutorial</h5>
+                <ReactPlayer
+                    url=''
+                    controls="true"
+                    width="467px"
+                    height="263px"
+                />
                 <h5>Congresista</h5>
                 Al seleccionar un diputado, se realiza una comparación de su ideología entre él y
                 los pertenecientes a su partido. Para esto, se contabiliza la cantidad de personas
@@ -103,6 +126,13 @@ function texto(origen){
     if(origen==="vot-importantes"){
         return(
             <div>
+                <h5>Video tutorial</h5>
+                <ReactPlayer
+                    url=''
+                    controls="true"
+                    width="467px"
+                    height="263px"
+                />
                 <h5>Selección</h5>
                 Esta página permite seleccionar 3 temáticas de votaciones importantes. Por defecto,
                 al cargar la página se muestra la lista de votaciones relacionadas al Covid-19. Para seleccionar
