@@ -40,7 +40,7 @@ function AcercaDe(){
                                     <hr className="my-4"/>
                                     <p className="lead">
                                     La representación espacial bidimensional del espectro político de la Cámara de
-                                    Diputados del Congreso de la República de Chile en el período legislativo 2010-2022
+                                    Diputados del Congreso de la República de Chile durante el ultimo periodo legislativo,
                                     se realizó mediante el algoritmo W-Nominate de Poole y Rosenthal (1985).  Se utilizaron
                                     todas las votaciones de la legislatura dejando por fuera aquellas en las que el voto
                                     minoritario constituía menos del 2.5% del total.
