@@ -28,7 +28,7 @@ function texto(origen){
         <div>
             <h5>Video tutorial</h5>
             <ReactPlayer
-                url=''
+                url='https://youtu.be/fEfo9spSe2o'
                 controls="true"
                 width="467px"
                 height="263px"
@@ -66,7 +66,7 @@ function texto(origen){
             <div>
                 <h5>Video tutorial</h5>
                 <ReactPlayer
-                    url=''
+                    url='https://youtu.be/euvHSYP9WgI'
                     controls="true"
                     width="467px"
                     height="263px"
@@ -104,13 +104,6 @@ function texto(origen){
     if(origen==="congresista"){
         return(
             <div>
-                <h5>Video tutorial</h5>
-                <ReactPlayer
-                    url=''
-                    controls="true"
-                    width="467px"
-                    height="263px"
-                />
                 <h5>Congresista</h5>
                 Al seleccionar un diputado, se realiza una comparación de su ideología entre él y
                 los pertenecientes a su partido. Para esto, se contabiliza la cantidad de personas
@@ -128,7 +121,7 @@ function texto(origen){
             <div>
                 <h5>Video tutorial</h5>
                 <ReactPlayer
-                    url=''
+                    url='https://youtu.be/OG70hfrAWzo'
                     controls="true"
                     width="467px"
                     height="263px"
