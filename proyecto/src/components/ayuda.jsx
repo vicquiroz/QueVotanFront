@@ -1,6 +1,6 @@
 import React,{useState} from 'react';
 import {Button,Modal,ModalBody,ModalHeader,ModalFooter} from 'reactstrap';
-import ReactPlayer from "react-player"
+import ReactPlayer from "react-player/youtube"
 
 function Ayuda({origen}){
     const [modal, setModal] = useState(false);
@@ -29,7 +29,7 @@ function texto(origen){
             <h5>Video tutorial</h5>
             <ReactPlayer
                 url='https://youtu.be/fEfo9spSe2o'
-                controls="true"
+                controls={true}
                 width="467px"
                 height="263px"
             />
@@ -67,7 +67,7 @@ function texto(origen){
                 <h5>Video tutorial</h5>
                 <ReactPlayer
                     url='https://youtu.be/euvHSYP9WgI'
-                    controls="true"
+                    controls={true}
                     width="467px"
                     height="263px"
                 />
@@ -122,7 +122,7 @@ function texto(origen){
                 <h5>Video tutorial</h5>
                 <ReactPlayer
                     url='https://youtu.be/OG70hfrAWzo'
-                    controls="true"
+                    controls={true}
                     width="467px"
                     height="263px"
                 />
