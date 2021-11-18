@@ -60,6 +60,7 @@ function PagGrafico(){
                 <br/>
                 <br/>
             </CustomView>
+            <br/>
             <Row>
                 <Col>
                     <br />

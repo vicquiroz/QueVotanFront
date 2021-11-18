@@ -56,6 +56,7 @@ function Busqueda(){
                 <br/>
                 <br/>
             </CustomView>
+            <br/>
             <Row style={{
                 "marginTop":"30px",
                 "marginBottom":"10px"

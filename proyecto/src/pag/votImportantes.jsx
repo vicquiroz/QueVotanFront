@@ -34,6 +34,7 @@ function VotacionesImportantes(){
                 <br/>
             </CustomView>
             <br/>
+            <br/>
             <Row>
                 <Col>
                     <h2 className="text-light">Votaciones Importantes</h2>
