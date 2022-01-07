@@ -8,18 +8,14 @@ import {useDispatch, useSelector} from 'react-redux'
 import {obtenerTagsAccion} from '../redux/TagsDucks'
 import {obtenerPrimerasVotacionesAccion} from '../redux/VotacionDucks'
 function Principal(){
-    const [votaciones,setVotaciones] = useState([]);
     const dispatch = useDispatch()
     const tags = useSelector(store => store.tags.array)
-    const primerasVotaciones = useSelector(store => store.primerasVotaciones.array)
+    const votaciones = useSelector(store => store.primerasVotaciones.array)
 
     useEffect(()=> {
         dispatch(obtenerTagsAccion())
         dispatch(obtenerPrimerasVotacionesAccion())
     },[]);
-    useEffect(()=>{
-        setVotaciones(primerasVotaciones.filter((dat)=>{return dat.detalle[0].camaraOrigen!=="Senado"}))
-    },[primerasVotaciones])
 
     return(
         <Container>
@@ -48,7 +44,7 @@ function Principal(){
             <Row>
                 <Col>
                     <Tabla
-                        primerasVotaciones={votaciones.filter((dat)=>{return dat.detalle!=="No encontrado"})}
+                        primerasVotaciones={votaciones}
                     />
                 </Col>
             </Row>
