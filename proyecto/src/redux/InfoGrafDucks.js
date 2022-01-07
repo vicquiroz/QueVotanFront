@@ -1,5 +1,5 @@
 import axios from 'axios'
-
+import WNominate from '../WNominate/WNominate.json'
 const InfoGraficoI = {
     array: {}
 }
@@ -17,10 +17,10 @@ export default function infoGraficoReducer(state = InfoGraficoI, action){
 
 export const obtenerInfoGraficoAccion = (idWnominate) => async(dispatch,getState) => {
     try {
-        const res = await axios.get(String(process.env.REACT_APP_API_URL)+"wnominate/diputados/"+idWnominate)
+        //const res = await axios.get(String(process.env.REACT_APP_API_URL)+"wnominate/diputados/"+idWnominate)
         dispatch({
             type: OBTENER_INFOGRAFICO_EXITO,
-            payload: res.data
+            payload: WNominate
         })
     } catch (error) {
         console.log(error)

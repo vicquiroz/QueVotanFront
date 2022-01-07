@@ -14,14 +14,14 @@ import {Provider} from 'react-redux'
 import generateStore from './redux/store'
 function App() {
   const store = generateStore()
-  if (process.env.NODE_ENV === "development"){
+  /*if (process.env.NODE_ENV === "development"){
     console.log = () => {};
     console.warn = () => {};
     console.error = () => {};
     console.debug = () => {};
     console.exception = () =>{};
     console.info = () => {};
-  }
+  }*/
   //console.log(process.env.NODE_ENV);
   return (
     <div className='Login-component'>
