@@ -4,14 +4,8 @@ import InfiniteScroll from 'react-infinite-scroll-component'
 import statuscolor from '../resources/statuscolor.json'
 
 function Tabla({primerasVotaciones}){
-    console.log(primerasVotaciones)
     const [vot,setVot] = useState([])
     const [limit,setLimit]=useState()
-
-    useEffect(()=>{
-        primerasVotaciones=[primerasVotaciones]
-    })
-
     useEffect(()=>{
         setVot(primerasVotaciones.slice(0,10))
         setLimit(20)
@@ -37,8 +31,7 @@ function Tabla({primerasVotaciones}){
                     <div key={post.id}>
                     <div onClick={()=> window.location.href="/grafico/"+post.id} style={{ cursor:"pointer",textDecoration: 'none' }}>
                         <Card className="text-light" style={{backgroundColor:"rgba(50,50,50,0.95)"}}>
-                            <CardHeader><b>Camara de diputados - Votacion {post.id} </b>Ingresada en {console.log(typeof(post.fechaIngresoBoletin))}{post.fechaIngresoBoletin} {''}
-                            Realizada en {post.fecha}</CardHeader>
+                            <CardHeader><b>Camara de diputados - Votacion {post.id} </b>- Ingresada en {post.fechaIngresoBoletin.slice(0,10)} - Realizada en {post.fecha.slice(0,10)}</CardHeader>
                             <CardBody>
                                 <CardText>
                                     <b>Boletin N°: </b>{post.boletin}

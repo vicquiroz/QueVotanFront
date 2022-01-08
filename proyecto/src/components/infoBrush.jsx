@@ -11,10 +11,10 @@ function Inform({pos,datoswnominate}){
         promX = "X: "+String((promX/pos[0].length).toFixed(2));
         promY = "Y: "+String((promY/pos[1].length).toFixed(2));
         if(pos[0].length !== 0 && pos[1].length !==0){
-            var nameMXX=" por "+datoswnominate.wnominate.filter((dat)=> {return dat.coord1D===Math.max(...pos[0])})[0].Nombre
-            var nameMXY=" por "+datoswnominate.wnominate.filter((dat)=> {return dat.coord2D===Math.max(...pos[1])})[0].Nombre
-            var nameMNX=" por "+datoswnominate.wnominate.filter((dat)=> {return dat.coord1D===Math.min(...pos[0])})[0].Nombre
-            var nameMNY=" por "+datoswnominate.wnominate.filter((dat)=> {return dat.coord2D===Math.min(...pos[1])})[0].Nombre
+            var nameMXX=" por "+datoswnominate.diputados.filter((dat)=> {return dat.coordX===Math.max(...pos[0])})[0].Nombre
+            var nameMXY=" por "+datoswnominate.diputados.filter((dat)=> {return dat.coordY===Math.max(...pos[1])})[0].Nombre
+            var nameMNX=" por "+datoswnominate.diputados.filter((dat)=> {return dat.coordX===Math.min(...pos[0])})[0].Nombre
+            var nameMNY=" por "+datoswnominate.diputados.filter((dat)=> {return dat.coordY===Math.min(...pos[1])})[0].Nombre
         }
     }
     return(

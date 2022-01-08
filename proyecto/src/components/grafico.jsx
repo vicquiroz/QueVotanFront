@@ -170,19 +170,19 @@ function GraficoPrincipal({ setId, setXY, datoswnominate, datosvot}) {
             .style("font-family", "Lucida Sans Unicode")
             .attr("fill", "white")
         svg.selectAll(".point")
-            .data(datoswnominate.wnominate)
+            .data(datoswnominate.diputados)
             .join(
                 enter => enter.append("path")
                     .attr("id", value => "id_" + value.ID)
                     .attr("key", value => value.Nombre)
                     .attr("transform", function (d) {
-                        if (datoswnominate.votacion[0][d.ID] === 1) return "translate(" + (d.coord1D * escalay + escalax + margin) + "," + ((2 * escalax) - (d.coord2D * escalay + escalax)) + ")"
+                        if (d.participacion === 1) return "translate(" + (d.coordX * escalay + escalax + margin) + "," + ((2 * escalax) - (d.coordY * escalay + escalax)) + ")"
                         else {
-                            return "translate(" + (d.coord1D * escalay + escalax + margin) + "," + ((2 * escalax) - (d.coord2D * escalay + escalax)) + ") rotate(180)"
+                            return "translate(" + (d.coordX * escalay + escalax + margin) + "," + ((2 * escalax) - (d.coordY * escalay + escalax)) + ") rotate(180)"
                         }
                     })
                     .attr("stroke", function (d) {
-                        return partidosinvertidos[d.party]
+                        return partidosinvertidos[d.partido]
                     })
                     .attr("stroke-width", strokewidth)
                     //.attr("stroke", "black")
@@ -200,29 +200,29 @@ function GraficoPrincipal({ setId, setXY, datoswnominate, datosvot}) {
                         div.html(name).style("left", (-100) + "px").style("top", (-100) + "px");
                     })
                     .attr("fill", function (d) {
-                        return partidos[d.party]
+                        return partidos[d.partido]
                     }),
                 update => update.attr("class", "updated"),
                 exit => exit.remove()
             );
-        for (let P in datoswnominate.votacion[0]) {
-            let path = "path#id_" + P
-            if (datoswnominate.votacion[0][P] === 0 || datoswnominate.votacion[0][P] === 1) {
+        for (let P in datoswnominate.diputados) {
+            let path = "path#id_" + datoswnominate.diputados[P].ID
+            if (datoswnominate.diputados[P].participacion === 0 || datoswnominate.diputados[P].participacion === 1) {
                 svg.select(path).attr("d", symbol().size(pointsize).type(symbolTriangle))
             }
-            if (datoswnominate.votacion[0][P] === 2) {
+            if (datoswnominate.diputados[P].participacion === 2) {
                 svg.select(path).attr("d", symbol().size(pointsize).type(symbolCircle))
             }
-            if (datoswnominate.votacion[0][P] === 3) {
+            if (datoswnominate.diputados[P].participacion === 3) {
                 svg.select(path).attr("d", symbol().size(pointsize).type(symbolSquare))
             }
-            if (datoswnominate.votacion[0][P] === 4 || datoswnominate.votacion[0][P] === 9) {
+            if (datoswnominate.diputados[P].participacion === 4 || datoswnominate.diputados[P].participacion === 9) {
                 svg.select(path).attr("d", symbol().size(pointsize).type(symbolDiamond))
             }
         }
 
-        var partidosAct = datoswnominate.wnominate.map(function (key) {
-            return key.party
+        var partidosAct = datoswnominate.diputados.map(function (key) {
+            return key.partido
         })
         partidosAct = [...new Set(partidosAct)]
         partidosAct.sort(function (a, b) {
@@ -341,9 +341,9 @@ function brushed(event, { setId }, { setXY }, { datoswnominate }) {
         for (let P in Nodes) {
             if ((Nodes[P][0][0] >= S[0][0] && Nodes[P][0][0] <= S[1][0]) && (Nodes[P][0][1] >= S[0][1] && Nodes[P][0][1] <= S[1][1])) {
                 NodeSelec.push(Nodes[P][1])
-                let envio = datoswnominate.wnominate.find((dat) => { return dat.ID === Nodes[P][1] });
-                posicionX.push(Number(envio.coord1D));
-                posicionY.push(Number(envio.coord2D));
+                let envio = datoswnominate.diputados.find((dat) => { return dat.ID === Nodes[P][1] });
+                posicionX.push(Number(envio.coordX));
+                posicionY.push(Number(envio.coordY));
             }
         }
         if(NodeSelec.length>0){
@@ -359,9 +359,9 @@ function brushed(event, { setId }, { setXY }, { datoswnominate }) {
             svg.selectAll("path").transition().duration('50').attr('opacity',puntosOriginal)
             for(let P in Nodes){
                 NodeSelec.push(Nodes[P][1])
-                let envio = datoswnominate.wnominate.find((dat) => { return dat.ID === Nodes[P][1] });
-                posicionX.push(Number(envio.coord1D));
-                posicionY.push(Number(envio.coord2D));
+                let envio = datoswnominate.diputados.find((dat) => { return dat.ID === Nodes[P][1] });
+                posicionX.push(Number(envio.coordX));
+                posicionY.push(Number(envio.coordY));
             }
         }
         setId(NodeSelec);
@@ -374,7 +374,7 @@ function brushed(event, { setId }, { setXY }, { datoswnominate }) {
 }
 
 function SelectParty(event, { setId }, { setXY }, { datoswnominate }) {
-    let Nodes = datoswnominate.wnominate.filter((dat) => { return dat.party === event.id });
+    let Nodes = datoswnominate.wnominate.filter((dat) => { return dat.partido === event.id });
     let NodeSelec = []
     let posicionX = []
     let posicionY = []
@@ -384,9 +384,9 @@ function SelectParty(event, { setId }, { setXY }, { datoswnominate }) {
         NodeSelec.push(Nodes[P].ID)
         let path = "path#id_"+Nodes[P].ID
         svg.selectAll(path).transition().duration('50').attr('opacity',puntosOriginal)
-        posicionX.push(Number(Nodes[P].coord1D));
-        posicionY.push(Number(Nodes[P].coord2D));
-        posicionC.push([Number(Nodes[P].coord1D), Number(Nodes[P].coord2D)])
+        posicionX.push(Number(Nodes[P].coordX));
+        posicionY.push(Number(Nodes[P].coordY));
+        posicionC.push([Number(Nodes[P].coordX), Number(Nodes[P].coordY)])
     }
     setId(NodeSelec);
     setXY([posicionX, posicionY]);
@@ -449,9 +449,9 @@ function SelectEstado(event, { setId }, { setXY }, { datoswnominate }) {
         NodeSelec.push(Nodes[P].ID)
         let path = "path#id_"+Nodes[P].ID
         svg.selectAll(path).transition().duration('50').attr('opacity',puntosOriginal)
-        posicionX.push(Number(Nodes[P].coord1D));
-        posicionY.push(Number(Nodes[P].coord2D));
-        posicionC.push([Number(Nodes[P].coord1D), Number(Nodes[P].coord2D)])
+        posicionX.push(Number(Nodes[P].coordX));
+        posicionY.push(Number(Nodes[P].coordY));
+        posicionC.push([Number(Nodes[P].coordX), Number(Nodes[P].coordY)])
     }
     setId(NodeSelec);
     setXY([posicionX, posicionY]);
@@ -464,8 +464,8 @@ function ClickPoint(d, { setId }, { setXY }) {
     svg.selectAll("path").transition().duration('50').attr('opacity', transpPuntos)
     svg.selectAll("g.brush").call(brush().clear)
     svg.selectAll(path).transition().duration('50').attr('opacity',puntosOriginal)
-    posicionX.push(Number(d.coord1D));
-    posicionY.push(Number(d.coord2D));
+    posicionX.push(Number(d.coordX));
+    posicionY.push(Number(d.coordY));
     setId(Number(d.ID))
     setXY([posicionX, posicionY]);
     svg.selectAll("polygon").remove()
@@ -492,9 +492,9 @@ function ClearGraph({setId},{setXY},{datoswnominate}){
     }
     for (let P in Nodes) {
         NodeSelec.push(Nodes[P][1])
-        let envio = datoswnominate.wnominate.find((dat) => { return dat.ID === Nodes[P][1] });
-        posicionX.push(Number(envio.coord1D));
-        posicionY.push(Number(envio.coord2D));
+        let envio = datoswnominate.diputados.find((dat) => { return dat.ID === Nodes[P][1] });
+        posicionX.push(Number(envio.coordX));
+        posicionY.push(Number(envio.coordY));
     }
     svg.selectAll("polygon").remove()
     setId(NodeSelec);

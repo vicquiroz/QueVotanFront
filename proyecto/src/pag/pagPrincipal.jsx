@@ -10,8 +10,7 @@ import {obtenerPrimerasVotacionesAccion} from '../redux/VotacionDucks'
 function Principal(){
     const dispatch = useDispatch()
     const tags = useSelector(store => store.tags.array)
-    const votaciones = useSelector(store => store.primerasVotaciones.array)
-
+    const primerasVotaciones = useSelector(store => store.primerasVotaciones.array)
     useEffect(()=> {
         dispatch(obtenerTagsAccion())
         dispatch(obtenerPrimerasVotacionesAccion())
@@ -44,7 +43,7 @@ function Principal(){
             <Row>
                 <Col>
                     <Tabla
-                        primerasVotaciones={votaciones}
+                        primerasVotaciones={primerasVotaciones}
                     />
                 </Col>
             </Row>

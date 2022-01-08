@@ -44,15 +44,15 @@ function GraficoBarra({idCon,datoswnominate}){
     var datosselec=[]
     if(idCon!==undefined){
         for(let P in idCon){
-                datosselec.push(datoswnominate.wnominate.find((dat)=> {return dat.ID===idCon[P]}))
+                datosselec.push(datoswnominate.diputados.find((dat)=> {return dat.ID===idCon[P]}))
         }
     }
-    else datosselec=datoswnominate.wnominate
-    let CNo=datosselec.filter((data)=> {return datoswnominate.votacion[0][data.ID]===0}).length
-    let CSi=datosselec.filter((data)=> {return datoswnominate.votacion[0][data.ID]===1}).length
-    let CA= datosselec.filter((data)=> {return datoswnominate.votacion[0][data.ID]===2}).length
-    let CD= datosselec.filter((data)=> {return datoswnominate.votacion[0][data.ID]===3}).length
-    let CNV=datosselec.filter((data)=> {return datoswnominate.votacion[0][data.ID]===4}).length+datosselec.filter((data)=> {return datoswnominate.votacion[0][data.ID]===9}).length
+    else datosselec=datoswnominate.diputados
+    let CNo=datosselec.filter((data)=> {return data.participacion===0}).length
+    let CSi=datosselec.filter((data)=> {return data.participacion===1}).length
+    let CA= datosselec.filter((data)=> {return data.participacion===2}).length
+    let CD= datosselec.filter((data)=> {return data.participacion===3}).length
+    let CNV=datosselec.filter((data)=> {return data.participacion===4}).length+datosselec.filter((data)=> {return data.participacion===9}).length
     var data =[
         {"TipoDato":"No","Valor":CNo},
         {"TipoDato":"Si","Valor":CSi},

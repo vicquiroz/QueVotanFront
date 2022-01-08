@@ -30,12 +30,6 @@ function PagGrafico(){
     useEffect(()=>{
         //Filtro++
         if(!isEmpty(infoGrafico)){
-            infoGrafico.wnominate=infoGrafico.wnominate.filter((dat)=> {
-                return dat.coord1D!==undefined && dat.coord2D!==undefined && dat.party!==undefined && dat.Nombre!==undefined && dat.ID!==undefined && Object.keys(infoGrafico.votacion[0]).includes(String(dat.ID))
-            })
-            for(let i in infoGrafico.wnominate){
-                infoGrafico.wnominate[i].coord2D=infoGrafico.wnominate[i].coord2D*-1
-            }
             setFlagUE(true)
         }
     },[infoGrafico])

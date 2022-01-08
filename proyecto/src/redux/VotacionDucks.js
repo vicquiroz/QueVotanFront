@@ -20,9 +20,10 @@ export const obtenerPrimerasVotacionesAccion = () => async(dispatch,getState) =>
     try {
         //Esta constante debe ser cambiada por su equivalente en API
         //const res = await axios.get(String(process.env.REACT_APP_API_URL)+"wnominate/diputados/all/")
+        var VotacionArr = [Votacion]
         dispatch({
             type: OBTENER_PRIMERASVOTACIONES_EXITO,
-            payload: Votacion,
+            payload: VotacionArr,
             stateDispatch:true
         })
     } catch (error) {

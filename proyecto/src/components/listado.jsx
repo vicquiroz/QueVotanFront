@@ -9,18 +9,20 @@ function MostrarLista({idCon,datoswnominate}){
     //const vot=["▽","△","○","▢","◇","","",]
     const vot = {1:"△", 0:"▽", 2:"○", 3:"▢", 4:"◇",9:"◇" }
     var nombres = [];
-    var part = [];
-    
+    var partido = [];
+    var participacion = [];
     for(let i in idCon) {
-        nombres.push(datoswnominate.wnominate.find(d => d.ID ===idCon[i]).Nombre);
-        part.push(datoswnominate.wnominate.find(d => d.ID ===idCon[i]).party);
+        nombres.push(datoswnominate.diputados.find(d => d.ID ===idCon[i]).Nombre);
+        partido.push(datoswnominate.diputados.find(d => d.ID ===idCon[i]).partido);
+        participacion.push(datoswnominate.diputados.find(d => d.ID ===idCon[i]).participacion);
     }
     if(typeof(idCon)==="number"){
-        nombres.push(datoswnominate.wnominate.find(d => d.ID ===idCon).Nombre);
-        part.push(datoswnominate.wnominate.find(d => d.ID ===idCon).party);
+        nombres.push(datoswnominate.diputados.find(d => d.ID ===idCon).Nombre);
+        partido.push(datoswnominate.diputados.find(d => d.ID ===idCon).partido);
+        participacion.push(datoswnominate.diputados.find(d => d.ID ===idCon).participacion);
     }
     const [filtro,setFiltro]=useState([])
-    var filteredPosts = filterPosts(datoswnominate.wnominate, idCon,nombres,part);
+    var filteredPosts = filterPosts(datoswnominate.diputados, idCon,nombres,partido,participacion);
     
     useEffect(()=>{
         ordenPart()
@@ -70,7 +72,7 @@ function MostrarLista({idCon,datoswnominate}){
                                         <td style={{textAlign: 'left',verticalAlign:'top'}}>{post["Nombre"]}</td>
                                         <td style={{textAlign: 'right',verticalAlign:'top'}}>
                                             <span style={{backgroundColor:partidos[post["Partido"]],borderRadius:"5px",color:partidosInvertidos[post["Partido"]]}}>
-                                                 {post["Partido"]} - {vot[datoswnominate.votacion[0][post["ID"]]]} 
+                                                 {post["Partido"]} - {vot[post.participacion]}
                                             </span>
                                         </td>
                                     </tr>
@@ -87,17 +89,17 @@ function MostrarLista({idCon,datoswnominate}){
     )
 }
 
-const filterPosts = (posts, id, nombres, partido) => {
+const filterPosts = (posts, id, nombres, partido, participacion) => {
     if (!id) {
         return posts;
     }
     if(typeof(id)==="number"){
-        return [{ID: id, Nombre: nombres, Partido: partido}];;
+        return [{ID: id, Nombre: nombres, Partido: partido, participacion:participacion}];;
     }
     else{
-        var nuevosDat = [{ID: "1", Nombre: "Snatch", Partido: "test"}];
+        var nuevosDat = [{ID: "1", Nombre: "Snatch", Partido: "test", participacion: "0"}];
         for(let i in id){
-            nuevosDat.push({ID: id[i], Nombre: nombres[i], Partido: partido[i]});
+            nuevosDat.push({ID: id[i], Nombre: nombres[i], Partido: partido[i],participacion: participacion[i]});
         }
         nuevosDat.splice(0,1);
         return nuevosDat;
