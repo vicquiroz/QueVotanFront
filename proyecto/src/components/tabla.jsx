@@ -40,6 +40,8 @@ function Tabla({primerasVotaciones}){
                                     <br/>
                                     <b>Estado: </b>{post.tramiteConst} - {post.tramiteRegla}
                                     <br/>
+                                    <b>Votos: {post.totalSi} - {post.totalNo} - {post.totalAbs} - {post.totalDis}</b> (A favor - En contra - Abstenidos - Dispensados)
+                                    <br/>
                                     <b>Resultado: </b><strong style={{color:statuscolor[post.resultado]}}>{post.resultado}</strong>
                                     <br/>
                                     <b>Descripcion: </b>{post.nombre}
