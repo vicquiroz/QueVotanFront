@@ -22,10 +22,8 @@ function PagGrafico(){
     const [FlagUE,setFlagUE] = useState(false)
     const dispatch = useDispatch()
     const infoGrafico = useSelector(store => store.infoGrafico.array)
-    const previewVot = useSelector(store => store.previewVotacion.array)
     useEffect(()=>{
         dispatch(obtenerInfoGraficoAccion(handle))
-        dispatch(obtenerPreviewVotacionAccion(handle))
     },[])
     useEffect(()=>{
         //Filtro++
@@ -35,13 +33,13 @@ function PagGrafico(){
     },[infoGrafico])
 
     useEffect(()=>{
-        if(!isEmpty(previewVot)){
-            setTitulo(previewVot[0].detalle[0].nombre.substring(0,80)+"...")
+        if(!isEmpty(infoGrafico)){
+            setTitulo(infoGrafico.nombre.substring(0,80)+"...")
         }
-    },[previewVot])
+    },[infoGrafico])
     return(
         <Container>
-            {!isEmpty(infoGrafico) && !isEmpty(previewVot) && FlagUE===true?
+            {!isEmpty(infoGrafico) && FlagUE===true?
             <div>
             <Row>
                 <Col>
@@ -61,11 +59,11 @@ function PagGrafico(){
                     <h3 className="text-light"  style={{cursor:"pointer",backgroundColor:"rgba(50,50,50,0.95)",borderRadius:"10px"}}>
                         <Container onClick={()=>{
                             if(TFlag===true){
-                                setTitulo(previewVot[0].detalle[0].nombre)
+                                setTitulo(infoGrafico.nombre)
                                 setTFlag(false)
                             }
                             else{
-                                setTitulo(previewVot[0].detalle[0].nombre.substring(0,80)+"...")
+                                setTitulo(infoGrafico.nombre.substring(0,80)+"...")
                                 setTFlag(true)
                             }
                         }}>
@@ -81,7 +79,6 @@ function PagGrafico(){
                             setId={setId}
                             setXY={setXY}
                             datoswnominate={infoGrafico}
-                            datosvot={previewVot}
                         />
                     </div>
                 </Col>

@@ -77,7 +77,7 @@ else {
         }
     }
 }
-function GraficoPrincipal({ setId, setXY, datoswnominate, datosvot}) {
+function GraficoPrincipal({ setId, setXY, datoswnominate}) {
     dim = window.innerHeight;   //No cambiar
     width = dim * 0.68;
     height = dim * 0.68;
@@ -281,7 +281,7 @@ function GraficoPrincipal({ setId, setXY, datoswnominate, datosvot}) {
                 svg.selectAll("polygon").remove()
                 SelectEstado(this, { setId }, { setXY }, { datoswnominate })
             })
-        const años = ["Boletin: "+datosvot[0].detalle[0].numeroBoletin,"ID: "+datosvot[0].detalle_id,"Inicio: "+datosvot[0].detalle[0].fechaIngreso.split("T")[0],"Fin: "+datosvot[0].detalle[0].VotacionesAsoc[0].date.split("T")[0]]
+        const años = [datoswnominate.boletin,"ID: "+datoswnominate.id,"Inicio: "+JSON.stringify(datoswnominate.fechaIngresoBoletin).slice(10,20),"Fin: "+JSON.stringify(datoswnominate.fecha).slice(10,20)]
         legend.data(años)
             .enter()
             .append("text")
