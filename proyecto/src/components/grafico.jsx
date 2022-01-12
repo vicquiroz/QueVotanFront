@@ -374,7 +374,7 @@ function brushed(event, { setId }, { setXY }, { datoswnominate }) {
 }
 
 function SelectParty(event, { setId }, { setXY }, { datoswnominate }) {
-    let Nodes = datoswnominate.wnominate.filter((dat) => { return dat.partido === event.id });
+    let Nodes = datoswnominate.diputados.filter((dat) => { return dat.partido === event.id });
     let NodeSelec = []
     let posicionX = []
     let posicionY = []
@@ -439,7 +439,7 @@ function SelectParty(event, { setId }, { setXY }, { datoswnominate }) {
 
 function SelectEstado(event, { setId }, { setXY }, { datoswnominate }) {
     const estados = { "△ A favor": 1, "▽ En contra": 0, "○ Abstenido": 2, "▢ Dispensado": 3, "◇ Ausente": 4, "◇ Ausente": 9 }
-    let Nodes = datoswnominate.wnominate.filter((dat) => { return datoswnominate.votacion[0][dat.ID] === estados[event.id] });
+    let Nodes = datoswnominate.diputados.filter((dat) => {return dat.participacion === estados[event.id]});
     let NodeSelec = []
     let posicionX = []
     let posicionY = []
