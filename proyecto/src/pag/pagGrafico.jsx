@@ -8,6 +8,7 @@ import {Container, Col, Row} from "reactstrap";
 import {useParams} from 'react-router-dom'
 import {useDispatch, useSelector} from 'react-redux'
 import {obtenerInfoGraficoAccion} from '../redux/InfoGrafDucks'
+import {obtenerPreviewVotacionAccion} from '../redux/previewVotDucks'
 import {CustomView,isMobile} from 'react-device-detect'
 function PagGrafico(){
     function isEmpty(obj){
