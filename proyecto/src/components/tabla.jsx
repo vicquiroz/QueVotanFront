@@ -31,7 +31,7 @@ function Tabla({primerasVotaciones}){
                     <div key={post.id}>
                     <div onClick={()=> window.location.href="/grafico/"+post.id} style={{ cursor:"pointer",textDecoration: 'none' }}>
                         <Card className="text-light" style={{backgroundColor:"rgba(50,50,50,0.95)"}}>
-                            <CardHeader><b>Camara de diputados - Votacion {post.id} </b>- Ingresada en {JSON.stringify(post.fechaIngresoBoletin).slice(10,20)} - Realizada en {JSON.stringify(post.fecha).slice(10,20)}</CardHeader>
+                            <CardHeader><b>Camara de diputados - Votacion {post.id} </b>- Ingresada en {post.fechaIngresoBoleta.slice(10,20)} - Realizada en {post.fechaSalidaBoleta.slice(10,20)}</CardHeader>
                             <CardBody>
                                 <CardText>
                                     <b>Boletin N°: </b>{post.boletin}
