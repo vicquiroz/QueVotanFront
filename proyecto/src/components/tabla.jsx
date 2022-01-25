@@ -1,34 +1,44 @@
 import React, {useEffect, useState} from 'react'
-import {Container, CardBody, Card, CardHeader, CardText} from 'reactstrap'
+import {Container, CardBody, Card, CardHeader, CardText, Spinner, Col} from 'reactstrap'
 import InfiniteScroll from 'react-infinite-scroll-component'
 import statuscolor from '../resources/statuscolor.json'
-
+import {useDispatch, useSelector} from 'react-redux'
+import {obtenerPrimerasVotacionesAccion} from '../redux/VotacionDucks'
 function Tabla({primerasVotaciones}){
-    const [vot,setVot] = useState([])
-    const [limit,setLimit]=useState()
-    useEffect(()=>{
-        setVot(primerasVotaciones.slice(0,10))
-        setLimit(20)
-    },[primerasVotaciones])
-
+    const dispatch = useDispatch()
+    const [ListaVot,setListaVot]=useState(primerasVotaciones)
+    const [pag,setPag]=useState(2)
+    const VotacionesSiguientes = useSelector(store => store.primerasVotaciones.array)
+    function isEmpty(obj) {
+        return Object.keys(obj).length === 0
+    }
     const fetchData = () =>{
         setTimeout(() => {
-            setVot(primerasVotaciones.slice(0,limit))
-            if(limit<primerasVotaciones.length){
-                setLimit(limit+10)
-            }
-        },500);
+            setPag(pag+1)
+            dispatch(obtenerPrimerasVotacionesAccion(pag))
+            setListaVot([...ListaVot,...VotacionesSiguientes])
+        },0);
     }
-    console.log(primerasVotaciones)
     return(
         <Container>
+                {!isEmpty(ListaVot)?
                 <InfiniteScroll
-                dataLength={vot.length}
+                dataLength={ListaVot.length}
                 next={fetchData}
                 hasMore={true}
+                loader={
+                    <div style={{textAlign:"center"}}>
+                        <Spinner color="primary" children="" ></Spinner>
+                    </div>
+                }
+                endMessage={
+                    <p style={{ textAlign: 'center' }}>
+                      <h4 className="text-light">No existen más votaciones</h4>
+                    </p>
+                  }
                 >
-                {vot.map((post) => (
-                    <div key={post.id}>
+                {ListaVot.map((post,index) => (
+                    <div key={index}>
                     <div onClick={()=> window.location.href="/grafico/"+post.id} style={{ cursor:"pointer",textDecoration: 'none' }}>
                         <Card className="text-light" style={{backgroundColor:"rgba(50,50,50,0.95)"}}>
                             <CardHeader><b>Camara de diputados - Votacion {post.id} </b>- Ingresada en {post.fechaIngresoBoleta.slice(0,10)} - Realizada en {post.fechaSalidaBoleta.slice(0,10)}</CardHeader>
@@ -51,10 +61,11 @@ function Tabla({primerasVotaciones}){
                             </CardBody>
                         </Card>
                     </div>
-                    <br />
+                    <br/>
                     </div>
                 ))}
                 </InfiniteScroll>
+                :[]}
         </Container>
     )
 }

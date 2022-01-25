@@ -13,7 +13,7 @@ function Principal(){
     const primerasVotaciones = useSelector(store => store.primerasVotaciones.array)
     useEffect(()=> {
         dispatch(obtenerTagsAccion())
-        dispatch(obtenerPrimerasVotacionesAccion())
+        dispatch(obtenerPrimerasVotacionesAccion(1))
     },[]);
 
     return(
@@ -42,9 +42,11 @@ function Principal(){
             </Row >
             <Row>
                 <Col>
+                {primerasVotaciones.length>0?
                     <Tabla
-                        primerasVotaciones={primerasVotaciones}
-                    />
+                    primerasVotaciones={primerasVotaciones}
+                />
+                :""}
                 </Col>
             </Row>
         </Container>
