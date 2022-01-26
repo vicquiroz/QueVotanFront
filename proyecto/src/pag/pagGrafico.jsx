@@ -34,7 +34,7 @@ function PagGrafico(){
 
     useEffect(()=>{
         if(!isEmpty(infoGrafico)){
-            setTitulo(infoGrafico.nombre.substring(0,80)+"...")
+            setTitulo(infoGrafico.votaciones.nombre.substring(0,80)+"...")
         }
     },[infoGrafico])
     return(
@@ -59,11 +59,11 @@ function PagGrafico(){
                     <h3 className="text-light"  style={{cursor:"pointer",backgroundColor:"rgba(50,50,50,0.95)",borderRadius:"10px"}}>
                         <Container onClick={()=>{
                             if(TFlag===true){
-                                setTitulo(infoGrafico.nombre)
+                                setTitulo(infoGrafico.votaciones.nombre)
                                 setTFlag(false)
                             }
                             else{
-                                setTitulo(infoGrafico.nombre.substring(0,80)+"...")
+                                setTitulo(infoGrafico.votaciones.nombre.substring(0,80)+"...")
                                 setTFlag(true)
                             }
                         }}>

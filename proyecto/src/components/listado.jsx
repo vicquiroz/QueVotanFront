@@ -12,14 +12,14 @@ function MostrarLista({idCon,datoswnominate}){
     var partido = [];
     var participacion = [];
     for(let i in idCon) {
-        nombres.push(datoswnominate.diputados.find(d => d.ID ===idCon[i]).Nombre);
-        partido.push(datoswnominate.diputados.find(d => d.ID ===idCon[i]).partido);
-        participacion.push(datoswnominate.diputados.find(d => d.ID ===idCon[i]).participacion);
+        nombres.push(datoswnominate.diputados.find(d => d.id ===idCon[i]).nombre);
+        partido.push(datoswnominate.diputados.find(d => d.id ===idCon[i]).partido);
+        participacion.push(datoswnominate.diputados.find(d => d.id ===idCon[i]).participacion);
     }
     if(typeof(idCon)==="number"){
-        nombres.push(datoswnominate.diputados.find(d => d.ID ===idCon).Nombre);
-        partido.push(datoswnominate.diputados.find(d => d.ID ===idCon).partido);
-        participacion.push(datoswnominate.diputados.find(d => d.ID ===idCon).participacion);
+        nombres.push(datoswnominate.diputados.find(d => d.id ===idCon).nombre);
+        partido.push(datoswnominate.diputados.find(d => d.id ===idCon).partido);
+        participacion.push(datoswnominate.diputados.find(d => d.id ===idCon).participacion);
     }
     const [filtro,setFiltro]=useState([])
     var filteredPosts = filterPosts(datoswnominate.diputados, idCon,nombres,partido,participacion);
@@ -41,11 +41,11 @@ function MostrarLista({idCon,datoswnominate}){
 
     /*const dispatch = useDispatch()
     const infoDip = useSelector(store => store.infoDiputados.array)
-    var TestNombre=[]
+    var Testnombre=[]
     useEffect(()=> {
         for(let i in idCon){
             dispatch(obtenerInfoDiputadosAccion(idCon[i]))
-            TestNombre.push(infoDip["Apellido Paterno"])
+            Testnombre.push(infoDip["Apellido Paterno"])
         }
     },[]);
     */
@@ -64,12 +64,12 @@ function MostrarLista({idCon,datoswnominate}){
                     </Row>
                     <Row className="text-light" style={{backgroundColor:"rgba(50,50,50,0.95)",borderRadius:"10px"}}>
                         {filtro.map((post) => ( 
-                        <Col className="col-6 col-sm-3" key={post["ID"]}>
-                            <div onClick={()=>window.location.href="/congresista/"+post["ID"]+"/"+datoswnominate.id} style={{ cursor:"pointer", textDecoration: 'none' }} className="text-light list-group-flush">
+                        <Col className="col-6 col-sm-3" key={post["id"]}>
+                            <div onClick={()=>window.location.href="/congresista/"+post["id"]+"/"+datoswnominate.id} style={{ cursor:"pointer", textDecoration: 'none' }} className="text-light list-group-flush">
                                 <table style={{width:"100%"}} >
                                     <tbody>
                                     <tr>
-                                        <td style={{textAlign: 'left',verticalAlign:'top'}}>{post["Nombre"]}</td>
+                                        <td style={{textAlign: 'left',verticalAlign:'top'}}>{post["nombre"]}</td>
                                         <td style={{textAlign: 'right',verticalAlign:'top'}}>
                                             <span style={{backgroundColor:partidos[post["Partido"]],borderRadius:"5px",color:partidosInvertidos[post["Partido"]]}}>
                                                  {post["Partido"]} - {vot[post.participacion]}
@@ -94,12 +94,12 @@ const filterPosts = (posts, id, nombres, partido, participacion) => {
         return posts;
     }
     if(typeof(id)==="number"){
-        return [{ID: id, Nombre: nombres, Partido: partido, participacion:participacion}];;
+        return [{id: id, nombre: nombres, Partido: partido, participacion:participacion}];;
     }
     else{
-        var nuevosDat = [{ID: "1", Nombre: "Snatch", Partido: "test", participacion: "0"}];
+        var nuevosDat = [{id: "1", nombre: "Snatch", Partido: "test", participacion: "0"}];
         for(let i in id){
-            nuevosDat.push({ID: id[i], Nombre: nombres[i], Partido: partido[i],participacion: participacion[i]});
+            nuevosDat.push({id: id[i], nombre: nombres[i], Partido: partido[i],participacion: participacion[i]});
         }
         nuevosDat.splice(0,1);
         return nuevosDat;

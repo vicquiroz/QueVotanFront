@@ -173,7 +173,7 @@ function GraficoPrincipal({ setId, setXY, datoswnominate}) {
             .data(datoswnominate.diputados)
             .join(
                 enter => enter.append("path")
-                    .attr("id", value => "id_" + value.ID)
+                    .attr("id", value => "id_" + value.id)
                     .attr("key", value => value.Nombre)
                     .attr("transform", function (d) {
                         if (d.participacion === 1) return "translate(" + (d.coordX * escalay + escalax + margin) + "," + ((2 * escalax) - (d.coordY * escalay + escalax)) + ")"
@@ -206,7 +206,7 @@ function GraficoPrincipal({ setId, setXY, datoswnominate}) {
                 exit => exit.remove()
             );
         for (let P in datoswnominate.diputados) {
-            let path = "path#id_" + datoswnominate.diputados[P].ID
+            let path = "path#id_" + datoswnominate.diputados[P].id
             if (datoswnominate.diputados[P].participacion === 0 || datoswnominate.diputados[P].participacion === 1) {
                 svg.select(path).attr("d", symbol().size(pointsize).type(symbolTriangle))
             }
@@ -281,7 +281,7 @@ function GraficoPrincipal({ setId, setXY, datoswnominate}) {
                 svg.selectAll("polygon").remove()
                 SelectEstado(this, { setId }, { setXY }, { datoswnominate })
             })
-        const años = [datoswnominate.boletin,"ID: "+datoswnominate.id,"Inicio: "+JSON.stringify(datoswnominate.fechaIngresoBoletin).slice(10,20),"Fin: "+JSON.stringify(datoswnominate.fecha).slice(10,20)]
+        const años = [datoswnominate.boletin,"ID: "+datoswnominate.id,"Inicio: "+datoswnominate.votaciones.fechaInicio.slice(0,10),"Fin: "+datoswnominate.votaciones.fechaFIn.slice(0,10)]
         legend.data(años)
             .enter()
             .append("text")
@@ -335,13 +335,13 @@ function brushed(event, { setId }, { setXY }, { datoswnominate }) {
                     .replace(')', "").split(",")
                 Arr[0] = parseFloat(Arr[0])
                 Arr[1] = parseFloat(Arr[1])
-                Nodes.push([Arr, svg.node().childNodes[i].__data__.ID])
+                Nodes.push([Arr, svg.node().childNodes[i].__data__.id])
             }
         }
         for (let P in Nodes) {
             if ((Nodes[P][0][0] >= S[0][0] && Nodes[P][0][0] <= S[1][0]) && (Nodes[P][0][1] >= S[0][1] && Nodes[P][0][1] <= S[1][1])) {
                 NodeSelec.push(Nodes[P][1])
-                let envio = datoswnominate.diputados.find((dat) => { return dat.ID === Nodes[P][1] });
+                let envio = datoswnominate.diputados.find((dat) => { return dat.id === Nodes[P][1] });
                 posicionX.push(Number(envio.coordX));
                 posicionY.push(Number(envio.coordY));
             }
@@ -359,7 +359,7 @@ function brushed(event, { setId }, { setXY }, { datoswnominate }) {
             svg.selectAll("path").transition().duration('50').attr('opacity',puntosOriginal)
             for(let P in Nodes){
                 NodeSelec.push(Nodes[P][1])
-                let envio = datoswnominate.diputados.find((dat) => { return dat.ID === Nodes[P][1] });
+                let envio = datoswnominate.diputados.find((dat) => { return dat.id === Nodes[P][1] });
                 posicionX.push(Number(envio.coordX));
                 posicionY.push(Number(envio.coordY));
             }
@@ -381,8 +381,8 @@ function SelectParty(event, { setId }, { setXY }, { datoswnominate }) {
     let posicionC = []
     svg.selectAll("path").transition().duration('50').attr('opacity', transpPuntos)
     for (let P in Nodes) {
-        NodeSelec.push(Nodes[P].ID)
-        let path = "path#id_"+Nodes[P].ID
+        NodeSelec.push(Nodes[P].id)
+        let path = "path#id_"+Nodes[P].id
         svg.selectAll(path).transition().duration('50').attr('opacity',puntosOriginal)
         posicionX.push(Number(Nodes[P].coordX));
         posicionY.push(Number(Nodes[P].coordY));
@@ -446,8 +446,8 @@ function SelectEstado(event, { setId }, { setXY }, { datoswnominate }) {
     let posicionC = []
     svg.selectAll("path").transition().duration('50').attr('opacity', transpPuntos)
     for (let P in Nodes) {
-        NodeSelec.push(Nodes[P].ID)
-        let path = "path#id_"+Nodes[P].ID
+        NodeSelec.push(Nodes[P].id)
+        let path = "path#id_"+Nodes[P].id
         svg.selectAll(path).transition().duration('50').attr('opacity',puntosOriginal)
         posicionX.push(Number(Nodes[P].coordX));
         posicionY.push(Number(Nodes[P].coordY));
@@ -458,7 +458,7 @@ function SelectEstado(event, { setId }, { setXY }, { datoswnominate }) {
 }
 
 function ClickPoint(d, { setId }, { setXY }) {
-    let path = "path#id_" + d.ID
+    let path = "path#id_" + d.id
     let posicionX = []
     let posicionY = []
     svg.selectAll("path").transition().duration('50').attr('opacity', transpPuntos)
@@ -466,7 +466,7 @@ function ClickPoint(d, { setId }, { setXY }) {
     svg.selectAll(path).transition().duration('50').attr('opacity',puntosOriginal)
     posicionX.push(Number(d.coordX));
     posicionY.push(Number(d.coordY));
-    setId(Number(d.ID))
+    setId(Number(d.id))
     setXY([posicionX, posicionY]);
     svg.selectAll("polygon").remove()
 }
@@ -487,12 +487,12 @@ function ClearGraph({setId},{setXY},{datoswnominate}){
                 .replace(')', "").split(",")
             Arr[0] = parseFloat(Arr[0])
             Arr[1] = parseFloat(Arr[1])
-            Nodes.push([Arr, svg.node().childNodes[i].__data__.ID])
+            Nodes.push([Arr, svg.node().childNodes[i].__data__.id])
         }
     }
     for (let P in Nodes) {
         NodeSelec.push(Nodes[P][1])
-        let envio = datoswnominate.diputados.find((dat) => { return dat.ID === Nodes[P][1] });
+        let envio = datoswnominate.diputados.find((dat) => { return dat.id === Nodes[P][1] });
         posicionX.push(Number(envio.coordX));
         posicionY.push(Number(envio.coordY));
     }

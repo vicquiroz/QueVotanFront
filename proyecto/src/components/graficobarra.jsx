@@ -44,7 +44,7 @@ function GraficoBarra({idCon,datoswnominate}){
     var datosselec=[]
     if(idCon!==undefined){
         for(let P in idCon){
-                datosselec.push(datoswnominate.diputados.find((dat)=> {return dat.ID===idCon[P]}))
+                datosselec.push(datoswnominate.diputados.find((dat)=> {return dat.id===idCon[P]}))
         }
     }
     else datosselec=datoswnominate.diputados
