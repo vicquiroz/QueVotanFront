@@ -1,7 +1,7 @@
 version: '3.7'
 services:
   frontend:
-    container_name: front-quevotan:v2
+    container_name: front-quevotan-2.0
     build: ./
     restart: always
     volumes:
