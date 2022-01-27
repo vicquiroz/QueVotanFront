@@ -1,43 +1,15 @@
-import React, {useEffect, useState} from 'react'
-import {Container, CardBody, Card, CardHeader, CardText, Spinner, Col} from 'reactstrap'
-import InfiniteScroll from 'react-infinite-scroll-component'
+import React from 'react'
+import {Container, CardBody, Card, CardHeader, CardText} from 'reactstrap'
 import statuscolor from '../resources/statuscolor.json'
-import {useDispatch, useSelector} from 'react-redux'
-import {obtenerPrimerasVotacionesAccion} from '../redux/VotacionDucks'
 function Tabla({primerasVotaciones}){
-    const dispatch = useDispatch()
-    const [ListaVot,setListaVot]=useState(primerasVotaciones)
-    const [pag,setPag]=useState(2)
-    const VotacionesSiguientes = useSelector(store => store.primerasVotaciones.array)
+    console.log(primerasVotaciones)
     function isEmpty(obj) {
         return Object.keys(obj).length === 0
     }
-    const fetchData = () =>{
-        setTimeout(() => {
-            setPag(pag+1)
-            dispatch(obtenerPrimerasVotacionesAccion(pag))
-            setListaVot([...ListaVot,...VotacionesSiguientes])
-        },0);
-    }
     return(
         <Container>
-                {!isEmpty(ListaVot)?
-                <InfiniteScroll
-                dataLength={ListaVot.length}
-                next={fetchData}
-                hasMore={true}
-                loader={
-                    <div style={{textAlign:"center"}}>
-                        <Spinner color="primary" children="" ></Spinner>
-                    </div>
-                }
-                endMessage={
-                    <p style={{ textAlign: 'center' }}>
-                      <h4 className="text-light">No existen más votaciones</h4>
-                    </p>
-                  }
-                >
-                {ListaVot.map((post,index) => (
+                {!isEmpty(primerasVotaciones)?
+                primerasVotaciones.map((post,index) => (
                     <div key={index}>
                     <div onClick={()=> window.location.href="/grafico/"+post.id} style={{ cursor:"pointer",textDecoration: 'none' }}>
                         <Card className="text-light" style={{backgroundColor:"rgba(50,50,50,0.95)"}}>
@@ -63,8 +35,7 @@ function Tabla({primerasVotaciones}){
                     </div>
                     <br/>
                     </div>
-                ))}
-                </InfiniteScroll>
+                ))
                 :[]}
         </Container>
     )

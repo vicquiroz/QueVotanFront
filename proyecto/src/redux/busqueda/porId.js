@@ -17,10 +17,10 @@ export default function porIdReducer(state = porIdI, action){
 
 export const obtenerPorIdAccion = (param) => async(dispatch,getState) => {
     try {
-        const res = await axios.get(String(process.env.REACT_APP_API_URL+"votaciones/"+param))
+        const res = await axios.get(String(process.env.REACT_APP_API_URL+"votacion/"+param))
         dispatch({
             type: OBTENER_PORID_EXITO,
-            payload: res.data.data
+            payload: [res.data.data]
         })
     } catch (error) {
         console.log(error)

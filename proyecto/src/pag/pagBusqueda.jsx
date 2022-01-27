@@ -17,8 +17,6 @@ function Busqueda(){
     const [votaciones,setVotaciones] = useState([]);
     const dispatch = useDispatch()
     const tags = useSelector(store => store.tags.array)
-    const infoConsulta = useSelector(store => store.infoConsulta.array)
-    const previewVot = useSelector(store=> store.previewVotacion.array)
     //Metodo Nuevo
     const porMateria = useSelector(store=>store.porMateria.array)
     const porId = useSelector(store=>store.porId.array)
@@ -41,6 +39,25 @@ function Busqueda(){
             }
         }
     },[]);
+    useEffect(()=> {
+        dispatch(obtenerTagsAccion())
+        if(handleMetodo==="ID"){
+            setVotaciones(porId)
+        }
+        else{
+            if(handleMetodo==="Boletín"){
+                dispatch(obtenerInfoConsultaAccion("numeroBoletin",handleValor))
+            }
+            else{
+                if(handleMetodo==="Materia"){
+                    setVotaciones(porMateria)
+                }
+                else if(handleMetodo==="Nombre"){
+                    dispatch(obtenerInfoConsultaAccion("nombre",handleValor))
+                }
+            }
+        }
+    },[porMateria,porId]);
     return(
         <Container>
             <Row>
@@ -68,9 +85,11 @@ function Busqueda(){
             </Row >
             <Row>
                 <Col>
+                {votaciones.length>0?
                     <Tabla
-                        primerasVotaciones={votaciones.filter((dat)=>{return dat.detalle!=="No encontrado"})}
+                        primerasVotaciones={votaciones}
                     />
+                    :""}
                 </Col>
             </Row>
         </Container>
