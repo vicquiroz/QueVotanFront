@@ -281,7 +281,7 @@ function GraficoPrincipal({ setId, setXY, datoswnominate}) {
                 svg.selectAll("polygon").remove()
                 SelectEstado(this, { setId }, { setXY }, { datoswnominate })
             })
-        const años = [datoswnominate.boletin,"ID: "+datoswnominate.id,"Inicio: "+datoswnominate.votaciones.fechaInicio.slice(0,10),"Fin: "+datoswnominate.votaciones.fechaFIn.slice(0,10)]
+        const años = [datoswnominate.boletin,"ID: "+datoswnominate.id,"Inicio: "+datoswnominate.votaciones.fechaInicio.slice(0,10),"Fin: "+datoswnominate.votaciones.fechaFin.slice(0,10)]
         legend.data(años)
             .enter()
             .append("text")

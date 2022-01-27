@@ -8,6 +8,6 @@ services:
       - './:/app'
       - '/app/node_modules'
     ports:
-      - 1080:1080
+      - 8081:1080
     stdin_open: true
     command: npm start

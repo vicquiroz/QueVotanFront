@@ -23,7 +23,7 @@ function Buscador({tags,estado}){
             let coincide = [];
             if(tex.length>0){
                 coincide = tags.filter(tag=>{
-                    const tagname = tag.desc.toLowerCase();
+                    const tagname = tag.description.toLowerCase();
                     return tagname.includes(tex.toLowerCase());
             })
         }
@@ -114,8 +114,8 @@ function Buscador({tags,estado}){
                 <div className="border border-dark" >
                 {sugerencia && sugerencia.slice(0,10).map((sugerencia, id) =>
                     <Label className="list-group-flush list-group-item-dark list-group-item-action" key={id}
-                     onClick={()=> seleccion(sugerencia.desc,sugerencia.id)}>
-                        {sugerencia.desc} 
+                     onClick={()=> seleccion(sugerencia.description,sugerencia.id)}>
+                        {sugerencia.description} 
                     </Label>
                 )}
                 </div>

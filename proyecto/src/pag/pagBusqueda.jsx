@@ -35,14 +35,6 @@ function Busqueda(){
             }
         }
     },[]);
-    useEffect(()=>{
-        if(handleMetodo==="ID"){
-            setVotaciones(previewVot.filter((dat)=>{return dat.detalle[0].camaraOrigen!=="Senado"}))
-        }
-        else{
-            setVotaciones(infoConsulta.filter((dat)=>{return dat.detalle[0].camaraOrigen!=="Senado"}))
-        }
-    },[infoConsulta,previewVot])
     return(
         <Container>
             <Row>
