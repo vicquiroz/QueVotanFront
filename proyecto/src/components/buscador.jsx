@@ -23,7 +23,7 @@ function Buscador({tags,estado}){
             let coincide = [];
             if(tex.length>0){
                 coincide = tags.filter(tag=>{
-                    const tagname = tag.description.toLowerCase();
+                    const tagname = tag.descripcion.toLowerCase();
                     return tagname.includes(tex.toLowerCase());
             })
         }
@@ -69,11 +69,11 @@ function Buscador({tags,estado}){
                     <DropdownToggle split color="primary" style={{width:"100%"}}>{eleccion} </DropdownToggle>
                     <DropdownMenu>
                         <DropdownItem onClick={()=>{setEleccion("Materia")}}>Buscar por materia asociada</DropdownItem>
-                        <DropdownItem onClick={()=>{setEleccion("Nombre")
-                        setSuge("")}}>Buscar por nombre de votación</DropdownItem>
-                        <DropdownItem onClick={()=>{setEleccion("Boletín")
+                        {/*<DropdownItem onClick={()=>{setEleccion("Nombre")
+                        setSuge("")}}>Buscar por nombre de votación</DropdownItem>*/}
+                        {/*<DropdownItem onClick={()=>{setEleccion("Boletín")
                         setTexto("")
-                        }}>Buscar por número de boletín</DropdownItem>
+                        }}>Buscar por número de boletín</DropdownItem>*/}
                         <DropdownItem onClick={()=>{setEleccion("ID")
                         setTexto("")
                         }}>Buscar por ID de votación</DropdownItem>
@@ -114,8 +114,8 @@ function Buscador({tags,estado}){
                 <div className="border border-dark" >
                 {sugerencia && sugerencia.slice(0,10).map((sugerencia, id) =>
                     <Label className="list-group-flush list-group-item-dark list-group-item-action" key={id}
-                     onClick={()=> seleccion(sugerencia.description,sugerencia.id)}>
-                        {sugerencia.description} 
+                     onClick={()=> seleccion(sugerencia.descripcion,sugerencia.id)}>
+                        {sugerencia.descripcion} 
                     </Label>
                 )}
                 </div>

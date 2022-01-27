@@ -43,9 +43,9 @@ function Barra({origen}){
                             <Link to="/" style={{ textDecoration: 'none' }} className="text-light">
                                 <Button className="btn-sm" color="success">Inicio</Button>
                             </Link>
-                            <Link to='/VotacionesImportantes/Nombre/"Covid-19"' style={{ textDecoration: 'none'}} className="text-light">
+                            {/*<Link to='/VotacionesImportantes/Nombre/"Covid-19"' style={{ textDecoration: 'none'}} className="text-light">
                                 <Button className="btn-sm" color="primary">Votaciones Importantes</Button>
-                            </Link>
+                            </Link>*/}
                             {verorigen()}
                             {/*<Button className="btn-sm" color="secondary">Congreso</Button>*/}
                             {/*<Button className="btn-sm" color="secondary">Partidos</Button>*/}

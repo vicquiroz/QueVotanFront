@@ -15,9 +15,9 @@ export default function porMateriaReducer(state = porMateriaI, action){
     }
 }
 
-export const obtenerPorMateriaAccion = (param) => async(dispatch,getState) => {
+export const obtenerPorMateriaAccion = (param,pag) => async(dispatch,getState) => {
     try {
-        const res = await axios.get(String(process.env.REACT_APP_API_URL+"votaciones/materia/"+param))
+        const res = await axios.get(String(process.env.REACT_APP_API_URL+"votaciones/materia/"+param+"?page="+pag+"&limit=10"))
         dispatch({
             type: OBTENER_PORMATERIA_EXITO,
             payload: res.data.data

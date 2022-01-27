@@ -44,7 +44,7 @@ function Principal(){
                 <Col>
                 {primerasVotaciones.length>0?
                     <Tabla
-                    primerasVotaciones={primerasVotaciones}
+                    primerasVotaciones={primerasVotaciones} metodo="principal"
                 />
                 :""}
                 </Col>

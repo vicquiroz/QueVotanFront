@@ -4,10 +4,16 @@ import InfiniteScroll from 'react-infinite-scroll-component'
 import statuscolor from '../resources/statuscolor.json'
 import {useDispatch, useSelector} from 'react-redux'
 import {obtenerPrimerasVotacionesAccion} from '../redux/VotacionDucks'
-function Tabla({primerasVotaciones}){
+import {obtenerPorMateriaAccion} from '../redux/busqueda/porMateria'
+import {obtenerPorIdAccion} from '../redux/busqueda/porId'
+import {useParams} from "react-router";
+function Tabla({primerasVotaciones,metodo}){
     const dispatch = useDispatch()
+    const {handleMetodo,handleValor} = useParams()
     const [ListaVot,setListaVot]=useState(primerasVotaciones)
     const [pag,setPag]=useState(2)
+    const porMateria = useSelector(store=>store.porMateria.array)
+    const porId = useSelector(store=>store.porId.array)
     const VotacionesSiguientes = useSelector(store => store.primerasVotaciones.array)
     function isEmpty(obj) {
         return Object.keys(obj).length === 0
@@ -15,8 +21,18 @@ function Tabla({primerasVotaciones}){
     const fetchData = () =>{
         setTimeout(() => {
             setPag(pag+1)
-            dispatch(obtenerPrimerasVotacionesAccion(pag))
-            setListaVot([...ListaVot,...VotacionesSiguientes])
+            switch (metodo) {
+                case "principal":
+                    dispatch(obtenerPrimerasVotacionesAccion(pag))
+                    setListaVot([...ListaVot,...VotacionesSiguientes])
+                    break;
+                case "Materia":
+                    dispatch(obtenerPorMateriaAccion(handleValor,pag))
+                    setListaVot([...ListaVot,...porMateria])
+                    break;
+                default:
+                    break;
+            }
         },0);
     }
     return(
