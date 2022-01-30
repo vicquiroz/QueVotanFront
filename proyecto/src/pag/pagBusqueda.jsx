@@ -11,6 +11,7 @@ import {obtenerPorMateriaAccion} from '../redux/busqueda/porMateria'
 import {obtenerPorIdAccion} from '../redux/busqueda/porId'
 import {obtenerPorBoletinAccion} from '../redux/busqueda/porBoletin'
 import {obtenerPorNombreAccion} from '../redux/busqueda/porNombre'
+import {obtenerPorFechaAccion} from '../redux/busqueda/porFecha'
 function Busqueda(){
     const {handleMetodo,handleValor} = useParams()
     const [votaciones,setVotaciones] = useState([]);
@@ -20,6 +21,7 @@ function Busqueda(){
     const porId = useSelector(store=>store.porId.array)
     const porBoletin = useSelector(store=>store.porBoletin.array)
     const porNombre = useSelector(store=>store.porNombre.array)
+    const porFecha = useSelector(store=>store.porFecha.array)
     useEffect(()=> {
         dispatch(obtenerTagsAccion())
         switch (handleMetodo) {
@@ -34,6 +36,9 @@ function Busqueda(){
                 break;
             case "Nombre":
                 dispatch(obtenerPorNombreAccion(handleValor,1))
+                break;
+            case "Fecha":
+                dispatch(obtenerPorFechaAccion(handleValor,1))
                 break;
             default:
                 break;
@@ -53,10 +58,13 @@ function Busqueda(){
             case "Nombre":
                 setVotaciones(porNombre)
                 break;
+            case "Fecha":
+                setVotaciones(porFecha)
+                break;
             default:
                 break;
         }
-    },[porMateria,porId,porBoletin,porNombre]);
+    },[porMateria,porId,porBoletin,porNombre,porFecha]);
     return(
         <Container>
             <Row>

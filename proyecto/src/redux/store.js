@@ -14,6 +14,7 @@ import porMateriaReducer from './busqueda/porMateria'
 import porIdReducer from './busqueda/porId'
 import porBoletinReducer from './busqueda/porBoletin'
 import porNombreReducer from './busqueda/porNombre'
+import porFechaReducer from './busqueda/porFecha'
 const rootReducer = combineReducers({
     primerasVotaciones: primerasVotacionesReducer,
     infoCongresistas: infoCongresistasReducer,
@@ -26,7 +27,8 @@ const rootReducer = combineReducers({
     porMateria: porMateriaReducer,
     porId: porIdReducer,
     porBoletin : porBoletinReducer,
-    porNombre : porNombreReducer
+    porNombre : porNombreReducer,
+    porFecha : porFechaReducer
     // En el caso de que se agregen mas, se coloca ,nuevodato :ReductorNuevoDato
 })
 

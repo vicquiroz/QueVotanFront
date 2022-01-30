@@ -5,8 +5,9 @@ import statuscolor from '../resources/statuscolor.json'
 import {useDispatch, useSelector} from 'react-redux'
 import {obtenerPrimerasVotacionesAccion} from '../redux/VotacionDucks'
 import {obtenerPorMateriaAccion} from '../redux/busqueda/porMateria'
-import {obtenerPorBoletinAccion } from '../redux/busqueda/porBoletin'
-import { obtenerPorNombreAccion } from '../redux/busqueda/porNombre'
+import {obtenerPorBoletinAccion} from '../redux/busqueda/porBoletin'
+import {obtenerPorNombreAccion} from '../redux/busqueda/porNombre'
+import {obtenerPorFechaAccion} from '../redux/busqueda/porFecha'
 import {useParams} from "react-router";
 function Tabla({primerasVotaciones,metodo}){
     const dispatch = useDispatch()
@@ -16,6 +17,7 @@ function Tabla({primerasVotaciones,metodo}){
     const porMateria = useSelector(store=>store.porMateria.array)
     const porBoletin = useSelector(store=>store.porBoletin.array)
     const porNombre = useSelector(store=>store.porNombre.array)
+    const porFecha = useSelector(store=>store.porFecha.array)
     const VotacionesSiguientes = useSelector(store => store.primerasVotaciones.array)
     function isEmpty(obj) {
         return Object.keys(obj).length === 0
@@ -39,6 +41,10 @@ function Tabla({primerasVotaciones,metodo}){
                 case "Nombre":
                     dispatch(obtenerPorNombreAccion(handleValor,pag))
                     setListaVot([...ListaVot,...porNombre])
+                    break;
+                case "Fecha":
+                    dispatch(obtenerPorFechaAccion(handleValor,pag))
+                    setListaVot([...ListaVot,...porFecha])
                     break;
                 default:
                     break;
