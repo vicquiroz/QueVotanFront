@@ -1,19 +1,21 @@
-import React, {useEffect, useState} from 'react'
+import React, {useState} from 'react'
 import {Container, CardBody, Card, CardHeader, CardText, Spinner, Col} from 'reactstrap'
 import InfiniteScroll from 'react-infinite-scroll-component'
 import statuscolor from '../resources/statuscolor.json'
 import {useDispatch, useSelector} from 'react-redux'
 import {obtenerPrimerasVotacionesAccion} from '../redux/VotacionDucks'
 import {obtenerPorMateriaAccion} from '../redux/busqueda/porMateria'
-import {obtenerPorIdAccion} from '../redux/busqueda/porId'
+import {obtenerPorBoletinAccion } from '../redux/busqueda/porBoletin'
+import { obtenerPorNombreAccion } from '../redux/busqueda/porNombre'
 import {useParams} from "react-router";
 function Tabla({primerasVotaciones,metodo}){
     const dispatch = useDispatch()
-    const {handleMetodo,handleValor} = useParams()
+    const {handleValor} = useParams()
     const [ListaVot,setListaVot]=useState(primerasVotaciones)
     const [pag,setPag]=useState(2)
     const porMateria = useSelector(store=>store.porMateria.array)
-    const porId = useSelector(store=>store.porId.array)
+    const porBoletin = useSelector(store=>store.porBoletin.array)
+    const porNombre = useSelector(store=>store.porNombre.array)
     const VotacionesSiguientes = useSelector(store => store.primerasVotaciones.array)
     function isEmpty(obj) {
         return Object.keys(obj).length === 0
@@ -29,6 +31,14 @@ function Tabla({primerasVotaciones,metodo}){
                 case "Materia":
                     dispatch(obtenerPorMateriaAccion(handleValor,pag))
                     setListaVot([...ListaVot,...porMateria])
+                    break;
+                case "Boletín":
+                    dispatch(obtenerPorBoletinAccion(handleValor,pag))
+                    setListaVot([...ListaVot,...porBoletin])
+                    break;
+                case "Nombre":
+                    dispatch(obtenerPorNombreAccion(handleValor,pag))
+                    setListaVot([...ListaVot,...porNombre])
                     break;
                 default:
                     break;

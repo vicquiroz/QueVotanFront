@@ -45,13 +45,13 @@ function Buscador({tags,estado}){
                 window.location.href="/Buscar/Materia/"+id
             }
             if(eleccion==="Nombre"){
-                window.location.href=`/Buscar/Nombre/"${String(texto)}"`
+                window.location.href=`/Buscar/Nombre/${String(texto)}`
             }
             if(eleccion==="ID"){
                 window.location.href="/Buscar/ID/"+texto
             }
             if(eleccion==="Boletín"){
-                window.location.href=`/Buscar/Boletín/"${String(texto)}"`
+                window.location.href=`/Buscar/Boletín/${String(texto)}`
             }
         }
       }
@@ -69,11 +69,11 @@ function Buscador({tags,estado}){
                     <DropdownToggle split color="primary" style={{width:"100%"}}>{eleccion} </DropdownToggle>
                     <DropdownMenu>
                         <DropdownItem onClick={()=>{setEleccion("Materia")}}>Buscar por materia asociada</DropdownItem>
-                        {/*<DropdownItem onClick={()=>{setEleccion("Nombre")
-                        setSuge("")}}>Buscar por nombre de votación</DropdownItem>*/}
-                        {/*<DropdownItem onClick={()=>{setEleccion("Boletín")
+                        <DropdownItem onClick={()=>{setEleccion("Nombre")
+                        setSuge("")}}>Buscar por nombre de votación</DropdownItem>
+                        <DropdownItem onClick={()=>{setEleccion("Boletín")
                         setTexto("")
-                        }}>Buscar por número de boletín</DropdownItem>*/}
+                        }}>Buscar por número de boletín</DropdownItem>
                         <DropdownItem onClick={()=>{setEleccion("ID")
                         setTexto("")
                         }}>Buscar por ID de votación</DropdownItem>

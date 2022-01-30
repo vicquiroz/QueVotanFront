@@ -6,10 +6,11 @@ import {Container, Col, Row} from "reactstrap";
 import {useParams} from "react-router";
 import {useDispatch, useSelector} from 'react-redux'
 import {obtenerTagsAccion} from '../redux/TagsDucks'
-import {obtenerInfoConsultaAccion} from '../redux/InfoConsultaDucks'
 import {CustomView,isMobile} from 'react-device-detect'
 import {obtenerPorMateriaAccion} from '../redux/busqueda/porMateria'
 import {obtenerPorIdAccion} from '../redux/busqueda/porId'
+import {obtenerPorBoletinAccion} from '../redux/busqueda/porBoletin'
+import {obtenerPorNombreAccion} from '../redux/busqueda/porNombre'
 function Busqueda(){
     const {handleMetodo,handleValor} = useParams()
     const [votaciones,setVotaciones] = useState([]);
@@ -17,6 +18,8 @@ function Busqueda(){
     const tags = useSelector(store => store.tags.array)
     const porMateria = useSelector(store=>store.porMateria.array)
     const porId = useSelector(store=>store.porId.array)
+    const porBoletin = useSelector(store=>store.porBoletin.array)
+    const porNombre = useSelector(store=>store.porNombre.array)
     useEffect(()=> {
         dispatch(obtenerTagsAccion())
         switch (handleMetodo) {
@@ -24,13 +27,13 @@ function Busqueda(){
                 dispatch(obtenerPorIdAccion(handleValor))
                 break;
             case "Boletín":
-                dispatch(obtenerInfoConsultaAccion("numeroBoletin",handleValor))
+                dispatch(obtenerPorBoletinAccion(handleValor,1))
                 break;
             case "Materia":
                 dispatch(obtenerPorMateriaAccion(handleValor,1))
                 break;
             case "Nombre":
-                dispatch(obtenerInfoConsultaAccion("nombre",handleValor))
+                dispatch(obtenerPorNombreAccion(handleValor,1))
                 break;
             default:
                 break;
@@ -44,10 +47,16 @@ function Busqueda(){
             case "Materia":
                 setVotaciones(porMateria)
                 break;
+            case "Boletín":
+                setVotaciones(porBoletin)
+                break;
+            case "Nombre":
+                setVotaciones(porNombre)
+                break;
             default:
                 break;
         }
-    },[porMateria,porId]);
+    },[porMateria,porId,porBoletin,porNombre]);
     return(
         <Container>
             <Row>
