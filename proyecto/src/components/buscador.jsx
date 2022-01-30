@@ -1,4 +1,6 @@
 import React, {useEffect, useState} from 'react'
+import DatePicker,{ registerLocale, setDefaultLocale } from "react-datepicker";
+import es from 'date-fns/locale/es';
 import {InputGroup,
         InputGroupButtonDropdown,
         Container, 
@@ -7,8 +9,12 @@ import {InputGroup,
         DropdownItem,
         DropdownToggle,
         DropdownMenu,
-        Row} from 'reactstrap'
+        Col,
+        Row,
+        Button,
+        Table} from 'reactstrap'
 import './estilo.css'
+import "react-datepicker/dist/react-datepicker.css";
 
 function Buscador({tags,estado}){
     const [texto, setTexto] = useState();
@@ -16,8 +22,11 @@ function Buscador({tags,estado}){
     const [id, setId] = useState();
     const [eleccion, setEleccion] = useState("Materia");
     const [dropdownOpen, setOpen] = useState(false);
+    const [fechaInicio, setFechaInicio] = useState(new Date());
+    const [fechaFin, setFechaFin] = useState(new Date());
     const toggle = () => setOpen(!dropdownOpen);
-    
+    registerLocale('es', es)
+    setDefaultLocale('es')
     const enCambio = (tex) =>{
         if(eleccion==="Materia"){
             let coincide = [];
@@ -41,17 +50,24 @@ function Buscador({tags,estado}){
 
     const teclaAbajo = (tecla) => {
         if (tecla.key === 'Enter') {
-            if(eleccion==="Materia"){
-                window.location.href="/Buscar/Materia/"+id
-            }
-            if(eleccion==="Nombre"){
-                window.location.href=`/Buscar/Nombre/${String(texto)}`
-            }
-            if(eleccion==="ID"){
-                window.location.href="/Buscar/ID/"+texto
-            }
-            if(eleccion==="Boletín"){
-                window.location.href=`/Buscar/Boletín/${String(texto)}`
+            switch (eleccion) {
+                case "Materia":
+                    window.location.href="/Buscar/Materia/"+id
+                    break;
+                case "Nombre":
+                    window.location.href=`/Buscar/Nombre/${String(texto)}`
+                    break;
+                case "ID":
+                    window.location.href="/Buscar/ID/"+texto
+                    break;
+                case "Boletín":
+                    window.location.href=`/Buscar/Boletín/${String(texto)}`
+                    break;
+                case "Fecha":
+                    window.location.href=`/Buscar/Fecha/${String(fechaInicio.split("T")[0])}!${String(fechaFin.split("T")[0])}`
+                    break;
+                default:
+                    break;
             }
         }
       }
@@ -77,29 +93,32 @@ function Buscador({tags,estado}){
                         <DropdownItem onClick={()=>{setEleccion("ID")
                         setTexto("")
                         }}>Buscar por ID de votación</DropdownItem>
+                        <DropdownItem onClick={()=>{setEleccion("Fecha")
+                        setTexto("")
+                        }}>Buscar por fecha de votación</DropdownItem>
                     </DropdownMenu>
                 </InputGroupButtonDropdown>
+                {eleccion!="Fecha"?
                 <Input
                     id="buscador"
                     onChange={e =>{
                         const reId = /^[0-9\b]+$/;
                         const renB = /^[0-9-\b]+$/;
-                        if(eleccion==="ID"){
-                            if (e.target.value === '' || reId.test(e.target.value)) {
-                                enCambio(e.target.value)
-                            }
-                        }
-                        else{
-                            if(eleccion==="Boletín"){
+                        switch (eleccion) {
+                            case "ID":
+                                if (e.target.value === '' || reId.test(e.target.value)) {
+                                    enCambio(e.target.value)
+                                }
+                                break;
+                            case "Boletín":
                                 if (e.target.value === '' || renB.test(e.target.value)) {
                                     enCambio(e.target.value)
                                 }
-                            }
-                            else{
+                                break;
+                            default:
                                 enCambio(e.target.value)
-                            }
+                                break;
                         }
-                        
                     }}
                     onKeyDown={teclaAbajo}
                     className="input text-light" 
@@ -109,7 +128,17 @@ function Buscador({tags,estado}){
                     style={{backgroundColor:"rgba(50,50,50,0.95)"}}
                 >
                 </Input>
+                :
+                <div>
+                    <DatePicker selected={fechaInicio} onChange={(date) => setFechaInicio(date)} locale="es"  dateFormat="P"/>
+                    <DatePicker selected={fechaFin} onChange={(date) => setFechaFin(date)} locale="es"  dateFormat="P"/>
+                    <Button onClick={()=>{
+                        window.location.href=`/Buscar/Fecha/${String(fechaInicio.toISOString().split("T")[0])}!${String(fechaFin.toISOString().split("T")[0])}`}
+                        }>Buscar</Button>
+                </div>
+                }
                 </InputGroup>
+                {eleccion==="Materia"?
                 <Container>
                 <div className="border border-dark" >
                 {sugerencia && sugerencia.slice(0,10).map((sugerencia, id) =>
@@ -120,6 +149,7 @@ function Buscador({tags,estado}){
                 )}
                 </div>
                 </Container>
+                :""}
                 </Row>
                 <br /><br />
         </Container>
