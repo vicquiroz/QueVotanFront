@@ -9,12 +9,15 @@ import {isMobile} from 'react-device-detect'
 function Barra({origen}){
     //const toggle = () => setOpen(!dropdownOpen);
     //const [dropdownOpen, setOpen] = useState(false);
-    var ImgSize;
+    var ImgWidthSize;
+    var ImgHeightSize;
     if(isMobile===true){
-        ImgSize="100px"
+        ImgWidthSize="100px"
+        ImgHeightSize="26px"
     }
     else{
-        ImgSize="150px"
+        ImgWidthSize="150px"
+        ImgHeightSize="39px"
     }
     function verorigen(){
         if(origen!=="acercade") return(<Ayuda origen={origen}/>)
@@ -26,13 +29,13 @@ function Barra({origen}){
                     <NavItem>
                         <span className="navbar-brand mb-0 h1 text-light">
                             <Link to="/" style={{ textDecoration: 'none' }} className="text-light">
-                                <img src={Logo} alt="Logo Página" width="150px"/>
+                                <img src={Logo} alt="Logo Página" width={ImgWidthSize} height={ImgHeightSize}/>
                             </Link>
                             <a href="https://www.inf.uct.cl/">
-                            <img src={LogoDptIng} alt="Logo Departamento" width={ImgSize}/>
+                            <img src={LogoDptIng} alt="Logo Departamento" width={ImgWidthSize} height={ImgHeightSize}/>
                             </a>
                             <a href="https://facultadingenieria.uct.cl/carreras/ingenieria-civil-en-informatica/">
-                                <img src={LogoIngCivil} alt="Logo Carrera" width={ImgSize}/>
+                                <img src={LogoIngCivil} alt="Logo Carrera" width={ImgWidthSize} height={ImgHeightSize}/>
                             </a>
                         </span>
                     
