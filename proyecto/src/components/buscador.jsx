@@ -17,6 +17,7 @@ import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import DatePicker from '@mui/lab/DatePicker';
 import TextField from '@mui/material/TextField';
+import { createTheme,ThemeProvider } from '@mui/material/styles';
 function Buscador({tags,estado}){
     const [texto, setTexto] = useState();
     const [sugerencia, setSuge] = useState();
@@ -26,6 +27,11 @@ function Buscador({tags,estado}){
     const [fechaInicio, setFechaInicio] = useState(new Date());
     const [fechaFin, setFechaFin] = useState(new Date());
     const toggle = () => setOpen(!dropdownOpen);
+    const darkTheme = createTheme({
+        palette: {
+          mode: 'dark',
+        }
+      });
     const enCambio = (tex) =>{
         if(eleccion==="Materia"){
             let coincide = [];
@@ -128,6 +134,8 @@ function Buscador({tags,estado}){
                 </Input>
                 :
                 <div>
+                 <ThemeProvider theme={darkTheme}> 
+  
                     <LocalizationProvider dateAdapter={AdapterDateFns} locale={es}>
                         <DatePicker
                             disableFuture
@@ -137,7 +145,9 @@ function Buscador({tags,estado}){
                             onChange={(newValue) => {
                                 setFechaInicio(newValue);
                             }}
-                            renderInput={(params) => <TextField {...params} />}
+                            renderInput={(params) => <TextField {...params} 
+                            style={{backgroundColor:"rgba(50,50,50,0.95)"}}
+                            />}
                         />
                         <DatePicker
                             disableFuture
@@ -147,9 +157,12 @@ function Buscador({tags,estado}){
                             onChange={(newValue) => {
                                 setFechaFin(newValue);
                             }}
-                            renderInput={(params) => <TextField {...params} />}
+                            renderInput={(params) => <TextField {...params}
+                            style={{backgroundColor:"rgba(50,50,50,0.95)"}}
+                            />}
                         />
                     </LocalizationProvider>
+                    </ThemeProvider>
                     <Button onClick={()=>{
                         window.location.href=`/Buscar/Fecha/${String(fechaInicio.toISOString().split("T")[0])}!${String(fechaFin.toISOString().split("T")[0])}`}
                         }>Buscar</Button>
