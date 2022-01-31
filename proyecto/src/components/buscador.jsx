@@ -1,5 +1,4 @@
 import React, {useEffect, useState} from 'react'
-import DatePicker,{ registerLocale, setDefaultLocale } from "react-datepicker";
 import es from 'date-fns/locale/es';
 import {InputGroup,
         InputGroupButtonDropdown,
@@ -9,13 +8,15 @@ import {InputGroup,
         DropdownItem,
         DropdownToggle,
         DropdownMenu,
-        Col,
         Row,
-        Button,
-        Table} from 'reactstrap'
+        Button
+    } from 'reactstrap'
 import './estilo.css'
 import "react-datepicker/dist/react-datepicker.css";
-
+import AdapterDateFns from '@mui/lab/AdapterDateFns';
+import LocalizationProvider from '@mui/lab/LocalizationProvider';
+import DatePicker from '@mui/lab/DatePicker';
+import TextField from '@mui/material/TextField';
 function Buscador({tags,estado}){
     const [texto, setTexto] = useState();
     const [sugerencia, setSuge] = useState();
@@ -25,8 +26,6 @@ function Buscador({tags,estado}){
     const [fechaInicio, setFechaInicio] = useState(new Date());
     const [fechaFin, setFechaFin] = useState(new Date());
     const toggle = () => setOpen(!dropdownOpen);
-    registerLocale('es', es)
-    setDefaultLocale('es')
     const enCambio = (tex) =>{
         if(eleccion==="Materia"){
             let coincide = [];
@@ -40,7 +39,6 @@ function Buscador({tags,estado}){
         }
         setTexto(tex)
     }
-
     const seleccion = (texto, id) =>{
         setTexto(texto);
         setId(id);
@@ -130,8 +128,28 @@ function Buscador({tags,estado}){
                 </Input>
                 :
                 <div>
-                    <DatePicker selected={fechaInicio} onChange={(date) => setFechaInicio(date)} locale="es"  dateFormat="P"/>
-                    <DatePicker selected={fechaFin} onChange={(date) => setFechaFin(date)} locale="es"  dateFormat="P"/>
+                    <LocalizationProvider dateAdapter={AdapterDateFns} locale={es}>
+                        <DatePicker
+                            disableFuture
+                            openTo="year"
+                            views={['year', 'month', 'day']}
+                            value={fechaInicio}
+                            onChange={(newValue) => {
+                                setFechaInicio(newValue);
+                            }}
+                            renderInput={(params) => <TextField {...params} />}
+                        />
+                        <DatePicker
+                            disableFuture
+                            openTo="year"
+                            views={['year', 'month', 'day']}
+                            value={fechaFin}
+                            onChange={(newValue) => {
+                                setFechaFin(newValue);
+                            }}
+                            renderInput={(params) => <TextField {...params} />}
+                        />
+                    </LocalizationProvider>
                     <Button onClick={()=>{
                         window.location.href=`/Buscar/Fecha/${String(fechaInicio.toISOString().split("T")[0])}!${String(fechaFin.toISOString().split("T")[0])}`}
                         }>Buscar</Button>
