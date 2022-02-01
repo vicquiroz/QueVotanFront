@@ -1,10 +1,11 @@
 html, body, .Login-component {
-  height: 100%;
-  background: url(../resources/Parlamentarios-1.webp) no-repeat center center fixed;
+  /*height: 100%;*/
+  /*background: url(../resources/Parlamentarios-1.webp) no-repeat center center fixed;*/
+  background-color: #1E1E1E;
   background-size: cover;
   font-family: Arial, Helvetica, sans-serif;
+  overflow-x:hidden;
 }
-
 .noselect {
     -webkit-touch-callout: none; /* iOS Safari */
       -webkit-user-select: none; /* Safari */

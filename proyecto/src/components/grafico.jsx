@@ -191,7 +191,7 @@ function GraficoPrincipal({ setId, setXY, datoswnominate}) {
                     })
                     .on('mouseover', function (event, data) {
                         div.transition().duration(100).style("opacity", 1);
-                        let name = data.Nombre
+                        let name = data.nombre
                         div.html(name).style("left", (event.pageX + 10) + "px").style("top", (event.pageY - 15) + "px").style("font-size", hovertext);
                     })
                     .on('mouseout', function (event, data) {

@@ -7,7 +7,7 @@ function Ayuda({origen}){
     const toggle = () => setModal(!modal);
     return (
         <strong>
-            <Button color="info" onClick={toggle} className="btn-sm">Ayuda</Button>
+            <Button color="danger" onClick={toggle} className="btn-sm">Ayuda</Button>
                 <Modal isOpen={modal} toggle={toggle}>
                     <ModalHeader toggle={toggle}>Ayuda</ModalHeader>
                     <ModalBody>

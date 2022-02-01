@@ -9,7 +9,9 @@ import {InputGroup,
         DropdownToggle,
         DropdownMenu,
         Row,
-        Button
+        Button,
+        Alert,
+        UncontrolledAlert
     } from 'reactstrap'
 import './estilo.css'
 import "react-datepicker/dist/react-datepicker.css";
@@ -56,16 +58,36 @@ function Buscador({tags,estado}){
         if (tecla.key === 'Enter') {
             switch (eleccion) {
                 case "Materia":
-                    window.location.href="/Buscar/Materia/"+id
+                    if(id!=="" && id!==undefined){
+                        window.location.href="/Buscar/Materia/"+id
+                    }
+                    else{
+                        alert("Debe seleccionar una materia antes de hacer una consulta")
+                    }
                     break;
                 case "Nombre":
-                    window.location.href=`/Buscar/Nombre/${String(texto)}`
+                    if(texto!=="" && texto !==undefined){
+                        window.location.href=`/Buscar/Nombre/${String(texto)}`
+                    }
+                    else{
+                        alert("Debe de ingresar un nombre de una votación antes de hacer una consulta")
+                    }
                     break;
                 case "ID":
-                    window.location.href="/Buscar/ID/"+texto
+                    if(texto!=="" && texto !==undefined){
+                        window.location.href="/Buscar/ID/"+texto
+                    }
+                    else{
+                        alert("Debe de ingresar un identificador antes de hacer una consulta")
+                    }
                     break;
                 case "Boletín":
-                    window.location.href=`/Buscar/Boletín/${String(texto)}`
+                    if(texto!=="" && texto !==undefined){
+                        window.location.href=`/Buscar/Boletín/${String(texto)}`
+                    }
+                    else{
+                        alert("Debe de ingresar un número de boletín antes de hacer una consulta")
+                    }
                     break;
                 case "Fecha":
                     window.location.href=`/Buscar/Fecha/${String(fechaInicio.split("T")[0])}!${String(fechaFin.split("T")[0])}`

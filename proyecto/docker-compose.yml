@@ -11,5 +11,4 @@ services:
     ports:
       - 8081:1080
     stdin_open: true
-    
     command: npm start
