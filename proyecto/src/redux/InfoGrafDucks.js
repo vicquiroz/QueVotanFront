@@ -17,7 +17,6 @@ export default function infoGraficoReducer(state = InfoGraficoI, action){
 export const obtenerInfoGraficoAccion = (idWnominate) => async(dispatch,getState) => {
     try {
         const res = await axios.get(String(process.env.REACT_APP_API_URL)+"wnominate/"+idWnominate)
-        console.log(res.data.data)
         dispatch({
             type: OBTENER_INFOGRAFICO_EXITO,
             payload: res.data.data
