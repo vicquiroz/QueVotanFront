@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect} from "react";
+import paleta from "../resources/paleta.json"
 import Barra from "../components/barra";
 import { Container, Col, Row, Navbar, NavbarBrand, NavLink, Nav, CardBody, Card, CardHeader, CardText } from "reactstrap";
 import { useParams } from 'react-router-dom'
@@ -28,7 +29,7 @@ function Congresista(){
     }, []);
 
     return(
-        <Container className="text-light">
+        <Container className={paleta.colorTextoBootstrap}>
             {!isEmpty(infoDip) && !isEmpty(infoGrafico)?
                 <div>
                     <Row>
@@ -44,7 +45,7 @@ function Congresista(){
                         <br/>
                         <br/>
                     </CustomView>
-                    <Container style={{ backgroundColor: "rgba(50,50,50,0.95)", borderRadius: "10px" }}>
+                    <Container style={{ backgroundColor:paleta.fondoClaro, borderRadius: "10px" }}>
                         <Row>
                             <Col>
                                 <h1>{infoDip.nombre + " " + infoDip.apellidoP + " " + infoDip.apellidoM}</h1>
@@ -53,13 +54,13 @@ function Congresista(){
                         <Row>
                             <Col className="col-md-3">
                                 <Navbar className="flex-column align-items-stretch p-3">
-                                    <NavbarBrand className="text-light">Identificador: {infoDip.id}</NavbarBrand>
+                                    <NavbarBrand className={paleta.colorTextoBootstrap}>Identificador: {infoDip.id}</NavbarBrand>
                                     <Nav className="nav-pills flex-column">
-                                        <NavLink className="text-light">Partidos</NavLink>
+                                        <NavLink className={paleta.colorTextoBootstrap}>Partidos</NavLink>
                                         <Nav className="nav-pills flex-column">
                                             {infoDip.periodo.map((post,index) => (
                                                 <div key={index}>
-                                                    <NavLink className="ms-3 my-1 text-light">
+                                                    <NavLink className={"ms-3 my-1 "+paleta.colorTextoBootstrap}>
                                                         <span>{nombrepartidos[post.partido]} <span style={{ backgroundColor: partidos[post.partido], borderRadius: "5px", color: partidosInvertidos[post.partido] }}>  {post.partido}  </span></span>
                                                         <Nav className="nav-pills flex-column">
                                                             <table>
@@ -84,14 +85,14 @@ function Congresista(){
                             </Col>
                             <Col className="col-md-4">
                                 <Navbar className="flex-column align-items-stretch p-3">
-                                    <NavLink className="text-light">
+                                    <NavLink className={paleta.colorTextoBootstrap}>
                                         Sector: {infoDip.distrito[0].region}
                                     </NavLink>
                                     <Nav className="nav-pills flex-column">
-                                        <NavLink className="ms-3 text-light">
+                                        <NavLink className={"ms-3 "+paleta.colorTextoBootstrap}>
                                             Distrito {infoDip.distrito[0].distrito}
                                         </NavLink>
-                                        <NavLink className="ms-3 text-light">
+                                        <NavLink className={"ms-3 "+paleta.colorTextoBootstrap}>
                                             Comunas que representa:
                                         </NavLink>
                                         <Nav className="nav-pills flex-column">
@@ -117,8 +118,8 @@ function Congresista(){
                         {infoDip.votaciones.map((post,index) => (
                             <div key={index}>
                             <div onClick={()=> window.location.href="/grafico/"+post.id} style={{ cursor:"pointer",textDecoration: 'none' }}>
-                                <Card className="text-light" style={{backgroundColor:"rgba(50,50,50,0.95)"}}>
-                                    <CardHeader><b>Camara de diputados - Votacion {post.id} </b>- Ingresada en {post.fechaIngresoBoletin.slice(0,10)} - Realizada en {post.fechaSalidaBoletin.slice(0,10)}</CardHeader>
+                                <Card className={paleta.colorTextoBootstrap} style={{backgroundColor:paleta.fondoMid}}>
+                                    <CardHeader style={{backgroundColor:paleta.fondoOscuro}}><b>Camara de diputados - Votacion {post.id} </b>- Ingresada en {post.fechaIngresoBoletin.slice(0,10)} - Realizada en {post.fechaSalidaBoletin.slice(0,10)}</CardHeader>
                                     <CardBody>
                                         <CardText>
                                             <b>Boletin N°: </b>{post.boletin.slice(10,20)}

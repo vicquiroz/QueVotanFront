@@ -1,4 +1,5 @@
 import React, {useRef, useEffect} from 'react';
+import paleta from "../resources/paleta.json"
 import {select, max, scaleLinear, scaleBand, axisLeft, axisBottom} from 'd3';
 
 var svg;  
@@ -130,13 +131,13 @@ function GraficoBarra({idCon,datoswnominate}){
             .call(axisLeft(y))
     },[idCon]);
     return(
-                <svg    ref={svgRef} className="chart text-light"
+                <svg    ref={svgRef} className={"chart "+paleta.colorTextoBootstrap}
                         width="100%"
                         height="100%"
                         viewBox={vBox}
                         position="absolute"
                         preserveAspectRatio="xMidYMid meet"
-                        style={{backgroundColor:"rgba(50,50,50,0.95)",borderRadius:"10px"}}
+                        style={{backgroundColor:paleta.fondoMid,borderRadius:"10px"}}
                 />
         )
 }

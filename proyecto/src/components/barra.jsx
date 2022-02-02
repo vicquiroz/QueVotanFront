@@ -1,4 +1,5 @@
 import React from 'react';
+import paleta from "../resources/paleta.json"
 import {Button,NavItem,Nav,Container} from 'reactstrap';
 import { Link } from "react-router-dom";
 import Logo from '../resources/Logo.webp'
@@ -24,7 +25,7 @@ function Barra({origen}){
     }
     return (
         <div>
-                <Nav className="navbar navbar-inverse bg-dark bg-gradient fixed-top">
+                <Nav className="navbar navbar-inverse fixed-top" style={{backgroundColor:paleta.colorNavbar}}>
                 <Container className="container-fluid">
                     <NavItem>
                         <span className="navbar-brand mb-0 h1 text-light">
@@ -46,15 +47,15 @@ function Barra({origen}){
                             <Link to="/" style={{ textDecoration: 'none' }} className="text-light">
                                 <Button className="btn-sm" color="primary">Inicio</Button>
                             </Link>
-                            {/*<Link to='/VotacionesImportantes/Nombre/"Covid-19"' style={{ textDecoration: 'none'}} className="text-light">
-                                <Button className="btn-sm" color="warning">Votaciones Importantes</Button>
-                            </Link>*/}
+                            <Link to='/VotacionesImportantes/Nombre/"Covid-19"' style={{ textDecoration: 'none'}} className="text-light">
+                                <Button className="btn-sm" color="primary">Votaciones Importantes</Button>
+                            </Link>
                             {verorigen()}
                             {/*<Button className="btn-sm" color="secondary">Congreso</Button>*/}
                             {/*<Button className="btn-sm" color="secondary">Partidos</Button>*/}
                             {/*<Button className="btn-sm" color="secondary">Datos</Button>*/}
                             <Link to="/acerca" className="text-light" style={{ textDecoration: 'none' }}>
-                                <Button className="btn-sm" color="secondary" >
+                                <Button className="btn-sm" color="primary" >
                                     Acerca de
                                 </Button>
                             </Link>

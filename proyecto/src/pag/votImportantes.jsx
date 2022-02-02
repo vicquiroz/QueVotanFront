@@ -1,4 +1,5 @@
 import {React, useEffect,useState} from 'react'
+import paleta from "../resources/paleta.json"
 import {Container,Row,Col, Button} from 'reactstrap'
 import {isMobile,CustomView} from 'react-device-detect'
 import { Link,useParams } from "react-router-dom";
@@ -37,23 +38,23 @@ function VotacionesImportantes(){
             <br/>
             <Row>
                 <Col>
-                    <h2 className="text-light">Votaciones Importantes</h2>
+                    <h2 className={paleta.colorTextoBootstrap}>Votaciones Importantes</h2>
                 </Col>
             </Row>
             <Row>
                 <Col className="d-flex justify-content-center">
                     <Link to='/VotacionesImportantes/Nombre/"Covid-19"' style={{width:"100%"}}>
-                        <Button size="lg" style={{borderRadius:"10px",width:"100%"}} outline color="light">Covid-19</Button>
+                        <Button size="lg" style={{borderRadius:"10px",width:"100%"}} outline color={paleta.colorBotonesVotImp}>Covid-19</Button>
                     </Link>
                 </Col>
                 <Col className="d-flex justify-content-center">
                     <Link to='/VotacionesImportantes/Nombre/"Retiro"' style={{width:"100%"}}>
-                        <Button size="lg" style={{borderRadius:"10px",width:"100%"}} outline color="light">Retiro de fondos</Button>
+                        <Button size="lg" style={{borderRadius:"10px",width:"100%"}} outline color={paleta.colorBotonesVotImp}>Retiro de fondos</Button>
                     </Link>
                 </Col>
                 <Col className="d-flex justify-content-center">
-                    <Link to='/VotacionesImportantes/Nombre/"Constituyente"&"Constituyentes' style={{width:"100%"}}>
-                        <Button size="lg" style={{borderRadius:"10px",width:"100%"}} outline color="light">Constituyentes</Button>
+                    <Link to='/VotacionesImportantes/Nombre/"Constituyente"' style={{width:"100%"}}>
+                        <Button size="lg" style={{borderRadius:"10px",width:"100%"}} outline color={paleta.colorBotonesVotImp}>Constituyentes</Button>
                     </Link>
                 </Col>
             </Row>

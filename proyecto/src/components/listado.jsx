@@ -1,12 +1,11 @@
 import React,{useEffect, useState} from 'react';
+import paleta from "../resources/paleta.json"
 import { Container,Row,Col,Button} from 'reactstrap';
-//import { obtenerInfoDiputadosAccion } from '../redux/InfoDipDucks';
 import partidosInvertidos from './partidos-invertidos.json'
 import partidos from './partidos.json'
 import {sortBy} from 'lodash'
 
 function MostrarLista({idCon,datoswnominate}){
-    //const vot=["▽","△","○","▢","◇","","",]
     const vot = {1:"△", 0:"▽", 2:"○", 3:"▢", 4:"◇",9:"◇" }
     var nombres = [];
     var partido = [];
@@ -38,34 +37,23 @@ function MostrarLista({idCon,datoswnominate}){
     function ordenNomb(){
         setFiltro(filteredPosts)
     }
-
-    /*const dispatch = useDispatch()
-    const infoDip = useSelector(store => store.infoDiputados.array)
-    var Testnombre=[]
-    useEffect(()=> {
-        for(let i in idCon){
-            dispatch(obtenerInfoDiputadosAccion(idCon[i]))
-            Testnombre.push(infoDip["Apellido Paterno"])
-        }
-    },[]);
-    */
     return(
         <Container>
             <Row>
                 <Col className="g-3">
                     <Row>
                         <Col>
-                        <h3 className="text-light">Votantes</h3>
-                        <h5 className="text-light">Ordenar por: 
-                        {' '}<Button style={{borderRadius:"10px"}} outline color="light" onClick={ordenPart}> Partido</Button>{' '}   
-                            <Button style={{borderRadius:"10px"}} outline color="light" onClick={ordenNomb}> Nombre</Button>
+                        <h3 className={paleta.colorTextoBootstrap}>Votantes</h3>
+                        <h5 className={paleta.colorTextoBootstrap}>Ordenar por: 
+                        {' '}<Button style={{borderRadius:"10px"}} outline color={paleta.colorBotonesGraf} onClick={ordenPart}> Partido</Button>{' '}   
+                            <Button style={{borderRadius:"10px"}} outline color={paleta.colorBotonesGraf} onClick={ordenNomb}> Nombre</Button>
                         </h5>
                         </Col>
                     </Row>
-                    <Row className="text-light" style={{backgroundColor:"rgba(50,50,50,0.95)",borderRadius:"10px"}}>
+                    <Row className={paleta.colorTextoBootstrap} style={{backgroundColor:paleta.fondoMid,borderRadius:"10px"}}>
                         {filtro.map((post) => ( 
                         <Col className="col-6 col-sm-3" key={post["id"]}>
-                            <div onClick={()=>window.location.href="/congresista/"+post["id"]+"/"+datoswnominate.id} style={{ cursor:"pointer", textDecoration: 'none' }} className="text-light list-group-flush">
+                            <div onClick={()=>window.location.href="/congresista/"+post["id"]+"/"+datoswnominate.id} style={{ cursor:"pointer", textDecoration: 'none' }} className={paleta.colorTextoBootstrap+" list-group-flush"} >
                                 <table style={{width:"100%"}} >
                                     <tbody>
                                     <tr>

@@ -7,14 +7,14 @@ function Ayuda({origen}){
     const toggle = () => setModal(!modal);
     return (
         <strong>
-            <Button color="danger" onClick={toggle} className="btn-sm">Ayuda</Button>
+            <Button color="primary" onClick={toggle} className="btn-sm">Ayuda</Button>
                 <Modal isOpen={modal} toggle={toggle}>
                     <ModalHeader toggle={toggle}>Ayuda</ModalHeader>
                     <ModalBody>
                         {texto(origen)}
                     </ModalBody>
                     <ModalFooter>
-                        <Button color="secondary" onClick={toggle}>Cerrar</Button>
+                        <Button color="primary" onClick={toggle}>Cerrar</Button>
                     </ModalFooter>
                 </Modal>
         </strong>

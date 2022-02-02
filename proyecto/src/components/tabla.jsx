@@ -1,4 +1,5 @@
 import React, {useState} from 'react'
+import paleta from "../resources/paleta.json"
 import {Container, CardBody, Card, CardHeader, CardText, Spinner, Col} from 'reactstrap'
 import InfiniteScroll from 'react-infinite-scroll-component'
 import statuscolor from '../resources/statuscolor.json'
@@ -65,15 +66,15 @@ function Tabla({primerasVotaciones,metodo}){
                 }
                 endMessage={
                     <p style={{ textAlign: 'center' }}>
-                      <h4 className="text-light">No existen más votaciones</h4>
+                      <h4 className={paleta.colorTextoBootstrap}>No existen más votaciones</h4>
                     </p>
                   }
                 >
                 {ListaVot.map((post,index) => (
                     <div key={index}>
                     <div onClick={()=> window.location.href="/grafico/"+post.id} style={{ cursor:"pointer",textDecoration: 'none' }}>
-                        <Card className="text-light" style={{backgroundColor:"rgba(50,50,50,0.95)"}}>
-                            <CardHeader><b>Camara de diputados - Votacion {post.id} </b>- Ingresada en {post.fechaIngresoBoletin.slice(0,10)} - Realizada en {post.fechaSalidaBoletin.slice(0,10)}</CardHeader>
+                        <Card className={paleta.colorTextoBootstrap} style={{backgroundColor:paleta.colorBgCard}}>
+                            <CardHeader style={{backgroundColor:paleta.fondoOscuro}}><b>Camara de diputados - Votacion {post.id} </b>- Ingresada en {post.fechaIngresoBoletin.slice(0,10)} - Realizada en {post.fechaSalidaBoletin.slice(0,10)}</CardHeader>
                             <CardBody>
                                 <CardText>
                                     <b>Boletin N°: </b>{post.boletin.slice(10,20)}

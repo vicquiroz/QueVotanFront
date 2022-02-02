@@ -1,5 +1,6 @@
 import React from 'react';
-import { Row, Col, CardBody, Card, CardHeader, CardText,Container, Table } from 'reactstrap';
+import paleta from "../resources/paleta.json"
+import { Row, Col,Container, Table } from 'reactstrap';
 function Inform({pos,datoswnominate}){
     if (pos!==undefined){
         var maxX = Math.max(...pos[0]).toFixed(2);
@@ -21,7 +22,7 @@ function Inform({pos,datoswnominate}){
         <Container>
             <Row>
                 <Col className="g-0">
-                    <Table className="text-light" style={{backgroundColor:"rgba(50,50,50,0.95)",borderRadius:"10px"}} responsive borderless>
+                    <Table className={paleta.colorTextoBootstrap} style={{backgroundColor:paleta.fondoOscuro,borderRadius:"10px"}} responsive borderless>
                         <thead>
                             <tr >
                                 <th><h6>Datos de interés</h6></th>

@@ -1,4 +1,5 @@
 import React, {useEffect, useState} from 'react'
+import paleta from "../resources/paleta.json"
 import es from 'date-fns/locale/es';
 import {InputGroup,
         InputGroupButtonDropdown,
@@ -9,9 +10,7 @@ import {InputGroup,
         DropdownToggle,
         DropdownMenu,
         Row,
-        Button,
-        Alert,
-        UncontrolledAlert
+        Button
     } from 'reactstrap'
 import './estilo.css'
 import "react-datepicker/dist/react-datepicker.css";
@@ -104,7 +103,7 @@ function Buscador({tags,estado}){
     },[])
     return(
         <Container>
-            <h3 className="text-light">Buscar votaciones</h3>
+            <h3 className={paleta.colorTextoBootstrap}>Buscar votaciones</h3>
             <Row>
             <InputGroup>
                 <InputGroupButtonDropdown addonType="append" isOpen={dropdownOpen} toggle={toggle}>
@@ -147,11 +146,11 @@ function Buscador({tags,estado}){
                         }
                     }}
                     onKeyDown={teclaAbajo}
-                    className="input text-light" 
+                    className={"input "+paleta.colorTextoBootstrap}
                     type="search" 
                     placeholder="Buscar"
                     value={texto || ""}
-                    style={{backgroundColor:"rgba(50,50,50,0.95)"}}
+                    style={{backgroundColor:paleta.colorFondoInput}}
                 >
                 </Input>
                 :
@@ -193,9 +192,9 @@ function Buscador({tags,estado}){
                 </InputGroup>
                 {eleccion==="Materia"?
                 <Container>
-                <div className="border border-dark" >
+                <div className={"border "+paleta.colorBordeBootstrap}>
                 {sugerencia && sugerencia.slice(0,10).map((sugerencia, id) =>
-                    <Label className="list-group-flush list-group-item-dark list-group-item-action" key={id}
+                    <Label className={"list-group-flush list-group-item-action "+paleta.colorListaBootstrap} key={id}
                      onClick={()=> seleccion(sugerencia.descripcion,sugerencia.id)}>
                         {sugerencia.descripcion} 
                     </Label>

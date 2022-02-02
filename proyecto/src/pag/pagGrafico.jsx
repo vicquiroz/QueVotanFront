@@ -1,4 +1,5 @@
 import React, {useState,useEffect}  from "react";
+import paleta from "../resources/paleta.json"
 import GraficoPrincipal from "../components/grafico";
 import GraficoBarra from "../components/graficobarra";
 import Inform from "../components/infoBrush";
@@ -8,7 +9,6 @@ import {Container, Col, Row} from "reactstrap";
 import {useParams} from 'react-router-dom'
 import {useDispatch, useSelector} from 'react-redux'
 import {obtenerInfoGraficoAccion} from '../redux/InfoGrafDucks'
-import {obtenerPreviewVotacionAccion} from '../redux/previewVotDucks'
 import {CustomView,isMobile} from 'react-device-detect'
 function PagGrafico(){
     function isEmpty(obj){
@@ -56,7 +56,7 @@ function PagGrafico(){
             <Row>
                 <Col>
                     <br />
-                    <h3 className="text-light"  style={{cursor:"pointer",backgroundColor:"rgba(50,50,50,0.95)",borderRadius:"10px"}}>
+                    <h3 className={paleta.colorTextoBootstrap}  style={{cursor:"pointer",backgroundColor:paleta.fondoClaro,borderRadius:"10px"}}>
                         <Container onClick={()=>{
                             if(TFlag===true){
                                 setTitulo(infoGrafico.votaciones.nombre)

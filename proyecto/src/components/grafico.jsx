@@ -1,7 +1,7 @@
 import React, { useRef, useEffect } from 'react';
+import paleta from "../resources/paleta.json"
 import { select, symbol, symbolTriangle, symbolCircle, symbolSquare, symbolDiamond, brush, axisLeft, axisBottom, scaleLinear } from 'd3';
 import partidos from './partidos.json'
-import {Container} from "reactstrap";
 import partidosinvertidos from './partidos-invertidos.json'
 import { polygonHull } from 'd3-polygon';
 import { isMobile } from "react-device-detect";
@@ -123,17 +123,17 @@ function GraficoPrincipal({ setId, setXY, datoswnominate}) {
         svg.append("g")
             .attr("transform", "translate(0," + heightDim + ")")
             .style("font-size", textsize)
-            .attr("fill", "white")
+            .attr("fill", paleta.colorTextoD3)
             .call(axisBottom(x));
         svg.append("g")
             .attr("transform", "translate(" + marginDim + ",0)")
             .style("font-size", textsize)
-            .attr("fill", "white")
+            .attr("fill", paleta.colorTextoD3)
             .call(axisLeft(y));
 
         svg.append("g")
             .attr("class", "grid")
-            .attr("fill", "white")
+            .attr("fill", paleta.colorTextoD3)
             .attr("transform", "translate(" + marginDim + ",0)")
             .call(
                 makeYLines()
@@ -143,7 +143,7 @@ function GraficoPrincipal({ setId, setXY, datoswnominate}) {
             .attr("opacity", 0.25);
         svg.append("g")
             .attr("class", "grid")
-            .attr("fill", "white")
+            .attr("fill", paleta.colorTextoD3)
             .attr("transform", "translate(0," + heightDim + ")")
             .call(
                 makeXLines()
@@ -168,7 +168,7 @@ function GraficoPrincipal({ setId, setXY, datoswnominate}) {
             .style("border-radius", "8px")
             .style("font-size", textsize)
             .style("font-family", "Lucida Sans Unicode")
-            .attr("fill", "white")
+            .attr("fill", paleta.colorTextoD3)
         svg.selectAll(".point")
             .data(datoswnominate.diputados)
             .join(
@@ -239,7 +239,7 @@ function GraficoPrincipal({ setId, setXY, datoswnominate}) {
             .style("fill", function (d) {
                 return partidos[d]
             })
-            .attr("fill", "white")
+            .attr("fill", paleta.colorTextoD3)
             .attr("id", value => value)
             .on("click", function (event, d) {
                 svg.selectAll("g.brush").call(brush().clear)
@@ -256,7 +256,7 @@ function GraficoPrincipal({ setId, setXY, datoswnominate}) {
             .text(function (d) { return d })
             .style("font-size", textsize)
             .style("font-family", "Lucida Sans Unicode")
-            .attr("fill", "white")
+            .attr("fill", paleta.colorTextoD3)
             .attr("id", value => value)
             .on("click", function (event, d) {
                 svg.selectAll("g.brush").call(brush().clear)
@@ -274,7 +274,7 @@ function GraficoPrincipal({ setId, setXY, datoswnominate}) {
             .text(function (d) { return d })
             .style("font-size", textsize2)
             .style("font-family", "Lucida Sans Unicode")
-            .attr("fill", "white")
+            .attr("fill", paleta.colorTextoD3)
             .attr("id", value => value)
             .on("click", function (event, d) {
                 svg.selectAll("g.brush").call(brush().clear)
@@ -293,12 +293,12 @@ function GraficoPrincipal({ setId, setXY, datoswnominate}) {
             .text(function (d) { return d })
             .style("font-size", textsize2)
             .style("font-family", "Lucida Sans Unicode")
-            .attr("fill", "white")
+            .attr("fill", paleta.colorTextoD3)
 
         ClearGraph({ setId }, { setXY }, { datoswnominate })
     }, [setId, setXY, datoswnominate]);
     return (
-            <svg ref={svgRef} className="chart text-light"
+            <svg ref={svgRef} className={"chart "+paleta.colorTextoBootstrap}
                 width="100%"
                 height="100%"
                 viewBox={vBox}
@@ -306,8 +306,8 @@ function GraficoPrincipal({ setId, setXY, datoswnominate}) {
                 preserveAspectRatio="xMidYMid meet"
                 style={{
                     "marginBottom": margin / 3,
-                    backgroundColor: "rgba(50,50,50,0.95)",
-                    borderRadius: "10px"
+                    borderRadius: "10px",
+                    backgroundColor:paleta.fondoMid
                 }}
             />
     )

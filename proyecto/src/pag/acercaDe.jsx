@@ -1,4 +1,5 @@
 import React from "react";
+import paleta from "../resources/paleta.json"
 import Barra from "../components/barra";
 import {Container, Col, Row, Jumbotron, PopoverHeader, PopoverBody, UncontrolledPopover} from "reactstrap";
 import {isMobile,CustomView} from 'react-device-detect'
@@ -25,7 +26,7 @@ function AcercaDe(){
             </CustomView>
             <Row>
                 <Col>
-                    <Container className="text-light" style={{backgroundColor:"rgba(50,50,50,0.95)",borderRadius:"10px"}}>
+                    <Container className={paleta.colorTextoBootstrap} style={{backgroundColor:paleta.fondoClaro,borderRadius:"10px"}}>
                         <Jumbotron className="jumbotron-fluid">
                             <Row>
                                 <Col>
@@ -92,28 +93,28 @@ function AcercaDe(){
                                 <Col>
                                     <h3>Herramientas utilizadas</h3>
                                     <ul className="list-group list-group-flush">
-                                        <li className="list-group-item text-light" style={{backgroundColor:"rgba(0,0,0,0)",borderRadius:"10px", borderWidth:"0px"}}>
+                                        <li className={"list-group-item "+paleta.colorTextoBootstrap} style={{backgroundColor:"rgba(0,0,0,0)",borderRadius:"10px", borderWidth:"0px"}}>
                                             <h5>React</h5>
                                             <p>Biblioteca de JavaScript para la construcción de interfaces de usuario.</p>
                                         </li>
-                                        <li className="list-group-item text-light" style={{backgroundColor:"rgba(0,0,0,0)",borderRadius:"10px", borderWidth:"0px"}}>
+                                        <li className={"list-group-item "+paleta.colorTextoBootstrap} style={{backgroundColor:"rgba(0,0,0,0)",borderRadius:"10px", borderWidth:"0px"}}>
                                             <h5>Reactstrap</h5>
                                             <p>Librería de Bootstrap independiente de jQuery o JavaScript de Bootstrap.</p>
                                         </li>
-                                        <li className="list-group-item text-light" style={{backgroundColor:"rgba(0,0,0,0)",borderRadius:"10px", borderWidth:"0px"}}>
+                                        <li className={"list-group-item "+paleta.colorTextoBootstrap} style={{backgroundColor:"rgba(0,0,0,0)",borderRadius:"10px", borderWidth:"0px"}}>
                                             <h5>Redux</h5>
                                             <p>Librería de JavaScript para el manejo de estados de datos.</p>
                                         </li>
-                                        <li className="list-group-item text-light" style={{backgroundColor:"rgba(0,0,0,0)",borderRadius:"10px", borderWidth:"0px"}}>
+                                        <li className={"list-group-item "+paleta.colorTextoBootstrap} style={{backgroundColor:"rgba(0,0,0,0)",borderRadius:"10px", borderWidth:"0px"}}>
                                             <h5>D3.js</h5>
                                             <p>Librería de JavaScript para la manipulación de documentos basados en datos. Se
                                             utiliza la versión para React.</p>
                                         </li>
-                                        <li className="list-group-item text-light" style={{backgroundColor:"rgba(0,0,0,0)",borderRadius:"10px", borderWidth:"0px"}}>
+                                        <li className={"list-group-item "+paleta.colorTextoBootstrap} style={{backgroundColor:"rgba(0,0,0,0)",borderRadius:"10px", borderWidth:"0px"}}>
                                             <h5>Python</h5>
                                             <p>Lenguaje de programación interpretado de código abierto.</p>
                                         </li>
-                                        <li className="list-group-item text-light" style={{backgroundColor:"rgba(0,0,0,0)",borderRadius:"10px", borderWidth:"0px"}}>
+                                        <li className={"list-group-item "+paleta.colorTextoBootstrap} style={{backgroundColor:"rgba(0,0,0,0)",borderRadius:"10px", borderWidth:"0px"}}>
                                             <h5>R</h5>
                                             <p>Entorno y lenguaje de programación de código libre enfocado al análisis estadístico.</p>
                                         </li>
@@ -129,8 +130,8 @@ function AcercaDe(){
                                 <Col className="offset-sm-2 col-sm-4 col-12">
                                     <span className="d-block p-2 d-flex">
                                         <UncontrolledPopover trigger="legacy" placement="top" target="Popover1">
-                                            <PopoverHeader className="text-light bg-dark">Alejandro Mellado</PopoverHeader>
-                                            <PopoverBody className="text-light bg-dark">
+                                            <PopoverHeader className={paleta.colorTextoBootstrap+" "+paleta.colorBgBootstrap}>Alejandro Mellado</PopoverHeader>
+                                            <PopoverBody className={paleta.colorTextoBootstrap+" "+paleta.colorBgBootstrap}>
                                                 <h6>Profesor Asociado</h6>
                                                 <p>Ingeniero de Ejecución en Computación e Informática.</p>
                                             </PopoverBody>
@@ -141,8 +142,8 @@ function AcercaDe(){
                                 <Col className="col-sm-4 col-12">
                                     <span className="d-block p-2 d-flex">
                                         <UncontrolledPopover trigger="legacy" placement="top" target="Popover2">
-                                            <PopoverHeader className="text-light bg-dark">Julio Rojas</PopoverHeader>
-                                            <PopoverBody className="text-light bg-dark">
+                                            <PopoverHeader className={paleta.colorTextoBootstrap+" "+paleta.colorBgBootstrap}>Julio Rojas</PopoverHeader>
+                                            <PopoverBody className={paleta.colorTextoBootstrap+" "+paleta.colorBgBootstrap}>
                                                 <h6>Profesor Coordinador</h6>
                                                 <p>Ingeniero de Sistemas, Mención Investigación de Operaciones.</p>
                                             </PopoverBody>
@@ -153,8 +154,8 @@ function AcercaDe(){
                             <Col className="col-sm-4 col-12">
                                     <span className="d-block p-2 d-flex">
                                         <UncontrolledPopover trigger="legacy" placement="top" target="Popover3">
-                                            <PopoverHeader className="text-light bg-dark">Juan Gallardo</PopoverHeader>
-                                            <PopoverBody className="text-light bg-dark">
+                                            <PopoverHeader className={paleta.colorTextoBootstrap+" "+paleta.colorBgBootstrap}>Juan Gallardo</PopoverHeader>
+                                            <PopoverBody className={paleta.colorTextoBootstrap+" "+paleta.colorBgBootstrap}>
                                                 <h6>Equipo Técnico</h6>
                                                 <p>Estudiante de la carrera Ingeniería Civil Informática.</p>
                                             </PopoverBody>
@@ -165,8 +166,8 @@ function AcercaDe(){
                                 <Col className="col-sm-4 col-12">
                                     <span className="d-flex p-2">
                                         <UncontrolledPopover trigger="legacy" placement="top" target="Popover4">
-                                            <PopoverHeader className="text-light bg-dark">Antonio Parra</PopoverHeader>
-                                            <PopoverBody className="text-light bg-dark">
+                                            <PopoverHeader className={paleta.colorTextoBootstrap+" "+paleta.colorBgBootstrap}>Antonio Parra</PopoverHeader>
+                                            <PopoverBody className={paleta.colorTextoBootstrap+" "+paleta.colorBgBootstrap}>
                                                 <h6>Equipo Técnico</h6>
                                                 <p>Estudiante de la carrera Ingeniería Civil Informática.</p>
                                             </PopoverBody>
@@ -177,8 +178,8 @@ function AcercaDe(){
                                 <Col className="col-sm-4 d-flex justify-content-around">
                                     <span className="p-2">
                                         <UncontrolledPopover trigger="legacy" placement="top" target="Popover5">
-                                            <PopoverHeader className="text-light bg-dark">Victor Quiroz</PopoverHeader>
-                                            <PopoverBody className="text-light bg-dark">
+                                            <PopoverHeader className={paleta.colorTextoBootstrap+" "+paleta.colorBgBootstrap}>Victor Quiroz</PopoverHeader>
+                                            <PopoverBody className={paleta.colorTextoBootstrap+" "+paleta.colorBgBootstrap}>
                                                 <h6>Equipo Técnico</h6>
                                                 <p>Estudiante de la carrera Ingeniería Civil Informática.</p>
                                             </PopoverBody>
