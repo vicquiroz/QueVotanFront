@@ -119,8 +119,8 @@ function Congresista(){
                             <div key={index}>
                             <div onClick={()=> window.location.href="/grafico/"+post.id} style={{ cursor:"pointer",textDecoration: 'none' }}>
                                 <Card className={paleta.colorTextoBootstrap} style={{backgroundColor:paleta.fondoMid}}>
-                                    <CardHeader style={{backgroundColor:paleta.fondoOscuro}}><b>Camara de diputados - Votacion {post.id} </b>- Ingresada en {post.fechaIngresoBoletin.slice(0,10)} - Realizada en {post.fechaSalidaBoletin.slice(0,10)}</CardHeader>
-                                    <CardBody>
+                                    <CardHeader style={{backgroundColor:paleta.colorTopCard}}><b>Camara de diputados - Votacion {post.id} </b>- Ingresada en {post.fechaIngresoBoletin.slice(0,10)} - Realizada en {post.fechaSalidaBoletin.slice(0,10)}</CardHeader>
+                                    <CardBody style={{backgroundColor:paleta.colorBgCard}}>
                                         <CardText>
                                             <b>Boletin N°: </b>{post.boletin.slice(10,20)}
                                             <br/>

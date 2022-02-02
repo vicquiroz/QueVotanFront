@@ -1,14 +1,15 @@
 {
-    "fondoClaro":"rgba(217,237,247,0.95)",
-    "fondoMid":"rgba(0,0,0,0)",
-    "fondoOscuro":"rgba(247,85,88,0.95)",
-    "colorBgCard":"rgba(0,0,0,0)",
+    "fondoClaro":"rgba(200,200,250,0.95)",
+    "fondoMid":"rgba(200,200,250,0.95)",
+    "fondoOscuro":"rgba(200,200,250,0.95)",
+    "colorBgCard":"rgba(200,200,250,0.95)",
+    "colorTopCard":"rgba(84,83,255,0.95)",
     "colorTextoBootstrap":"text-dark",
-    "colorBgBootstrap":"bg-light",
+    "colorBgBootstrap":"bg-dark",
     "colorTextoD3":"black",
-    "colorFondoInput":"rgba(0,0,0,0)",
-    "colorBordeBootstrap":"list-group-item-primary",
-    "colorNavbar":"rgba(247,85,88,0.95)",
+    "colorFondoInput":"rgba(50,50,50,0.9)",
+    "colorBordeBootstrap":"list-group-item-dark",
+    "colorNavbar":"rgba(150,50,50,0.95)",
     "colorBotonesGraf":"primary",
     "colorBotonesVotImp":"primary"
 }
