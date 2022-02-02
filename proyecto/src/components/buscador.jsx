@@ -192,9 +192,9 @@ function Buscador({tags,estado}){
                 </InputGroup>
                 {eleccion==="Materia"?
                 <Container>
-                <div className={"border "+paleta.colorBordeBootstrap}>
+                <div className="border border-dark">
                 {sugerencia && sugerencia.slice(0,10).map((sugerencia, id) =>
-                    <Label className={"list-group-flush list-group-item-action "+paleta.colorListaBootstrap} key={id}
+                    <Label className="list-group-flush list-group-item-dark list-group-item-action" key={id}
                      onClick={()=> seleccion(sugerencia.descripcion,sugerencia.id)}>
                         {sugerencia.descripcion} 
                     </Label>

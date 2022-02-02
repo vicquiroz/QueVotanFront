@@ -3,7 +3,7 @@
     "fondoMid":"rgba(50,50,50,0.95)",
     "fondoOscuro":"rgba(50,50,50,0.95)",
     "colorBgCard":"rgba(50,50,50,0.95)",
-    "colorTopCard":"rgba(30,30,30,0.95)",
+    "colorTopCard":"rgba(50,50,50,0.95)",
     "colorTextoBootstrap":"text-light",
     "colorBgBootstrap":"bg-dark",
     "colorTextoD3":"white",
