@@ -1,6 +1,6 @@
 import {React, useEffect,useState} from 'react'
 import paleta from "../resources/paleta.json"
-import {Container,Row,Col, Button} from 'reactstrap'
+import {Container,Row,Col, Button,Alert} from 'reactstrap'
 import {isMobile,CustomView} from 'react-device-detect'
 import { Link,useParams } from "react-router-dom";
 import Barra from '../components/barra'
@@ -16,7 +16,7 @@ function VotacionesImportantes(){
         if(handleMetodo==="Nombre"){
             dispatch(obtenerPorNombreAccion(handleValor,1))
         }
-    },[handleMetodo,handleValor]);
+    },[handleValor]);
     useEffect(()=>{
         setVotaciones(porNombre)
     },[porNombre])
@@ -64,7 +64,12 @@ function VotacionesImportantes(){
                     <Tabla
                         primerasVotaciones={votaciones} metodo={handleMetodo}
                     />
-                    :""}
+                    :<Alert color="danger">
+                        <h4 className="alert-heading">Error</h4>
+                        <p>No se han encontrado votaciones con los parámetros especificados</p>
+                        <hr />
+                        <p>{handleMetodo}: {handleValor}</p>
+                    </Alert>}
                 </Col>
             </Row>
         </Container>

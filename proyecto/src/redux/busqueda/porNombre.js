@@ -5,10 +5,13 @@ const porNombreI = {
 }
 
 const OBTENER_PORNOMBRE_EXITO = 'OBTENER_PORNOMBRE_EXITO'
+const OBTENER_PORNOMBRE_ERROR = 'OBTENER_PORNOMBRE_ERROR'
 
 export default function porNombreReducer(state = porNombreI, action){
     switch(action.type){
         case OBTENER_PORNOMBRE_EXITO:
+            return {...state, array: action.payload}
+        case OBTENER_PORNOMBRE_ERROR:
             return {...state, array: action.payload}
         default:
             return state
@@ -24,5 +27,9 @@ export const obtenerPorNombreAccion = (param,pag) => async(dispatch,getState) =>
         })
     } catch (error) {
         console.log(error)
+        dispatch({
+            type: OBTENER_PORNOMBRE_ERROR,
+            payload: error
+        })
     }
 }
