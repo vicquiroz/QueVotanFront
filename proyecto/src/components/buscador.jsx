@@ -106,9 +106,12 @@ function Buscador({tags,estado}){
             <h3 className={paleta.colorTextoBootstrap}>Buscar votaciones</h3>
             <Row>
             <InputGroup>
-                <InputGroupButtonDropdown addonType="append" isOpen={dropdownOpen} toggle={toggle}>
-                    <DropdownToggle split color="primary" style={{width:"100%"}}>{eleccion} </DropdownToggle>
+                <InputGroupButtonDropdown addonType="append" isOpen={dropdownOpen} toggle={toggle} direction='right'>
+                    <DropdownToggle caret split color="primary" style={{width:"100%"}}>{eleccion} </DropdownToggle>
                     <DropdownMenu>
+                        <DropdownItem header>
+                            Seleccione el método de búsqueda
+                        </DropdownItem>
                         <DropdownItem onClick={()=>{setEleccion("Materia")}}>Buscar por materia asociada</DropdownItem>
                         <DropdownItem onClick={()=>{setEleccion("Nombre")
                         setSuge("")}}>Buscar por nombre de votación</DropdownItem>

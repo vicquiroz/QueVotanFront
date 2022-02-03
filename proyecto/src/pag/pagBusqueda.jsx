@@ -2,7 +2,7 @@ import React, {useState,useEffect}  from "react";
 import Barra from "../components/barra";
 import Tabla from "../components/tabla";
 import Buscador from "../components/buscador";
-import {Container, Col, Row} from "reactstrap";
+import {Container, Col, Row,Alert} from "reactstrap";
 import {useParams} from "react-router";
 import {useDispatch, useSelector} from 'react-redux'
 import {obtenerTagsAccion} from '../redux/TagsDucks'
@@ -96,7 +96,14 @@ function Busqueda(){
                     <Tabla
                         primerasVotaciones={votaciones} metodo={handleMetodo}
                     />
-                    :""}
+                    :
+                <Alert color="danger">
+                    <h4 className="alert-heading">Error</h4>
+                    <p>No se han encontrado votaciones con los parámetros especificados</p>
+                    <hr />
+                    <p>{handleMetodo}: {handleValor}</p>
+                </Alert>
+                }
                 </Col>
             </Row>
         </Container>
