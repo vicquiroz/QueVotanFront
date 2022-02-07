@@ -87,6 +87,7 @@ function Busqueda(){
                     <Buscador
                         tags={tags}
                         estado={handleMetodo}
+                        valor={handleValor}
                     />
                 </Col>
             </Row >

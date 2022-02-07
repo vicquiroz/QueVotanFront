@@ -19,7 +19,7 @@ import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import DatePicker from '@mui/lab/DatePicker';
 import TextField from '@mui/material/TextField';
 import { createTheme,ThemeProvider } from '@mui/material/styles';
-function Buscador({tags,estado}){
+function Buscador({tags,estado,valor}){
     const [texto, setTexto] = useState();
     const [sugerencia, setSuge] = useState();
     const [id, setId] = useState();
@@ -52,7 +52,6 @@ function Buscador({tags,estado}){
         setSuge("");
         document.getElementById('buscador').select();
     }
-
     const teclaAbajo = (tecla) => {
         if (tecla.key === 'Enter') {
             switch (eleccion) {
@@ -99,8 +98,35 @@ function Buscador({tags,estado}){
     useEffect(()=>{
         if(estado!==undefined){
             setEleccion(estado)
+            switch (estado) {
+                case "Materia":
+                    if(tags.length>0){
+                        let materia = tags.find(tag=>{return tag.id==valor})
+                        seleccion(materia.descripcion,valor)
+                    }
+                    break;
+                case "Nombre":
+                    setTexto(valor)
+                    break;
+                case "ID":
+                    setTexto(valor)
+                    break;
+                case "Boletín":
+                    setTexto(valor)
+                    break;
+                case "Fecha":
+                    //window.location.href=`/Buscar/Fecha/${String(fechaInicio.split("T")[0])}!${String(fechaFin.split("T")[0])}`
+                    let Fechas=valor.split("!")
+                    let NewFechaInicio=Fechas[0]
+                    let NewFechaFinal=Fechas[1]
+                    setFechaInicio(new Date(NewFechaInicio+"T12:00:00.000Z"))
+                    setFechaFin(new Date(NewFechaFinal+"T12:00:00.000Z"))
+                    break;
+                default:
+                    break;
+            }
         }
-    },[])
+    },[tags])
     return(
         <Container>
             <h3 className={paleta.colorTextoBootstrap}>Buscar votaciones</h3>
@@ -112,18 +138,37 @@ function Buscador({tags,estado}){
                         <DropdownItem header>
                             Seleccione el método de búsqueda
                         </DropdownItem>
-                        <DropdownItem onClick={()=>{setEleccion("Materia")}}>Buscar por materia asociada</DropdownItem>
-                        <DropdownItem onClick={()=>{setEleccion("Nombre")
-                        setSuge("")}}>Buscar por nombre de votación</DropdownItem>
-                        <DropdownItem onClick={()=>{setEleccion("Boletín")
-                        setTexto("")
-                        }}>Buscar por número de boletín</DropdownItem>
-                        <DropdownItem onClick={()=>{setEleccion("ID")
-                        setTexto("")
-                        }}>Buscar por ID de votación</DropdownItem>
-                        <DropdownItem onClick={()=>{setEleccion("Fecha")
-                        setTexto("")
-                        }}>Buscar por fecha de votación</DropdownItem>
+                        <DropdownItem onClick={()=>{
+                            setEleccion("Materia")
+                            setTexto("")
+                        }}>
+                            Buscar por materia asociada
+                        </DropdownItem>
+                        <DropdownItem onClick={()=>{
+                            setEleccion("Nombre")
+                            setSuge("")
+                            setTexto("")
+                            }}>
+                            Buscar por nombre de votación
+                        </DropdownItem>
+                        <DropdownItem onClick={()=>{
+                            setEleccion("Boletín")
+                            setTexto("")
+                        }}>
+                            Buscar por número de boletín
+                        </DropdownItem>
+                        <DropdownItem onClick={()=>{
+                            setEleccion("ID")
+                            setTexto("")
+                        }}>
+                            Buscar por ID de votación
+                        </DropdownItem>
+                        <DropdownItem onClick={()=>{
+                            setEleccion("Fecha")
+                            setTexto("")
+                        }}>
+                            Buscar por fecha de votación
+                        </DropdownItem>
                     </DropdownMenu>
                 </InputGroupButtonDropdown>
                 {eleccion!="Fecha"?

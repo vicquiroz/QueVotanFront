@@ -48,7 +48,7 @@ function Barra({origen}){
                                 Votaciones Importantes
                             </Button>
                             {verorigen()}
-                            <Button onClick={()=>{window.location.href="/acerca"}} style={{ textDecoration: 'none' }} className="text-light btn-sm" color="primary" >
+                            <Button onClick={()=>{window.location.href="/acerca"}} style={{ textDecoration: 'none' }} className="text-light btn-sm" color="danger" >
                                 Acerca de
                             </Button>
                         </div>
