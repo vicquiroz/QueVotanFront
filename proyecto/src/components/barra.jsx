@@ -29,9 +29,7 @@ function Barra({origen}){
                 <Container className="container-fluid">
                     <NavItem>
                         <span className="navbar-brand mb-0 h1 text-light">
-                            <Link to="/" style={{ textDecoration: 'none' }} className="text-light">
-                                <img src={Logo} alt="Logo Página" width={ImgWidthSize} height={ImgHeightSize}/>
-                            </Link>
+                            <img onClick={()=>{window.location.href="/"}} style={{cursor:'pointer'}} src={Logo} alt="Logo Página" width={ImgWidthSize} height={ImgHeightSize}/>
                             <a href="https://www.inf.uct.cl/">
                             <img src={LogoDptIng} alt="Logo Departamento" width={ImgWidthSize} height={ImgHeightSize}/>
                             </a>
@@ -43,33 +41,16 @@ function Barra({origen}){
                     </NavItem>
                     <NavItem>
                         <div className="btn-group">
-                            <ul>
-                            <Link to="/" style={{ textDecoration: 'none' }} className="text-light">
-                                <Button className="btn-sm" color="primary">Inicio</Button>
-                            </Link>
-                            <Link onClick={()=>{window.location.href="/VotacionesImportantes/Nombre/Covid-19"}} style={{ textDecoration: 'none'}} className="text-light">
-                                <Button className="btn-sm" color="primary">Votaciones Importantes</Button>
-                            </Link>
+                            <Button onClick={()=>{window.location.href="/"}} style={{ textDecoration: 'none' }} className="text-light btn-sm" color="primary">
+                                Inicio
+                            </Button>
+                            <Button onClick={()=>{window.location.href="/VotacionesImportantes/Nombre/Covid-19"}} style={{ textDecoration: 'none'}} className="text-light btn-sm" color="primary">
+                                Votaciones Importantes
+                            </Button>
                             {verorigen()}
-                            {/*<Button className="btn-sm" color="secondary">Congreso</Button>*/}
-                            {/*<Button className="btn-sm" color="secondary">Partidos</Button>*/}
-                            {/*<Button className="btn-sm" color="secondary">Datos</Button>*/}
-                            <Link to="/acerca" className="text-light" style={{ textDecoration: 'none' }}>
-                                <Button className="btn-sm" color="primary" >
-                                    Acerca de
-                                </Button>
-                            </Link>
-                            {/*
-                            <ButtonDropdown isOpen={dropdownOpen} toggle={toggle}>
-                                <DropdownToggle className="btn-sm" split color="primary">Listado</DropdownToggle>
-                                <DropdownMenu>
-                                    <DropdownItem>Item 1</DropdownItem>
-                                    <DropdownItem>Item 2</DropdownItem>
-                                    <DropdownItem>Item 3</DropdownItem>
-                                </DropdownMenu>
-                            </ButtonDropdown>
-                            */}
-                            </ul>
+                            <Button onClick={()=>{window.location.href="/acerca"}} style={{ textDecoration: 'none' }} className="text-light btn-sm" color="primary" >
+                                Acerca de
+                            </Button>
                         </div>
                     </NavItem>
                     </Container>
