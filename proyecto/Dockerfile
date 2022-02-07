@@ -4,4 +4,4 @@ COPY . .
 RUN npm install
 RUN npm run build
 RUN npm install -g serve
-RUN serve -s build -l 1080
+CMD ["serve","-s","build","-l","1080"]
