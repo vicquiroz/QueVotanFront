@@ -20,6 +20,9 @@ function VotacionesImportantes(){
     useEffect(()=>{
         setVotaciones(porNombre)
     },[porNombre])
+    const MostrarVot = (metodo) =>{
+        window.location.href="/VotacionesImportantes/Nombre/"+metodo
+    }
     return(
         <Container>
             <Row>
@@ -42,17 +45,17 @@ function VotacionesImportantes(){
             </Row>
             <Row>
                 <Col className="d-flex justify-content-center">
-                    <Link to='/VotacionesImportantes/Nombre/Covid-19' style={{width:"100%"}}>
+                    <Link onClick={()=>{MostrarVot("Covid-19")}} style={{width:"100%"}}>
                         <Button size="lg" style={{borderRadius:"10px",width:"100%"}} outline color={paleta.colorBotonesVotImp}>Covid-19</Button>
                     </Link>
                 </Col>
                 <Col className="d-flex justify-content-center">
-                    <Link to='/VotacionesImportantes/Nombre/Retiro' style={{width:"100%"}}>
+                    <Link onClick={()=>{MostrarVot("Retiro")}} style={{width:"100%"}}>
                         <Button size="lg" style={{borderRadius:"10px",width:"100%"}} outline color={paleta.colorBotonesVotImp}>Retiro de fondos</Button>
                     </Link>
                 </Col>
                 <Col className="d-flex justify-content-center">
-                    <Link to='/VotacionesImportantes/Nombre/Constituyente' style={{width:"100%"}}>
+                    <Link onClick={()=>{MostrarVot("Constituyente")}} style={{width:"100%"}}>
                         <Button size="lg" style={{borderRadius:"10px",width:"100%"}} outline color={paleta.colorBotonesVotImp}>Constituyentes</Button>
                     </Link>
                 </Col>
