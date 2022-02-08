@@ -34,7 +34,8 @@ function Tabla({primerasVotaciones,metodo}){
                     break;
                 case "Materia":
                     dispatch(obtenerPorMateriaAccion(handleValor,pag))
-                    setListaVot([...ListaVot,...porMateria])
+                    if(typeof(porMateria)!=="string") setListaVot([...ListaVot,...porMateria])
+                    else setStatus(false)
                     break;
                 case "Boletín":
                     dispatch(obtenerPorBoletinAccion(handleValor,pag))

@@ -50,7 +50,7 @@ function Busqueda(){
                 setVotaciones(porId)
                 break;
             case "Materia":
-                setVotaciones(porMateria)
+                if(typeof(porMateria!=="string")) setVotaciones(porMateria)
                 break;
             case "Boletín":
                 setVotaciones(porBoletin)
