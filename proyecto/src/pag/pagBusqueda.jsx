@@ -56,7 +56,7 @@ function Busqueda(){
                 setVotaciones(porBoletin)
                 break;
             case "Nombre":
-                setVotaciones(porNombre)
+                if(typeof(porNombre)!=="string") setVotaciones(porNombre)
                 break;
             case "Fecha":
                 setVotaciones(porFecha)

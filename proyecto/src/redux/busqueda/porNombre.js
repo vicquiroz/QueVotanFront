@@ -26,10 +26,9 @@ export const obtenerPorNombreAccion = (param,pag) => async(dispatch,getState) =>
             payload: res.data.data
         })
     } catch (error) {
-        console.log(error)
         dispatch({
             type: OBTENER_PORNOMBRE_ERROR,
-            payload: error
+            payload: error.toJSON().message
         })
     }
 }

@@ -14,6 +14,7 @@ function Tabla({primerasVotaciones,metodo}){
     const dispatch = useDispatch()
     const {handleValor} = useParams()
     const [ListaVot,setListaVot]=useState(primerasVotaciones)
+    const [status,setStatus]=useState(true)
     const [pag,setPag]=useState(2)
     const porMateria = useSelector(store=>store.porMateria.array)
     const porBoletin = useSelector(store=>store.porBoletin.array)
@@ -41,7 +42,8 @@ function Tabla({primerasVotaciones,metodo}){
                     break;
                 case "Nombre":
                     dispatch(obtenerPorNombreAccion(handleValor,pag))
-                    setListaVot([...ListaVot,...porNombre])
+                    if(typeof(porNombre)!=="string") setListaVot([...ListaVot,...porNombre])
+                    else setStatus(false)
                     break;
                 case "Fecha":
                     dispatch(obtenerPorFechaAccion(handleValor,pag))
@@ -58,14 +60,14 @@ function Tabla({primerasVotaciones,metodo}){
                 <InfiniteScroll
                 dataLength={ListaVot.length}
                 next={fetchData}
-                hasMore={true}
+                hasMore={status}
                 loader={
                     <div style={{textAlign:"center"}}>
                         <Spinner color="primary" children="" ></Spinner>
                     </div>
                 }
                 endMessage={
-                    <p style={{ textAlign: 'center' }}>
+                    <p style={{ textAlign: 'center',borderRadius: "10px",backgroundColor:paleta.fondoMid,padding:"10px"}}>
                       <h4 className={paleta.colorTextoBootstrap}>No existen más votaciones</h4>
                     </p>
                   }

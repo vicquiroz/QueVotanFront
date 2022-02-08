@@ -40,17 +40,18 @@ function MostrarLista({idCon,datoswnominate}){
     return(
         <Container>
             <Row>
-                <Col className="g-3">
+                <Col className="g-3" style={{borderRadius: "10px",backgroundColor:paleta.fondoMid,padding:"10px"}}>
                     <Row>
                         <Col>
                         <h3 className={paleta.colorTextoBootstrap}>Votantes</h3>
-                        <h5 className={paleta.colorTextoBootstrap}>Ordenar por: 
-                        {' '}<Button style={{borderRadius:"10px"}} outline color={paleta.colorBotonesGraf} onClick={ordenPart}> Partido</Button>{' '}   
-                            <Button style={{borderRadius:"10px"}} outline color={paleta.colorBotonesGraf} onClick={ordenNomb}> Nombre</Button>
+                        <h5 className={paleta.colorTextoBootstrap}>Ordenar por:
+                        {' '}<Button style={{borderRadius:"10px"}} color={paleta.colorBotonesGraf} onClick={ordenPart}> Partido</Button>{' '}   
+                            <Button style={{borderRadius:"10px"}} color="danger" onClick={ordenNomb}> Nombre</Button>
                         </h5>
                         </Col>
                     </Row>
-                    <Row className={paleta.colorTextoBootstrap} style={{backgroundColor:paleta.fondoMid,borderRadius:"10px"}}>
+                    <br/>
+                    <Row className={paleta.colorTextoBootstrap}>
                         {filtro.map((post) => ( 
                         <Col className="col-6 col-sm-3" key={post["id"]}>
                             <div onClick={()=>window.location.href="/congresista/"+post["id"]+"/"+datoswnominate.id} style={{ cursor:"pointer", textDecoration: 'none' }} className={paleta.colorTextoBootstrap+" list-group-flush"} >
