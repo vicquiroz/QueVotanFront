@@ -30,26 +30,47 @@ function Tabla({primerasVotaciones,metodo}){
             switch (metodo) {
                 case "principal":
                     dispatch(obtenerPrimerasVotacionesAccion(pag))
-                    setListaVot([...ListaVot,...VotacionesSiguientes])
+                    if((typeof(VotacionesSiguientes)!=="string")){
+                        setListaVot([...ListaVot,...VotacionesSiguientes])
+                        let ListaTemp=[...ListaVot,...VotacionesSiguientes]
+                        setListaVot([...new Set(ListaTemp)])
+                    }
+                    else setStatus(false)
                     break;
                 case "Materia":
                     dispatch(obtenerPorMateriaAccion(handleValor,pag))
-                    if((typeof(porMateria)!=="string")) setListaVot([...ListaVot,...porMateria])
+                    if((typeof(porMateria)!=="string")){
+                        setListaVot([...ListaVot,...porMateria])
+                        let ListaTemp=[...ListaVot,...porMateria]
+                        setListaVot([...new Set(ListaTemp)])
+                    }
                     else setStatus(false)
                     break;
                 case "Boletín":
                     dispatch(obtenerPorBoletinAccion(handleValor,pag))
-                    if(typeof(porBoletin)!=="string") setListaVot([...ListaVot,...porBoletin])
+                    if(typeof(porBoletin)!=="string"){
+                        setListaVot([...ListaVot,...porBoletin])
+                        let ListaTemp=[...ListaVot,...porBoletin]
+                        setListaVot([...new Set(ListaTemp)])
+                    }
                     else setStatus(false)
                     break;
                 case "Nombre":
                     dispatch(obtenerPorNombreAccion(handleValor,pag))
-                    if(typeof(porNombre)!=="string") setListaVot([...ListaVot,...porNombre])
+                    if(typeof(porNombre)!=="string"){
+                        setListaVot([...ListaVot,...porNombre])
+                        let ListaTemp=[...ListaVot,...porNombre]
+                        setListaVot([...new Set(ListaTemp)])
+                    }
                     else setStatus(false)
                     break;
                 case "Fecha":
                     dispatch(obtenerPorFechaAccion(handleValor,pag))
-                    if(typeof(porFecha)!=="string")  setListaVot([...ListaVot,...porFecha])
+                    if(typeof(porFecha)!=="string"){
+                        setListaVot([...ListaVot,...porFecha])
+                        let ListaTemp=[...ListaVot,...porFecha]
+                        setListaVot([...new Set(ListaTemp)])
+                    }
                     else setStatus(false)
                     break;
                 default:

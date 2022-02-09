@@ -5,10 +5,13 @@ const VotacionI = {
 }
 
 const OBTENER_PRIMERASVOTACIONES_EXITO = 'OBTENER_PRIMERASVOTACIONES_EXITO'
+const OBTENER_PRIMERASVOTACIONES_ERROR = 'OBTENER_PRIMERASVOTACIONES_ERROR'
 
 export default function primerasVotacionesReducer(state = VotacionI, action){
     switch(action.type){
         case OBTENER_PRIMERASVOTACIONES_EXITO:
+            return {...state, array: action.payload}
+        case OBTENER_PRIMERASVOTACIONES_ERROR:
             return {...state, array: action.payload}
         default:
             return state
@@ -26,6 +29,9 @@ export const obtenerPrimerasVotacionesAccion = (pag) => async(dispatch,getState)
             stateDispatch:true
         })
     } catch (error) {
-        console.log(error)
+        dispatch({
+            type: OBTENER_PRIMERASVOTACIONES_ERROR,
+            payload: error.toJSON().message
+        })
     }
 }

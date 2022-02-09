@@ -47,7 +47,7 @@ function Busqueda(){
     useEffect(()=> {
         switch (handleMetodo) {
             case "ID":
-                setVotaciones(porId)
+                if(typeof(porMateria!=="string")) setVotaciones(porId)
                 break;
             case "Materia":
                 if(typeof(porMateria!=="string")) setVotaciones(porMateria)
