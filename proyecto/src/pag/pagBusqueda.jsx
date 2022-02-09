@@ -53,13 +53,13 @@ function Busqueda(){
                 if(typeof(porMateria!=="string")) setVotaciones(porMateria)
                 break;
             case "Boletín":
-                setVotaciones(porBoletin)
+                if(typeof(porBoletin)!=="string") setVotaciones(porBoletin)
                 break;
             case "Nombre":
                 if(typeof(porNombre)!=="string") setVotaciones(porNombre)
                 break;
             case "Fecha":
-                setVotaciones(porFecha)
+                if(typeof(porFecha)!=="string") setVotaciones(porFecha)
                 break;
             default:
                 break;

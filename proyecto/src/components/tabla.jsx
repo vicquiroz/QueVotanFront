@@ -34,12 +34,13 @@ function Tabla({primerasVotaciones,metodo}){
                     break;
                 case "Materia":
                     dispatch(obtenerPorMateriaAccion(handleValor,pag))
-                    if(typeof(porMateria)!=="string") setListaVot([...ListaVot,...porMateria])
+                    if((typeof(porMateria)!=="string")) setListaVot([...ListaVot,...porMateria])
                     else setStatus(false)
                     break;
                 case "Boletín":
                     dispatch(obtenerPorBoletinAccion(handleValor,pag))
-                    setListaVot([...ListaVot,...porBoletin])
+                    if(typeof(porBoletin)!=="string") setListaVot([...ListaVot,...porBoletin])
+                    else setStatus(false)
                     break;
                 case "Nombre":
                     dispatch(obtenerPorNombreAccion(handleValor,pag))
@@ -48,11 +49,12 @@ function Tabla({primerasVotaciones,metodo}){
                     break;
                 case "Fecha":
                     dispatch(obtenerPorFechaAccion(handleValor,pag))
-                    setListaVot([...ListaVot,...porFecha])
+                    if(typeof(porFecha)!=="string")  setListaVot([...ListaVot,...porFecha])
+                    else setStatus(false)
                     break;
                 default:
                     break;
-            }
+                }
         },0);
     }
     return(

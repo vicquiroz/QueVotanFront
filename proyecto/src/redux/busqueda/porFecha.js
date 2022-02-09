@@ -5,10 +5,13 @@ const porFechaI = {
 }
 
 const OBTENER_PORFECHA_EXITO = 'OBTENER_PORFECHA_EXITO'
+const OBTENER_PORFECHA_ERROR = 'OBTENER_PORFECHA_ERROR'
 
 export default function porFechaReducer(state = porFechaI, action){
     switch(action.type){
         case OBTENER_PORFECHA_EXITO:
+            return {...state, array: action.payload}
+        case OBTENER_PORFECHA_ERROR:
             return {...state, array: action.payload}
         default:
             return state
@@ -23,6 +26,9 @@ export const obtenerPorFechaAccion = (param,pag) => async(dispatch,getState) => 
             payload: res.data.data
         })
     } catch (error) {
-        console.log(error)
+        dispatch({
+            type: OBTENER_PORFECHA_ERROR,
+            payload: error.toJSON().message
+        })
     }
 }

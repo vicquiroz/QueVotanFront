@@ -5,10 +5,13 @@ const porBoletinI = {
 }
 
 const OBTENER_PORBOLETIN_EXITO = 'OBTENER_PORBOLETIN_EXITO'
+const OBTENER_PORBOLETIN_ERROR = 'OBTENER_PORBOLETIN_ERROR'
 
 export default function porBoletinReducer(state = porBoletinI, action){
     switch(action.type){
         case OBTENER_PORBOLETIN_EXITO:
+            return {...state, array: action.payload}
+        case OBTENER_PORBOLETIN_ERROR:
             return {...state, array: action.payload}
         default:
             return state
@@ -23,6 +26,9 @@ export const obtenerPorBoletinAccion = (param,pag) => async(dispatch,getState) =
             payload: res.data.data
         })
     } catch (error) {
-        console.log(error)
+        dispatch({
+            type: OBTENER_PORBOLETIN_ERROR,
+            payload: error.toJSON().message
+        })
     }
 }
