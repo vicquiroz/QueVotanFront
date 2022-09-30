@@ -26,6 +26,13 @@ var hullSize;
 var strokewidth;
 var vBox;
 
+// var textsize =window.innerHeight%".5rem";
+// var textsize2 = window.innerHeight%".4rem";
+// var pointsize = window.innerHeight*0.1;
+// var hovertext = window.innerHeight*0.015;
+// var hullSize = window.innerHeigh%2;
+// var strokewidth = window.innerHeight%"0.5px";
+
 //Modo Telefono
 if (window.innerHeight < 750) {
     textsize = ".5rem"
@@ -77,6 +84,12 @@ else {
         }
     }
 }
+
+/**
+ * 
+ * @param {*} param0 
+ * @returns 
+ */
 function GraficoPrincipal({ setId, setXY, datoswnominate}) {
     dim = window.innerHeight;   //No cambiar
     width = dim * 0.68;

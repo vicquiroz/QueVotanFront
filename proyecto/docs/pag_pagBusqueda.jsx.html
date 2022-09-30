@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: pag/pagBusqueda.jsx</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: pag/pagBusqueda.jsx</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import React, {useState,useEffect}  from "react";
+import Barra from "../components/barra";
+import Tabla from "../components/tabla";
+import Buscador from "../components/buscador";
+import {Container, Col, Row,Alert} from "reactstrap";
+import {useParams} from "react-router";
+import {useDispatch, useSelector} from 'react-redux'
+import {obtenerTagsAccion} from '../redux/TagsDucks'
+import {CustomView,isMobile} from 'react-device-detect'
+import {obtenerPorMateriaAccion} from '../redux/busqueda/porMateria'
+import {obtenerPorIdAccion} from '../redux/busqueda/porId'
+import {obtenerPorBoletinAccion} from '../redux/busqueda/porBoletin'
+import {obtenerPorNombreAccion} from '../redux/busqueda/porNombre'
+import {obtenerPorFechaAccion} from '../redux/busqueda/porFecha'
+/**
+ *Pagina donde se renderizan las busquedas realizadas, primero se hacen las acciones de buscar las votaciones segun un metodo, cunado se actualizen en la store se actualizaran en "Votaciones" con el "SetVotaciones" para poder ser renderizadas.
+ * @returns &lt; Container > con toda la estructura para dibujar la Tabla con las cards correspondientes.
+ */
+function Busqueda(){
+    const {handleMetodo,handleValor} = useParams()
+    const [votaciones,setVotaciones] = useState([]);
+    const dispatch = useDispatch()
+    const tags = useSelector(store => store.tags.array)
+    const porMateria = useSelector(store=>store.porMateria.array)
+    const porId = useSelector(store=>store.porId.array)
+    const porBoletin = useSelector(store=>store.porBoletin.array)
+    const porNombre = useSelector(store=>store.porNombre.array)
+    const porFecha = useSelector(store=>store.porFecha.array)
+    useEffect(()=> {
+        dispatch(obtenerTagsAccion())
+        switch (handleMetodo) {
+            case "ID":
+                dispatch(obtenerPorIdAccion(handleValor))
+                break;
+            case "Boletín":
+                dispatch(obtenerPorBoletinAccion(handleValor,1))//segundo parametro idica que es desde la pagina 1
+                break;
+            case "Materia":
+                dispatch(obtenerPorMateriaAccion(handleValor,1))
+                break;
+            case "Nombre":
+                dispatch(obtenerPorNombreAccion(handleValor,1))
+                break;
+            case "Fecha":
+                dispatch(obtenerPorFechaAccion(handleValor,1))
+                break;
+            default:
+                break;
+        }
+    },[]);
+    useEffect(()=> {
+        switch (handleMetodo) {
+            case "ID":
+                if(typeof(porMateria!=="string")) setVotaciones(porId)
+                break;
+            case "Materia":
+                if(typeof(porMateria!=="string")) setVotaciones(porMateria)
+                break;
+            case "Boletín":
+                if(typeof(porBoletin)!=="string") setVotaciones(porBoletin)
+                break;
+            case "Nombre":
+                if(typeof(porNombre)!=="string") setVotaciones(porNombre)
+                break;
+            case "Fecha":
+                if(typeof(porFecha)!=="string") setVotaciones(porFecha)
+                break;
+            default:
+                break;
+        }
+    },[porMateria,porId,porBoletin,porNombre,porFecha]);//Cambios en los array de las votaciones
+    return(
+        &lt;Container>
+            &lt;Row>
+                &lt;Col>
+                    &lt;Barra
+                        origen={"principal"}
+                    />
+                &lt;/Col>
+            &lt;/Row>
+            &lt;CustomView condition={isMobile===true}>
+                &lt;br/>
+                &lt;br/>
+            &lt;/CustomView>
+            &lt;br/>
+            &lt;Row style={{
+                "marginTop":"30px",
+                "marginBottom":"10px"
+                }}>
+                &lt;Col>
+                    &lt;Buscador
+                        tags={tags}
+                        estado={handleMetodo}
+                        valor={handleValor}
+                    />
+                &lt;/Col>
+            &lt;/Row >
+            &lt;Row>
+                &lt;Col>
+                {votaciones.length>0?
+                    &lt;Tabla
+                        primerasVotaciones={votaciones} metodo={handleMetodo}
+                    />
+                    :
+                &lt;Alert color="danger">
+                    &lt;h4 className="alert-heading">Error&lt;/h4>
+                    &lt;p>No se han encontrado votaciones con los parámetros especificados&lt;/p>
+                    &lt;hr />
+                    &lt;p>{handleMetodo}: {handleValor}&lt;/p>
+                &lt;/Alert>
+                }
+                &lt;/Col>
+            &lt;/Row>
+        &lt;/Container>
+    );
+}
+
+export default Busqueda;</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#Ayuda">Ayuda</a></li><li><a href="global.html#Barra">Barra</a></li><li><a href="global.html#Buscador">Buscador</a></li><li><a href="global.html#Busqueda">Busqueda</a></li><li><a href="global.html#Congresista">Congresista</a></li><li><a href="global.html#filterPosts">filterPosts</a></li><li><a href="global.html#GraficoPrincipal">GraficoPrincipal</a></li><li><a href="global.html#Inform">Inform</a></li><li><a href="global.html#MostrarLista">MostrarLista</a></li><li><a href="global.html#OBTENER_PORBOLETIN_EXITO">OBTENER_PORBOLETIN_EXITO</a></li><li><a href="global.html#obtenerInfoCongresistasAccion">obtenerInfoCongresistasAccion</a></li><li><a href="global.html#obtenerInfoConsultaAccion">obtenerInfoConsultaAccion</a></li><li><a href="global.html#obtenerInfoDiputadosAccion">obtenerInfoDiputadosAccion</a></li><li><a href="global.html#obtenerInfoGraficoAccion">obtenerInfoGraficoAccion</a></li><li><a href="global.html#obtenerIntervenCongresAccion">obtenerIntervenCongresAccion</a></li><li><a href="global.html#obtenerPorBoletinAccion">obtenerPorBoletinAccion</a></li><li><a href="global.html#obtenerPorFechaAccion">obtenerPorFechaAccion</a></li><li><a href="global.html#obtenerPorIdAccion">obtenerPorIdAccion</a></li><li><a href="global.html#obtenerPorMateriaAccion">obtenerPorMateriaAccion</a></li><li><a href="global.html#obtenerPorNombreAccion">obtenerPorNombreAccion</a></li><li><a href="global.html#obtenerPreviewVotacionAccion">obtenerPreviewVotacionAccion</a></li><li><a href="global.html#obtenerPrimerasVotacionesAccion">obtenerPrimerasVotacionesAccion</a></li><li><a href="global.html#obtenerTagsAccion">obtenerTagsAccion</a></li><li><a href="global.html#rootReducer">rootReducer</a></li><li><a href="global.html#Tabla">Tabla</a></li><li><a href="global.html#texto">texto</a></li><li><a href="global.html#Texto">Texto</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.11</a> on Fri Sep 30 2022 02:12:21 GMT-0300 (hora de verano de Chile)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

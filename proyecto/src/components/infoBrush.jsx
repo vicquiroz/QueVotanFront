@@ -1,6 +1,18 @@
 import React from 'react';
 import paleta from "../resources/paleta.json"
 import { Row, Col,Container, Table } from 'reactstrap';
+
+/**
+ * Funcion encargada de crear el componente "Datos de interes" al pie del grafico
+ * @param {*} param0 
+ * @returns < Container > con la informacion de Datos de interés
+Centroide:
+Máximo en X:
+Máximo en Y:
+Mínimo en X:
+Mínimo en Y:
+del grafico en general o de una region especifica
+ */
 function Inform({pos,datoswnominate}){
     if (pos!==undefined){
         var maxX = Math.max(...pos[0]).toFixed(2);

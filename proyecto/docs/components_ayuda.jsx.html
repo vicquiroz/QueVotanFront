@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: components/ayuda.jsx</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: components/ayuda.jsx</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import React,{useState} from 'react';
+import {Button,Modal,ModalBody,ModalHeader,ModalFooter} from 'reactstrap';
+import ReactPlayer from "react-player/youtube"
+
+
+/**
+ * Crea una tarjeta flotante sobre el funcionamiento de la pagina donde fue llamdo, ese origen se tiene como parametro interno.
+ * @returns {JSX.Element} Una tarjeta flotante donde se despliega un video y texto explicativo sobre la seccion de la pagina en la que se esta.
+ */
+function Ayuda({origen}){
+    const [modal, setModal] = useState(false);
+    const toggle = () => setModal(!modal);
+    return (
+        &lt;strong>
+            &lt;Button color="danger" onClick={toggle} className="btn-sm">Ayuda&lt;/Button>
+                &lt;Modal isOpen={modal} toggle={toggle}>
+                    &lt;ModalHeader toggle={toggle}>Ayuda&lt;/ModalHeader>
+                    &lt;ModalBody>
+                        {texto(origen)}
+                    &lt;/ModalBody>
+                    &lt;ModalFooter>
+                        &lt;Button color="primary" onClick={toggle}>Cerrar&lt;/Button>
+                    &lt;/ModalFooter>
+                &lt;/Modal>
+        &lt;/strong>
+        );
+    
+}
+
+
+/**
+ * Funcion que dependiendo del origen logra mostrar un menu contextual para prestar ayuda sobre el comportamioento de la pagina en ese sector
+ * @param {String} origen Reprecenta la pagina desde la cual se llama al boton de ayuda.
+ * @returns Devuelve una glosa explicactiva sobre el funcionamiento de esa pagina, junto a un video para una tarjeta flotante.
+ */
+function texto(origen){
+    if(origen==="principal"){
+    return(
+        &lt;div>
+            &lt;h5>Video tutorial&lt;/h5>
+            &lt;ReactPlayer
+                url='https://youtu.be/fEfo9spSe2o'
+                controls={true}
+                width="467px"
+                height="263px"
+            />
+        &lt;br/>
+        &lt;h5>Búsqueda&lt;/h5>
+            Para realizar búsquedas sobre votaciones efectuadas por la camara de diputados, se debe ingresar el texto
+            de búsqueda en el cuadro gris que dice "Buscar". El texto que se debe ingresar
+            varia según el método de búsqueda que se seleccione.
+            Existen 4 métodos:
+            &lt;ul>
+                &lt;li>
+                    Materia asociada: En este modo, se debe de escribir lo que se desea buscar
+                    y seleccionar el 'tag' correspondiente el cual aparece debajo del cuadro de búsqueda.
+                    Esta búsqueda solo admite el texto como es mostrado en la lista de 'tags'.
+                &lt;/li>
+                &lt;li>
+                    Nombre de votación: En este modo, se debe de escribir palabras que sean contenidas
+                    dentro de la descripción de la votación. A diferencia del método anterior, este admite
+                    cualquier tipo de texto.
+                &lt;/li>
+                &lt;li>
+                    Número de boletín: En este modo, se debe de ingresar el número con guión correspondiente
+                    al boletín del proyecto. Este se muestra en cada detalle de las votaciones.
+                &lt;/li>
+                &lt;li>
+                    ID de votación: En este modo, se ingresa el identificador único de la votación, es decir
+                    el numero que vemos antes de las fechas, en la parte superior del recuadro de las votaciones.
+                &lt;/li>
+            &lt;/ul>
+        &lt;/div>
+        )}
+    if(origen==="grafico"){
+        return(
+            &lt;div>
+                &lt;h5>Video tutorial&lt;/h5>
+                &lt;ReactPlayer
+                    url='https://youtu.be/euvHSYP9WgI'
+                    controls={true}
+                    width="467px"
+                    height="263px"
+                />
+                &lt;h5>Gráfico&lt;/h5>
+                Se puede interactuar con el gráfico de distintas maneras, ya sea para hacer selecciones específicas
+                o mostrar cierto tipo de datos. Las interacciones que se pueden realizar son:
+                &lt;ul>
+                    &lt;li>
+                        Selección a puntos específicos: El gráfico permite seleccionar cada uno de los puntos
+                        presentes. Si el cursor se encuentra sobre uno de estos puntos, se muestra el nombre
+                        del votante a la derecha del cursor. Si se hace click sobre uno de estos puntos, se mostrarán
+                        los datos de interés sobre dicho punto y se mostrará sus detalles en la lista de votantes.
+                    &lt;/li>
+                    &lt;li>
+                        Selección múltiple: Se puede realizar una selección de varios puntos a la vez, para esto se debe
+                        de mantener el click sobre el gráfico y arrastrar el cursor hasta encerrar todos los puntos deseados. 
+                    &lt;/li>
+                    &lt;li>
+                        Selección por partidos: Se puede hacer click en el color de un partido, o su nombre dentro del gráfico, para así 
+                        seleccionar sólo los votantes de dicho partido, mostrando al mismo tiempo un polígono que encierra a dichos votantes.
+                    &lt;/li>
+                    &lt;li>
+                        Selección por moción del votante: Al hacer click en la simbología de puntos, se hace una selección de todos
+                        los puntos que posean la misma moción en la votación.
+                    &lt;/li>
+                &lt;/ul>
+                &lt;h5>Listado de votantes&lt;/h5>
+                La lista de votantes muestra todos aquellos que se encuentran seleccionados por el gráfico.
+                Si no se realiza ninguna selección, se muestran todos. En cada uno de los votantes se puede realizar
+                click para ir a la página específica de dicho votante.
+            &lt;/div>
+        )
+    }
+    if(origen==="congresista"){
+        return(
+            &lt;div>
+                &lt;h5>Congresista&lt;/h5>
+                Al seleccionar un diputado, se realiza una comparación de su ideología entre él y
+                los pertenecientes a su partido. Para esto, se contabiliza la cantidad de personas
+                ubicadas en la aproximación de la dimensión 1, lo cual se muestra en el listado, y
+                se muestra el punto al cual dicho diputado pertenece.
+                &lt;h5>Votaciones de las que es patrocinante&lt;/h5>
+                Este listado muestra cada una de las votaciones en las cuales dicho diputado patrocinó,
+                en conjunto con su información. Se puede realizar un click en cada una de estas votaciones,
+                para así ir al gráfico pertinente.
+            &lt;/div>
+        )
+    }
+    if(origen==="vot-importantes"){
+        return(
+            &lt;div>
+                &lt;h5>Video tutorial&lt;/h5>
+                &lt;ReactPlayer
+                    url='https://youtu.be/OG70hfrAWzo'
+                    controls={true}
+                    width="467px"
+                    height="263px"
+                />
+                &lt;h5>Selección&lt;/h5>
+                Esta página permite seleccionar 3 temáticas de votaciones importantes. Por defecto,
+                al cargar la página se muestra la lista de votaciones relacionadas al Covid-19. Para seleccionar
+                otras votaciones importantes, se debe de realizar un click en uno de los 3 botones presentes al principio
+                de la página. Al hacer click, se realizará la consulta y se mostrará en el listado de abajo todas las votaciones
+                relacionadas.
+            &lt;/div>
+        )
+    }
+}
+export default Ayuda</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#Ayuda">Ayuda</a></li><li><a href="global.html#Barra">Barra</a></li><li><a href="global.html#Buscador">Buscador</a></li><li><a href="global.html#Busqueda">Busqueda</a></li><li><a href="global.html#Congresista">Congresista</a></li><li><a href="global.html#filterPosts">filterPosts</a></li><li><a href="global.html#GraficoPrincipal">GraficoPrincipal</a></li><li><a href="global.html#Inform">Inform</a></li><li><a href="global.html#MostrarLista">MostrarLista</a></li><li><a href="global.html#OBTENER_PORBOLETIN_EXITO">OBTENER_PORBOLETIN_EXITO</a></li><li><a href="global.html#obtenerInfoCongresistasAccion">obtenerInfoCongresistasAccion</a></li><li><a href="global.html#obtenerInfoConsultaAccion">obtenerInfoConsultaAccion</a></li><li><a href="global.html#obtenerInfoDiputadosAccion">obtenerInfoDiputadosAccion</a></li><li><a href="global.html#obtenerInfoGraficoAccion">obtenerInfoGraficoAccion</a></li><li><a href="global.html#obtenerIntervenCongresAccion">obtenerIntervenCongresAccion</a></li><li><a href="global.html#obtenerPorBoletinAccion">obtenerPorBoletinAccion</a></li><li><a href="global.html#obtenerPorFechaAccion">obtenerPorFechaAccion</a></li><li><a href="global.html#obtenerPorIdAccion">obtenerPorIdAccion</a></li><li><a href="global.html#obtenerPorMateriaAccion">obtenerPorMateriaAccion</a></li><li><a href="global.html#obtenerPorNombreAccion">obtenerPorNombreAccion</a></li><li><a href="global.html#obtenerPreviewVotacionAccion">obtenerPreviewVotacionAccion</a></li><li><a href="global.html#obtenerPrimerasVotacionesAccion">obtenerPrimerasVotacionesAccion</a></li><li><a href="global.html#obtenerTagsAccion">obtenerTagsAccion</a></li><li><a href="global.html#rootReducer">rootReducer</a></li><li><a href="global.html#Tabla">Tabla</a></li><li><a href="global.html#texto">texto</a></li><li><a href="global.html#Texto">Texto</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.11</a> on Fri Sep 30 2022 02:12:21 GMT-0300 (hora de verano de Chile)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

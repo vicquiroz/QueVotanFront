@@ -7,6 +7,7 @@ import {CustomView,isMobile} from 'react-device-detect'
 import {useDispatch, useSelector} from 'react-redux'
 import {obtenerTagsAccion} from '../redux/TagsDucks'
 import {obtenerPrimerasVotacionesAccion} from '../redux/VotacionDucks'
+
 function Principal(){
     const dispatch = useDispatch()
     const tags = useSelector(store => store.tags.array)

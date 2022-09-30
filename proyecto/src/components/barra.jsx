@@ -7,6 +7,11 @@ import LogoDptIng from '../resources/Logo_depto_ing_informatica.webp'
 import LogoIngCivil from '../resources/Logo_ing_civil_informatica.webp'
 import Ayuda from "./ayuda";
 import {isMobile} from 'react-device-detect'
+
+/**
+ * Crea la navbar de la pagina y tiene como paramtreo interno el origen, para saber desde que seccion de la pagina se esta visualizando y hacer un manejo de sus componentes.
+ * @returns {JSX.Element} La barra de navegación
+ */
 function Barra({origen}){
     //const toggle = () => setOpen(!dropdownOpen);
     //const [dropdownOpen, setOpen] = useState(false);
@@ -20,6 +25,11 @@ function Barra({origen}){
         ImgWidthSize="150px"
         ImgHeightSize="39px"
     }
+
+/**
+ * Funcion que verifica que el origen sea diferente a "acercade" para mostrar el boton de ayuda
+ * @returns Boton de ayuda para todas las paginas diferentes a "Acerca de"
+ */
     function verorigen(){
         if(origen!=="acercade") return(<Ayuda origen={origen}/>)
     }

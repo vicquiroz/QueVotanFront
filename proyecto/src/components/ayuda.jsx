@@ -2,6 +2,11 @@ import React,{useState} from 'react';
 import {Button,Modal,ModalBody,ModalHeader,ModalFooter} from 'reactstrap';
 import ReactPlayer from "react-player/youtube"
 
+
+/**
+ * Crea una tarjeta flotante sobre el funcionamiento de la pagina donde fue llamdo, ese origen se tiene como parametro interno.
+ * @returns {JSX.Element} Una tarjeta flotante donde se despliega un video y texto explicativo sobre la seccion de la pagina en la que se esta.
+ */
 function Ayuda({origen}){
     const [modal, setModal] = useState(false);
     const toggle = () => setModal(!modal);
@@ -22,6 +27,12 @@ function Ayuda({origen}){
     
 }
 
+
+/**
+ * Funcion que dependiendo del origen logra mostrar un menu contextual para prestar ayuda sobre el comportamioento de la pagina en ese sector
+ * @param {String} origen Reprecenta la pagina desde la cual se llama al boton de ayuda.
+ * @returns Devuelve una glosa explicactiva sobre el funcionamiento de esa pagina, junto a un video para una tarjeta flotante.
+ */
 function texto(origen){
     if(origen==="principal"){
     return(

@@ -10,6 +10,8 @@ import {useParams} from 'react-router-dom'
 import {useDispatch, useSelector} from 'react-redux'
 import {obtenerInfoGraficoAccion} from '../redux/InfoGrafDucks'
 import {CustomView,isMobile} from 'react-device-detect'
+
+
 function PagGrafico(){
     function isEmpty(obj){
         return Object.keys(obj).length===0

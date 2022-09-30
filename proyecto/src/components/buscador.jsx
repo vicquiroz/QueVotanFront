@@ -19,6 +19,13 @@ import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import DatePicker from '@mui/lab/DatePicker';
 import TextField from '@mui/material/TextField';
 import { createTheme,ThemeProvider } from '@mui/material/styles';
+/**
+ * Funcion encargada de crear la estructura y logica del funcionamiento del buscador de la pagina.
+ * @param {*} tags ?
+ * @param {*} estado El metodo por el cual se esta buscando
+ * @param {*} valor El valor a ser buscado
+ * @returns un < Container > con toda la estructura del buscador
+ */
 function Buscador({tags,estado,valor}){
     const [texto, setTexto] = useState();
     const [sugerencia, setSuge] = useState();
@@ -33,6 +40,10 @@ function Buscador({tags,estado,valor}){
           mode: 'dark',
         }
       });
+    /**
+     * Recive el texto introducido en el buscador, verifica que este en la eleccion "materia" y entrega ? ademas de crear el nuevo estado de sugerencia y de texto.
+     * @param {String} tex 
+     */
     const enCambio = (tex) =>{
         if(eleccion==="Materia"){
             let coincide = [];
@@ -46,12 +57,23 @@ function Buscador({tags,estado,valor}){
         }
         setTexto(tex)
     }
+
+    /**
+     * Llamada cuando la eleccion es "Materia", recibe el texto perteneciente la oracion que reprecenta la materia y un ID identificador de esta misma.
+     * @param {String} texto 
+     * @param {*} id 
+     */
+
     const seleccion = (texto, id) =>{
         setTexto(texto);
         setId(id);
         setSuge("");
         document.getElementById('buscador').select();
     }
+    /**
+     * Funcion que al ser apretada la tecla Enter verifica el estado de la variable "eleccion" y realiza la busqueda verifiando que el parametro a buscar coincida con su espectivo formato, sino, devuelve una alerta.
+     * @param {*} tecla 
+     */
     const teclaAbajo = (tecla) => {
         if (tecla.key === 'Enter') {
             switch (eleccion) {
@@ -94,7 +116,9 @@ function Buscador({tags,estado,valor}){
                     break;
             }
         }
-      }
+    }
+
+    /** UseEffect que analiza el cambio de la tag para guardar la eleccion y el nuevo estado de Texto o de ID */
     useEffect(()=>{
         if(estado!==undefined){
             setEleccion(estado)
@@ -127,6 +151,8 @@ function Buscador({tags,estado,valor}){
             }
         }
     },[tags])
+
+
     return(
         <Container>
             <h3 className={paleta.colorTextoBootstrap}>Buscar votaciones</h3>

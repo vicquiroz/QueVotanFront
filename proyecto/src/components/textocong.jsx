@@ -4,6 +4,12 @@ import nombres from "./nombres-partidos-invertidos.json"
 import partidos from "./partidos.json"
 import partidosInvertidos from "./partidos-invertidos.json"
 
+/**
+ * Funcion encargada de entregar informacion sobre el diputado en la pagina de su perfil.
+ * @param {*} infoDip informacion del diputado.
+ * @param {*} datoswnominate informacion de todos los diputados.
+ * @returns 
+ */
 function Texto({infoDip,datoswnominate}){
     var data=[]
     var ejex=[]

@@ -10,6 +10,13 @@ import {obtenerPorBoletinAccion} from '../redux/busqueda/porBoletin'
 import {obtenerPorNombreAccion} from '../redux/busqueda/porNombre'
 import {obtenerPorFechaAccion} from '../redux/busqueda/porFecha'
 import {useParams} from "react-router";
+
+/**
+ * Funcion encargada de buscar las siguientes cards de las votaciones segun su metodo.
+ * @param {*} primerasVotaciones Las primeras votaciones entergadas por la API.
+ * @param {*} metodo Metodo de busqueda seleccionado.
+ * @returns < Container > con la estructura de las listas de cards de las votaciones segun su metodo.
+ */
 function Tabla({primerasVotaciones,metodo}){
     const dispatch = useDispatch()
     const {handleValor} = useParams()
@@ -29,9 +36,9 @@ function Tabla({primerasVotaciones,metodo}){
             setPag(pag+1)
             switch (metodo) {
                 case "principal":
-                    dispatch(obtenerPrimerasVotacionesAccion(pag))
+                    dispatch(obtenerPrimerasVotacionesAccion(pag))//obtiene las votaciones de la siguiente pagina de la API
                     if((typeof(VotacionesSiguientes)!=="string")){
-                        setListaVot([...ListaVot,...VotacionesSiguientes])
+                        setListaVot([...ListaVot,...VotacionesSiguientes])//actualiza ListaVot y le agrega los valores de VotacionesSiguientes
                         let ListaTemp=[...ListaVot,...VotacionesSiguientes]
                         setListaVot([...new Set(ListaTemp)])
                     }

@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: components/infoBrush.jsx</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: components/infoBrush.jsx</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import React from 'react';
+import paleta from "../resources/paleta.json"
+import { Row, Col,Container, Table } from 'reactstrap';
+
+/**
+ * Funcion encargada de crear el componente "Datos de interes" al pie del grafico
+ * @param {*} param0 
+ * @returns &lt; Container > con la informacion de Datos de interés
+Centroide:
+Máximo en X:
+Máximo en Y:
+Mínimo en X:
+Mínimo en Y:
+del grafico en general o de una region especifica
+ */
+function Inform({pos,datoswnominate}){
+    if (pos!==undefined){
+        var maxX = Math.max(...pos[0]).toFixed(2);
+        var maxY = Math.max(...pos[1]).toFixed(2);
+        var minX = Math.min(...pos[0]).toFixed(2);
+        var minY = Math.min(...pos[1]).toFixed(2);
+        var promX = pos[0].reduce((a,b)=> a+b,0);
+        var promY = pos[1].reduce((a,b)=> a+b,0);
+        promX = "X: "+String((promX/pos[0].length).toFixed(2));
+        promY = "Y: "+String((promY/pos[1].length).toFixed(2));
+        if(pos[0].length !== 0 &amp;&amp; pos[1].length !==0){
+            var nameMXX=" por "+datoswnominate.diputados.filter((dat)=> {return dat.coordX===Math.max(...pos[0])})[0].nombre
+            var nameMXY=" por "+datoswnominate.diputados.filter((dat)=> {return dat.coordY===Math.max(...pos[1])})[0].nombre
+            var nameMNX=" por "+datoswnominate.diputados.filter((dat)=> {return dat.coordX===Math.min(...pos[0])})[0].nombre
+            var nameMNY=" por "+datoswnominate.diputados.filter((dat)=> {return dat.coordY===Math.min(...pos[1])})[0].nombre
+        }
+    }
+    return(
+        &lt;Container>
+            &lt;Row>
+                &lt;Col className="g-0">
+                    &lt;Table className={paleta.colorTextoBootstrap} style={{backgroundColor:paleta.fondoOscuro,borderRadius:"10px"}} responsive borderless>
+                        &lt;thead>
+                            &lt;tr >
+                                &lt;th>&lt;h6>Datos de interés&lt;/h6>&lt;/th>
+                                &lt;th>&lt;/th>
+                                &lt;th>&lt;/th>
+                            &lt;/tr>
+                        &lt;/thead>
+                        &lt;tbody>
+                            &lt;tr>
+                                &lt;td>&lt;strong>Centroide:&lt;/strong>&lt;/td>
+                                &lt;td className="d-flex justify-content-end">{promX}&lt;/td>
+                                &lt;td>{promY}&lt;/td>
+                            &lt;/tr>
+                            &lt;tr>
+                                &lt;td>&lt;strong>Máximo en X:&lt;/strong>&lt;/td>
+                                &lt;td className="d-flex justify-content-end">{maxX}&lt;/td>
+                                &lt;td>{nameMXX}&lt;/td>
+                            &lt;/tr>
+                            &lt;tr>
+                                &lt;td>&lt;strong>Máximo en Y:&lt;/strong>&lt;/td>
+                                &lt;td className="d-flex justify-content-end">{maxY}&lt;/td>
+                                &lt;td>{nameMXY}&lt;/td>
+                            &lt;/tr>
+                            &lt;tr>
+                                &lt;td>&lt;strong>Mínimo en X:&lt;/strong>&lt;/td>
+                                &lt;td className="d-flex justify-content-end">{minX}&lt;/td>
+                                &lt;td>{nameMNX}&lt;/td>
+                            &lt;/tr>
+                            &lt;tr>
+                                &lt;td>&lt;strong>Mínimo en Y:&lt;/strong>&lt;/td>
+                                &lt;td className="d-flex justify-content-end">{minY}&lt;/td>
+                                &lt;td>{nameMNY}&lt;/td>
+                            &lt;/tr>
+                        &lt;/tbody>
+                    &lt;/Table>
+                &lt;/Col>
+            &lt;/Row>
+        &lt;/Container>
+    );
+}
+
+export default Inform;
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#Ayuda">Ayuda</a></li><li><a href="global.html#Barra">Barra</a></li><li><a href="global.html#Buscador">Buscador</a></li><li><a href="global.html#Busqueda">Busqueda</a></li><li><a href="global.html#Congresista">Congresista</a></li><li><a href="global.html#filterPosts">filterPosts</a></li><li><a href="global.html#GraficoPrincipal">GraficoPrincipal</a></li><li><a href="global.html#Inform">Inform</a></li><li><a href="global.html#MostrarLista">MostrarLista</a></li><li><a href="global.html#OBTENER_PORBOLETIN_EXITO">OBTENER_PORBOLETIN_EXITO</a></li><li><a href="global.html#obtenerInfoCongresistasAccion">obtenerInfoCongresistasAccion</a></li><li><a href="global.html#obtenerInfoConsultaAccion">obtenerInfoConsultaAccion</a></li><li><a href="global.html#obtenerInfoDiputadosAccion">obtenerInfoDiputadosAccion</a></li><li><a href="global.html#obtenerInfoGraficoAccion">obtenerInfoGraficoAccion</a></li><li><a href="global.html#obtenerIntervenCongresAccion">obtenerIntervenCongresAccion</a></li><li><a href="global.html#obtenerPorBoletinAccion">obtenerPorBoletinAccion</a></li><li><a href="global.html#obtenerPorFechaAccion">obtenerPorFechaAccion</a></li><li><a href="global.html#obtenerPorIdAccion">obtenerPorIdAccion</a></li><li><a href="global.html#obtenerPorMateriaAccion">obtenerPorMateriaAccion</a></li><li><a href="global.html#obtenerPorNombreAccion">obtenerPorNombreAccion</a></li><li><a href="global.html#obtenerPreviewVotacionAccion">obtenerPreviewVotacionAccion</a></li><li><a href="global.html#obtenerPrimerasVotacionesAccion">obtenerPrimerasVotacionesAccion</a></li><li><a href="global.html#obtenerTagsAccion">obtenerTagsAccion</a></li><li><a href="global.html#rootReducer">rootReducer</a></li><li><a href="global.html#Tabla">Tabla</a></li><li><a href="global.html#texto">texto</a></li><li><a href="global.html#Texto">Texto</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.11</a> on Fri Sep 30 2022 02:12:21 GMT-0300 (hora de verano de Chile)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

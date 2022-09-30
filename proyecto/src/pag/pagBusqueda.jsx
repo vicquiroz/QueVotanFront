@@ -12,6 +12,10 @@ import {obtenerPorIdAccion} from '../redux/busqueda/porId'
 import {obtenerPorBoletinAccion} from '../redux/busqueda/porBoletin'
 import {obtenerPorNombreAccion} from '../redux/busqueda/porNombre'
 import {obtenerPorFechaAccion} from '../redux/busqueda/porFecha'
+/**
+ *Pagina donde se renderizan las busquedas realizadas, primero se hacen las acciones de buscar las votaciones segun un metodo, cunado se actualizen en la store se actualizaran en "Votaciones" con el "SetVotaciones" para poder ser renderizadas.
+ * @returns < Container > con toda la estructura para dibujar la Tabla con las cards correspondientes.
+ */
 function Busqueda(){
     const {handleMetodo,handleValor} = useParams()
     const [votaciones,setVotaciones] = useState([]);
@@ -29,7 +33,7 @@ function Busqueda(){
                 dispatch(obtenerPorIdAccion(handleValor))
                 break;
             case "Boletín":
-                dispatch(obtenerPorBoletinAccion(handleValor,1))
+                dispatch(obtenerPorBoletinAccion(handleValor,1))//segundo parametro idica que es desde la pagina 1
                 break;
             case "Materia":
                 dispatch(obtenerPorMateriaAccion(handleValor,1))
@@ -64,7 +68,7 @@ function Busqueda(){
             default:
                 break;
         }
-    },[porMateria,porId,porBoletin,porNombre,porFecha]);
+    },[porMateria,porId,porBoletin,porNombre,porFecha]);//Cambios en los array de las votaciones
     return(
         <Container>
             <Row>

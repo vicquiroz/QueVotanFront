@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: components/barra.jsx</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: components/barra.jsx</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import React from 'react';
+import paleta from "../resources/paleta.json"
+import {Button,NavItem,Nav,Container} from 'reactstrap';
+import { Link } from "react-router-dom";
+import Logo from '../resources/Logo.webp'
+import LogoDptIng from '../resources/Logo_depto_ing_informatica.webp'
+import LogoIngCivil from '../resources/Logo_ing_civil_informatica.webp'
+import Ayuda from "./ayuda";
+import {isMobile} from 'react-device-detect'
+
+/**
+ * Crea la navbar de la pagina y tiene como paramtreo interno el origen, para saber desde que seccion de la pagina se esta visualizando y hacer un manejo de sus componentes.
+ * @returns {JSX.Element} La barra de navegación
+ */
+function Barra({origen}){
+    //const toggle = () => setOpen(!dropdownOpen);
+    //const [dropdownOpen, setOpen] = useState(false);
+    var ImgWidthSize;
+    var ImgHeightSize;
+    if(isMobile===true){
+        ImgWidthSize="100px"
+        ImgHeightSize="26px"
+    }
+    else{
+        ImgWidthSize="150px"
+        ImgHeightSize="39px"
+    }
+
+/**
+ * Funcion que verifica que el origen sea diferente a "acercade" para mostrar el boton de ayuda
+ * @returns Boton de ayuda para todas las paginas diferentes a "Acerca de"
+ */
+    function verorigen(){
+        if(origen!=="acercade") return(&lt;Ayuda origen={origen}/>)
+    }
+    return (
+        &lt;div>
+                &lt;Nav className="navbar navbar-inverse fixed-top" style={{backgroundColor:paleta.colorNavbar}}>
+                &lt;Container className="container-fluid">
+                    &lt;NavItem>
+                        &lt;span className="navbar-brand mb-0 h1 text-light">
+                            &lt;img onClick={()=>{window.location.href="/"}} style={{cursor:'pointer'}} src={Logo} alt="Logo Página" width={ImgWidthSize} height={ImgHeightSize}/>
+                            &lt;a href="https://www.inf.uct.cl/">
+                            &lt;img src={LogoDptIng} alt="Logo Departamento" width={ImgWidthSize} height={ImgHeightSize}/>
+                            &lt;/a>
+                            &lt;a href="https://facultadingenieria.uct.cl/carreras/ingenieria-civil-en-informatica/">
+                                &lt;img src={LogoIngCivil} alt="Logo Carrera" width={ImgWidthSize} height={ImgHeightSize}/>
+                            &lt;/a>
+                        &lt;/span>
+                    
+                    &lt;/NavItem>
+                    &lt;NavItem>
+                        &lt;div className="btn-group">
+                            &lt;Button onClick={()=>{window.location.href="/"}} style={{ textDecoration: 'none' }} className="text-light btn-sm" color="primary">
+                                Inicio
+                            &lt;/Button>
+                            &lt;Button onClick={()=>{window.location.href="/VotacionesImportantes/Nombre/Covid-19"}} style={{ textDecoration: 'none'}} className="text-light btn-sm" color="primary">
+                                Votaciones Importantes
+                            &lt;/Button>
+                            {verorigen()}
+                            &lt;Button onClick={()=>{window.location.href="/acerca"}} style={{ textDecoration: 'none' }} className="text-light btn-sm" color="danger" >
+                                Acerca de
+                            &lt;/Button>
+                        &lt;/div>
+                    &lt;/NavItem>
+                    &lt;/Container>
+                &lt;/Nav>
+                &lt;br />&lt;br />
+                &lt;/div>
+    );
+  }
+
+export default Barra;</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#Ayuda">Ayuda</a></li><li><a href="global.html#Barra">Barra</a></li><li><a href="global.html#Buscador">Buscador</a></li><li><a href="global.html#Busqueda">Busqueda</a></li><li><a href="global.html#Congresista">Congresista</a></li><li><a href="global.html#filterPosts">filterPosts</a></li><li><a href="global.html#GraficoPrincipal">GraficoPrincipal</a></li><li><a href="global.html#Inform">Inform</a></li><li><a href="global.html#MostrarLista">MostrarLista</a></li><li><a href="global.html#OBTENER_PORBOLETIN_EXITO">OBTENER_PORBOLETIN_EXITO</a></li><li><a href="global.html#obtenerInfoCongresistasAccion">obtenerInfoCongresistasAccion</a></li><li><a href="global.html#obtenerInfoConsultaAccion">obtenerInfoConsultaAccion</a></li><li><a href="global.html#obtenerInfoDiputadosAccion">obtenerInfoDiputadosAccion</a></li><li><a href="global.html#obtenerInfoGraficoAccion">obtenerInfoGraficoAccion</a></li><li><a href="global.html#obtenerIntervenCongresAccion">obtenerIntervenCongresAccion</a></li><li><a href="global.html#obtenerPorBoletinAccion">obtenerPorBoletinAccion</a></li><li><a href="global.html#obtenerPorFechaAccion">obtenerPorFechaAccion</a></li><li><a href="global.html#obtenerPorIdAccion">obtenerPorIdAccion</a></li><li><a href="global.html#obtenerPorMateriaAccion">obtenerPorMateriaAccion</a></li><li><a href="global.html#obtenerPorNombreAccion">obtenerPorNombreAccion</a></li><li><a href="global.html#obtenerPreviewVotacionAccion">obtenerPreviewVotacionAccion</a></li><li><a href="global.html#obtenerPrimerasVotacionesAccion">obtenerPrimerasVotacionesAccion</a></li><li><a href="global.html#obtenerTagsAccion">obtenerTagsAccion</a></li><li><a href="global.html#rootReducer">rootReducer</a></li><li><a href="global.html#Tabla">Tabla</a></li><li><a href="global.html#texto">texto</a></li><li><a href="global.html#Texto">Texto</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.11</a> on Fri Sep 30 2022 02:12:21 GMT-0300 (hora de verano de Chile)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

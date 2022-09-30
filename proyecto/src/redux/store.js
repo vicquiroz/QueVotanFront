@@ -14,6 +14,9 @@ import porIdReducer from './busqueda/porId'
 import porBoletinReducer from './busqueda/porBoletin'
 import porNombreReducer from './busqueda/porNombre'
 import porFechaReducer from './busqueda/porFecha'
+/**
+ * Contiene la combinacion de todos lod Reduceres
+ */
 const rootReducer = combineReducers({
     primerasVotaciones: primerasVotacionesReducer,
     infoCongresistas: infoCongresistasReducer,
@@ -31,6 +34,10 @@ const rootReducer = combineReducers({
     // En el caso de que se agregen mas, se coloca ,nuevodato :ReductorNuevoDato
 })
 
+/**
+ *  funcion que creea la Store de redux la cual contiene todos los reducers combinados permitiendo Middkeware
+ * @returns El store del proyecto.
+ */
 export default function generateStore() {
     const store = createStore( rootReducer, composeWithDevTools( applyMiddleware(thunk) ) )
     return store

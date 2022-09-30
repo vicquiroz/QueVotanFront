@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: pag/pagCong.jsx</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: pag/pagCong.jsx</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import React, { useEffect} from "react";
+import paleta from "../resources/paleta.json"
+import Barra from "../components/barra";
+import { Container, Col, Row, Navbar, NavbarBrand, NavLink, Nav, CardBody, Card, CardHeader, CardText } from "reactstrap";
+import { useParams } from 'react-router-dom'
+import {CustomView,isMobile} from 'react-device-detect'
+import { useDispatch, useSelector } from 'react-redux'
+import { obtenerInfoDiputadosAccion } from '../redux/InfoDipDucks';
+import { obtenerInfoGraficoAccion } from '../redux/InfoGrafDucks'
+import Texto from "../components/textocong";
+import nombrepartidos from '../components/nombre-partidos.json'
+import partidos from '../components/partidos.json'
+import partidosInvertidos from '../components/partidos-invertidos.json'
+import statuscolor from '../resources/statuscolor.json'
+
+/**
+ * Pagina que entrega toda la informacion del congresista y una lista con todas las votaciones en las que ha participado.
+ * @returns &lt; Container > con toda la estructura.
+ */
+function Congresista(){
+    const { handleIdDip, handleIdVot } = useParams()
+    const dispatch = useDispatch()
+    const infoDip = useSelector(store => store.infoDiputados.array)
+    const infoGrafico = useSelector(store => store.infoGrafico.array)
+
+    function isEmpty(obj) {
+        return Object.keys(obj).length === 0
+    }
+
+    useEffect(() => {
+        dispatch(obtenerInfoDiputadosAccion(handleIdDip))
+        dispatch(obtenerInfoGraficoAccion(handleIdVot))
+    }, []);
+
+    return(
+        &lt;Container className={paleta.colorTextoBootstrap}>
+            {!isEmpty(infoDip) &amp;&amp; !isEmpty(infoGrafico)?
+                &lt;div>
+                    &lt;Row>
+                    &lt;Col>
+                        &lt;Barra
+                            origen={"congresista"}
+                        />
+                    &lt;/Col>
+                    &lt;/Row>
+                    &lt;br />
+                    &lt;br />
+                    &lt;CustomView condition={isMobile===true}>
+                        &lt;br/>
+                        &lt;br/>
+                    &lt;/CustomView>
+                    &lt;Container style={{ backgroundColor:paleta.fondoClaro, borderRadius: "10px" }}>
+                        &lt;Row>
+                            &lt;Col>
+                                &lt;h1>{infoDip.nombre + " " + infoDip.apellidoP + " " + infoDip.apellidoM}&lt;/h1>
+                            &lt;/Col>
+                        &lt;/Row>
+                        &lt;Row>
+                            &lt;Col className="col-md-3">
+                                &lt;Navbar className="flex-column align-items-stretch p-3">
+                                    &lt;NavbarBrand className={paleta.colorTextoBootstrap}>Identificador: {infoDip.id}&lt;/NavbarBrand>
+                                    &lt;Nav className="nav-pills flex-column">
+                                        &lt;NavLink className={paleta.colorTextoBootstrap}>Partidos&lt;/NavLink>
+                                        &lt;Nav className="nav-pills flex-column">
+                                            {infoDip.periodo.map((post,index) => (
+                                                &lt;div key={index}>
+                                                    &lt;NavLink className={"ms-3 my-1 "+paleta.colorTextoBootstrap}>
+                                                        &lt;span>{nombrepartidos[post.partido]} &lt;span style={{ backgroundColor: partidos[post.partido], borderRadius: "5px", color: partidosInvertidos[post.partido] }}>  {post.partido}  &lt;/span>&lt;/span>
+                                                        &lt;Nav className="nav-pills flex-column">
+                                                            &lt;table>
+                                                                &lt;tbody>
+                                                                    &lt;tr>
+                                                                        &lt;td>Ingreso:&lt;/td>
+                                                                        &lt;td>{post.fechaInicio.split("T")[0]}&lt;/td>
+                                                                    &lt;/tr>
+                                                                    &lt;tr>
+                                                                        &lt;td>Salida: &lt;/td>
+                                                                        &lt;td>{post.fechaTermino.split("T")[0]}&lt;/td>
+                                                                    &lt;/tr>
+                                                                &lt;/tbody>
+                                                            &lt;/table>
+                                                        &lt;/Nav>
+                                                    &lt;/NavLink>
+                                                &lt;/div>
+                                            ))}
+                                        &lt;/Nav>
+                                    &lt;/Nav>
+                                &lt;/Navbar>
+                            &lt;/Col>
+                            &lt;Col className="col-md-4">
+                                &lt;Navbar className="flex-column align-items-stretch p-3">
+                                    &lt;NavLink className={paleta.colorTextoBootstrap}>
+                                        Sector: {infoDip.distrito[0].region}
+                                    &lt;/NavLink>
+                                    &lt;Nav className="nav-pills flex-column">
+                                        &lt;NavLink className={"ms-3 "+paleta.colorTextoBootstrap}>
+                                            Distrito {infoDip.distrito[0].distrito}
+                                        &lt;/NavLink>
+                                        &lt;NavLink className={"ms-3 "+paleta.colorTextoBootstrap}>
+                                            Comunas que representa:
+                                        &lt;/NavLink>
+                                        &lt;Nav className="nav-pills flex-column">
+                                            &lt;table className="ms-5">
+                                                &lt;tbody>
+                                                        {infoDip.distrito[0].comunas.map((post,index)=>(
+                                                            &lt;tr key={index} >
+                                                                &lt;td>{post}&lt;/td>
+                                                            &lt;/tr>
+                                                        ))}
+                                                &lt;/tbody>
+                                            &lt;/table>
+                                        &lt;/Nav>
+                                    &lt;/Nav>
+                                &lt;/Navbar>
+                            &lt;/Col>
+                            &lt;Col>
+                                &lt;Texto infoDip={infoDip} datoswnominate={infoGrafico}/>                  
+                            &lt;/Col>
+                        &lt;/Row>
+                    &lt;/Container>
+                    &lt;br/>
+                        {infoDip.votaciones.map((post,index) => (
+                            &lt;div key={index}>
+                            &lt;div onClick={()=> window.location.href="/grafico/"+post.id} style={{ cursor:"pointer",textDecoration: 'none' }}>
+                                &lt;Card className={paleta.colorTextoBootstrap} style={{backgroundColor:paleta.fondoMid}}>
+                                    &lt;CardHeader style={{backgroundColor:paleta.colorTopCard}}>&lt;b>Camara de diputados - Votacion {post.id} &lt;/b>- Ingresada en {post.fechaIngresoBoletin.slice(0,10)} - Realizada en {post.fechaSalidaBoletin.slice(0,10)}&lt;/CardHeader>
+                                    &lt;CardBody style={{backgroundColor:paleta.colorBgCard}}>
+                                        &lt;CardText>
+                                            &lt;b>Boletin N°: &lt;/b>{post.boletin.slice(10,20)}
+                                            &lt;br/>
+                                            &lt;b>Tipo: &lt;/b>{post.tipoProyecto}
+                                            &lt;br/>
+                                            &lt;b>Estado: &lt;/b>{post.tramiteConst} - {post.tramiteRegla}
+                                            &lt;br/>
+                                            &lt;b>Votos: {post.totalSi} - {post.totalNo} - {post.totalAbs} - {post.totalDis}&lt;/b> (A favor - En contra - Abstenidos - Dispensados)
+                                            &lt;br/>
+                                            &lt;b>Resultado: &lt;/b>&lt;strong style={{color:statuscolor[post.resultado]}}>{post.resultado}&lt;/strong>
+                                            &lt;br/>
+                                            &lt;b>Descripcion: &lt;/b>{post.nombre}
+                                            &lt;br/>
+                                            &lt;b>Quórum: &lt;/b>{post.quorum}
+                                        &lt;/CardText>
+                                    &lt;/CardBody>
+                                &lt;/Card>
+                            &lt;/div>
+                            &lt;br/>
+                            &lt;/div>
+                        ))}
+                &lt;/div>
+            :[]}
+        &lt;/Container>
+    )
+}
+export default Congresista;</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#Ayuda">Ayuda</a></li><li><a href="global.html#Barra">Barra</a></li><li><a href="global.html#Buscador">Buscador</a></li><li><a href="global.html#Busqueda">Busqueda</a></li><li><a href="global.html#Congresista">Congresista</a></li><li><a href="global.html#filterPosts">filterPosts</a></li><li><a href="global.html#GraficoPrincipal">GraficoPrincipal</a></li><li><a href="global.html#Inform">Inform</a></li><li><a href="global.html#MostrarLista">MostrarLista</a></li><li><a href="global.html#OBTENER_PORBOLETIN_EXITO">OBTENER_PORBOLETIN_EXITO</a></li><li><a href="global.html#obtenerInfoCongresistasAccion">obtenerInfoCongresistasAccion</a></li><li><a href="global.html#obtenerInfoConsultaAccion">obtenerInfoConsultaAccion</a></li><li><a href="global.html#obtenerInfoDiputadosAccion">obtenerInfoDiputadosAccion</a></li><li><a href="global.html#obtenerInfoGraficoAccion">obtenerInfoGraficoAccion</a></li><li><a href="global.html#obtenerIntervenCongresAccion">obtenerIntervenCongresAccion</a></li><li><a href="global.html#obtenerPorBoletinAccion">obtenerPorBoletinAccion</a></li><li><a href="global.html#obtenerPorFechaAccion">obtenerPorFechaAccion</a></li><li><a href="global.html#obtenerPorIdAccion">obtenerPorIdAccion</a></li><li><a href="global.html#obtenerPorMateriaAccion">obtenerPorMateriaAccion</a></li><li><a href="global.html#obtenerPorNombreAccion">obtenerPorNombreAccion</a></li><li><a href="global.html#obtenerPreviewVotacionAccion">obtenerPreviewVotacionAccion</a></li><li><a href="global.html#obtenerPrimerasVotacionesAccion">obtenerPrimerasVotacionesAccion</a></li><li><a href="global.html#obtenerTagsAccion">obtenerTagsAccion</a></li><li><a href="global.html#rootReducer">rootReducer</a></li><li><a href="global.html#Tabla">Tabla</a></li><li><a href="global.html#texto">texto</a></li><li><a href="global.html#Texto">Texto</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.11</a> on Fri Sep 30 2022 02:12:21 GMT-0300 (hora de verano de Chile)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

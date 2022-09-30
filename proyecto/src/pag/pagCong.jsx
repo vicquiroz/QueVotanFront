@@ -13,6 +13,10 @@ import partidos from '../components/partidos.json'
 import partidosInvertidos from '../components/partidos-invertidos.json'
 import statuscolor from '../resources/statuscolor.json'
 
+/**
+ * Pagina que entrega toda la informacion del congresista y una lista con todas las votaciones en las que ha participado.
+ * @returns < Container > con toda la estructura.
+ */
 function Congresista(){
     const { handleIdDip, handleIdVot } = useParams()
     const dispatch = useDispatch()
