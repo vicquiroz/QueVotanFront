@@ -1,6 +1,6 @@
 import React from "react";
 import paleta from "../resources/paleta.json"
-import Barra from "../components/barra";
+import Bar from "../components/barra";
 import {Container, Col, Row, Jumbotron, PopoverHeader, PopoverBody, UncontrolledPopover} from "reactstrap";
 import {isMobile,CustomView} from 'react-device-detect'
 import amellado from "../resources/amellado.webp"
@@ -13,8 +13,8 @@ function AcercaDe(){
         <Container>
              <Row>
                 <Col>
-                    <Barra
-                        origen={"acercade"}
+                    <Bar
+                        origin={"acercade"}
                     />
                 </Col>
             </Row>
@@ -74,7 +74,7 @@ function AcercaDe(){
                                         Finalmente el proyecto cuenta con la visualización de la información recabada y procesada
                                         anteriormente, implementando una web desarrollada en React en la cuál podemos visualizar
                                         los datos de manera responsiva, permitiendo la entrega de información a los distintos entusiastas que deseen
-                                        informarse sobre los movimientos de los distintos partidos políticos en nuestro país. 
+                                        informarse sobre los movimientos de los distintos partidos políticos en nuestro país.
                                     </p>
                                 </Col>
                             </Row>
@@ -86,7 +86,7 @@ function AcercaDe(){
                                 </Col>
                             </Row>
                             <Row>
-                                
+
                             </Row>
                             */}
                             <Row>
@@ -189,7 +189,7 @@ function AcercaDe(){
                                 </Col>
                             </Row>
                         </Jumbotron>
-                </Container>    
+                </Container>
                 </Col>
             </Row>
         </Container>

@@ -3,14 +3,13 @@ import { Container } from "reactstrap";
 import nombres from "./nombres-partidos-invertidos.json"
 import partidos from "./partidos.json"
 import partidosInvertidos from "./partidos-invertidos.json"
-
 /**
- * Funcion encargada de entregar informacion sobre el diputado en la pagina de su perfil.
- * @param {*} infoDip informacion del diputado.
- * @param {*} datoswnominate informacion de todos los diputados.
- * @returns 
+ * Function in charge of delivering information about the deputy on his profile page.
+ * @param {*} infoDip deputy information.
+ * @param {*} datoswnominate information of all the deputies.
+ * @returns
  */
-function Texto({infoDip,datoswnominate}){
+function text({infoDip,datoswnominate}){
     var data=[]
     var ejex=[]
     var Dip = datoswnominate.diputados.filter(dat => dat.id===infoDip.id)
@@ -47,4 +46,4 @@ function Texto({infoDip,datoswnominate}){
     )
 }
 
-export default Texto;
+export default text;

@@ -3,19 +3,19 @@ import {Container, CardBody, Card, CardHeader, CardText} from 'reactstrap'
 import statuscolor from '../resources/statuscolor.json'
 
 /**
- * Funcion encargada de crear el componenete de las tarjetas de cada votacion.
- * @param {*} primerasVotaciones El conjunto de las votaciones.
- * @returns < Container > con toda la estructura de las cards incrustadas con su URL de referencia cuando lo hagan clik.
+ * Function in charge of creating the component of the cards of each vote.
+ * @param {*} first_Votes the set of votes.
+ * @returns < Container > with the entire structure of the cards embedded with their reference URL when they click.
  */
-function Tabla({primerasVotaciones}){
-    console.log(primerasVotaciones)
+function Table({first_Votes}){
+    console.log(first_Votes)
     function isEmpty(obj) {
         return Object.keys(obj).length === 0
     }
     return(
         <Container>
-                {!isEmpty(primerasVotaciones)?//si NO esta vacio
-                primerasVotaciones.map((post,index) => (
+                {!isEmpty(first_Votes)?//if not empty
+                first_Votes.map((post,index) => (
                     <div key={index}>
                     <div onClick={()=> window.location.href="/grafico/"+post.id} style={{ cursor:"pointer",textDecoration: 'none' }}>
                         <Card className="text-light" style={{backgroundColor:"rgba(50,50,50,0.95)"}}>
@@ -46,4 +46,4 @@ function Tabla({primerasVotaciones}){
         </Container>
     )
 }
-export default Tabla;
+export default Table;

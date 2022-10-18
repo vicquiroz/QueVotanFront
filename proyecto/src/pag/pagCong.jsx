@@ -1,21 +1,22 @@
 import React, { useEffect} from "react";
 import paleta from "../resources/paleta.json"
-import Barra from "../components/barra";
+import Bar from "../components/barra";
 import { Container, Col, Row, Navbar, NavbarBrand, NavLink, Nav, CardBody, Card, CardHeader, CardText } from "reactstrap";
 import { useParams } from 'react-router-dom'
 import {CustomView,isMobile} from 'react-device-detect'
 import { useDispatch, useSelector } from 'react-redux'
 import { obtenerInfoDiputadosAccion } from '../redux/InfoDipDucks';
 import { obtenerInfoGraficoAccion } from '../redux/InfoGrafDucks'
-import Texto from "../components/textocong";
+import text from "../components/textocong";
 import nombrepartidos from '../components/nombre-partidos.json'
 import partidos from '../components/partidos.json'
 import partidosInvertidos from '../components/partidos-invertidos.json'
 import statuscolor from '../resources/statuscolor.json'
 
 /**
- * Pagina que entrega toda la informacion del congresista y una lista con todas las votaciones en las que ha participado.
- * @returns < Container > con toda la estructura.
+ *
+Page that delivers all the information of the congressman and a list with all the votes in which he has participated.
+ * @returns < Container > with the whole structure to draw the Table with the corresponding cards.
  */
 function Congresista(){
     const { handleIdDip, handleIdVot } = useParams()
@@ -38,8 +39,8 @@ function Congresista(){
                 <div>
                     <Row>
                     <Col>
-                        <Barra
-                            origen={"congresista"}
+                        <Bar
+                            origin={"congresista"}
                         />
                     </Col>
                     </Row>
@@ -71,7 +72,7 @@ function Congresista(){
                                                                 <tbody>
                                                                     <tr>
                                                                         <td>Ingreso:</td>
-                                                                        <td>{post.fechaInicio.split("T")[0]}</td>
+                                                                        <td>{post.start_Date.split("T")[0]}</td>
                                                                     </tr>
                                                                     <tr>
                                                                         <td>Salida: </td>
@@ -114,7 +115,7 @@ function Congresista(){
                                 </Navbar>
                             </Col>
                             <Col>
-                                <Texto infoDip={infoDip} datoswnominate={infoGrafico}/>                  
+                                <text infoDip={infoDip} datoswnominate={infoGrafico}/>
                             </Col>
                         </Row>
                     </Container>

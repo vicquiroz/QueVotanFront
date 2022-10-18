@@ -33,7 +33,7 @@ var vBox;
 // var hullSize = window.innerHeigh%2;
 // var strokewidth = window.innerHeight%"0.5px";
 
-//Modo Telefono
+//phone mode
 if (window.innerHeight < 750) {
     textsize = ".5rem"
     textsize2 = ".4rem"
@@ -43,7 +43,7 @@ if (window.innerHeight < 750) {
     strokewidth = "0.5px"
 }
 else {
-    //Modo 4k
+    //4k mode
     if (window.innerHeight > 3000) {
         strokewidth = "3px"
         textsize = "3.3rem"
@@ -53,7 +53,7 @@ else {
         hullSize = 4
     }
     else {
-        //Modo 21:9
+        // 21:9 Mode
         if (window.innerHeight > 2200) {
             strokewidth = "2.5px"
             textsize = "2rem"
@@ -63,7 +63,7 @@ else {
             hullSize = 4
         }
         else {
-            //Modo 4:3
+            //4:3 Mode
             if (window.innerHeight < 1200) {
                 strokewidth = "1px"
                 textsize = ".9rem"
@@ -72,7 +72,7 @@ else {
                 pointsize = 125
                 hullSize = 2
             }
-            //Modo Estandar 16:9
+            // 16:9 Mode default
             else {
                 strokewidth = "2px"
                 textsize = "1.3rem"
@@ -84,13 +84,12 @@ else {
         }
     }
 }
-
 /**
- * 
- * @param {*} param0 
- * @returns 
+ *
+ * @param {*} param0
+ * @returns
  */
-function GraficoPrincipal({ setId, setXY, datoswnominate}) {
+function GraficoPrincipal({ set_Id, setXY, datoswnominate}) {
     dim = window.innerHeight;   //No cambiar
     width = dim * 0.68;
     height = dim * 0.68;
@@ -168,7 +167,7 @@ function GraficoPrincipal({ setId, setXY, datoswnominate}) {
         svg.append("g")
             .attr("class", "brush")
             .call(brush().on("end", function (event) {
-                brushed(event, { setId }, { setXY }, { datoswnominate })
+                brushed(event, { set_Id }, { setXY }, { datoswnominate })
             }))
         var div = select("body").append("div")
             .attr("class", "tooltip")
@@ -200,7 +199,7 @@ function GraficoPrincipal({ setId, setXY, datoswnominate}) {
                     .attr("stroke-width", strokewidth)
                     //.attr("stroke", "black")
                     .on("click", function (event, d) {
-                        ClickPoint(d, { setId }, { setXY })
+                        ClickPoint(d, { set_Id }, { setXY })
                     })
                     .on('mouseover', function (event, data) {
                         div.transition().duration(100).style("opacity", 1);
@@ -256,7 +255,7 @@ function GraficoPrincipal({ setId, setXY, datoswnominate}) {
             .attr("id", value => value)
             .on("click", function (event, d) {
                 svg.selectAll("g.brush").call(brush().clear)
-                SelectParty(this, { setId }, { setXY }, { datoswnominate })
+                SelectParty(this, { set_Id }, { setXY }, { datoswnominate })
             })
         legend.data(partidosAct)
             .enter()
@@ -273,7 +272,7 @@ function GraficoPrincipal({ setId, setXY, datoswnominate}) {
             .attr("id", value => value)
             .on("click", function (event, d) {
                 svg.selectAll("g.brush").call(brush().clear)
-                SelectParty(this, { setId }, { setXY }, { datoswnominate })
+                SelectParty(this, { set_Id }, { setXY }, { datoswnominate })
             })
         const vot = ["△ A favor", "▽ En contra", "○ Abstenido", "▢ Dispensado", "◇ Ausente" ]
         legend.data(vot)
@@ -292,10 +291,10 @@ function GraficoPrincipal({ setId, setXY, datoswnominate}) {
             .on("click", function (event, d) {
                 svg.selectAll("g.brush").call(brush().clear)
                 svg.selectAll("polygon").remove()
-                SelectEstado(this, { setId }, { setXY }, { datoswnominate })
+                SelectEstado(this, { set_Id }, { setXY }, { datoswnominate })
             })
-        const años = [datoswnominate.boletin,"ID: "+datoswnominate.id,"Inicio: "+datoswnominate.votaciones.fechaInicio.slice(0,10),"Fin: "+datoswnominate.votaciones.fechaFin.slice(0,10)]
-        legend.data(años)
+            const años = [datoswnominate.boletin,"ID: "+datoswnominate.id,"Inicio: "+datoswnominate.votaciones.fechaInicio.slice(0,10),"Fin: "+datoswnominate.votaciones.fechaFin.slice(0,10)]
+            legend.data(años)
             .enter()
             .append("text")
             .attr("class", "noselect")
@@ -308,8 +307,8 @@ function GraficoPrincipal({ setId, setXY, datoswnominate}) {
             .style("font-family", "Lucida Sans Unicode")
             .attr("fill", paleta.colorTextoD3)
 
-        ClearGraph({ setId }, { setXY }, { datoswnominate })
-    }, [setId, setXY, datoswnominate]);
+        ClearGraph({ set_Id }, { setXY }, { datoswnominate })
+    }, [set_Id, setXY, datoswnominate]);
     return (
             <svg ref={svgRef} className={"chart "+paleta.colorTextoBootstrap}
                 width="100%"
@@ -326,7 +325,7 @@ function GraficoPrincipal({ setId, setXY, datoswnominate}) {
     )
 }
 
-function brushed(event, { setId }, { setXY }, { datoswnominate }) {
+function brushed(event, { set_Id }, { setXY }, { datoswnominate }) {
     if (datoswnominate === undefined) {
         datoswnominate = {
             "id": 0,
@@ -377,16 +376,16 @@ function brushed(event, { setId }, { setXY }, { datoswnominate }) {
                 posicionY.push(Number(envio.coordY));
             }
         }
-        setId(NodeSelec);
+        set_Id(NodeSelec);
         setXY([posicionX, posicionY]);
         svg.selectAll("polygon").remove()
     }
     else {
-        ClearGraph({ setId }, { setXY }, { datoswnominate })
+        ClearGraph({ set_Id }, { setXY }, { datoswnominate })
     }
 }
 
-function SelectParty(event, { setId }, { setXY }, { datoswnominate }) {
+function SelectParty(event, { set_Id }, { setXY }, { datoswnominate }) {
     let Nodes = datoswnominate.diputados.filter((dat) => { return dat.partido === event.id });
     let NodeSelec = []
     let posicionX = []
@@ -401,7 +400,7 @@ function SelectParty(event, { setId }, { setXY }, { datoswnominate }) {
         posicionY.push(Number(Nodes[P].coordY));
         posicionC.push([Number(Nodes[P].coordX), Number(Nodes[P].coordY)])
     }
-    setId(NodeSelec);
+    set_Id(NodeSelec);
     setXY([posicionX, posicionY]);
 
     if (posicionC.length > 1) {
@@ -450,7 +449,7 @@ function SelectParty(event, { setId }, { setXY }, { datoswnominate }) {
 
 }
 
-function SelectEstado(event, { setId }, { setXY }, { datoswnominate }) {
+function SelectEstado(event, { set_Id }, { setXY }, { datoswnominate }) {
     const estados = { "△ A favor": 1, "▽ En contra": 0, "○ Abstenido": 2, "▢ Dispensado": 3, "◇ Ausente": 4, "◇ Ausente": 9 }
     let Nodes = datoswnominate.diputados.filter((dat) => {return dat.participacion === estados[event.id]});
     let NodeSelec = []
@@ -466,11 +465,11 @@ function SelectEstado(event, { setId }, { setXY }, { datoswnominate }) {
         posicionY.push(Number(Nodes[P].coordY));
         posicionC.push([Number(Nodes[P].coordX), Number(Nodes[P].coordY)])
     }
-    setId(NodeSelec);
+    set_Id(NodeSelec);
     setXY([posicionX, posicionY]);
 }
 
-function ClickPoint(d, { setId }, { setXY }) {
+function ClickPoint(d, { set_Id }, { setXY }) {
     let path = "path#id_" + d.id
     let posicionX = []
     let posicionY = []
@@ -479,12 +478,12 @@ function ClickPoint(d, { setId }, { setXY }) {
     svg.selectAll(path).transition().duration('50').attr('opacity',puntosOriginal)
     posicionX.push(Number(d.coordX));
     posicionY.push(Number(d.coordY));
-    setId(Number(d.id))
+    set_Id(Number(d.id))
     setXY([posicionX, posicionY]);
     svg.selectAll("polygon").remove()
 }
 
-function ClearGraph({setId},{setXY},{datoswnominate}){
+function ClearGraph({set_Id},{setXY},{datoswnominate}){
     svg.selectAll("path").transition().duration('50').attr('opacity',puntosOriginal)
     .transition()
     .duration(200)
@@ -510,7 +509,7 @@ function ClearGraph({setId},{setXY},{datoswnominate}){
         posicionY.push(Number(envio.coordY));
     }
     svg.selectAll("polygon").remove()
-    setId(NodeSelec);
+    set_Id(NodeSelec);
     setXY([posicionX, posicionY]);
 }
 export default GraficoPrincipal;

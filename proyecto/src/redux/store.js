@@ -18,7 +18,7 @@ import porFechaReducer from './busqueda/porFecha'
  * Contiene la combinacion de todos lod Reduceres
  */
 const rootReducer = combineReducers({
-    primerasVotaciones: primerasVotacionesReducer,
+    first_Votes: primerasVotacionesReducer,
     infoCongresistas: infoCongresistasReducer,
     infoGrafico: infoGraficoReducer,
     tags: tagsReducer,

@@ -12,73 +12,73 @@ import {obtenerPorFechaAccion} from '../redux/busqueda/porFecha'
 import {useParams} from "react-router";
 
 /**
- * Funcion encargada de buscar las siguientes cards de las votaciones segun su metodo.
- * @param {*} primerasVotaciones Las primeras votaciones entergadas por la API.
- * @param {*} metodo Metodo de busqueda seleccionado.
- * @returns < Container > con la estructura de las listas de cards de las votaciones segun su metodo.
+ * Function in charge of looking for the following voting cards according to their method.
+ * @param {*} first_Votes The first votes delivered by the API.
+ * @param {*} method Selected search method.
+ * @returns < Container > with the structure of the voting card lists according to their method.
  */
-function Tabla({primerasVotaciones,metodo}){
+function Table({first_Votes,method}){
     const dispatch = useDispatch()
-    const {handleValor} = useParams()
-    const [ListaVot,setListaVot]=useState(primerasVotaciones)
-    const [status,setStatus]=useState(true)
-    const [pag,setPag]=useState(2)
+    const {handle_Value} = useParams()
+    const [voting_List,set_voting_List]=useState(first_Votes)
+    const [status,set_Status]=useState(true)
+    const [pag,set_Pag]=useState(2)
     const porMateria = useSelector(store=>store.porMateria.array)
     const porBoletin = useSelector(store=>store.porBoletin.array)
     const porNombre = useSelector(store=>store.porNombre.array)
     const porFecha = useSelector(store=>store.porFecha.array)
-    const VotacionesSiguientes = useSelector(store => store.primerasVotaciones.array)
+    const VotacionesSiguientes = useSelector(store => store.first_Votes.array)
     function isEmpty(obj) {
         return Object.keys(obj).length === 0
     }
     const fetchData = () =>{
         setTimeout(() => {
-            setPag(pag+1)
-            switch (metodo) {
+            set_Pag(pag+1)
+            switch (method) {
                 case "principal":
-                    dispatch(obtenerPrimerasVotacionesAccion(pag))//obtiene las votaciones de la siguiente pagina de la API
+                    dispatch(obtenerPrimerasVotacionesAccion(pag))//get the votes of the next page of the API
                     if((typeof(VotacionesSiguientes)!=="string")){
-                        setListaVot([...ListaVot,...VotacionesSiguientes])//actualiza ListaVot y le agrega los valores de VotacionesSiguientes
-                        let ListaTemp=[...ListaVot,...VotacionesSiguientes]
-                        setListaVot([...new Set(ListaTemp)])
+                        set_voting_List([...voting_List,...VotacionesSiguientes])//updates voting_List and adds the values ​​of NextVotes
+                        let ListaTemp=[...voting_List,...VotacionesSiguientes]
+                        set_voting_List([...new Set(ListaTemp)])
                     }
-                    else setStatus(false)
+                    else set_Status(false)
                     break;
                 case "Materia":
-                    dispatch(obtenerPorMateriaAccion(handleValor,pag))
+                    dispatch(obtenerPorMateriaAccion(handle_Value,pag))
                     if((typeof(porMateria)!=="string")){
-                        setListaVot([...ListaVot,...porMateria])
-                        let ListaTemp=[...ListaVot,...porMateria]
-                        setListaVot([...new Set(ListaTemp)])
+                        set_voting_List([...voting_List,...porMateria])
+                        let ListaTemp=[...voting_List,...porMateria]
+                        set_voting_List([...new Set(ListaTemp)])
                     }
-                    else setStatus(false)
+                    else set_Status(false)
                     break;
                 case "Boletín":
-                    dispatch(obtenerPorBoletinAccion(handleValor,pag))
+                    dispatch(obtenerPorBoletinAccion(handle_Value,pag))
                     if(typeof(porBoletin)!=="string"){
-                        setListaVot([...ListaVot,...porBoletin])
-                        let ListaTemp=[...ListaVot,...porBoletin]
-                        setListaVot([...new Set(ListaTemp)])
+                        set_voting_List([...voting_List,...porBoletin])
+                        let ListaTemp=[...voting_List,...porBoletin]
+                        set_voting_List([...new Set(ListaTemp)])
                     }
-                    else setStatus(false)
+                    else set_Status(false)
                     break;
                 case "Nombre":
-                    dispatch(obtenerPorNombreAccion(handleValor,pag))
+                    dispatch(obtenerPorNombreAccion(handle_Value,pag))
                     if(typeof(porNombre)!=="string"){
-                        setListaVot([...ListaVot,...porNombre])
-                        let ListaTemp=[...ListaVot,...porNombre]
-                        setListaVot([...new Set(ListaTemp)])
+                        set_voting_List([...voting_List,...porNombre])
+                        let ListaTemp=[...voting_List,...porNombre]
+                        set_voting_List([...new Set(ListaTemp)])
                     }
-                    else setStatus(false)
+                    else set_Status(false)
                     break;
                 case "Fecha":
-                    dispatch(obtenerPorFechaAccion(handleValor,pag))
+                    dispatch(obtenerPorFechaAccion(handle_Value,pag))
                     if(typeof(porFecha)!=="string"){
-                        setListaVot([...ListaVot,...porFecha])
-                        let ListaTemp=[...ListaVot,...porFecha]
-                        setListaVot([...new Set(ListaTemp)])
+                        set_voting_List([...voting_List,...porFecha])
+                        let ListaTemp=[...voting_List,...porFecha]
+                        set_voting_List([...new Set(ListaTemp)])
                     }
-                    else setStatus(false)
+                    else set_Status(false)
                     break;
                 default:
                     break;
@@ -87,9 +87,9 @@ function Tabla({primerasVotaciones,metodo}){
     }
     return(
         <Container>
-                {!isEmpty(ListaVot)?
+                {!isEmpty(voting_List)?
                 <InfiniteScroll
-                dataLength={ListaVot.length}
+                dataLength={voting_List.length}
                 next={fetchData}
                 hasMore={status}
                 loader={
@@ -99,11 +99,11 @@ function Tabla({primerasVotaciones,metodo}){
                 }
                 endMessage={
                     <p style={{ textAlign: 'center',borderRadius: "10px",backgroundColor:paleta.fondoMid,padding:"10px"}}>
-                      <h4 className={paleta.colorTextoBootstrap}>No existen más votaciones</h4>
+                        <h4 className={paleta.colorTextoBootstrap}>No existen más votaciones</h4>
                     </p>
-                  }
+                    }
                 >
-                {ListaVot.map((post,index) => (
+                {voting_List.map((post,index) => (
                     <div key={index}>
                     <div onClick={()=> window.location.href="/grafico/"+post.id} style={{ cursor:"pointer",textDecoration: 'none' }}>
                         <Card className={paleta.colorTextoBootstrap} style={{backgroundColor:paleta.colorBgCard}}>
@@ -135,4 +135,4 @@ function Tabla({primerasVotaciones,metodo}){
         </Container>
     )
 }
-export default Tabla;
+export default Table;

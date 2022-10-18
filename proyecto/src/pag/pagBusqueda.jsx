@@ -1,7 +1,7 @@
 import React, {useState,useEffect}  from "react";
-import Barra from "../components/barra";
-import Tabla from "../components/tabla";
-import Buscador from "../components/buscador";
+import Bar from "../components/barra";
+import Table from "../components/tabla";
+import Seeker from "../components/buscador";
 import {Container, Col, Row,Alert} from "reactstrap";
 import {useParams} from "react-router";
 import {useDispatch, useSelector} from 'react-redux'
@@ -13,11 +13,11 @@ import {obtenerPorBoletinAccion} from '../redux/busqueda/porBoletin'
 import {obtenerPorNombreAccion} from '../redux/busqueda/porNombre'
 import {obtenerPorFechaAccion} from '../redux/busqueda/porFecha'
 /**
- *Pagina donde se renderizan las busquedas realizadas, primero se hacen las acciones de buscar las votaciones segun un metodo, cunado se actualizen en la store se actualizaran en "Votaciones" con el "SetVotaciones" para poder ser renderizadas.
- * @returns < Container > con toda la estructura para dibujar la Tabla con las cards correspondientes.
+ *Page where the searches carried out are rendered, first the actions to search for the votes are carried out according to a method, when they are updated in the store they are updated in "Votaciones" with the "SetVotaciones" to be able to be rendered.
+ * @returns < Container > with the entire structure to draw the Table with the corresponding cards.
  */
 function Busqueda(){
-    const {handleMetodo,handleValor} = useParams()
+    const {handleMetodo,handle_Value} = useParams()
     const [votaciones,setVotaciones] = useState([]);
     const dispatch = useDispatch()
     const tags = useSelector(store => store.tags.array)
@@ -30,19 +30,19 @@ function Busqueda(){
         dispatch(obtenerTagsAccion())
         switch (handleMetodo) {
             case "ID":
-                dispatch(obtenerPorIdAccion(handleValor))
+                dispatch(obtenerPorIdAccion(handle_Value))
                 break;
             case "Boletín":
-                dispatch(obtenerPorBoletinAccion(handleValor,1))//segundo parametro idica que es desde la pagina 1
+                dispatch(obtenerPorBoletinAccion(handle_Value,1))//second parameter is the page
                 break;
             case "Materia":
-                dispatch(obtenerPorMateriaAccion(handleValor,1))
+                dispatch(obtenerPorMateriaAccion(handle_Value,1))
                 break;
             case "Nombre":
-                dispatch(obtenerPorNombreAccion(handleValor,1))
+                dispatch(obtenerPorNombreAccion(handle_Value,1))
                 break;
             case "Fecha":
-                dispatch(obtenerPorFechaAccion(handleValor,1))
+                dispatch(obtenerPorFechaAccion(handle_Value,1))
                 break;
             default:
                 break;
@@ -68,13 +68,13 @@ function Busqueda(){
             default:
                 break;
         }
-    },[porMateria,porId,porBoletin,porNombre,porFecha]);//Cambios en los array de las votaciones
+    },[porMateria,porId,porBoletin,porNombre,porFecha]);//changes in the voting array are updated
     return(
         <Container>
             <Row>
                 <Col>
-                    <Barra
-                        origen={"principal"}
+                    <Bar
+                        origin={"principal"}
                     />
                 </Col>
             </Row>
@@ -88,25 +88,25 @@ function Busqueda(){
                 "marginBottom":"10px"
                 }}>
                 <Col>
-                    <Buscador
+                    <Seeker
                         tags={tags}
-                        estado={handleMetodo}
-                        valor={handleValor}
+                        condition={handleMetodo}
+                        value={handle_Value}
                     />
                 </Col>
             </Row >
             <Row>
                 <Col>
                 {votaciones.length>0?
-                    <Tabla
-                        primerasVotaciones={votaciones} metodo={handleMetodo}
+                    <Table
+                        first_Votes={votaciones} method={handleMetodo}
                     />
                     :
                 <Alert color="danger">
                     <h4 className="alert-heading">Error</h4>
                     <p>No se han encontrado votaciones con los parámetros especificados</p>
                     <hr />
-                    <p>{handleMetodo}: {handleValor}</p>
+                    <p>{handleMetodo}: {handle_Value}</p>
                 </Alert>
                 }
                 </Col>

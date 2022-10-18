@@ -5,16 +5,16 @@ import { Link } from "react-router-dom";
 import Logo from '../resources/Logo.webp'
 import LogoDptIng from '../resources/Logo_depto_ing_informatica.webp'
 import LogoIngCivil from '../resources/Logo_ing_civil_informatica.webp'
-import Ayuda from "./ayuda";
+import Help from "./ayuda";
 import {isMobile} from 'react-device-detect'
 
 /**
- * Crea la navbar de la pagina y tiene como paramtreo interno el origen, para saber desde que seccion de la pagina se esta visualizando y hacer un manejo de sus componentes.
- * @returns {JSX.Element} La barra de navegación
+ * It creates the navbar of the page and has the origin as internal parameter, to know from which section of the page it is being viewed and manage its components.
+ * @returns {JSX.Element} the navigation bar of the page
  */
-function Barra({origen}){
-    //const toggle = () => setOpen(!dropdownOpen);
-    //const [dropdownOpen, setOpen] = useState(false);
+function Bar({origin}){
+    //const toggle = () => set_Open(!dropdownOpen);
+    //const [dropdownOpen, set_Open] = useState(false);
     var ImgWidthSize;
     var ImgHeightSize;
     if(isMobile===true){
@@ -27,11 +27,11 @@ function Barra({origen}){
     }
 
 /**
- * Funcion que verifica que el origen sea diferente a "acercade" para mostrar el boton de ayuda
- * @returns Boton de ayuda para todas las paginas diferentes a "Acerca de"
+ * Function that checks that the origin is different from "about" to show the help button
+ * @returns Help button for all pages other than "About"
  */
-    function verorigen(){
-        if(origen!=="acercade") return(<Ayuda origen={origen}/>)
+    function See_Origin(){
+        if(origin!=="acercade") return(<Help origin={origin}/>)
     }
     return (
         <div>
@@ -47,7 +47,7 @@ function Barra({origen}){
                                 <img src={LogoIngCivil} alt="Logo Carrera" width={ImgWidthSize} height={ImgHeightSize}/>
                             </a>
                         </span>
-                    
+
                     </NavItem>
                     <NavItem>
                         <div className="btn-group">
@@ -57,7 +57,7 @@ function Barra({origen}){
                             <Button onClick={()=>{window.location.href="/VotacionesImportantes/Nombre/Covid-19"}} style={{ textDecoration: 'none'}} className="text-light btn-sm" color="primary">
                                 Votaciones Importantes
                             </Button>
-                            {verorigen()}
+                            {See_Origin()}
                             <Button onClick={()=>{window.location.href="/acerca"}} style={{ textDecoration: 'none' }} className="text-light btn-sm" color="danger" >
                                 Acerca de
                             </Button>
@@ -70,4 +70,4 @@ function Barra({origen}){
     );
   }
 
-export default Barra;
+export default Bar;

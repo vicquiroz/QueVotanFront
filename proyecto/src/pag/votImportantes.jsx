@@ -3,32 +3,32 @@ import paleta from "../resources/paleta.json"
 import {Container,Row,Col, Button,Alert} from 'reactstrap'
 import {isMobile,CustomView} from 'react-device-detect'
 import { Link,useParams } from "react-router-dom";
-import Barra from '../components/barra'
+import Bar from '../components/barra'
 import {obtenerPorNombreAccion} from '../redux/busqueda/porNombre'
-import Tabla from '../components/tabla';
+import Table from '../components/tabla';
 import {useSelector,useDispatch} from 'react-redux'
 function VotacionesImportantes(){
-    const {handleMetodo,handleValor} = useParams()
+    const {handleMetodo,handle_Value} = useParams()
     const [votaciones,setVotaciones] = useState([]);
     const dispatch = useDispatch()
     const porNombre = useSelector(store=>store.porNombre.array)
     useEffect(()=> {
         if(handleMetodo==="Nombre"){
-            dispatch(obtenerPorNombreAccion(handleValor,1))
+            dispatch(obtenerPorNombreAccion(handle_Value,1))
         }
-    },[handleValor]);
+    },[handle_Value]);
     useEffect(()=>{
         setVotaciones(porNombre)
     },[porNombre])
-    const MostrarVot = (metodo) =>{
-        window.location.href="/VotacionesImportantes/Nombre/"+metodo
+    const MostrarVot = (method) =>{
+        window.location.href="/VotacionesImportantes/Nombre/"+method
     }
     return(
         <Container>
             <Row>
                 <Col>
-                    <Barra
-                        origen={"vot-importantes"}
+                    <Bar
+                        origin={"vot-importantes"}
                     />
                 </Col>
             </Row>
@@ -64,14 +64,14 @@ function VotacionesImportantes(){
             <Row>
                 <Col>
                 {votaciones.length>0?
-                    <Tabla
-                        primerasVotaciones={votaciones} metodo={handleMetodo}
+                    <Table
+                        first_Votes={votaciones} method={handleMetodo}
                     />
                     :<Alert color="danger">
                         <h4 className="alert-heading">Error</h4>
                         <p>No se han encontrado votaciones con los parámetros especificados</p>
                         <hr />
-                        <p>{handleMetodo}: {handleValor}</p>
+                        <p>{handleMetodo}: {handle_Value}</p>
                     </Alert>}
                 </Col>
             </Row>
