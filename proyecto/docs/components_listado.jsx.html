@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: components/listado.jsx</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: components/listado.jsx</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import React,{useEffect, useState} from 'react';
+import paleta from "../resources/paleta.json"
+import { Container,Row,Col,Button} from 'reactstrap';
+import partidosInvertidos from './partidos-invertidos.json'
+import partidos from './partidos.json'
+import {sortBy} from 'lodash'
+
+
+/**
+ * Funcion encargada de crear el componente del listado de votantes que aparece debajo del grafico
+ * @param {*} idCon ID del congresista o cumulo iterable de IDs
+ * @param {*} datoswnominate datoswnominate
+ * @returns &lt; Container > con toda la lista de los votantes y su respectivo partido politico y participacion.
+ */
+function MostrarLista({idCon,datoswnominate}){
+    const vot = {1:"△", 0:"▽", 2:"○", 3:"▢", 4:"◇",9:"◇" }// reprecenta su participacion.
+    var nombres = [];
+    var partido = [];
+    var participacion = [];
+    for(let i in idCon) { //id congresista
+        nombres.push(datoswnominate.diputados.find(d => d.id ===idCon[i]).nombre);
+        partido.push(datoswnominate.diputados.find(d => d.id ===idCon[i]).partido);
+        participacion.push(datoswnominate.diputados.find(d => d.id ===idCon[i]).participacion);
+    }
+    if(typeof(idCon)==="number"){// por si en idCon solo se tiene un numero
+        nombres.push(datoswnominate.diputados.find(d => d.id ===idCon).nombre);
+        partido.push(datoswnominate.diputados.find(d => d.id ===idCon).partido);
+        participacion.push(datoswnominate.diputados.find(d => d.id ===idCon).participacion);
+    }
+    const [filtro,setFiltro]=useState([])
+    var filteredPosts = filterPosts(datoswnominate.diputados, idCon,nombres,partido,participacion);// funcion para unificar
+    
+    useEffect(()=>{
+        ordenPart()
+    },[idCon])
+    
+/**
+ * Los ordena por partido
+ */
+    function ordenPart(){
+        filteredPosts = sortBy(filteredPosts, function(item){
+            return Object.keys(partidos).indexOf(item.Partido)
+        });
+        setFiltro(filteredPosts)
+    }
+    /**
+     * Los ordena por nombre
+     */
+    function ordenNomb(){
+        setFiltro(filteredPosts)
+    }
+    return(
+        &lt;Container>
+            &lt;Row>
+                &lt;Col className="g-3" style={{borderRadius: "10px",backgroundColor:paleta.fondoMid,padding:"10px"}}>
+                    &lt;Row>
+                        &lt;Col>
+                        &lt;h3 className={paleta.colorTextoBootstrap}>Votantes&lt;/h3>
+                        &lt;h5 className={paleta.colorTextoBootstrap}>Ordenar por:
+                        {' '}&lt;Button style={{borderRadius:"10px"}} color={paleta.colorBotonesGraf} onClick={ordenPart}> Partido&lt;/Button>{' '}   
+                            &lt;Button style={{borderRadius:"10px"}} color="danger" onClick={ordenNomb}> Nombre&lt;/Button>
+                        &lt;/h5>
+                        &lt;/Col>
+                    &lt;/Row>
+                    &lt;br/>
+                    &lt;Row className={paleta.colorTextoBootstrap}>
+                        {filtro.map((post) => ( 
+                        &lt;Col className="col-6 col-sm-3" key={post["id"]}>
+                            &lt;div onClick={()=>window.location.href="/congresista/"+post["id"]+"/"+datoswnominate.id} style={{ cursor:"pointer", textDecoration: 'none' }} className={paleta.colorTextoBootstrap+" list-group-flush"} >
+                                &lt;table style={{width:"100%"}} >
+                                    &lt;tbody>
+                                    &lt;tr>
+                                        &lt;td style={{textAlign: 'left',verticalAlign:'top'}}>{post["nombre"]}&lt;/td>
+                                        &lt;td style={{textAlign: 'right',verticalAlign:'top'}}>
+                                            &lt;span style={{backgroundColor:partidos[post["Partido"]],borderRadius:"5px",color:partidosInvertidos[post["Partido"]]}}>
+                                                 {post["Partido"]} - {vot[post.participacion]}
+                                            &lt;/span>
+                                        &lt;/td>
+                                    &lt;/tr>
+                                    &lt;/tbody>
+                                &lt;/table>
+                            &lt;/div>
+                        &lt;/Col>
+                        ))}
+                    &lt;/Row>
+                &lt;/Col>
+            &lt;/Row>
+            &lt;br />
+        &lt;/Container>
+    )
+}
+
+/**
+ * Funcion para unificar todos los datos de un congresista segun su ID.
+ * @param {*} posts 
+ * @param {*} id ID del congresista.
+ * @param {*} nombres Su nombre.
+ * @param {*} partido Partido al que pertenece.
+ * @param {*} participacion su participacion segun 1:"△", 0:"▽", 2:"○", 3:"▢", 4:"◇",9:"◇" 
+ * @returns Un arreglo con los datos pertenecientes a cada congresita.
+ */
+const filterPosts = (posts, id, nombres, partido, participacion) => {
+    if (!id) { //id =0
+        return posts;
+    }
+    if(typeof(id)==="number"){// si es solo uno
+        return [{id: id, nombre: nombres, Partido: partido, participacion:participacion}];;
+    }
+    else{
+        var nuevosDat = [{id: "1", nombre: "Snatch", Partido: "test", participacion: "0"}];// crea el elemento con datos de test para crear la estructura
+        for(let i in id){
+            nuevosDat.push({id: id[i], nombre: nombres[i], Partido: partido[i],participacion: participacion[i]});// unifica todos los datos en una sola estructura
+        }
+        nuevosDat.splice(0,1);//elimina el primer elemento que es el test
+        return nuevosDat;
+    }
+    
+};
+
+export default MostrarLista;</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#Ayuda">Ayuda</a></li><li><a href="global.html#Barra">Barra</a></li><li><a href="global.html#Buscador">Buscador</a></li><li><a href="global.html#Busqueda">Busqueda</a></li><li><a href="global.html#Congresista">Congresista</a></li><li><a href="global.html#filterPosts">filterPosts</a></li><li><a href="global.html#GraficoPrincipal">GraficoPrincipal</a></li><li><a href="global.html#Inform">Inform</a></li><li><a href="global.html#MostrarLista">MostrarLista</a></li><li><a href="global.html#OBTENER_PORBOLETIN_EXITO">OBTENER_PORBOLETIN_EXITO</a></li><li><a href="global.html#obtenerInfoCongresistasAccion">obtenerInfoCongresistasAccion</a></li><li><a href="global.html#obtenerInfoConsultaAccion">obtenerInfoConsultaAccion</a></li><li><a href="global.html#obtenerInfoDiputadosAccion">obtenerInfoDiputadosAccion</a></li><li><a href="global.html#obtenerInfoGraficoAccion">obtenerInfoGraficoAccion</a></li><li><a href="global.html#obtenerIntervenCongresAccion">obtenerIntervenCongresAccion</a></li><li><a href="global.html#obtenerPorBoletinAccion">obtenerPorBoletinAccion</a></li><li><a href="global.html#obtenerPorFechaAccion">obtenerPorFechaAccion</a></li><li><a href="global.html#obtenerPorIdAccion">obtenerPorIdAccion</a></li><li><a href="global.html#obtenerPorMateriaAccion">obtenerPorMateriaAccion</a></li><li><a href="global.html#obtenerPorNombreAccion">obtenerPorNombreAccion</a></li><li><a href="global.html#obtenerPreviewVotacionAccion">obtenerPreviewVotacionAccion</a></li><li><a href="global.html#obtenerPrimerasVotacionesAccion">obtenerPrimerasVotacionesAccion</a></li><li><a href="global.html#obtenerTagsAccion">obtenerTagsAccion</a></li><li><a href="global.html#rootReducer">rootReducer</a></li><li><a href="global.html#Tabla">Tabla</a></li><li><a href="global.html#texto">texto</a></li><li><a href="global.html#Texto">Texto</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.11</a> on Fri Sep 30 2022 02:12:21 GMT-0300 (hora de verano de Chile)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

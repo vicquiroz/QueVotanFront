@@ -1,0 +1,28 @@
+{
+    "PC"    :"Partido Comunista",
+    "IC"    :"Izquierda Ciudadana",
+    "CS"    :"Partido Convergencia Social",
+    "PH"    :"Partido Humanista",
+    "PS"    :"Partido Socialista",
+    "COM":"Partido Comunes",
+    "Prad"    :"Partido Radical de Chile",
+    "PRad"    :"Partido Radical de Chile",
+    "PR"    :"Partido Radical de Chile",
+    "PRO"  :"Partido Progresista",
+    "RD"    :"Revolución Democrática",
+    "IND"   :"Independientes",
+    "FRVS" :"Federación Regionalista Verde Social",
+    "DC"    :"Partido Demócrata Cristiano",
+    "PPD"   :"Partido por la Democracia",
+    "PL"    :"Partido Liberal de Chile",
+    "PEV"   :"Partido Ecologista Verde",
+    "EVOP"  :"Partido Evolución Política",
+    "RN"    :"Renovación Nacional",
+    "UDI"   :"Unión Demócrata Independiente",
+    "Prep":"Partido Republicano",
+    "PRep":"Partido Republicano",
+    "PRI":  "Partido Regionalista Independiente Demócrata",
+    "S/I"   :"Sin Información",
+    "NOINFO"   :"Sin Información"
+}
+

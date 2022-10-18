@@ -1,0 +1,11 @@
+{
+    "source":{
+        "include":["./src","./src/components","./src/pag","./src/redux","./src/redux/busqueda"],
+        "includePattern":".+\\.js(doc|x)?$",
+        "exclude": "node_modules/|docs"
+    },
+    "plugins": [],
+    "opts":{
+        "destination": "docs/"
+    }
+}

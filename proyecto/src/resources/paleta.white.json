@@ -1,0 +1,15 @@
+{
+    "fondoClaro":"rgba(200,200,250,0.95)",
+    "fondoMid":"rgba(200,200,250,0.95)",
+    "fondoOscuro":"rgba(200,200,250,0.95)",
+    "colorBgCard":"rgba(200,200,250,0.95)",
+    "colorTopCard":"rgba(84,83,255,0.95)",
+    "colorTextoBootstrap":"text-dark",
+    "colorBgBootstrap":"bg-dark",
+    "colorTextoD3":"black",
+    "colorFondoInput":"rgba(50,50,50,0.9)",
+    "colorBordeBootstrap":"list-group-item-dark",
+    "colorNavbar":"rgba(150,50,50,0.95)",
+    "colorBotonesGraf":"primary",
+    "colorBotonesVotImp":"primary"
+}

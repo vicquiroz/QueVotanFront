@@ -1,0 +1,25 @@
+html, body, .Login-component {
+  /*height: 100%;*/
+  background: url(../resources/Parlamentarios-1.webp) no-repeat center center fixed;
+  /*background-color: white;*/
+  background-color:#1E1E1E;
+  background-size: cover;
+  font-family: Arial, Helvetica, sans-serif;
+  overflow-x:hidden;
+}
+.noselect {
+    -webkit-touch-callout: none; /* iOS Safari */
+      -webkit-user-select: none; /* Safari */
+       -khtml-user-select: none; /* Konqueror HTML */
+         -moz-user-select: none; /* Old versions of Firefox */
+          -ms-user-select: none; /* Internet Explorer/Edge */
+              user-select: none; /* Non-prefixed version, currently
+                                    supported by Chrome, Edge, Opera and Firefox */
+}
+.fixed-top {
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    z-index: 1030;;
+}

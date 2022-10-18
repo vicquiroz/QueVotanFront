@@ -1,0 +1,15 @@
+{
+    "fondoClaro":"rgba(50,50,50,0.95)",
+    "fondoMid":"rgba(50,50,50,0.95)",
+    "fondoOscuro":"rgba(50,50,50,0.95)",
+    "colorBgCard":"rgba(50,50,50,0.95)",
+    "colorTopCard":"rgba(50,50,50,0.95)",
+    "colorTextoBootstrap":"text-light",
+    "colorBgBootstrap":"bg-dark",
+    "colorTextoD3":"white",
+    "colorFondoInput":"rgba(50,50,50,0.9)",
+    "colorBordeBootstrap":"list-group-item-dark",
+    "colorNavbar":"rgba(79,82,84,1)",
+    "colorBotonesGraf":"primary",
+    "colorBotonesVotImp":"primary"
+}

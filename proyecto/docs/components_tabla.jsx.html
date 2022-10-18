@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: components/tabla.jsx</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: components/tabla.jsx</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import React, {useState} from 'react'
+import paleta from "../resources/paleta.json"
+import {Container, CardBody, Card, CardHeader, CardText, Spinner, Col} from 'reactstrap'
+import InfiniteScroll from 'react-infinite-scroll-component'
+import statuscolor from '../resources/statuscolor.json'
+import {useDispatch, useSelector} from 'react-redux'
+import {obtenerPrimerasVotacionesAccion} from '../redux/VotacionDucks'
+import {obtenerPorMateriaAccion} from '../redux/busqueda/porMateria'
+import {obtenerPorBoletinAccion} from '../redux/busqueda/porBoletin'
+import {obtenerPorNombreAccion} from '../redux/busqueda/porNombre'
+import {obtenerPorFechaAccion} from '../redux/busqueda/porFecha'
+import {useParams} from "react-router";
+
+/**
+ * Funcion encargada de buscar las siguientes cards de las votaciones segun su metodo.
+ * @param {*} primerasVotaciones Las primeras votaciones entergadas por la API.
+ * @param {*} metodo Metodo de busqueda seleccionado.
+ * @returns &lt; Container > con la estructura de las listas de cards de las votaciones segun su metodo.
+ */
+function Tabla({primerasVotaciones,metodo}){
+    const dispatch = useDispatch()
+    const {handleValor} = useParams()
+    const [ListaVot,setListaVot]=useState(primerasVotaciones)
+    const [status,setStatus]=useState(true)
+    const [pag,setPag]=useState(2)
+    const porMateria = useSelector(store=>store.porMateria.array)
+    const porBoletin = useSelector(store=>store.porBoletin.array)
+    const porNombre = useSelector(store=>store.porNombre.array)
+    const porFecha = useSelector(store=>store.porFecha.array)
+    const VotacionesSiguientes = useSelector(store => store.primerasVotaciones.array)
+    function isEmpty(obj) {
+        return Object.keys(obj).length === 0
+    }
+    const fetchData = () =>{
+        setTimeout(() => {
+            setPag(pag+1)
+            switch (metodo) {
+                case "principal":
+                    dispatch(obtenerPrimerasVotacionesAccion(pag))//obtiene las votaciones de la siguiente pagina de la API
+                    if((typeof(VotacionesSiguientes)!=="string")){
+                        setListaVot([...ListaVot,...VotacionesSiguientes])//actualiza ListaVot y le agrega los valores de VotacionesSiguientes
+                        let ListaTemp=[...ListaVot,...VotacionesSiguientes]
+                        setListaVot([...new Set(ListaTemp)])
+                    }
+                    else setStatus(false)
+                    break;
+                case "Materia":
+                    dispatch(obtenerPorMateriaAccion(handleValor,pag))
+                    if((typeof(porMateria)!=="string")){
+                        setListaVot([...ListaVot,...porMateria])
+                        let ListaTemp=[...ListaVot,...porMateria]
+                        setListaVot([...new Set(ListaTemp)])
+                    }
+                    else setStatus(false)
+                    break;
+                case "Boletín":
+                    dispatch(obtenerPorBoletinAccion(handleValor,pag))
+                    if(typeof(porBoletin)!=="string"){
+                        setListaVot([...ListaVot,...porBoletin])
+                        let ListaTemp=[...ListaVot,...porBoletin]
+                        setListaVot([...new Set(ListaTemp)])
+                    }
+                    else setStatus(false)
+                    break;
+                case "Nombre":
+                    dispatch(obtenerPorNombreAccion(handleValor,pag))
+                    if(typeof(porNombre)!=="string"){
+                        setListaVot([...ListaVot,...porNombre])
+                        let ListaTemp=[...ListaVot,...porNombre]
+                        setListaVot([...new Set(ListaTemp)])
+                    }
+                    else setStatus(false)
+                    break;
+                case "Fecha":
+                    dispatch(obtenerPorFechaAccion(handleValor,pag))
+                    if(typeof(porFecha)!=="string"){
+                        setListaVot([...ListaVot,...porFecha])
+                        let ListaTemp=[...ListaVot,...porFecha]
+                        setListaVot([...new Set(ListaTemp)])
+                    }
+                    else setStatus(false)
+                    break;
+                default:
+                    break;
+                }
+        },0);
+    }
+    return(
+        &lt;Container>
+                {!isEmpty(ListaVot)?
+                &lt;InfiniteScroll
+                dataLength={ListaVot.length}
+                next={fetchData}
+                hasMore={status}
+                loader={
+                    &lt;div style={{textAlign:"center"}}>
+                        &lt;Spinner color="primary" children="" >&lt;/Spinner>
+                    &lt;/div>
+                }
+                endMessage={
+                    &lt;p style={{ textAlign: 'center',borderRadius: "10px",backgroundColor:paleta.fondoMid,padding:"10px"}}>
+                      &lt;h4 className={paleta.colorTextoBootstrap}>No existen más votaciones&lt;/h4>
+                    &lt;/p>
+                  }
+                >
+                {ListaVot.map((post,index) => (
+                    &lt;div key={index}>
+                    &lt;div onClick={()=> window.location.href="/grafico/"+post.id} style={{ cursor:"pointer",textDecoration: 'none' }}>
+                        &lt;Card className={paleta.colorTextoBootstrap} style={{backgroundColor:paleta.colorBgCard}}>
+                            &lt;CardHeader style={{backgroundColor:paleta.colorTopCard}}>&lt;b>Camara de diputados - Votacion {post.id} &lt;/b>- Ingresada en {post.fechaIngresoBoletin.slice(0,10)} - Realizada en {post.fechaSalidaBoletin.slice(0,10)}&lt;/CardHeader>
+                            &lt;CardBody>
+                                &lt;CardText>
+                                    &lt;b>Boletin N°: &lt;/b>{post.boletin.slice(10,20)}
+                                    &lt;br/>
+                                    &lt;b>Tipo: &lt;/b>{post.tipoProyecto}
+                                    &lt;br/>
+                                    &lt;b>Estado: &lt;/b>{post.tramiteConst} - {post.tramiteRegla}
+                                    &lt;br/>
+                                    &lt;b>Votos: {post.totalSi} - {post.totalNo} - {post.totalAbs} - {post.totalDis}&lt;/b> (A favor - En contra - Abstenidos - Dispensados)
+                                    &lt;br/>
+                                    &lt;b>Resultado: &lt;/b>&lt;strong style={{color:statuscolor[post.resultado]}}>{post.resultado}&lt;/strong>
+                                    &lt;br/>
+                                    &lt;b>Descripcion: &lt;/b>{post.nombre}
+                                    &lt;br/>
+                                    &lt;b>Quórum: &lt;/b>{post.quorum}
+                                &lt;/CardText>
+                            &lt;/CardBody>
+                        &lt;/Card>
+                    &lt;/div>
+                    &lt;br/>
+                    &lt;/div>
+                ))}
+                &lt;/InfiniteScroll>
+                :[]}
+        &lt;/Container>
+    )
+}
+export default Tabla;</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#Ayuda">Ayuda</a></li><li><a href="global.html#Barra">Barra</a></li><li><a href="global.html#Buscador">Buscador</a></li><li><a href="global.html#Busqueda">Busqueda</a></li><li><a href="global.html#Congresista">Congresista</a></li><li><a href="global.html#filterPosts">filterPosts</a></li><li><a href="global.html#GraficoPrincipal">GraficoPrincipal</a></li><li><a href="global.html#Inform">Inform</a></li><li><a href="global.html#MostrarLista">MostrarLista</a></li><li><a href="global.html#OBTENER_PORBOLETIN_EXITO">OBTENER_PORBOLETIN_EXITO</a></li><li><a href="global.html#obtenerInfoCongresistasAccion">obtenerInfoCongresistasAccion</a></li><li><a href="global.html#obtenerInfoConsultaAccion">obtenerInfoConsultaAccion</a></li><li><a href="global.html#obtenerInfoDiputadosAccion">obtenerInfoDiputadosAccion</a></li><li><a href="global.html#obtenerInfoGraficoAccion">obtenerInfoGraficoAccion</a></li><li><a href="global.html#obtenerIntervenCongresAccion">obtenerIntervenCongresAccion</a></li><li><a href="global.html#obtenerPorBoletinAccion">obtenerPorBoletinAccion</a></li><li><a href="global.html#obtenerPorFechaAccion">obtenerPorFechaAccion</a></li><li><a href="global.html#obtenerPorIdAccion">obtenerPorIdAccion</a></li><li><a href="global.html#obtenerPorMateriaAccion">obtenerPorMateriaAccion</a></li><li><a href="global.html#obtenerPorNombreAccion">obtenerPorNombreAccion</a></li><li><a href="global.html#obtenerPreviewVotacionAccion">obtenerPreviewVotacionAccion</a></li><li><a href="global.html#obtenerPrimerasVotacionesAccion">obtenerPrimerasVotacionesAccion</a></li><li><a href="global.html#obtenerTagsAccion">obtenerTagsAccion</a></li><li><a href="global.html#rootReducer">rootReducer</a></li><li><a href="global.html#Tabla">Tabla</a></li><li><a href="global.html#texto">texto</a></li><li><a href="global.html#Texto">Texto</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.11</a> on Fri Sep 30 2022 02:12:21 GMT-0300 (hora de verano de Chile)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

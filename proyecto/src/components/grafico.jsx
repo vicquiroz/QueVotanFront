@@ -1,0 +1,515 @@
+import React, { useRef, useEffect } from 'react';
+import paleta from "../resources/paleta.json"
+import { select, symbol, symbolTriangle, symbolCircle, symbolSquare, symbolDiamond, brush, axisLeft, axisBottom, scaleLinear } from 'd3';
+import partidos from './partidos.json'
+import partidosinvertidos from './partidos-invertidos.json'
+import { polygonHull } from 'd3-polygon';
+import { isMobile } from "react-device-detect";
+var svg;
+var dim
+var width
+var height
+var margin
+var dCuadrado
+var marginDim
+var heightDim
+var widthDim
+var escalax
+var escalay
+var transpPuntos = "0.1"
+var puntosOriginal = "0.6"
+var textsize;
+var textsize2;
+var pointsize;
+var hovertext;
+var hullSize;
+var strokewidth;
+var vBox;
+
+// var textsize =window.innerHeight%".5rem";
+// var textsize2 = window.innerHeight%".4rem";
+// var pointsize = window.innerHeight*0.1;
+// var hovertext = window.innerHeight*0.015;
+// var hullSize = window.innerHeigh%2;
+// var strokewidth = window.innerHeight%"0.5px";
+
+//phone mode
+if (window.innerHeight < 750) {
+    textsize = ".5rem"
+    textsize2 = ".4rem"
+    hovertext = ".5rem"
+    pointsize = 25
+    hullSize = 2
+    strokewidth = "0.5px"
+}
+else {
+    //4k mode
+    if (window.innerHeight > 3000) {
+        strokewidth = "3px"
+        textsize = "3.3rem"
+        textsize2 = "3.3rem"
+        hovertext = "1.5rem"
+        pointsize = 1000
+        hullSize = 4
+    }
+    else {
+        // 21:9 Mode
+        if (window.innerHeight > 2200) {
+            strokewidth = "2.5px"
+            textsize = "2rem"
+            textsize2 = "2rem"
+            hovertext = "1.5rem"
+            pointsize = 750
+            hullSize = 4
+        }
+        else {
+            //4:3 Mode
+            if (window.innerHeight < 1200) {
+                strokewidth = "1px"
+                textsize = ".9rem"
+                textsize2 = ".8rem"
+                hovertext = ".9rem"
+                pointsize = 125
+                hullSize = 2
+            }
+            // 16:9 Mode default
+            else {
+                strokewidth = "2px"
+                textsize = "1.3rem"
+                textsize2 = "1.3rem"
+                hovertext = "1.3rem"
+                pointsize = 200
+                hullSize = 3
+            }
+        }
+    }
+}
+/**
+ *
+ * @param {*} param0
+ * @returns
+ */
+function GraficoPrincipal({ set_Id, setXY, datoswnominate}) {
+    dim = window.innerHeight;   //No cambiar
+    width = dim * 0.68;
+    height = dim * 0.68;
+    margin = dim - 0.95 * dim;
+    dCuadrado = dim - 0.97 * dim;     //No cambiar
+    marginDim = margin * 2;         //No cambiar
+    heightDim = height - marginDim;   //No cambiar
+    widthDim = width - marginDim;     //No cambiar
+    escalax = height / 2;           //No cambiar
+    escalay = height / 2 - 2 * margin;  //No cambiar
+    vBox = "0 " + String(margin * 1.5) + " " + String(dim * 1.1) + " " + String(height - 2.3 * margin)
+
+    useEffect(() => {
+        function Redimension() {
+            if (!isMobile) {
+                window.location.href = window.location.href;
+            }
+        }
+        window.addEventListener('resize', Redimension)
+    })
+    const svgRef = useRef();
+    useEffect(() => {
+        var x = scaleLinear()
+            .domain([-1, 1])
+            .range([marginDim, width]);
+
+        var y = scaleLinear()
+            .domain([-1, 1])
+            .range([heightDim, marginDim]);
+
+        var makeYLines = () => axisLeft().scale(y);
+        var makeXLines = () => axisBottom().scale(x);
+
+        svg = select(svgRef.current)
+        svg.append('ellipse')
+            .attr('cx', height / 2 - margin)
+            .attr('cy', height / 2)
+            .attr('rx', height / 2 - margin)
+            .attr('ry', height / 2 - 2 * margin)
+            .attr("transform", "translate(" + marginDim + ",0)")
+            .style('fill', "rgba(210,228,240,0.8)")
+
+        svg.append("g")
+            .attr("transform", "translate(0," + heightDim + ")")
+            .style("font-size", textsize)
+            .attr("fill", paleta.colorTextoD3)
+            .call(axisBottom(x));
+        svg.append("g")
+            .attr("transform", "translate(" + marginDim + ",0)")
+            .style("font-size", textsize)
+            .attr("fill", paleta.colorTextoD3)
+            .call(axisLeft(y));
+
+        svg.append("g")
+            .attr("class", "grid")
+            .attr("fill", paleta.colorTextoD3)
+            .attr("transform", "translate(" + marginDim + ",0)")
+            .call(
+                makeYLines()
+                    .tickSize(-widthDim)
+                    .tickFormat("")
+            )
+            .attr("opacity", 0.25);
+        svg.append("g")
+            .attr("class", "grid")
+            .attr("fill", paleta.colorTextoD3)
+            .attr("transform", "translate(0," + heightDim + ")")
+            .call(
+                makeXLines()
+                    .tickSize(-heightDim + marginDim)
+                    .tickFormat("")
+            )
+            .attr("opacity", 0.25);
+
+        svg.append("g")
+            .attr("class", "brush")
+            .call(brush().on("end", function (event) {
+                brushed(event, { set_Id }, { setXY }, { datoswnominate })
+            }))
+        var div = select("body").append("div")
+            .attr("class", "tooltip")
+            .style("opacity", 0)
+            .style("position", "absolute")
+            .style("text-aling", "center")
+            .style("background", "#FFFFFF")
+            .style("padding", ".1rem")
+            .style("border", "1px solid #313639")
+            .style("border-radius", "8px")
+            .style("font-size", textsize)
+            .style("font-family", "Lucida Sans Unicode")
+            .attr("fill", paleta.colorTextoD3)
+        svg.selectAll(".point")
+            .data(datoswnominate.diputados)
+            .join(
+                enter => enter.append("path")
+                    .attr("id", value => "id_" + value.id)
+                    .attr("key", value => value.Nombre)
+                    .attr("transform", function (d) {
+                        if (d.participacion === 1) return "translate(" + (d.coordX * escalay + escalax + margin) + "," + ((2 * escalax) - (d.coordY * escalay + escalax)) + ")"
+                        else {
+                            return "translate(" + (d.coordX * escalay + escalax + margin) + "," + ((2 * escalax) - (d.coordY * escalay + escalax)) + ") rotate(180)"
+                        }
+                    })
+                    .attr("stroke", function (d) {
+                        return partidosinvertidos[d.partido]
+                    })
+                    .attr("stroke-width", strokewidth)
+                    //.attr("stroke", "black")
+                    .on("click", function (event, d) {
+                        ClickPoint(d, { set_Id }, { setXY })
+                    })
+                    .on('mouseover', function (event, data) {
+                        div.transition().duration(100).style("opacity", 1);
+                        let name = data.nombre
+                        div.html(name).style("left", (event.pageX + 10) + "px").style("top", (event.pageY - 15) + "px").style("font-size", hovertext);
+                    })
+                    .on('mouseout', function (event, data) {
+                        div.transition().duration(0).style("opacity", 0);
+                        let name = data.Nombre
+                        div.html(name).style("left", (-100) + "px").style("top", (-100) + "px");
+                    })
+                    .attr("fill", function (d) {
+                        return partidos[d.partido]
+                    }),
+                update => update.attr("class", "updated"),
+                exit => exit.remove()
+            );
+        for (let P in datoswnominate.diputados) {
+            let path = "path#id_" + datoswnominate.diputados[P].id
+            if (datoswnominate.diputados[P].participacion === 0 || datoswnominate.diputados[P].participacion === 1) {
+                svg.select(path).attr("d", symbol().size(pointsize).type(symbolTriangle))
+            }
+            if (datoswnominate.diputados[P].participacion === 2) {
+                svg.select(path).attr("d", symbol().size(pointsize).type(symbolCircle))
+            }
+            if (datoswnominate.diputados[P].participacion === 3) {
+                svg.select(path).attr("d", symbol().size(pointsize).type(symbolSquare))
+            }
+            if (datoswnominate.diputados[P].participacion === 4 || datoswnominate.diputados[P].participacion === 9) {
+                svg.select(path).attr("d", symbol().size(pointsize).type(symbolDiamond))
+            }
+        }
+
+        var partidosAct = datoswnominate.diputados.map(function (key) {
+            return key.partido
+        })
+        partidosAct = [...new Set(partidosAct)]
+        partidosAct.sort(function (a, b) {
+            return Object.keys(partidos).indexOf(a) - Object.keys(partidos).indexOf(b);
+        });
+        var legend = svg.selectAll("legend")
+        legend.data(partidosAct)
+            .enter()
+            .append("rect")
+            .attr("x", width + dCuadrado)
+            .attr("y", function (d, i) { return 3.2 * dCuadrado + i * (heightDim - dCuadrado) / 20 })
+            .attr("width", dCuadrado * 0.8)
+            .attr("height", dCuadrado * 0.8)
+            .style("fill", function (d) {
+                return partidos[d]
+            })
+            .attr("fill", paleta.colorTextoD3)
+            .attr("id", value => value)
+            .on("click", function (event, d) {
+                svg.selectAll("g.brush").call(brush().clear)
+                SelectParty(this, { set_Id }, { setXY }, { datoswnominate })
+            })
+        legend.data(partidosAct)
+            .enter()
+            .append("text")
+            .attr("class", "noselect")
+            .attr("x", width + 2 * dCuadrado)
+            .attr("y", function (d, i) { return 3.85 * dCuadrado + i * (heightDim - dCuadrado) / 20 })
+            .attr("width", dCuadrado * 0.8)
+            .attr("height", dCuadrado * 0.8)
+            .text(function (d) { return d })
+            .style("font-size", textsize)
+            .style("font-family", "Lucida Sans Unicode")
+            .attr("fill", paleta.colorTextoD3)
+            .attr("id", value => value)
+            .on("click", function (event, d) {
+                svg.selectAll("g.brush").call(brush().clear)
+                SelectParty(this, { set_Id }, { setXY }, { datoswnominate })
+            })
+        const vot = ["△ A favor", "▽ En contra", "○ Abstenido", "▢ Dispensado", "◇ Ausente" ]
+        legend.data(vot)
+            .enter()
+            .append("text")
+            .attr("class", "noselect")
+            .attr("x", width + 7 * dCuadrado)
+            .attr("y", function (d, i) { return 3.85 * dCuadrado + i * (heightDim - dCuadrado) / 17 })
+            .attr("width", dCuadrado * 0.8)
+            .attr("height", dCuadrado * 0.8)
+            .text(function (d) { return d })
+            .style("font-size", textsize2)
+            .style("font-family", "Lucida Sans Unicode")
+            .attr("fill", paleta.colorTextoD3)
+            .attr("id", value => value)
+            .on("click", function (event, d) {
+                svg.selectAll("g.brush").call(brush().clear)
+                svg.selectAll("polygon").remove()
+                SelectEstado(this, { set_Id }, { setXY }, { datoswnominate })
+            })
+            const años = [datoswnominate.boletin,"ID: "+datoswnominate.id,"Inicio: "+datoswnominate.votaciones.fechaInicio.slice(0,10),"Fin: "+datoswnominate.votaciones.fechaFin.slice(0,10)]
+            legend.data(años)
+            .enter()
+            .append("text")
+            .attr("class", "noselect")
+            .attr("x", width + 7 * dCuadrado)
+            .attr("y", function (d, i) { return 10 * dCuadrado + i * (heightDim - dCuadrado) / 17 })
+            .attr("width", dCuadrado * 0.8)
+            .attr("height", dCuadrado * 0.8)
+            .text(function (d) { return d })
+            .style("font-size", textsize2)
+            .style("font-family", "Lucida Sans Unicode")
+            .attr("fill", paleta.colorTextoD3)
+
+        ClearGraph({ set_Id }, { setXY }, { datoswnominate })
+    }, [set_Id, setXY, datoswnominate]);
+    return (
+            <svg ref={svgRef} className={"chart "+paleta.colorTextoBootstrap}
+                width="100%"
+                height="100%"
+                viewBox={vBox}
+                position="absolute"
+                preserveAspectRatio="xMidYMid meet"
+                style={{
+                    "marginBottom": margin / 3,
+                    borderRadius: "10px",
+                    backgroundColor:paleta.fondoMid
+                }}
+            />
+    )
+}
+
+function brushed(event, { set_Id }, { setXY }, { datoswnominate }) {
+    if (datoswnominate === undefined) {
+        datoswnominate = {
+            "id": 0,
+            "wnominate": [{}],
+            "fecha_vot": "Aca va la fecha",
+            "votacion": [{}]
+        }
+    }
+    var S = event.selection
+    var NodeSelec = []
+    if (S != null) {
+        var Nodes = []
+        let posicionX = []
+        let posicionY = []
+        for (let i in svg.node().childNodes) {
+            if (svg.node().childNodes[i].nodeName === "path") {
+                let Arr = svg.node().childNodes[i].attributes.transform.value
+                    .split("translate").pop().split(' ')[0].replace('(', "")
+                    .replace(')', "").split(",")
+                Arr[0] = parseFloat(Arr[0])
+                Arr[1] = parseFloat(Arr[1])
+                Nodes.push([Arr, svg.node().childNodes[i].__data__.id])
+            }
+        }
+        for (let P in Nodes) {
+            if ((Nodes[P][0][0] >= S[0][0] && Nodes[P][0][0] <= S[1][0]) && (Nodes[P][0][1] >= S[0][1] && Nodes[P][0][1] <= S[1][1])) {
+                NodeSelec.push(Nodes[P][1])
+                let envio = datoswnominate.diputados.find((dat) => { return dat.id === Nodes[P][1] });
+                posicionX.push(Number(envio.coordX));
+                posicionY.push(Number(envio.coordY));
+            }
+        }
+        if(NodeSelec.length>0){
+            svg.selectAll("path").transition().duration('50').attr('opacity',transpPuntos)
+            .transition()
+            .duration(200)
+            for(let P in NodeSelec){
+                let path = "path#id_"+NodeSelec[P]
+                svg.selectAll(path).transition().duration('50').attr('opacity',puntosOriginal)
+            }
+        }
+        else{
+            svg.selectAll("path").transition().duration('50').attr('opacity',puntosOriginal)
+            for(let P in Nodes){
+                NodeSelec.push(Nodes[P][1])
+                let envio = datoswnominate.diputados.find((dat) => { return dat.id === Nodes[P][1] });
+                posicionX.push(Number(envio.coordX));
+                posicionY.push(Number(envio.coordY));
+            }
+        }
+        set_Id(NodeSelec);
+        setXY([posicionX, posicionY]);
+        svg.selectAll("polygon").remove()
+    }
+    else {
+        ClearGraph({ set_Id }, { setXY }, { datoswnominate })
+    }
+}
+
+function SelectParty(event, { set_Id }, { setXY }, { datoswnominate }) {
+    let Nodes = datoswnominate.diputados.filter((dat) => { return dat.partido === event.id });
+    let NodeSelec = []
+    let posicionX = []
+    let posicionY = []
+    let posicionC = []
+    svg.selectAll("path").transition().duration('50').attr('opacity', transpPuntos)
+    for (let P in Nodes) {
+        NodeSelec.push(Nodes[P].id)
+        let path = "path#id_"+Nodes[P].id
+        svg.selectAll(path).transition().duration('50').attr('opacity',puntosOriginal)
+        posicionX.push(Number(Nodes[P].coordX));
+        posicionY.push(Number(Nodes[P].coordY));
+        posicionC.push([Number(Nodes[P].coordX), Number(Nodes[P].coordY)])
+    }
+    set_Id(NodeSelec);
+    setXY([posicionX, posicionY]);
+
+    if (posicionC.length > 1) {
+        var hull = polygonHull(posicionC)
+        var hullJson = []
+        for (let i in hull) {
+            hullJson.push({
+                "x": hull[i][0],
+                "y": hull[i][1]
+            })
+        }
+        svg.selectAll("polygon").remove()
+
+        svg.selectAll("body")
+        .data([hullJson])
+        .enter()
+        .append("polygon")
+        .attr("points",function(d){
+            return d.map(function(d) { return [d.x*escalay+escalax+margin,(2*escalax)-(d.y*escalay+escalax)].join(","); });})
+        .attr("stroke",partidosinvertidos[event.id] )
+        .transition()
+        .duration(200)
+        .attr("stroke-width",hullSize*2)
+        .attr("fill",'none')
+        .attr('opacity',puntosOriginal)
+
+        svg.selectAll("body")
+        .data([hullJson])
+        .enter()
+        .append("polygon")
+        .attr("points",function(d){
+            return d.map(function(d) { return [d.x*escalay+escalax+margin,(2*escalax)-(d.y*escalay+escalax)].join(","); });})
+        .attr("stroke", partidos[event.id])
+        .transition()
+        .duration(200)
+        .attr("stroke-width",hullSize)
+        .attr("fill",'none')
+        .attr('opacity',puntosOriginal)
+
+
+
+    }
+    else {
+        svg.selectAll("polygon").remove()
+    }
+
+}
+
+function SelectEstado(event, { set_Id }, { setXY }, { datoswnominate }) {
+    const estados = { "△ A favor": 1, "▽ En contra": 0, "○ Abstenido": 2, "▢ Dispensado": 3, "◇ Ausente": 4, "◇ Ausente": 9 }
+    let Nodes = datoswnominate.diputados.filter((dat) => {return dat.participacion === estados[event.id]});
+    let NodeSelec = []
+    let posicionX = []
+    let posicionY = []
+    let posicionC = []
+    svg.selectAll("path").transition().duration('50').attr('opacity', transpPuntos)
+    for (let P in Nodes) {
+        NodeSelec.push(Nodes[P].id)
+        let path = "path#id_"+Nodes[P].id
+        svg.selectAll(path).transition().duration('50').attr('opacity',puntosOriginal)
+        posicionX.push(Number(Nodes[P].coordX));
+        posicionY.push(Number(Nodes[P].coordY));
+        posicionC.push([Number(Nodes[P].coordX), Number(Nodes[P].coordY)])
+    }
+    set_Id(NodeSelec);
+    setXY([posicionX, posicionY]);
+}
+
+function ClickPoint(d, { set_Id }, { setXY }) {
+    let path = "path#id_" + d.id
+    let posicionX = []
+    let posicionY = []
+    svg.selectAll("path").transition().duration('50').attr('opacity', transpPuntos)
+    svg.selectAll("g.brush").call(brush().clear)
+    svg.selectAll(path).transition().duration('50').attr('opacity',puntosOriginal)
+    posicionX.push(Number(d.coordX));
+    posicionY.push(Number(d.coordY));
+    set_Id(Number(d.id))
+    setXY([posicionX, posicionY]);
+    svg.selectAll("polygon").remove()
+}
+
+function ClearGraph({set_Id},{setXY},{datoswnominate}){
+    svg.selectAll("path").transition().duration('50').attr('opacity',puntosOriginal)
+    .transition()
+    .duration(200)
+    var Nodes = []
+    var NodeSelec = []
+    let posicionX = []
+    let posicionY = []
+
+    for (let i in svg.node().childNodes) {
+        if (svg.node().childNodes[i].nodeName === "path") {
+            let Arr = svg.node().childNodes[i].attributes.transform.value
+                .split("translate").pop().split(' ')[0].replace('(', "")
+                .replace(')', "").split(",")
+            Arr[0] = parseFloat(Arr[0])
+            Arr[1] = parseFloat(Arr[1])
+            Nodes.push([Arr, svg.node().childNodes[i].__data__.id])
+        }
+    }
+    for (let P in Nodes) {
+        NodeSelec.push(Nodes[P][1])
+        let envio = datoswnominate.diputados.find((dat) => { return dat.id === Nodes[P][1] });
+        posicionX.push(Number(envio.coordX));
+        posicionY.push(Number(envio.coordY));
+    }
+    svg.selectAll("polygon").remove()
+    set_Id(NodeSelec);
+    setXY([posicionX, posicionY]);
+}
+export default GraficoPrincipal;
