@@ -3,15 +3,15 @@ import paleta from "../resources/paleta.json"
 import { Row, Col,Container, Table } from 'reactstrap';
 
 /**
- * Funcion encargada de crear el componente "Datos de interes" al pie del grafico
- * @param {*} param0 
- * @returns < Container > con la informacion de Datos de interés
-Centroide:
-Máximo en X:
-Máximo en Y:
-Mínimo en X:
-Mínimo en Y:
-del grafico en general o de una region especifica
+ * Function in charge of creating the component "Data of interest" at the bottom of the graph
+ * @param {*} param0
+ * @returns < Container > with the information of Data of interest.
+Centroid:
+Maximum in X:
+Maximum in Y:
+Minimum in X:
+Minimum in Y:
+of the graph in general or of a specific region.
  */
 function Inform({pos,datoswnominate}){
     if (pos!==undefined){

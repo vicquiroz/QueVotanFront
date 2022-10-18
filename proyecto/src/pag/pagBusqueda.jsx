@@ -1,7 +1,7 @@
 import React, {useState,useEffect}  from "react";
-import Barra from "../components/barra";
-import Tabla from "../components/tabla";
-import Buscador from "../components/buscador";
+import Bar from "../components/barra";
+import Table from "../components/tabla";
+import Seeker from "../components/buscador";
 import {Container, Col, Row,Alert} from "reactstrap";
 import {useParams} from "react-router";
 import {useDispatch, useSelector} from 'react-redux'
@@ -13,11 +13,11 @@ import {get_By_Bulletin_Action} from '../redux/busqueda/porBoletin'
 import {get_By_Name_Action} from '../redux/busqueda/porNombre'
 import {get_By_Date_Action} from '../redux/busqueda/porFecha'
 /**
- *Page where the searches are rendered, first the actions are made to search the votes according to a method, when they are updated in the store they will be updated in "Votations" with the "SetVotations" to be able to be rendered.
- * @returns < Container > with all the structure to draw the Table with the corresponding cards.
+ *Pagina donde se renderizan las busquedas realizadas, primero se hacen las acciones de buscar las votaciones segun un metodo, cunado se actualizen en la store se actualizaran en "Votaciones" con el "SetVotaciones" para poder ser renderizadas.
+ * @returns < Container > con toda la estructura para dibujar la Tabla con las cards correspondientes.
  */
 function Busqueda(){
-    const {handleMetodo,handleValor} = useParams()
+    const {handleMetodo,handle_Value} = useParams()
     const [votaciones,setVotaciones] = useState([]);
     const dispatch = useDispatch()
     const tags = useSelector(store => store.tags.array)
@@ -30,19 +30,19 @@ function Busqueda(){
         dispatch(get_Tags_Action())
         switch (handleMetodo) {
             case "ID":
-                dispatch(get_By_Id_Action(handleValor))
+                dispatch(get_By_Id_Action(handle_Value))
                 break;
             case "Boletín":
-                dispatch(get_By_Bulletin_Action(handleValor,1))//segundo parametro idica que es desde la pagina 1
+                dispatch(get_By_Bulletin_Action(handle_Value,1))//second parameter is the page
                 break;
             case "Materia":
-                dispatch(get_By_Matter_Action(handleValor,1))
+                dispatch(get_By_Matter_Action(handle_Value,1))
                 break;
             case "Nombre":
-                dispatch(get_By_Name_Action(handleValor,1))
+                dispatch(get_By_Name_Action(handle_Value,1))
                 break;
             case "Fecha":
-                dispatch(get_By_Date_Action(handleValor,1))
+                dispatch(get_By_Date_Action(handle_Value,1))
                 break;
             default:
                 break;
@@ -68,13 +68,13 @@ function Busqueda(){
             default:
                 break;
         }
-    },[by_Matter,by_Id,by_Bulletin,by_Name,by_Date]);//Cambios en los array de las votaciones
+    },[by_Matter,by_Id,by_Bulletin,by_Name,by_Date]);//changes in the voting array are updated
     return(
         <Container>
             <Row>
                 <Col>
-                    <Barra
-                        origen={"principal"}
+                    <Bar
+                        origin={"principal"}
                     />
                 </Col>
             </Row>
@@ -88,10 +88,10 @@ function Busqueda(){
                 "marginBottom":"10px"
                 }}>
                 <Col>
-                    <Buscador
+                    <Seeker
                         tags={tags}
-                        estado={handleMetodo}
-                        valor={handleValor}
+                        condition={handleMetodo}
+                        value={handle_Value}
                     />
                 </Col>
             </Row >
@@ -106,7 +106,7 @@ function Busqueda(){
                     <h4 className="alert-heading">Error</h4>
                     <p>No se han encontrado votaciones con los parámetros especificados</p>
                     <hr />
-                    <p>{handleMetodo}: {handleValor}</p>
+                    <p>{handleMetodo}: {handle_Value}</p>
                 </Alert>
                 }
                 </Col>

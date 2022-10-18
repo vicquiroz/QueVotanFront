@@ -1,19 +1,23 @@
 import React, { useEffect} from "react";
 import paleta from "../resources/paleta.json"
-import Barra from "../components/barra";
+import Bar from "../components/barra";
 import { Container, Col, Row, Navbar, NavbarBrand, NavLink, Nav, CardBody, Card, CardHeader, CardText } from "reactstrap";
 import { useParams } from 'react-router-dom'
 import {CustomView,isMobile} from 'react-device-detect'
 import { useDispatch, useSelector } from 'react-redux'
 import { get_Info_Deputies_Action } from '../redux/InfoDipDucks';
 import { get_Info_Graphic_Accion } from '../redux/InfoGrafDucks'
-import Texto from "../components/textocong";
+import text from "../components/textocong";
 import nombrepartidos from '../components/nombre-partidos.json'
 import partidos from '../components/partidos.json'
 import partidosInvertidos from '../components/partidos-invertidos.json'
 import statuscolor from '../resources/statuscolor.json'
 
-
+/**
+ *
+Page that delivers all the information of the congressman and a list with all the votes in which he has participated.
+ * @returns < Container > with the whole structure to draw the Table with the corresponding cards.
+ */
 function Congresista(){
     const { handleIdDip, handleIdVot } = useParams()
     const dispatch = useDispatch()
@@ -35,8 +39,8 @@ function Congresista(){
                 <div>
                     <Row>
                     <Col>
-                        <Barra
-                            origen={"congresista"}
+                        <Bar
+                            origin={"congresista"}
                         />
                     </Col>
                     </Row>
@@ -68,7 +72,7 @@ function Congresista(){
                                                                 <tbody>
                                                                     <tr>
                                                                         <td>Ingreso:</td>
-                                                                        <td>{post.fechaInicio.split("T")[0]}</td>
+                                                                        <td>{post.start_Date.split("T")[0]}</td>
                                                                     </tr>
                                                                     <tr>
                                                                         <td>Salida: </td>

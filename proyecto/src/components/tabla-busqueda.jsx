@@ -46,4 +46,4 @@ function Tabla({first_Votations}){
         </Container>
     )
 }
-export default Tabla;
+export default Table;

@@ -4,7 +4,7 @@ import GraficoPrincipal from "../components/grafico";
 import GraficoBarra from "../components/graficobarra";
 import Inform from "../components/infoBrush";
 import MostrarLista from "../components/listado";
-import Barra from "../components/barra";
+import Bar from "../components/barra";
 import {Container, Col, Row} from "reactstrap";
 import {useParams} from 'react-router-dom'
 import {useDispatch, useSelector} from 'react-redux'
@@ -17,7 +17,7 @@ function PagGrafico(){
         return Object.keys(obj).length===0
     }
     const {handle} = useParams()
-    const [idCon, setId] = useState();
+    const [idCon, set_Id] = useState();
     const [xyBrush, setXY] = useState();
     const [Titulo,setTitulo] = useState("")
     const [TFlag,setTFlag] = useState(true)
@@ -45,8 +45,8 @@ function PagGrafico(){
             <div>
             <Row>
                 <Col>
-                    <Barra
-                        origen={"grafico"}
+                    <Bar
+                        origin={"grafico"}
                     />
                 </Col>
             </Row>
@@ -78,7 +78,7 @@ function PagGrafico(){
                 <Col>
                     <div className="d-flex justify-content-center">
                         <GraficoPrincipal className="col-12"
-                            setId={setId}
+                            set_Id={set_Id}
                             setXY={setXY}
                             datoswnominate={info_Graphic}
                         />
@@ -113,7 +113,7 @@ function PagGrafico(){
             :[]}
         </Container>
     )
-    
+
 }
 
 export default PagGrafico;

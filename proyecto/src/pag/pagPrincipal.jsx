@@ -1,7 +1,7 @@
 import React, {useState,useEffect}  from "react";
-import Barra from "../components/barra";
-import Tabla from "../components/tabla";
-import Buscador from "../components/buscador";
+import Bar from "../components/barra";
+import Table from "../components/tabla";
+import Seeker from "../components/buscador";
 import {Container, Col, Row,Alert} from "reactstrap";
 import {CustomView,isMobile} from 'react-device-detect'
 import {useDispatch, useSelector} from 'react-redux'
@@ -21,8 +21,8 @@ function Principal(){
         <Container>
             <Row>
                 <Col>
-                    <Barra
-                        origen={"principal"}
+                    <Bar
+                        origin={"principal"}
                     />
                 </Col>
             </Row>
@@ -36,7 +36,7 @@ function Principal(){
                 "marginBottom":"10px"
                 }}>
                 <Col>
-                    <Buscador
+                    <Seeker
                         tags={tags}
                     />
                 </Col>
@@ -52,7 +52,7 @@ function Principal(){
                     <h4 className="alert-heading">Error</h4>
                     <p>Se ha producido un error al mostrar las consultas más recientes</p>
                     <hr />
-                    <p>Intente recargar la página más tarde</p>        
+                    <p>Intente recargar la página más tarde</p>
                 </Alert>
                 }
                 </Col>

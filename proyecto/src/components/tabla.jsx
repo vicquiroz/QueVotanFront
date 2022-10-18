@@ -12,10 +12,10 @@ import {get_By_Date_Action} from '../redux/busqueda/porFecha'
 import {useParams} from "react-router";
 
 /**
- * Funcion encargada de buscar las siguientes cards de las votaciones segun su metodo.
- * @param {*} first_Votations Las primeras votaciones entergadas por la API.
- * @param {*} metodo Metodo de busqueda seleccionado.
- * @returns < Container > con la estructura de las listas de cards de las votaciones segun su metodo.
+ * Function in charge of looking for the following voting cards according to their method.
+ * @param {*} first_Votes The first votes delivered by the API.
+ * @param {*} method Selected search method.
+ * @returns < Container > with the structure of the voting card lists according to their method.
  */
 function Tabla({first_Votations,metodo}){
     const dispatch = useDispatch()
@@ -33,52 +33,52 @@ function Tabla({first_Votations,metodo}){
     }
     const fetchData = () =>{
         setTimeout(() => {
-            setPag(pag+1)
-            switch (metodo) {
+            set_Pag(pag+1)
+            switch (method) {
                 case "principal":
-                    dispatch(get_First_Votes_Action(pag))//obtiene las votaciones de la siguiente pagina de la API
+                    dispatch(get_First_Votes_Action(pag))//get the votes of the next page of the API
                     if((typeof(VotacionesSiguientes)!=="string")){
-                        setListaVot([...ListaVot,...VotacionesSiguientes])//actualiza ListaVot y le agrega los valores de VotacionesSiguientes
-                        let ListaTemp=[...ListaVot,...VotacionesSiguientes]
-                        setListaVot([...new Set(ListaTemp)])
+                        set_voting_List([...voting_List,...VotacionesSiguientes])//updates voting_List and adds the values ​​of NextVotes
+                        let ListaTemp=[...voting_List,...VotacionesSiguientes]
+                        set_voting_List([...new Set(ListaTemp)])
                     }
-                    else setStatus(false)
+                    else set_Status(false)
                     break;
                 case "Materia":
-                    dispatch(get_By_Matter_Action(handleValor,pag))
+                    dispatch(get_By_Matter_Action(handle_Value,pag))
                     if((typeof(by_Matter)!=="string")){
-                        setListaVot([...ListaVot,...by_Matter])
-                        let ListaTemp=[...ListaVot,...by_Matter]
-                        setListaVot([...new Set(ListaTemp)])
+                        set_voting_List([...voting_List,...by_Matter])
+                        let ListaTemp=[...voting_List,...by_Matter]
+                        set_voting_List([...new Set(ListaTemp)])
                     }
-                    else setStatus(false)
+                    else set_Status(false)
                     break;
                 case "Boletín":
-                    dispatch(get_By_Bulletin_Action(handleValor,pag))
+                    dispatch(get_By_Bulletin_Action(handle_Value,pag))
                     if(typeof(by_Bulletin)!=="string"){
-                        setListaVot([...ListaVot,...by_Bulletin])
-                        let ListaTemp=[...ListaVot,...by_Bulletin]
-                        setListaVot([...new Set(ListaTemp)])
+                        set_voting_List([...voting_List,...by_Bulletin])
+                        let ListaTemp=[...voting_List,...by_Bulletin]
+                        set_voting_List([...new Set(ListaTemp)])
                     }
-                    else setStatus(false)
+                    else set_Status(false)
                     break;
                 case "Nombre":
-                    dispatch(get_By_Name_Action(handleValor,pag))
+                    dispatch(get_By_Name_Action(handle_Value,pag))
                     if(typeof(by_Name)!=="string"){
-                        setListaVot([...ListaVot,...by_Name])
-                        let ListaTemp=[...ListaVot,...by_Name]
-                        setListaVot([...new Set(ListaTemp)])
+                        set_voting_List([...voting_List,...by_Name])
+                        let ListaTemp=[...voting_List,...by_Name]
+                        set_voting_List([...new Set(ListaTemp)])
                     }
-                    else setStatus(false)
+                    else set_Status(false)
                     break;
                 case "Fecha":
-                    dispatch(get_By_Date_Action(handleValor,pag))
+                    dispatch(get_By_Date_Action(handle_Value,pag))
                     if(typeof(by_Date)!=="string"){
-                        setListaVot([...ListaVot,...by_Date])
-                        let ListaTemp=[...ListaVot,...by_Date]
-                        setListaVot([...new Set(ListaTemp)])
+                        set_voting_List([...voting_List,...by_Date])
+                        let ListaTemp=[...voting_List,...by_Date]
+                        set_voting_List([...new Set(ListaTemp)])
                     }
-                    else setStatus(false)
+                    else set_Status(false)
                     break;
                 default:
                     break;
@@ -87,9 +87,9 @@ function Tabla({first_Votations,metodo}){
     }
     return(
         <Container>
-                {!isEmpty(ListaVot)?
+                {!isEmpty(voting_List)?
                 <InfiniteScroll
-                dataLength={ListaVot.length}
+                dataLength={voting_List.length}
                 next={fetchData}
                 hasMore={status}
                 loader={
@@ -99,11 +99,11 @@ function Tabla({first_Votations,metodo}){
                 }
                 endMessage={
                     <p style={{ textAlign: 'center',borderRadius: "10px",backgroundColor:paleta.fondoMid,padding:"10px"}}>
-                      <h4 className={paleta.colorTextoBootstrap}>No existen más votaciones</h4>
+                        <h4 className={paleta.colorTextoBootstrap}>No existen más votaciones</h4>
                     </p>
-                  }
+                    }
                 >
-                {ListaVot.map((post,index) => (
+                {voting_List.map((post,index) => (
                     <div key={index}>
                     <div onClick={()=> window.location.href="/grafico/"+post.id} style={{ cursor:"pointer",textDecoration: 'none' }}>
                         <Card className={paleta.colorTextoBootstrap} style={{backgroundColor:paleta.colorBgCard}}>
@@ -135,4 +135,4 @@ function Tabla({first_Votations,metodo}){
         </Container>
     )
 }
-export default Tabla;
+export default Table;

@@ -3,8 +3,8 @@ import paleta from "../resources/paleta.json"
 import es from 'date-fns/locale/es';
 import {InputGroup,
         InputGroupButtonDropdown,
-        Container, 
-        Input, 
+        Container,
+        Input,
         Label,
         DropdownItem,
         DropdownToggle,
@@ -20,32 +20,32 @@ import DatePicker from '@mui/lab/DatePicker';
 import TextField from '@mui/material/TextField';
 import { createTheme,ThemeProvider } from '@mui/material/styles';
 /**
- * Funcion encargada de crear la estructura y logica del funcionamiento del buscador de la pagina.
- * @param {*} tags ?
- * @param {*} estado El metodo por el cual se esta buscando
- * @param {*} valor El valor a ser buscado
- * @returns un < Container > con toda la estructura del buscador
+ * Function in charge of creating the structure and logic of the operation of the search engine of the page.
+ * @param {*} tags  array of tags that will be used to filter the votes.
+ * @param {*} condition The method by which you are searching.
+ * @param {*} value The value to be searched.
+ * @returns a < Container > with all the structure of the browser.
  */
-function Buscador({tags,estado,valor}){
-    const [texto, setTexto] = useState();
-    const [sugerencia, setSuge] = useState();
-    const [id, setId] = useState();
-    const [eleccion, setEleccion] = useState("Materia");
-    const [dropdownOpen, setOpen] = useState(false);
-    const [fechaInicio, setFechaInicio] = useState(new Date());
-    const [fechaFin, setFechaFin] = useState(new Date());
-    const toggle = () => setOpen(!dropdownOpen);
+function Seeker({tags,condition,value}){
+    const [text, set_Text] = useState();
+    const [suggestion, set_Suge] = useState();
+    const [id, set_Id] = useState();
+    const [election, set_Election] = useState("Materia");
+    const [dropdownOpen, set_Open] = useState(false);
+    const [start_Date, set_Start_Date] = useState(new Date());
+    const [end_Date, set_End_Date] = useState(new Date());
+    const toggle = () => set_Open(!dropdownOpen);
     const darkTheme = createTheme({
         palette: {
           mode: 'dark',
         }
       });
     /**
-     * Recive el texto introducido en el buscador, verifica que este en la eleccion "materia" y entrega ? ademas de crear el nuevo estado de sugerencia y de texto.
-     * @param {String} tex 
+     * Receives the text entered in the search engine, verifies that it is in the "subject" choice and returns the filtered matrix in addition to creating the new text and suggestion state.
+     * @param {String} tex
      */
-    const enCambio = (tex) =>{
-        if(eleccion==="Materia"){
+    const instead = (tex) =>{
+        if(election==="Materia"){
             let coincide = [];
             if(tex.length>0){
                 coincide = tags.filter(tag=>{
@@ -53,30 +53,30 @@ function Buscador({tags,estado,valor}){
                     return tagname.includes(tex.toLowerCase());
             })
         }
-        setSuge(coincide);
+        set_Suge(coincide);
         }
-        setTexto(tex)
+        set_Text(tex)
     }
 
     /**
-     * Llamada cuando la eleccion es "Materia", recibe el texto perteneciente la oracion que reprecenta la materia y un ID identificador de esta misma.
-     * @param {String} texto 
-     * @param {*} id 
+     * Called when the choice is "Subject", it receives the text belonging to the sentence that represents the subject and an ID identifying it.
+     * @param {String} text
+     * @param {*} id
      */
 
-    const seleccion = (texto, id) =>{
-        setTexto(texto);
-        setId(id);
-        setSuge("");
+    const selection = (text, id) =>{
+        set_Text(text);
+        set_Id(id);
+        set_Suge("");
         document.getElementById('buscador').select();
     }
     /**
-     * Funcion que al ser apretada la tecla Enter verifica el estado de la variable "eleccion" y realiza la busqueda verifiando que el parametro a buscar coincida con su espectivo formato, sino, devuelve una alerta.
-     * @param {*} tecla 
+     * Function that, when the Enter key is pressed, verifies the status of the "choice" variable and performs the search, verifying that the parameter to be searched matches its specific format, if not, it returns an alert.
+     * @param {*} Key
      */
-    const teclaAbajo = (tecla) => {
+    const down_Key = (tecla) => {
         if (tecla.key === 'Enter') {
-            switch (eleccion) {
+            switch (election) {
                 case "Materia":
                     if(id!=="" && id!==undefined){
                         window.location.href="/Buscar/Materia/"+id
@@ -86,31 +86,31 @@ function Buscador({tags,estado,valor}){
                     }
                     break;
                 case "Nombre":
-                    if(texto!=="" && texto !==undefined){
-                        window.location.href=`/Buscar/Nombre/${String(texto)}`
+                    if(text!=="" && text !==undefined){
+                        window.location.href=`/Buscar/Nombre/${String(text)}`
                     }
                     else{
                         alert("Debe de ingresar un nombre de una votación antes de hacer una consulta")
                     }
                     break;
                 case "ID":
-                    if(texto!=="" && texto !==undefined){
-                        window.location.href="/Buscar/ID/"+texto
+                    if(text!=="" && text !==undefined){
+                        window.location.href="/Buscar/ID/"+text
                     }
                     else{
                         alert("Debe de ingresar un identificador antes de hacer una consulta")
                     }
                     break;
                 case "Boletín":
-                    if(texto!=="" && texto !==undefined){
-                        window.location.href=`/Buscar/Boletín/${String(texto)}`
+                    if(text!=="" && text !==undefined){
+                        window.location.href=`/Buscar/Boletín/${String(text)}`
                     }
                     else{
                         alert("Debe de ingresar un número de boletín antes de hacer una consulta")
                     }
                     break;
                 case "Fecha":
-                    window.location.href=`/Buscar/Fecha/${String(fechaInicio.split("T")[0])}!${String(fechaFin.split("T")[0])}`
+                    window.location.href=`/Buscar/Fecha/${String(start_Date.split("T")[0])}!${String(end_Date.split("T")[0])}`
                     break;
                 default:
                     break;
@@ -118,33 +118,33 @@ function Buscador({tags,estado,valor}){
         }
     }
 
-    /** UseEffect que analiza el cambio de la tag para guardar la eleccion y el nuevo estado de Texto o de ID */
+    /** UseEffect that analyzes the change of the tag to save the choice and the new status of Text or ID */
     useEffect(()=>{
-        if(estado!==undefined){
-            setEleccion(estado)
-            switch (estado) {
+        if(condition!==undefined){
+            set_Election(condition)
+            switch (condition) {
                 case "Materia":
                     if(tags.length>0){
-                        let materia = tags.find(tag=>{return tag.id==valor})
-                        seleccion(materia.descripcion,valor)
+                        let materia = tags.find(tag=>{return tag.id==value})
+                        selection(materia.descripcion,value)
                     }
                     break;
                 case "Nombre":
-                    setTexto(valor)
+                    set_Text(value)
                     break;
                 case "ID":
-                    setTexto(valor)
+                    set_Text(value)
                     break;
                 case "Boletín":
-                    setTexto(valor)
+                    set_Text(value)
                     break;
                 case "Fecha":
-                    //window.location.href=`/Buscar/Fecha/${String(fechaInicio.split("T")[0])}!${String(fechaFin.split("T")[0])}`
-                    let Fechas=valor.split("!")
+                    //window.location.href=`/Buscar/Fecha/${String(start_Date.split("T")[0])}!${String(end_Date.split("T")[0])}`
+                    let Fechas=value.split("!")
                     let NewFechaInicio=Fechas[0]
                     let NewFechaFinal=Fechas[1]
-                    setFechaInicio(new Date(NewFechaInicio+"T12:00:00.000Z"))
-                    setFechaFin(new Date(NewFechaFinal+"T12:00:00.000Z"))
+                    set_Start_Date(new Date(NewFechaInicio+"T12:00:00.000Z"))
+                    set_End_Date(new Date(NewFechaFinal+"T12:00:00.000Z"))
                     break;
                 default:
                     break;
@@ -159,88 +159,88 @@ function Buscador({tags,estado,valor}){
             <Row>
             <InputGroup>
                 <InputGroupButtonDropdown addonType="append" isOpen={dropdownOpen} toggle={toggle} direction='right'>
-                    <DropdownToggle caret split color="primary" style={{width:"100%"}}>{eleccion} </DropdownToggle>
+                    <DropdownToggle caret split color="primary" style={{width:"100%"}}>{election} </DropdownToggle>
                     <DropdownMenu>
                         <DropdownItem header>
                             Seleccione el método de búsqueda
                         </DropdownItem>
                         <DropdownItem onClick={()=>{
-                            setEleccion("Materia")
-                            setTexto("")
+                            set_Election("Materia")
+                            set_Text("")
                         }}>
                             Buscar por materia asociada
                         </DropdownItem>
                         <DropdownItem onClick={()=>{
-                            setEleccion("Nombre")
-                            setSuge("")
-                            setTexto("")
+                            set_Election("Nombre")
+                            set_Suge("")
+                            set_Text("")
                             }}>
                             Buscar por nombre de votación
                         </DropdownItem>
                         <DropdownItem onClick={()=>{
-                            setEleccion("Boletín")
-                            setTexto("")
+                            set_Election("Boletín")
+                            set_Text("")
                         }}>
                             Buscar por número de boletín
                         </DropdownItem>
                         <DropdownItem onClick={()=>{
-                            setEleccion("ID")
-                            setTexto("")
+                            set_Election("ID")
+                            set_Text("")
                         }}>
                             Buscar por ID de votación
                         </DropdownItem>
                         <DropdownItem onClick={()=>{
-                            setEleccion("Fecha")
-                            setTexto("")
+                            set_Election("Fecha")
+                            set_Text("")
                         }}>
                             Buscar por fecha de votación
                         </DropdownItem>
                     </DropdownMenu>
                 </InputGroupButtonDropdown>
-                {eleccion!="Fecha"?
+                {election!="Fecha"?
                 <Input
                     id="buscador"
                     onChange={e =>{
                         const reId = /^[0-9\b]+$/;
                         const renB = /^[0-9-\b]+$/;
-                        switch (eleccion) {
+                        switch (election) {
                             case "ID":
                                 if (e.target.value === '' || reId.test(e.target.value)) {
-                                    enCambio(e.target.value)
+                                    instead(e.target.value)
                                 }
                                 break;
                             case "Boletín":
                                 if (e.target.value === '' || renB.test(e.target.value)) {
-                                    enCambio(e.target.value)
+                                    instead(e.target.value)
                                 }
                                 break;
                             default:
-                                enCambio(e.target.value)
+                                instead(e.target.value)
                                 break;
                         }
                     }}
-                    onKeyDown={teclaAbajo}
+                    onKeyDown={down_Key}
                     className={"input "+paleta.colorTextoBootstrap}
-                    type="search" 
+                    type="search"
                     placeholder="Buscar"
-                    value={texto || ""}
+                    value={text || ""}
                     style={{backgroundColor:paleta.colorFondoInput}}
                 >
                 </Input>
                 :
                 <div>
-                 <ThemeProvider theme={darkTheme}> 
-  
+                 <ThemeProvider theme={darkTheme}>
+
                     <LocalizationProvider dateAdapter={AdapterDateFns} locale={es}>
                         <DatePicker
                             disableFuture
                             openTo="year"
                             views={['year', 'month', 'day']}
-                            value={fechaInicio}
+                            value={start_Date}
                             onChange={(newValue) => {
-                                setFechaInicio(newValue);
+                                set_Start_Date(newValue);
                             }}
-                            renderInput={(params) => <TextField {...params} 
+                            renderInput={(params) => <TextField {...params}
                             style={{backgroundColor:"rgba(50,50,50,0.95)"}}
                             />}
                         />
@@ -248,9 +248,9 @@ function Buscador({tags,estado,valor}){
                             disableFuture
                             openTo="year"
                             views={['year', 'month', 'day']}
-                            value={fechaFin}
+                            value={end_Date}
                             onChange={(newValue) => {
-                                setFechaFin(newValue);
+                                set_End_Date(newValue);
                             }}
                             renderInput={(params) => <TextField {...params}
                             style={{backgroundColor:"rgba(50,50,50,0.95)"}}
@@ -259,18 +259,18 @@ function Buscador({tags,estado,valor}){
                     </LocalizationProvider>
                     </ThemeProvider>
                     <Button onClick={()=>{
-                        window.location.href=`/Buscar/Fecha/${String(fechaInicio.toISOString().split("T")[0])}!${String(fechaFin.toISOString().split("T")[0])}`}
+                        window.location.href=`/Buscar/Fecha/${String(start_Date.toISOString().split("T")[0])}!${String(end_Date.toISOString().split("T")[0])}`}
                         }>Buscar</Button>
                 </div>
                 }
                 </InputGroup>
-                {eleccion==="Materia"?
+                {election==="Materia"?
                 <Container>
                 <div className="border border-dark">
-                {sugerencia && sugerencia.slice(0,10).map((sugerencia, id) =>
+                {suggestion && suggestion.slice(0,10).map((suggestion, id) =>
                     <Label className="list-group-flush list-group-item-dark list-group-item-action" key={id}
-                     onClick={()=> seleccion(sugerencia.descripcion,sugerencia.id)}>
-                        {sugerencia.descripcion} 
+                     onClick={()=> selection(suggestion.descripcion,suggestion.id)}>
+                        {suggestion.descripcion}
                     </Label>
                 )}
                 </div>
@@ -281,4 +281,4 @@ function Buscador({tags,estado,valor}){
         </Container>
     )
 }
-export default Buscador;
+export default Seeker;

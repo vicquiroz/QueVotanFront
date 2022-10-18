@@ -4,10 +4,11 @@ import ReactPlayer from "react-player/youtube"
 
 
 /**
- * Crea una tarjeta flotante sobre el funcionamiento de la pagina donde fue llamdo, ese origen se tiene como parametro interno.
- * @returns {JSX.Element} Una tarjeta flotante donde se despliega un video y texto explicativo sobre la seccion de la pagina en la que se esta.
+ * It creates a floating card on the operation of the page where it was called, that "origin" is taken as an internal parameter.
+ * @returns {JSX.Element} a floating card where a video and explanatory text are displayed on the section of the page in which it is
  */
-function Ayuda({origen}){
+
+function Help({origin}){
     const [modal, setModal] = useState(false);
     const toggle = () => setModal(!modal);
     return (
@@ -16,7 +17,7 @@ function Ayuda({origen}){
                 <Modal isOpen={modal} toggle={toggle}>
                     <ModalHeader toggle={toggle}>Ayuda</ModalHeader>
                     <ModalBody>
-                        {texto(origen)}
+                        {text(origin)}
                     </ModalBody>
                     <ModalFooter>
                         <Button color="primary" onClick={toggle}>Cerrar</Button>
@@ -24,17 +25,17 @@ function Ayuda({origen}){
                 </Modal>
         </strong>
         );
-    
+
 }
 
 
 /**
- * Funcion que dependiendo del origen logra mostrar un menu contextual para prestar ayuda sobre el comportamioento de la pagina en ese sector
- * @param {String} origen Reprecenta la pagina desde la cual se llama al boton de ayuda.
- * @returns Devuelve una glosa explicactiva sobre el funcionamiento de esa pagina, junto a un video para una tarjeta flotante.
+ * Function that depending on the origin manages to show a contextual menu to provide help on the behavior of the page in that sector
+ * @param {String} origin Represents the page from which the help button is called.
+ * @returns Returns an explanatory gloss on how that page works, along with a video of a hover card.
  */
-function texto(origen){
-    if(origen==="principal"){
+ function text(origin){
+    if(origin==="principal"){
     return(
         <div>
             <h5>Video tutorial</h5>
@@ -72,7 +73,7 @@ function texto(origen){
             </ul>
         </div>
         )}
-    if(origen==="grafico"){
+    if(origin==="grafico"){
         return(
             <div>
                 <h5>Video tutorial</h5>
@@ -94,10 +95,10 @@ function texto(origen){
                     </li>
                     <li>
                         Selección múltiple: Se puede realizar una selección de varios puntos a la vez, para esto se debe
-                        de mantener el click sobre el gráfico y arrastrar el cursor hasta encerrar todos los puntos deseados. 
+                        de mantener el click sobre el gráfico y arrastrar el cursor hasta encerrar todos los puntos deseados.
                     </li>
                     <li>
-                        Selección por partidos: Se puede hacer click en el color de un partido, o su nombre dentro del gráfico, para así 
+                        Selección por partidos: Se puede hacer click en el color de un partido, o su nombre dentro del gráfico, para así
                         seleccionar sólo los votantes de dicho partido, mostrando al mismo tiempo un polígono que encierra a dichos votantes.
                     </li>
                     <li>
@@ -112,7 +113,7 @@ function texto(origen){
             </div>
         )
     }
-    if(origen==="congresista"){
+    if(origin==="congresista"){
         return(
             <div>
                 <h5>Congresista</h5>
@@ -127,7 +128,7 @@ function texto(origen){
             </div>
         )
     }
-    if(origen==="vot-importantes"){
+    if(origin==="vot-importantes"){
         return(
             <div>
                 <h5>Video tutorial</h5>
@@ -147,4 +148,4 @@ function texto(origen){
         )
     }
 }
-export default Ayuda
+export default Help
