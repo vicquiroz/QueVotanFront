@@ -6,41 +6,45 @@ const porMateriaI = {
 
 
 
-const OBTENER_PORMATERIA_EXITO = 'OBTENER_PORMATERIA_EXITO'
-const OBTENER_PORMATERIA_ERROR = 'OBTENER_PORMATERIA_ERROR'
+const GET_BY_MATTER_SUCCESS = 'GET_BY_MATTER_SUCCESS'
+const GET_BY_MATTER_ERROR = 'GET_BY_MATTER_ERROR'
 /**
- * Reducer para el estado al obtener votaciones por materia.
- * @param {porMateriaI} state El estado de la aplicacion.
- * @param {*} action La action.type: 'OBTENER_PORMATERIA_EXITO' or 'OBTENER_PORMATERIA_ERROR'
- * @returns El nuevo estado de la aplicacion tras obtener con exito o error las votaciones por materia
+ * It returns a new state object with the array property set to the value of the action.payload
+ * property.
+ * @param [state] - porMateriaI
+ * @param action - {type: "GET_BY_MATTER_SUCCESS", payload: Array()}
+ * @returns The state is being returned.
  */
-export default function porMateriaReducer(state = porMateriaI, action){
+export default function by_Matter_Reducer(state = porMateriaI, action){
     switch(action.type){
-        case OBTENER_PORMATERIA_EXITO:
+        case GET_BY_MATTER_SUCCESS:
             return {...state, array: action.payload}
-        case OBTENER_PORMATERIA_ERROR:
+        case GET_BY_MATTER_ERROR:
             return {...state, array: action.payload}
         default:
             return state
     }
 }
-
 /**
- * Funcion accion para obtener por materias las votaciones
- * @param {*} param La materia que se desea buscar.
- * @param {number} pag El numero de pagina en la cual se esta buscado la informacion
- * @returns Dispatch type: OBTENER_PORMATERIA_EXITO payload: data de "votaciones/materia/"+param+"?page="+pag+"&limit=10" or type: OBTENER_PORMATERIA_ERROR payload: error
+ * Function that occupies the parameter "param" and "pag" to obtain the votes according to a selected matter.
+ * 
+ * The type property is a string that is used to identify the action.
+ * 
+ * The payload property is the data that is passed to the reducer.
+ * 
+ * @param param - is the subject that I want to filter
+ * @param pag - page number
  */
-export const obtenerPorMateriaAccion = (param,pag) => async(dispatch,getState) => {
+export const get_By_Matter_Action = (param,pag) => async(dispatch,getState) => {
     try {
         const res = await axios.get(String(process.env.REACT_APP_API_URL+"votaciones/materia/"+param+"?page="+pag+"&limit=10"))
         dispatch({
-            type: OBTENER_PORMATERIA_EXITO,
+            type: GET_BY_MATTER_SUCCESS,
             payload: res.data.data
         })
     } catch (error) {
         dispatch({
-            type: OBTENER_PORMATERIA_ERROR,
+            type: GET_BY_MATTER_ERROR,
             payload: error.toJSON().message
         })
     }

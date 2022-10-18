@@ -6,33 +6,35 @@ const porIdI = {
 
 
 
-const OBTENER_PORID_EXITO = 'OBTENER_PORID_EXITO'
+const GET_BY_ID_SUCCESS = 'GET_BY_ID_SUCCESS'
 
 /**
- * Reducer del estado al buscar votacion por ID
- * @param {porIdI} state El estado de la aplicacion
- * @param {*} action La action.type: 'OBTENER_PORID_EXITO'
- * @returns El nuevo estado de la palicacion tras buscar votaciones por ID
+ * It takes the state and an action and returns a new state.
+ * @param [state] - porIdI
+ * @param action - {type: "GET_BY_ID_SUCCESS", payload: Array()}
+ * @returns The state is being returned.
  */
-export default function porIdReducer(state = porIdI, action){
+export default function by_Id_Reducer(state = porIdI, action){
     switch(action.type){
-        case OBTENER_PORID_EXITO:
+        case GET_BY_ID_SUCCESS:
             return {...state, array: action.payload}
         default:
             return state
     }
 }
-
 /**
- * Funcion accion para buscar votaciones segun un ID
- * @param {*} param La ID a buscar
- * @returns Dispatch con la data de la votacion perteneciente a ese ID "votacion/"+param
+ * 
+ * It's an async function that takes an ID, and then uses that ID to make an API call to a
+ * backend server. 
+ * 
+ * The function is called from a React component, and the parameter is passed in from the component.
+ * @param param - id of the vote
  */
-export const obtenerPorIdAccion = (param) => async(dispatch,getState) => {
+export const get_By_Id_Action = (param) => async(dispatch,getState) => {
     try {
         const res = await axios.get(String(process.env.REACT_APP_API_URL+"votacion/"+param))
         dispatch({
-            type: OBTENER_PORID_EXITO,
+            type: GET_BY_ID_SUCCESS,
             payload: [res.data.data]
         })
     } catch (error) {

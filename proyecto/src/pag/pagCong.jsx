@@ -5,36 +5,33 @@ import { Container, Col, Row, Navbar, NavbarBrand, NavLink, Nav, CardBody, Card,
 import { useParams } from 'react-router-dom'
 import {CustomView,isMobile} from 'react-device-detect'
 import { useDispatch, useSelector } from 'react-redux'
-import { obtenerInfoDiputadosAccion } from '../redux/InfoDipDucks';
-import { obtenerInfoGraficoAccion } from '../redux/InfoGrafDucks'
+import { get_Info_Deputies_Action } from '../redux/InfoDipDucks';
+import { get_Info_Graphic_Accion } from '../redux/InfoGrafDucks'
 import Texto from "../components/textocong";
 import nombrepartidos from '../components/nombre-partidos.json'
 import partidos from '../components/partidos.json'
 import partidosInvertidos from '../components/partidos-invertidos.json'
 import statuscolor from '../resources/statuscolor.json'
 
-/**
- * Pagina que entrega toda la informacion del congresista y una lista con todas las votaciones en las que ha participado.
- * @returns < Container > con toda la estructura.
- */
+
 function Congresista(){
     const { handleIdDip, handleIdVot } = useParams()
     const dispatch = useDispatch()
-    const infoDip = useSelector(store => store.infoDiputados.array)
-    const infoGrafico = useSelector(store => store.infoGrafico.array)
+    const infoDip = useSelector(store => store.info_Deputies.array)
+    const info_Graphic = useSelector(store => store.info_Graphic.array)
 
     function isEmpty(obj) {
         return Object.keys(obj).length === 0
     }
 
     useEffect(() => {
-        dispatch(obtenerInfoDiputadosAccion(handleIdDip))
-        dispatch(obtenerInfoGraficoAccion(handleIdVot))
+        dispatch(get_Info_Deputies_Action(handleIdDip))
+        dispatch(get_Info_Graphic_Accion(handleIdVot))
     }, []);
 
     return(
         <Container className={paleta.colorTextoBootstrap}>
-            {!isEmpty(infoDip) && !isEmpty(infoGrafico)?
+            {!isEmpty(infoDip) && !isEmpty(info_Graphic)?
                 <div>
                     <Row>
                     <Col>
@@ -114,7 +111,7 @@ function Congresista(){
                                 </Navbar>
                             </Col>
                             <Col>
-                                <Texto infoDip={infoDip} datoswnominate={infoGrafico}/>                  
+                                <Texto infoDip={infoDip} datoswnominate={info_Graphic}/>                  
                             </Col>
                         </Row>
                     </Container>

@@ -5,42 +5,53 @@ const VotacionI = {
 }
 
 
-const OBTENER_PRIMERASVOTACIONES_EXITO = 'OBTENER_PRIMERASVOTACIONES_EXITO'
-const OBTENER_PRIMERASVOTACIONES_ERROR = 'OBTENER_PRIMERASVOTACIONES_ERROR'
+const GETTING_FIRST_VOTES_SUCCESS = 'GETTING_FIRST_VOTES_SUCCESS'
+const GET_FIRST_VOTE_ERROR = 'GET_FIRST_VOTE_ERROR'
 /**
- * Reducer para cambiar el estado segun el exito o error de la accion Obtener_PriemrosVotos
- * @param {VotacionI} state Recibe por defecto un VotacionI con stateDispatch false y un array  
- * @param {OBTENER_PRIMERASVOTACIONES_EXITO|OBTENER_PRIMERASVOTACIONES_ERROR} action action.type = OBTENER_PRIMERASVOTACIONES_EXITO' o 'OBTENER_PRIMERASVOTACIONES_ERROR'
- * @returns El nuevo estado dependiendo del exito o error al "OBTENER_PRIMERASVOTACIONES"
+ * It takes the state and an action as arguments, and returns a new state based on the action type.
+ * @param [state] - VotacionI
+ * @param action - {type: "GETTING_FIRST_VOTES_SUCCESS", payload: Array(2)}
+ * @returns The state is being returned.
  */
-export default function primerasVotacionesReducer(state = VotacionI, action){
+export default function first_Votations_Reducer(state = VotacionI, action){
     switch(action.type){
-        case OBTENER_PRIMERASVOTACIONES_EXITO:
+        case GETTING_FIRST_VOTES_SUCCESS:
             return {...state, array: action.payload}
-        case OBTENER_PRIMERASVOTACIONES_ERROR:
+        case GET_FIRST_VOTE_ERROR:
             return {...state, array: action.payload}
         default:
             return state
     }
 }
 /**
- * Funcion Accion que recibe un numero de pagiana para revisar en la API y asi por dentro crear un dispatch
- * @param {number} pag Reprecenta el numero de la pagina de la cual se busca la informacion.
- * @returns Dispatch con el type: OBTENER_PRIMERASVOTACIONES_EXITO,payload: data de "votaciones?page="+pag+"&limit=10" ,stateDispatch:true y si falla type: OBTENER_PRIMERASVOTACIONES_ERROR, payload: error.toJSON().message
+ * Action function that receives a page number for the API call and creates a dispatch with the first 10 votes
+ * 
+ * The first function is the one that is called when the action is dispatched. It takes in the dispatch
+ * function and the getState function as parameters. The dispatch function is used to dispatch the
+ * action to the reducer. The getState function is used to get the current state of the application.
+ * 
+ * The second function is the one that is returned by the first function. It takes in the pag
+ * parameter. This parameter is used to make the API call.
+ * 
+ * The third function is an object that contains
+ * the type of the action and the payload. The type is used to identify the action in the reducer. The
+ * payload is the data that is sent to the reducer.
+ * @param pag - page number
+ * @returns Dispatch
  */
-export const obtenerPrimerasVotacionesAccion = (pag) => async(dispatch,getState) => {
+export const get_First_Votes_Action = (pag) => async(dispatch,getState) => {
     try {
         //Esta constante debe ser cambiada por su equivalente en API
         const res = await axios.get(String(process.env.REACT_APP_API_URL)+"votaciones?page="+pag+"&limit=10")
         //console.log(res.data.data)
         dispatch({
-            type: OBTENER_PRIMERASVOTACIONES_EXITO,
+            type: GETTING_FIRST_VOTES_SUCCESS,
             payload: res.data.data,
             stateDispatch:true
         })
     } catch (error) {
         dispatch({
-            type: OBTENER_PRIMERASVOTACIONES_ERROR,
+            type: GET_FIRST_VOTE_ERROR,
             payload: error.toJSON().message
         })
     }

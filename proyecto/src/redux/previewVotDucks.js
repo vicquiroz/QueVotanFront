@@ -5,32 +5,44 @@ const previewVotacionI = {
 }
 
 
-const OBTENER_PREVIEWVOTACION_EXITO = 'OBTENER_PREVIEWVOTACION_EXITO'
+const GET_PREVIEWVOTE_SUCCESS = 'GET_PREVIEWVOTE_SUCCESS'
 
 /**
- * Reducer para actualizar el estado al obtemer preview de las votaciones
- * @param {previewVotacionI} state El estado de la aplicacion.
- * @param {OBTENER_PREVIEWVOTACION_EXITO} action un action.type: 'OBTENER_PREVIEWVOTACION_EXITO'
- * @returns El nuevo estado de la aplicacion.
+ * It takes a state and an action and returns a new state.
+ * @param [state] - previewVotacionI
+ * @param action - {type: "GET_PREVIEWVOTE_SUCCESS", payload: Array(1)}
+ * @returns The state of the reducer.
  */
-export default function previewVotacionReducer(state = previewVotacionI, action){
+export default function preview_Voting_Reducer(state = previewVotacionI, action){
     switch(action.type){
-        case OBTENER_PREVIEWVOTACION_EXITO:
+        case GET_PREVIEWVOTE_SUCCESS:
             return {...state, array: action.payload}
         default:
             return state
     }
 }
 /**
- * Funcion accion para obtener lista de las votaciones segun un ID de un votante
- * @param {} idVot id de un votante para entregarlo a la API
- * @returns {dispatch} Dispatch con type: 'OBTENER_PREVIEWVOTACION_EXITO' payload: res.data de "wnominate/diputados/preview/"+idVot
+ * The first function is the one that is called when the action is dispatched. It takes two parameters:
+ * dispatch and getState. 
+ * The object is the one that is returned by the second function. It has two properties: type and
+ * payload.
+ * The type property is a string that is used to identify the action.
+ * The payload property is the data that is sent to the reducer.
+ * 
+ * The reducer is the function that is called when the action is dispatched. It takes two parameters:
+ * state and action.
+ * 
+ * The state parameter is the current state of the application.
+ * 
+ * The action parameter is the object that is returned by the action creator.
+ * @param idVot - the id of the vote
+ * @returns Dispatch
  */
-export const obtenerPreviewVotacionAccion = (idVot) => async(dispatch,getState) => {
+export const get_Preview_Vote_Action_Action = (idVot) => async(dispatch,getState) => {
     try {
         const res = await axios.get(String(process.env.REACT_APP_API_URL)+"wnominate/diputados/preview/"+idVot)
         dispatch({
-            type: OBTENER_PREVIEWVOTACION_EXITO,
+            type: GET_PREVIEWVOTE_SUCCESS,
             payload: res.data
         })
     } catch (error) {

@@ -8,7 +8,7 @@ import Barra from "../components/barra";
 import {Container, Col, Row} from "reactstrap";
 import {useParams} from 'react-router-dom'
 import {useDispatch, useSelector} from 'react-redux'
-import {obtenerInfoGraficoAccion} from '../redux/InfoGrafDucks'
+import {get_Info_Graphic_Accion} from '../redux/InfoGrafDucks'
 import {CustomView,isMobile} from 'react-device-detect'
 
 
@@ -23,25 +23,25 @@ function PagGrafico(){
     const [TFlag,setTFlag] = useState(true)
     const [FlagUE,setFlagUE] = useState(false)
     const dispatch = useDispatch()
-    const infoGrafico = useSelector(store => store.infoGrafico.array)
+    const info_Graphic = useSelector(store => store.info_Graphic.array)
     useEffect(()=>{
-        dispatch(obtenerInfoGraficoAccion(handle))
+        dispatch(get_Info_Graphic_Accion(handle))
     },[])
     useEffect(()=>{
         //Filtro++
-        if(!isEmpty(infoGrafico)){
+        if(!isEmpty(info_Graphic)){
             setFlagUE(true)
         }
-    },[infoGrafico])
+    },[info_Graphic])
 
     useEffect(()=>{
-        if(!isEmpty(infoGrafico)){
-            setTitulo(infoGrafico.votaciones.nombre.substring(0,80)+"...")
+        if(!isEmpty(info_Graphic)){
+            setTitulo(info_Graphic.votaciones.nombre.substring(0,80)+"...")
         }
-    },[infoGrafico])
+    },[info_Graphic])
     return(
         <Container>
-            {!isEmpty(infoGrafico) && FlagUE===true?
+            {!isEmpty(info_Graphic) && FlagUE===true?
             <div>
             <Row>
                 <Col>
@@ -61,11 +61,11 @@ function PagGrafico(){
                     <h3 className={paleta.colorTextoBootstrap}  style={{cursor:"pointer",backgroundColor:paleta.fondoClaro,borderRadius:"10px"}}>
                         <Container onClick={()=>{
                             if(TFlag===true){
-                                setTitulo(infoGrafico.votaciones.nombre)
+                                setTitulo(info_Graphic.votaciones.nombre)
                                 setTFlag(false)
                             }
                             else{
-                                setTitulo(infoGrafico.votaciones.nombre.substring(0,80)+"...")
+                                setTitulo(info_Graphic.votaciones.nombre.substring(0,80)+"...")
                                 setTFlag(true)
                             }
                         }}>
@@ -80,7 +80,7 @@ function PagGrafico(){
                         <GraficoPrincipal className="col-12"
                             setId={setId}
                             setXY={setXY}
-                            datoswnominate={infoGrafico}
+                            datoswnominate={info_Graphic}
                         />
                     </div>
                 </Col>
@@ -90,14 +90,14 @@ function PagGrafico(){
                     <div className="d-flex justify-content-center">
                         <GraficoBarra
                             idCon={idCon}
-                            datoswnominate={infoGrafico}
+                            datoswnominate={info_Graphic}
                         />
                     </div>
                 </Col>
                 <Col className="col-12 col-sm-6">
                     <Inform
                         pos={xyBrush}
-                        datoswnominate={infoGrafico}
+                        datoswnominate={info_Graphic}
                     />
                 </Col>
             </Row>
@@ -105,7 +105,7 @@ function PagGrafico(){
                 <Col>
                     <MostrarLista
                         idCon={idCon}
-                        datoswnominate={infoGrafico}
+                        datoswnominate={info_Graphic}
                     />
                 </Col>
             </Row>

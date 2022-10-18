@@ -5,44 +5,44 @@ import Buscador from "../components/buscador";
 import {Container, Col, Row,Alert} from "reactstrap";
 import {useParams} from "react-router";
 import {useDispatch, useSelector} from 'react-redux'
-import {obtenerTagsAccion} from '../redux/TagsDucks'
+import {get_Tags_Action} from '../redux/TagsDucks'
 import {CustomView,isMobile} from 'react-device-detect'
-import {obtenerPorMateriaAccion} from '../redux/busqueda/porMateria'
-import {obtenerPorIdAccion} from '../redux/busqueda/porId'
-import {obtenerPorBoletinAccion} from '../redux/busqueda/porBoletin'
-import {obtenerPorNombreAccion} from '../redux/busqueda/porNombre'
-import {obtenerPorFechaAccion} from '../redux/busqueda/porFecha'
+import {get_By_Matter_Action} from '../redux/busqueda/porMateria'
+import {get_By_Id_Action} from '../redux/busqueda/porId'
+import {get_By_Bulletin_Action} from '../redux/busqueda/porBoletin'
+import {get_By_Name_Action} from '../redux/busqueda/porNombre'
+import {get_By_Date_Action} from '../redux/busqueda/porFecha'
 /**
- *Pagina donde se renderizan las busquedas realizadas, primero se hacen las acciones de buscar las votaciones segun un metodo, cunado se actualizen en la store se actualizaran en "Votaciones" con el "SetVotaciones" para poder ser renderizadas.
- * @returns < Container > con toda la estructura para dibujar la Tabla con las cards correspondientes.
+ *Page where the searches are rendered, first the actions are made to search the votes according to a method, when they are updated in the store they will be updated in "Votations" with the "SetVotations" to be able to be rendered.
+ * @returns < Container > with all the structure to draw the Table with the corresponding cards.
  */
 function Busqueda(){
     const {handleMetodo,handleValor} = useParams()
     const [votaciones,setVotaciones] = useState([]);
     const dispatch = useDispatch()
     const tags = useSelector(store => store.tags.array)
-    const porMateria = useSelector(store=>store.porMateria.array)
-    const porId = useSelector(store=>store.porId.array)
-    const porBoletin = useSelector(store=>store.porBoletin.array)
-    const porNombre = useSelector(store=>store.porNombre.array)
-    const porFecha = useSelector(store=>store.porFecha.array)
+    const by_Matter = useSelector(store=>store.by_Matter.array)
+    const by_Id = useSelector(store=>store.by_Id.array)
+    const by_Bulletin = useSelector(store=>store.by_Bulletin.array)
+    const by_Name = useSelector(store=>store.by_Name.array)
+    const by_Date = useSelector(store=>store.by_Date.array)
     useEffect(()=> {
-        dispatch(obtenerTagsAccion())
+        dispatch(get_Tags_Action())
         switch (handleMetodo) {
             case "ID":
-                dispatch(obtenerPorIdAccion(handleValor))
+                dispatch(get_By_Id_Action(handleValor))
                 break;
             case "Boletín":
-                dispatch(obtenerPorBoletinAccion(handleValor,1))//segundo parametro idica que es desde la pagina 1
+                dispatch(get_By_Bulletin_Action(handleValor,1))//segundo parametro idica que es desde la pagina 1
                 break;
             case "Materia":
-                dispatch(obtenerPorMateriaAccion(handleValor,1))
+                dispatch(get_By_Matter_Action(handleValor,1))
                 break;
             case "Nombre":
-                dispatch(obtenerPorNombreAccion(handleValor,1))
+                dispatch(get_By_Name_Action(handleValor,1))
                 break;
             case "Fecha":
-                dispatch(obtenerPorFechaAccion(handleValor,1))
+                dispatch(get_By_Date_Action(handleValor,1))
                 break;
             default:
                 break;
@@ -51,24 +51,24 @@ function Busqueda(){
     useEffect(()=> {
         switch (handleMetodo) {
             case "ID":
-                if(typeof(porMateria!=="string")) setVotaciones(porId)
+                if(typeof(by_Matter!=="string")) setVotaciones(by_Id)
                 break;
             case "Materia":
-                if(typeof(porMateria!=="string")) setVotaciones(porMateria)
+                if(typeof(by_Matter!=="string")) setVotaciones(by_Matter)
                 break;
             case "Boletín":
-                if(typeof(porBoletin)!=="string") setVotaciones(porBoletin)
+                if(typeof(by_Bulletin)!=="string") setVotaciones(by_Bulletin)
                 break;
             case "Nombre":
-                if(typeof(porNombre)!=="string") setVotaciones(porNombre)
+                if(typeof(by_Name)!=="string") setVotaciones(by_Name)
                 break;
             case "Fecha":
-                if(typeof(porFecha)!=="string") setVotaciones(porFecha)
+                if(typeof(by_Date)!=="string") setVotaciones(by_Date)
                 break;
             default:
                 break;
         }
-    },[porMateria,porId,porBoletin,porNombre,porFecha]);//Cambios en los array de las votaciones
+    },[by_Matter,by_Id,by_Bulletin,by_Name,by_Date]);//Cambios en los array de las votaciones
     return(
         <Container>
             <Row>
@@ -99,7 +99,7 @@ function Busqueda(){
                 <Col>
                 {votaciones.length>0?
                     <Tabla
-                        primerasVotaciones={votaciones} metodo={handleMetodo}
+                        first_Votations={votaciones} metodo={handleMetodo}
                     />
                     :
                 <Alert color="danger">

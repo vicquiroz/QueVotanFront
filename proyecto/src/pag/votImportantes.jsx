@@ -4,22 +4,22 @@ import {Container,Row,Col, Button,Alert} from 'reactstrap'
 import {isMobile,CustomView} from 'react-device-detect'
 import { Link,useParams } from "react-router-dom";
 import Barra from '../components/barra'
-import {obtenerPorNombreAccion} from '../redux/busqueda/porNombre'
+import {get_By_Name_Action} from '../redux/busqueda/porNombre'
 import Tabla from '../components/tabla';
 import {useSelector,useDispatch} from 'react-redux'
 function VotacionesImportantes(){
     const {handleMetodo,handleValor} = useParams()
     const [votaciones,setVotaciones] = useState([]);
     const dispatch = useDispatch()
-    const porNombre = useSelector(store=>store.porNombre.array)
+    const by_Name = useSelector(store=>store.by_Name.array)
     useEffect(()=> {
         if(handleMetodo==="Nombre"){
-            dispatch(obtenerPorNombreAccion(handleValor,1))
+            dispatch(get_By_Name_Action(handleValor,1))
         }
     },[handleValor]);
     useEffect(()=>{
-        setVotaciones(porNombre)
-    },[porNombre])
+        setVotaciones(by_Name)
+    },[by_Name])
     const MostrarVot = (metodo) =>{
         window.location.href="/VotacionesImportantes/Nombre/"+metodo
     }
@@ -65,7 +65,7 @@ function VotacionesImportantes(){
                 <Col>
                 {votaciones.length>0?
                     <Tabla
-                        primerasVotaciones={votaciones} metodo={handleMetodo}
+                        first_Votations={votaciones} metodo={handleMetodo}
                     />
                     :<Alert color="danger">
                         <h4 className="alert-heading">Error</h4>

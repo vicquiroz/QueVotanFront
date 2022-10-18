@@ -6,35 +6,35 @@ const InfoDiputadosI = {
 
 
 
-const OBTENER_INFODIPUTADOS_EXITO = 'OBTENER_INFODIPUTADOS_EXITO'
-
+const GET_INFO_DEPUTIES_SUCCESS = 'GET_INFO_DEPUTIES_SUCCESS'
 
 /**
- * Reducer del estado al tener la informacion de los diputados.
- * @param {InfoDiputadosI} state Estado de la apicacion.
- * @param {*} action La accion al buscar la informacion de un diputado action.type: 'OBTENER_INFODIPUTADOS_EXITO'.
- * @returns El nuevo estado de la aplicacion.
+ * "If the action type is GET_INFO_DEPUTIES_SUCCESS, then return a new state object with the array
+ * property set to the payload property of the action object."
+ * @param [state] - InfoDiputadosI
+ * @param action - {type: "GET_INFO_DEPUTIES_SUCCESS", payload: Array()}
+ * @returns The state of the reducer.
  */
-export default function infoDiputadosReducer(state = InfoDiputadosI, action){
+export default function info_Deputies_Reducer(state = InfoDiputadosI, action){
     switch(action.type){
-        case OBTENER_INFODIPUTADOS_EXITO:
+        case GET_INFO_DEPUTIES_SUCCESS:
             return {...state, array: action.payload}
         default:
             return state
     }
 }
 
-
 /**
- * Funcion Accion para obtener la informacion de un diputado.
- * @param {*} IdDiputado El ID para seleccionar un diputado en especifico.
- * @returns Disptach con el type: 'OBTENER_INFODIPUTADOS_EXITO' y el payload: data de "parlamentario/"+IdDiputado
+ * It's an async function that uses axios to get data from an API, and then dispatches the data to the
+ * reducer.
+ * @param IdDiputado The ID to select a specific deputy.
+ * @returns Dispatch.
  */
-export const obtenerInfoDiputadosAccion = (IdDiputado) => async(dispatch,getState) => {
+export const get_Info_Deputies_Action = (IdDiputado) => async(dispatch,getState) => {
     try {
         const res = await axios.get(String(process.env.REACT_APP_API_URL+"parlamentario/"+IdDiputado))
         dispatch({
-            type: OBTENER_INFODIPUTADOS_EXITO,
+            type: GET_INFO_DEPUTIES_SUCCESS,
             payload: res.data.data
         })
     } catch (error) {

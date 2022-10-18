@@ -4,18 +4,18 @@ import statuscolor from '../resources/statuscolor.json'
 
 /**
  * Funcion encargada de crear el componenete de las tarjetas de cada votacion.
- * @param {*} primerasVotaciones El conjunto de las votaciones.
+ * @param {*} first_Votations El conjunto de las votaciones.
  * @returns < Container > con toda la estructura de las cards incrustadas con su URL de referencia cuando lo hagan clik.
  */
-function Tabla({primerasVotaciones}){
-    console.log(primerasVotaciones)
+function Tabla({first_Votations}){
+    console.log(first_Votations)
     function isEmpty(obj) {
         return Object.keys(obj).length === 0
     }
     return(
         <Container>
-                {!isEmpty(primerasVotaciones)?//si NO esta vacio
-                primerasVotaciones.map((post,index) => (
+                {!isEmpty(first_Votations)?//si NO esta vacio
+                first_Votations.map((post,index) => (
                     <div key={index}>
                     <div onClick={()=> window.location.href="/grafico/"+post.id} style={{ cursor:"pointer",textDecoration: 'none' }}>
                         <Card className="text-light" style={{backgroundColor:"rgba(50,50,50,0.95)"}}>

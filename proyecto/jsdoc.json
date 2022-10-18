@@ -1,6 +1,6 @@
 {
     "source":{
-        "include":["./src","./src/components","./src/pag","./src/redux","./src/redux/busqueda"],
+        "include":["./src","./src/components","./src/pag","./src/redux/busqueda","./src/redux"],
         "includePattern":".+\\.js(doc|x)?$",
         "exclude": "node_modules/|docs"
     },

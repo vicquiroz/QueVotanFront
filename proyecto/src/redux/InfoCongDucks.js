@@ -5,17 +5,17 @@ const InfoCongresistasI = {
 }
 
 
-const OBTENER_INFOCONGRESISTAS_EXITO = 'OBTENER_INFOCONGRESISTAS_EXITO'
+const GET_INFOCONGRESS_SUCCESS = 'GET_INFOCONGRESS_SUCCESS'
 
 /**
- * Reducer para el estado al conseguir la informacion de los congresistas.
- * @param {InfoCongresistasI} state el estado de la aplicacion
- * @param {*} action la action.type: 'OBTENER_INFOCONGRESISTAS_EXITO'
- * @returns El nuevo estado de la aplicacion.
+ * It takes a state and an action and returns a new state.
+ * @param [state] - InfoCongresistasI
+ * @param action - {type: "GET_INFOCONGRESS_SUCCESS", payload: Array(1)}
+ * @returns The state is being returned.
  */
-export default function infoCongresistasReducer(state = InfoCongresistasI, action){
+export default function info_Congressmen_Reducer(state = InfoCongresistasI, action){
     switch(action.type){
-        case OBTENER_INFOCONGRESISTAS_EXITO:
+        case GET_INFOCONGRESS_SUCCESS:
             return {...state, array: action.payload}
         default:
             return state
@@ -23,15 +23,14 @@ export default function infoCongresistasReducer(state = InfoCongresistasI, actio
 }
 
 /**
- * Funcion accion para obtener la infromacion de los congrecistas.
- * @returns Dispatch type: OBTENER_INFOCONGRESISTAS_EXITO payload: con la data
+ * It's an async function that uses axios to make a get request to an API, and then dispatches an
+ * action to the reducer with the data from the API with the information of the congressmen.
  */
-export const obtenerInfoCongresistasAccion = () => async(dispatch,getState) => {
+export const get_Info_Congressmen_Accion = () => async(dispatch,getState) => {
     try {
-        //Esta constante debe ser cambiada por su equivalente en API
         const res = await axios.get(String(process.env.REACT_APP_API_URL))
         dispatch({
-            type: OBTENER_INFOCONGRESISTAS_EXITO,
+            type: GET_INFOCONGRESS_SUCCESS,
             payload: res.data
         })
     } catch (error) {

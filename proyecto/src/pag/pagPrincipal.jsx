@@ -5,16 +5,16 @@ import Buscador from "../components/buscador";
 import {Container, Col, Row,Alert} from "reactstrap";
 import {CustomView,isMobile} from 'react-device-detect'
 import {useDispatch, useSelector} from 'react-redux'
-import {obtenerTagsAccion} from '../redux/TagsDucks'
-import {obtenerPrimerasVotacionesAccion} from '../redux/VotacionDucks'
+import {get_Tags_Action} from '../redux/TagsDucks'
+import {get_First_Votes_Action} from '../redux/VotacionDucks'
 
 function Principal(){
     const dispatch = useDispatch()
     const tags = useSelector(store => store.tags.array)
-    const primerasVotaciones = useSelector(store => store.primerasVotaciones.array)
+    const first_Votations = useSelector(store => store.first_Votations.array)
     useEffect(()=> {
-        dispatch(obtenerTagsAccion())
-        dispatch(obtenerPrimerasVotacionesAccion(1))
+        dispatch(get_Tags_Action())
+        dispatch(get_First_Votes_Action(1))
     },[]);
 
     return(
@@ -43,9 +43,9 @@ function Principal(){
             </Row >
             <Row>
                 <Col>
-                {primerasVotaciones.length>0?
+                {first_Votations.length>0?
                     <Tabla
-                    primerasVotaciones={primerasVotaciones} metodo="principal"
+                    first_Votations={first_Votations} metodo="principal"
                 />
                 :
                 <Alert color="danger">

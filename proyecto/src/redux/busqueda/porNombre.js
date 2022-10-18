@@ -6,43 +6,48 @@ const porNombreI = {
 
 
 
-const OBTENER_PORNOMBRE_EXITO = 'OBTENER_PORNOMBRE_EXITO'
-const OBTENER_PORNOMBRE_ERROR = 'OBTENER_PORNOMBRE_ERROR'
+const GET_SUCCESS_NAME = 'GET_SUCCESS_NAME'
+const GET_BY_NAME_ERROR = 'GET_BY_NAME_ERROR'
 
 /**
- * Reducer para el estado al buscar por nombre.
- * @param {porNombreI} state El estado de la aplicacion.
- * @param {*} action La action.type: 'OBTENER_PORNOMBRE_EXITO' or 'OBTENER_PORNOMBRE_ERROR'
- * @returns El nuevo estado de la aplicacion.
+ * It takes the state and an action and returns a new state.
+ * @param [state] - porNombreI
+ * @param action - {type: "GET_SUCCESS_NAME", payload: Array()}
+ * @returns The state is being returned.
  */
-export default function porNombreReducer(state = porNombreI, action){
+export default function by_Name_Reducer(state = porNombreI, action){
     switch(action.type){
-        case OBTENER_PORNOMBRE_EXITO:
+        case GET_SUCCESS_NAME:
             return {...state, array: action.payload}
-        case OBTENER_PORNOMBRE_ERROR:
+        case GET_BY_NAME_ERROR:
             return {...state, array: action.payload}
         default:
             return state
     }
 }
-
-
 /**
- * Funcion accion para poder obtener las votaciones segun un nombre nombre PREGUNTAR SI ESTA FUNCION DIBUJA LOS VALORES DE LA BUSQUEDA DEL INICIO O AL ENTRAR EN EL PERFIL DE UN DIPUTADO
- * @param {*} param Nombre ¿VOTACION O DIPUTDO? para buscar
- * @param {number} pag Numero para identificar la pagina donde se sacara la informacion.
- * @returns PREGUNTAR SI ESTA FUNCION DIBUJA LOS VALORES DE LA BUSQUEDA DEL INICIO O AL ENTRAR EN EL PERFIL DE UN DIPUTADO
+ * Action function to be able to obtain the votes according to a name
+ * 
+ * The dispatch function is used to dispatch the action to the reducer. The
+ * getState function is used to get the current state of the application.
+ * 
+ * It is an object that contains 
+ * the type of the action and the payload. The type is used to identify the action in the reducer. The
+ * payload is the data that is sent to the reducer.
+ * 
+ * @param param - is the name of the vote
+ * @param pag - page number
  */
-export const obtenerPorNombreAccion = (param,pag) => async(dispatch,getState) => {
+export const get_By_Name_Action = (param,pag) => async(dispatch,getState) => {
     try {
         const res = await axios.get(String(process.env.REACT_APP_API_URL+"votaciones/nombre/"+param+"?page="+pag+"&limit=10"))
         dispatch({
-            type: OBTENER_PORNOMBRE_EXITO,
+            type: GET_SUCCESS_NAME,
             payload: res.data.data
         })
     } catch (error) {
         dispatch({
-            type: OBTENER_PORNOMBRE_ERROR,
+            type: GET_BY_NAME_ERROR,
             payload: error.toJSON().message
         })
     }

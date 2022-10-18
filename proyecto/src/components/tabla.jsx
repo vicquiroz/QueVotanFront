@@ -4,30 +4,30 @@ import {Container, CardBody, Card, CardHeader, CardText, Spinner, Col} from 'rea
 import InfiniteScroll from 'react-infinite-scroll-component'
 import statuscolor from '../resources/statuscolor.json'
 import {useDispatch, useSelector} from 'react-redux'
-import {obtenerPrimerasVotacionesAccion} from '../redux/VotacionDucks'
-import {obtenerPorMateriaAccion} from '../redux/busqueda/porMateria'
-import {obtenerPorBoletinAccion} from '../redux/busqueda/porBoletin'
-import {obtenerPorNombreAccion} from '../redux/busqueda/porNombre'
-import {obtenerPorFechaAccion} from '../redux/busqueda/porFecha'
+import {get_First_Votes_Action} from '../redux/VotacionDucks'
+import {get_By_Matter_Action} from '../redux/busqueda/porMateria'
+import {get_By_Bulletin_Action} from '../redux/busqueda/porBoletin'
+import {get_By_Name_Action} from '../redux/busqueda/porNombre'
+import {get_By_Date_Action} from '../redux/busqueda/porFecha'
 import {useParams} from "react-router";
 
 /**
  * Funcion encargada de buscar las siguientes cards de las votaciones segun su metodo.
- * @param {*} primerasVotaciones Las primeras votaciones entergadas por la API.
+ * @param {*} first_Votations Las primeras votaciones entergadas por la API.
  * @param {*} metodo Metodo de busqueda seleccionado.
  * @returns < Container > con la estructura de las listas de cards de las votaciones segun su metodo.
  */
-function Tabla({primerasVotaciones,metodo}){
+function Tabla({first_Votations,metodo}){
     const dispatch = useDispatch()
     const {handleValor} = useParams()
-    const [ListaVot,setListaVot]=useState(primerasVotaciones)
+    const [ListaVot,setListaVot]=useState(first_Votations)
     const [status,setStatus]=useState(true)
     const [pag,setPag]=useState(2)
-    const porMateria = useSelector(store=>store.porMateria.array)
-    const porBoletin = useSelector(store=>store.porBoletin.array)
-    const porNombre = useSelector(store=>store.porNombre.array)
-    const porFecha = useSelector(store=>store.porFecha.array)
-    const VotacionesSiguientes = useSelector(store => store.primerasVotaciones.array)
+    const by_Matter = useSelector(store=>store.by_Matter.array)
+    const by_Bulletin = useSelector(store=>store.by_Bulletin.array)
+    const by_Name = useSelector(store=>store.by_Name.array)
+    const by_Date = useSelector(store=>store.by_Date.array)
+    const VotacionesSiguientes = useSelector(store => store.first_Votations.array)
     function isEmpty(obj) {
         return Object.keys(obj).length === 0
     }
@@ -36,7 +36,7 @@ function Tabla({primerasVotaciones,metodo}){
             setPag(pag+1)
             switch (metodo) {
                 case "principal":
-                    dispatch(obtenerPrimerasVotacionesAccion(pag))//obtiene las votaciones de la siguiente pagina de la API
+                    dispatch(get_First_Votes_Action(pag))//obtiene las votaciones de la siguiente pagina de la API
                     if((typeof(VotacionesSiguientes)!=="string")){
                         setListaVot([...ListaVot,...VotacionesSiguientes])//actualiza ListaVot y le agrega los valores de VotacionesSiguientes
                         let ListaTemp=[...ListaVot,...VotacionesSiguientes]
@@ -45,37 +45,37 @@ function Tabla({primerasVotaciones,metodo}){
                     else setStatus(false)
                     break;
                 case "Materia":
-                    dispatch(obtenerPorMateriaAccion(handleValor,pag))
-                    if((typeof(porMateria)!=="string")){
-                        setListaVot([...ListaVot,...porMateria])
-                        let ListaTemp=[...ListaVot,...porMateria]
+                    dispatch(get_By_Matter_Action(handleValor,pag))
+                    if((typeof(by_Matter)!=="string")){
+                        setListaVot([...ListaVot,...by_Matter])
+                        let ListaTemp=[...ListaVot,...by_Matter]
                         setListaVot([...new Set(ListaTemp)])
                     }
                     else setStatus(false)
                     break;
                 case "Boletín":
-                    dispatch(obtenerPorBoletinAccion(handleValor,pag))
-                    if(typeof(porBoletin)!=="string"){
-                        setListaVot([...ListaVot,...porBoletin])
-                        let ListaTemp=[...ListaVot,...porBoletin]
+                    dispatch(get_By_Bulletin_Action(handleValor,pag))
+                    if(typeof(by_Bulletin)!=="string"){
+                        setListaVot([...ListaVot,...by_Bulletin])
+                        let ListaTemp=[...ListaVot,...by_Bulletin]
                         setListaVot([...new Set(ListaTemp)])
                     }
                     else setStatus(false)
                     break;
                 case "Nombre":
-                    dispatch(obtenerPorNombreAccion(handleValor,pag))
-                    if(typeof(porNombre)!=="string"){
-                        setListaVot([...ListaVot,...porNombre])
-                        let ListaTemp=[...ListaVot,...porNombre]
+                    dispatch(get_By_Name_Action(handleValor,pag))
+                    if(typeof(by_Name)!=="string"){
+                        setListaVot([...ListaVot,...by_Name])
+                        let ListaTemp=[...ListaVot,...by_Name]
                         setListaVot([...new Set(ListaTemp)])
                     }
                     else setStatus(false)
                     break;
                 case "Fecha":
-                    dispatch(obtenerPorFechaAccion(handleValor,pag))
-                    if(typeof(porFecha)!=="string"){
-                        setListaVot([...ListaVot,...porFecha])
-                        let ListaTemp=[...ListaVot,...porFecha]
+                    dispatch(get_By_Date_Action(handleValor,pag))
+                    if(typeof(by_Date)!=="string"){
+                        setListaVot([...ListaVot,...by_Date])
+                        let ListaTemp=[...ListaVot,...by_Date]
                         setListaVot([...new Set(ListaTemp)])
                     }
                     else setStatus(false)

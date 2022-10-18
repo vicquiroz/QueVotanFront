@@ -10,19 +10,20 @@ const porBoletinI = {
 //Se genera el return del Reducer actualizando el array del estado con el payload.
 //
 
-const OBTENER_PORBOLETIN_EXITO = 'OBTENER_PORBOLETIN_EXITO'
-const OBTENER_PORBOLETIN_ERROR = 'OBTENER_PORBOLETIN_ERROR'
+const GET_BY_BULLETIN_SUCCESS = 'GET_BY_BULLETIN_SUCCESS'
+const GET_BY_BULLETIN_ERROR = 'GET_BY_BULLETIN_ERROR'
 /**
- * Reducer del estado al buscar por numero de boletín
- * @param {porBoletinI} state Estado de la aplicacion.
- * @param {*} action La accion de la aplicacion action.type: 'OBTENER_PORBOLETIN_EXITO' or 'OBTENER_PORBOLETIN_ERROR'
- * @returns El nuevo estado de la aplicacion.
+ * It returns a new state object with the array property set to the value of the action.payload
+ * property.
+ * @param [state] - porBoletinI
+ * @param action - {type: "GET_BY_BULLETIN_SUCCESS", payload: Array(1)}
+ * @returns The state is being returned.
  */
-export default function porBoletinReducer(state = porBoletinI, action){
+export default function by_Boletin_Reducer(state = porBoletinI, action){
     switch(action.type){
-        case OBTENER_PORBOLETIN_EXITO:
+        case GET_BY_BULLETIN_SUCCESS:
             return {...state, array: action.payload}
-        case OBTENER_PORBOLETIN_ERROR:
+        case GET_BY_BULLETIN_ERROR:
             return {...state, array: action.payload}
         default:
             return state
@@ -30,21 +31,20 @@ export default function porBoletinReducer(state = porBoletinI, action){
 }
 
 /**
- * Funcion accion al obtener las votaciones segun numero de boletín.
- * @param {*} param El numero del boletín.
- * @param {number} pag El numero de la pagina donde se buscara la información en la API.
- * @returns Dispatch con type:OBTENER_PORBOLETIN_EXITO payload: data de votaciones/boletin/"+param+"?page="+pag+"&limit=10"
+ * Function that receives two parameters, the newsletter number and the page to refer to in the API URL
+ * @param param - is the id of the bulletin
+ * @param pag - page number
  */
-export const obtenerPorBoletinAccion = (param,pag) => async(dispatch,getState) => {
+export const get_By_Bulletin_Action = (param,pag) => async(dispatch,getState) => {
     try {
         const res = await axios.get(String(process.env.REACT_APP_API_URL+"votaciones/boletin/"+param+"?page="+pag+"&limit=10"))
         dispatch({
-            type: OBTENER_PORBOLETIN_EXITO,
+            type: GET_BY_BULLETIN_SUCCESS,
             payload: res.data.data
         })
     } catch (error) {
         dispatch({
-            type: OBTENER_PORBOLETIN_ERROR,
+            type: GET_BY_BULLETIN_ERROR,
             payload: error.toJSON().message
         })
     }
