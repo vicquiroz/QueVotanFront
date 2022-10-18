@@ -17,12 +17,12 @@ import {useParams} from "react-router";
  * @param {*} method Selected search method.
  * @returns < Container > with the structure of the voting card lists according to their method.
  */
-function Tabla({first_Votations,metodo}){
+function Table({first_Votations,method}){
     const dispatch = useDispatch()
-    const {handleValor} = useParams()
-    const [ListaVot,setListaVot]=useState(first_Votations)
-    const [status,setStatus]=useState(true)
-    const [pag,setPag]=useState(2)
+    const {handle_Value} = useParams()
+    const [voting_List,set_voting_List]=useState(first_Votations)
+    const [status,set_Status]=useState(true)
+    const [pag,set_Pag]=useState(2)
     const by_Matter = useSelector(store=>store.by_Matter.array)
     const by_Bulletin = useSelector(store=>store.by_Bulletin.array)
     const by_Name = useSelector(store=>store.by_Name.array)

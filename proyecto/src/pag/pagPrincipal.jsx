@@ -44,8 +44,8 @@ function Principal(){
             <Row>
                 <Col>
                 {first_Votations.length>0?
-                    <Tabla
-                    first_Votations={first_Votations} metodo="principal"
+                    <Table
+                    first_Votations={first_Votations} method="principal"
                 />
                 :
                 <Alert color="danger">

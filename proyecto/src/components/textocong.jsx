@@ -9,7 +9,7 @@ import partidosInvertidos from "./partidos-invertidos.json"
  * @param {*} datoswnominate information of all the deputies.
  * @returns
  */
-function text({infoDip,datoswnominate}){
+function Text({infoDip,datoswnominate}){
     var data=[]
     var ejex=[]
     var Dip = datoswnominate.diputados.filter(dat => dat.id===infoDip.id)
@@ -46,4 +46,4 @@ function text({infoDip,datoswnominate}){
     )
 }
 
-export default text;
+export default Text;

@@ -46,14 +46,14 @@ function Seeker({tags,condition,value}){
      */
     const instead = (tex) =>{
         if(election==="Materia"){
-            let coincide = [];
+            let matches = [];
             if(tex.length>0){
-                coincide = tags.filter(tag=>{
+                matches = tags.filter(tag=>{
                     const tagname = tag.descripcion.toLowerCase();
                     return tagname.includes(tex.toLowerCase());
             })
         }
-        set_Suge(coincide);
+        set_Suge(matches);
         }
         set_Text(tex)
     }
@@ -74,8 +74,8 @@ function Seeker({tags,condition,value}){
      * Function that, when the Enter key is pressed, verifies the status of the "choice" variable and performs the search, verifying that the parameter to be searched matches its specific format, if not, it returns an alert.
      * @param {*} Key
      */
-    const down_Key = (tecla) => {
-        if (tecla.key === 'Enter') {
+    const down_Key = (key) => {
+        if (key.key === 'Enter') {
             switch (election) {
                 case "Materia":
                     if(id!=="" && id!==undefined){

@@ -13,8 +13,8 @@ import {get_By_Bulletin_Action} from '../redux/busqueda/porBoletin'
 import {get_By_Name_Action} from '../redux/busqueda/porNombre'
 import {get_By_Date_Action} from '../redux/busqueda/porFecha'
 /**
- *Pagina donde se renderizan las busquedas realizadas, primero se hacen las acciones de buscar las votaciones segun un metodo, cunado se actualizen en la store se actualizaran en "Votaciones" con el "SetVotaciones" para poder ser renderizadas.
- * @returns < Container > con toda la estructura para dibujar la Tabla con las cards correspondientes.
+ *Pagina donde se renderizan las busquedas realizadas, primero se hacen las acciones de buscar las votaciones segun un method, cunado se actualizen en la store se actualizaran en "Votaciones" con el "SetVotaciones" para poder ser renderizadas.
+ * @returns < Container > con toda la estructura para dibujar la Table con las cards correspondientes.
  */
 function Busqueda(){
     const {handleMetodo,handle_Value} = useParams()
@@ -98,8 +98,8 @@ function Busqueda(){
             <Row>
                 <Col>
                 {votaciones.length>0?
-                    <Tabla
-                        first_Votations={votaciones} metodo={handleMetodo}
+                    <Table
+                        first_Votations={votaciones} method={handleMetodo}
                     />
                     :
                 <Alert color="danger">

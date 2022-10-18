@@ -7,7 +7,7 @@ import {CustomView,isMobile} from 'react-device-detect'
 import { useDispatch, useSelector } from 'react-redux'
 import { get_Info_Deputies_Action } from '../redux/InfoDipDucks';
 import { get_Info_Graphic_Accion } from '../redux/InfoGrafDucks'
-import text from "../components/textocong";
+import Text from "../components/textocong";
 import nombrepartidos from '../components/nombre-partidos.json'
 import partidos from '../components/partidos.json'
 import partidosInvertidos from '../components/partidos-invertidos.json'
@@ -72,7 +72,7 @@ function Congresista(){
                                                                 <tbody>
                                                                     <tr>
                                                                         <td>Ingreso:</td>
-                                                                        <td>{post.start_Date.split("T")[0]}</td>
+                                                                        <td>{post.fechaInicio.split("T")[0]}</td>
                                                                     </tr>
                                                                     <tr>
                                                                         <td>Salida: </td>
@@ -115,7 +115,7 @@ function Congresista(){
                                 </Navbar>
                             </Col>
                             <Col>
-                                <Texto infoDip={infoDip} datoswnominate={info_Graphic}/>                  
+                                <Text infoDip={infoDip} datoswnominate={info_Graphic}/>                  
                             </Col>
                         </Row>
                     </Container>

@@ -7,7 +7,7 @@ import Bar from '../components/barra'
 import {get_By_Name_Action} from '../redux/busqueda/porNombre'
 import Table from '../components/tabla';
 import {useSelector,useDispatch} from 'react-redux'
-function VotacionesImportantes(){
+function Important_Voting(){
     const {handleMetodo,handle_Value} = useParams()
     const [votaciones,setVotaciones] = useState([]);
     const dispatch = useDispatch()
@@ -64,8 +64,8 @@ function VotacionesImportantes(){
             <Row>
                 <Col>
                 {votaciones.length>0?
-                    <Tabla
-                        first_Votations={votaciones} metodo={handleMetodo}
+                    <Table
+                        first_Votations={votaciones} method={handleMetodo}
                     />
                     :<Alert color="danger">
                         <h4 className="alert-heading">Error</h4>
@@ -79,4 +79,4 @@ function VotacionesImportantes(){
     )
 }
 
-export default VotacionesImportantes
+export default Important_Voting

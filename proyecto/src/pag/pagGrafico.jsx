@@ -3,7 +3,7 @@ import paleta from "../resources/paleta.json"
 import GraficoPrincipal from "../components/grafico";
 import GraficoBarra from "../components/graficobarra";
 import Inform from "../components/infoBrush";
-import MostrarLista from "../components/listado";
+import Show_List from "../components/listado";
 import Bar from "../components/barra";
 import {Container, Col, Row} from "reactstrap";
 import {useParams} from 'react-router-dom'
@@ -103,7 +103,7 @@ function PagGrafico(){
             </Row>
             <Row>
                 <Col>
-                    <MostrarLista
+                    <Show_List
                         idCon={idCon}
                         datoswnominate={info_Graphic}
                     />

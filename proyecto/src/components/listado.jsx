@@ -12,7 +12,7 @@ import {sortBy} from 'lodash'
  * @param {*} datoswnominate Data from the nominate file
  * @returns < Container > with the entire list of voters and their respective political party and participation.
  */
-function MostrarLista({idCon,datoswnominate}){
+function Show_List({idCon,datoswnominate}){
     const vot = {1:"△", 0:"▽", 2:"○", 3:"▢", 4:"◇",9:"◇" }// Represent the participation of the congressman in the vote
     var nombres = [];
     var partido = [];
@@ -28,15 +28,15 @@ function MostrarLista({idCon,datoswnominate}){
         participacion.push(datoswnominate.diputados.find(d => d.id ===idCon).participacion);
     }
     const [filtro,setFiltro]=useState([])
-    var filteredPosts = filterPosts(datoswnominate.diputados, idCon,nombres,partido,participacion);// Funtion to unify all the data of a congressman according to his ID.
+    var filteredPosts = filter_Posts(datoswnominate.diputados, idCon,nombres,partido,participacion);// Funtion to unify all the data of a congressman according to his ID.
     useEffect(()=>{
-        ordenPart()
+        order_By_Party()
     },[idCon])
 
 /**
  * sort them by party.
  */
-    function ordenPart(){
+    function order_By_Party(){
         filteredPosts = sortBy(filteredPosts, function(item){
             return Object.keys(partidos).indexOf(item.Partido)
         });
@@ -45,7 +45,7 @@ function MostrarLista({idCon,datoswnominate}){
     /**
      * sort them by name.
      */
-    function ordenNomb(){
+    function order_By_Name(){
         setFiltro(filteredPosts)
     }
     return(
@@ -56,8 +56,8 @@ function MostrarLista({idCon,datoswnominate}){
                         <Col>
                         <h3 className={paleta.colorTextoBootstrap}>Votantes</h3>
                         <h5 className={paleta.colorTextoBootstrap}>Ordenar por:
-                        {' '}<Button style={{borderRadius:"10px"}} color={paleta.colorBotonesGraf} onClick={ordenPart}> Partido</Button>{' '}
-                            <Button style={{borderRadius:"10px"}} color="danger" onClick={ordenNomb}> Nombre</Button>
+                        {' '}<Button style={{borderRadius:"10px"}} color={paleta.colorBotonesGraf} onClick={order_By_Party}> Partido</Button>{' '}
+                            <Button style={{borderRadius:"10px"}} color="danger" onClick={order_By_Name}> Nombre</Button>
                         </h5>
                         </Col>
                     </Row>
@@ -98,7 +98,7 @@ function MostrarLista({idCon,datoswnominate}){
  * @param {*} participacion your participation according to 1:"△", 0:"▽", 2:"○", 3:"▢", 4:"◇",9:"◇"
  * @returns An array with the data belonging to each little congress.
  */
-const filterPosts = (posts, id, nombres, partido, participacion) => {
+const filter_Posts = (posts, id, nombres, partido, participacion) => {
     if (!id) { //id =0
         return posts;
     }
@@ -116,4 +116,4 @@ const filterPosts = (posts, id, nombres, partido, participacion) => {
 
 };
 
-export default MostrarLista;
+export default Show_List;
